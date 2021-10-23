@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import { TimespanPlanner } from './features/timespanPlanner/timeSpanPlanner';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <TimespanPlanner />
   </React.StrictMode>,
   document.getElementById('root')
 );

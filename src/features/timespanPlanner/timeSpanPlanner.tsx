@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Bill } from '../../../types';
+import { Bill } from '../../react-app-env';
 import Preferences from './preferences';
 
 export interface IcssProps {
@@ -7,25 +7,7 @@ export interface IcssProps {
     txtColor: string
 }
 
-export const getSumUnpaidBills = (bills: Array<Bill>) => {
-    let sum = 0
-    bills.forEach(element => {
-        if (element.paid === false) {
-            sum = sum + element.sum
-        }
-    });
-    return sum
-}
 
-export const getSumPaidills = (bills: Array<Bill>) => {
-    let sum = 0
-    bills.forEach(element => {
-        if (element.paid === true) {
-            sum = sum + element.sum
-        }
-    });
-    return sum
-}
 
 export const TimespanPlanner = () => {
     const currentBalance = 2300
@@ -38,22 +20,7 @@ export const TimespanPlanner = () => {
     const [allOthersBudget, setAllOthersBudget] = useState<number | undefined>(undefined)
     const [planReady, setPlanReady] = useState<boolean>(false)
     const [startDate, setStartDate] = useState<undefined | string>(undefined)
-    const outputcss = () => {
-        const cssProp: React.CSSProperties = {
-            color: 'rgb(240, 233, 223)',
-            fontSize: '25px',
-            backgroundColor: 'black',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderTop: '1px solid  rgb(224, 195, 157)',
-            borderLeft: '1px solid  rgb(224, 195, 157)',
-            borderRight: '1px solid  rgb(224, 195, 157)',
-            borderRadius: '15px 50px 30px 50px'
-        }
-        return cssProp
-    }
+    
     const createPlan = () => {
         const AllFoodBudget = minFoodBudget! * getDaysLeftUntilSalary()
         setAllFoodBudget(AllFoodBudget)
