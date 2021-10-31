@@ -10,6 +10,7 @@ import {
 } from "react-query";
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { Redirect } from "react-router-dom";
 
 const queryClient = new QueryClient();
 
@@ -23,11 +24,14 @@ export const TimespanPlanner = () => {
     const createMutation = useMutation<Response, unknown, { plan: TimespanPlan }>(
         (data) => axiosClient.post("/plans", data),
         {
-
-            onError: (error:any) => {
+            onError: (error: any) => {
                 let ErrMsg = "Hmm.. Something weird happened. can you try again?"
-                if(error.response.status === 409){
-                    ErrMsg ="You already have a plan.. So just modify it!"
+                if (error.response) {
+                    if (error.response.status === 409) {
+                        ErrMsg = "You already have a plan.. So just modify it!"
+                    }
+                }else{
+                    ErrMsg = "mc Servers are offline!"
                 }
                 toast.error(ErrMsg)
             },
@@ -68,6 +72,9 @@ export const TimespanPlanner = () => {
         //! temp
 
         return 26
+    }
+    if (createMutation.isSuccess) {
+        return <Redirect to='/sample' />
     }
     return (
         <>
