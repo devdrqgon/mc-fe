@@ -11,10 +11,6 @@ import {
 } from "react-query";
 import axios from 'axios';
 
-export interface IcssProps {
-    bgColor: string,
-    txtColor: string
-}
 const queryClient = new QueryClient();
 
 
