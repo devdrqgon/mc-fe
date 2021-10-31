@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Bill, TimespanPlan } from '../../react-app-env';
 import Preferences from './preferences';
 import { v4 as uuidv4, v4 } from 'uuid';
-
 import {
     useQuery,
     useMutation,
@@ -10,6 +9,7 @@ import {
     QueryClient,
 } from "react-query";
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const queryClient = new QueryClient();
 
@@ -23,7 +23,15 @@ export const TimespanPlanner = () => {
     const createMutation = useMutation<Response, unknown, { plan: TimespanPlan }>(
         (data) => axiosClient.post("/plans", data),
         {
-            onSettled: () => {
+
+            onError: (error:any) => {
+                let ErrMsg = "Hmm.. Something weird happened. can you try again?"
+                if(error.response.status === 409){
+                    ErrMsg ="You already have a plan.. So just modify it!"
+                }
+                toast.error(ErrMsg)
+            },
+            onSettled: async (b) => {
                 queryClient.invalidateQueries("plans");
             },
         }
@@ -183,7 +191,7 @@ export const TimespanPlanner = () => {
                             createMutation.mutate({
                                 plan: resultPlan!
                             });
-                          }}
+                        }}
                     >
                         Create Plan!
                     </button>

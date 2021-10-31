@@ -51,6 +51,7 @@ const Preferences: React.FC<PreferencesProps> = ({props}) => {
                     onChange={(e: ChangeEvent<HTMLInputElement>) => { props.setMinFoodBudget(e.target.value as unknown as number) }} type={"number"}></input>
                     <div>
                         <input type="checkbox" id="amap" name="amap"
+                            onChange={() => {}}
                             onClick={() => props.setAMAPflag(!props.amapChecked)} checked={props.amapChecked}
                         />
                         <label htmlFor="amap">As much as possible!</label>
