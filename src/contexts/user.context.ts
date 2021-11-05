@@ -1,10 +1,9 @@
 import React from 'react'
-import IUser from 'interfaces/user.interface'
 
 export interface IUserContext {
-    user: IUser | null;
+    user: string | null;
     token: string | null;
-    Login: (user: IUser, token: string) => void;
+    SaveLoginData: (user: string, token: string) => void;
     Logout: () => void;
 }
 
@@ -12,7 +11,7 @@ export interface IUserContext {
 const UserContext = React.createContext<IUserContext>({
     user: null,
     token: null,
-    Login: (user: IUser, token: string) => { },
+    SaveLoginData: (user: string, token: string) => { },
     Logout: () => { }
 });
 
