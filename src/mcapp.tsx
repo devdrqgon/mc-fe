@@ -11,7 +11,7 @@ import { UserContextProvider } from 'contexts/user.context';
 import Register from 'tmpPagesAuth/register.component';
 import LoginPage from 'tmpPagesAuth/login.component';
 import TmpHome from 'tmpPagesAuth/tmpHome.componenet';
-
+import authUtils from 'features/auth/utils'
 const queryClient = new QueryClient({
     queryCache: new QueryCache({
         onError: (error: any) =>
@@ -29,50 +29,7 @@ const Mcapp = () => {
 
     /** change pages without using redirect  */
     const history = useHistory()
-    const SaveLoginData = (_user: string, _token: string) => {
-        setUser(_user);
-        setToken(_token);
-
-        localStorage.setItem('user', JSON.stringify(_user));
-        localStorage.setItem('token', _token);
-    }
-
-    const Logout = () => {
-        localStorage.removeItem('user');
-        localStorage.removeItem('token');
-
-        setUser(null);
-        setToken(null);
-    }
-    const VerifyLocalStorageCredentials = async (_user: string, _token: string) => {
-        try {
-            let _parsedUser = JSON.parse(_user)
-            console.log(_parsedUser)
-            let response = await axios({
-                method: 'GET',
-                url: 'http://localhost:8000/users/validate',
-                headers: {
-                    Authorization: `Bearer ${_token}`
-                }
-            })
-
-            if (response.status === 200 || response.status === 304) {
-                SaveLoginData(_parsedUser, _token)
-                setLoading(false)
-                history.push('/planner')
-
-            }
-            else {
-                logging.info(COMPOENENT, 'credentials no longer valid')
-                Logout()
-                history.push('/login')
-                setLoading(false)
-            }
-        } catch (error) {
-            logging.error(COMPOENENT, (error as Error).message, error)
-            Logout()
-        }
-    }
+    
     useEffect(() => {
         logging.info(COMPOENENT, "Loading app..")
 
@@ -85,7 +42,7 @@ const Mcapp = () => {
             if (_user === null || _token === null) {
                 logging.info(COMPOENENT, 'Nothing in localstorage, removing vars and redirecting');
 
-                Logout()
+                authUtils.ResetUserData()
                 if (history.location.pathname !== "/register") {
                     history.push('/login')
                 }
@@ -93,8 +50,8 @@ const Mcapp = () => {
             }
             else {
                 logging.info('Credentials found, verifying.', 'Auth')
-                SaveLoginData(_user, _token)
-                VerifyLocalStorageCredentials(_user, _token)
+                authUtils.SaveLoginData(_user, _token)
+                authUtils.VerifyLocalStorageCredentials(_user, _token)
                 
             }
         }
@@ -105,8 +62,8 @@ const Mcapp = () => {
     let userContextValue = {
         user,
         token,
-        SaveLoginData,
-        Logout
+        SaveLoginData: authUtils.SaveLoginData,
+        Logout: authUtils.ResetUserData
     }
 
 

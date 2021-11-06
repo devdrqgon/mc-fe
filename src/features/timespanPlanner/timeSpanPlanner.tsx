@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Bill, TimespanPlan } from '../../react-app-env';
 import Preferences from './preferences';
 import { v4 as uuidv4, v4 } from 'uuid';
@@ -11,6 +11,7 @@ import {
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { Redirect } from "react-router-dom";
+import UserContext from 'contexts/user.context';
 
 const queryClient = new QueryClient();
 
@@ -20,7 +21,8 @@ export const axiosClient = axios.create({
 });
 
 export const TimespanPlanner = () => {
-
+    const userContext = useContext(UserContext)
+ 
     const createMutation = useMutation<Response, unknown, { plan: TimespanPlan }>(
         (data) => axiosClient.post("/plans", data),
         {
@@ -57,7 +59,7 @@ export const TimespanPlanner = () => {
         foodBudget: 200,
         othersBudget: 99,
         opsRef: [],
-        userId: uuidv4()
+        userId: userContext.user!
     })
     const createPlan = () => {
         const AllFoodBudget = minFoodBudget! * getDaysLeftUntilSalary()
