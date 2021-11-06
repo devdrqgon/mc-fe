@@ -1,4 +1,5 @@
 import { UserContext } from "contexts/user.context"
+import { Header } from "features/appHeader/header"
 import Sample from "features/planOverview/sample"
 import { TimespanPlanner } from "features/timespanPlanner/timeSpanPlanner"
 import Home from "home"
@@ -29,19 +30,25 @@ const EntryComponent = () => {
     if (tokenValid && authenticated) {
         return (
             <QueryClientProvider client={queryClient}>
-                    <Switch>
-                        <Route path="/planner" component={TimespanPlanner} />
-                        <Route path="/sample" component={Sample} />
-                        <Route path="/register" component={Register} />
-                        <Route path="/login" component={LoginPage} />
-                        <Route path="/" component={Home} />
+                <Header />
+                <Switch>
+                    <Route path="/planner" component={TimespanPlanner} />
+                    <Route path="/sample" component={Sample} />
+                    <Route path="/register" component={Register} />
+                    <Route path="/login" component={LoginPage} />
+                    <Route path="/" component={Home} />
 
-                    </Switch>
+                </Switch>
                 <Toaster />
             </QueryClientProvider>)
     }
     else {
-        return <UnAuthApp />
+        return (
+            <>
+                <Header />
+                <UnAuthApp />
+            </>
+        )
     }
 }
 

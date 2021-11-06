@@ -23,50 +23,41 @@ export const UserContext = React.createContext<IUserContext>({
 
 });
 
-const UserProvider: React.FC = ({children}) => {
+const UserProvider: React.FC = ({ children }) => {
   const [user, setUser] = React.useState<string | null>(null)
   const [token, setToken] = React.useState<string | null>(null)
   const [tokenValid, setTokenValid] = React.useState(false)
   const [authenticated, setAuthenticated] = React.useState(false)
 
   useEffect(() => {
-    async function validatetoken(token: string) {
+    async function validatetoken(token: string, username: string) {
       const result = await authUtils.StoredTokenIsValid(token)
       if (result) {
         logging.info("UserProvider", "Token verified by backend!");
         setTokenValid(true)
         setAuthenticated(true)
+        login(username, token)
       }
       else {
         logging.info("UserProvider", "Token Declined  by backend!");
         setTokenValid(false)
         setAuthenticated(false)
+        logout()
+
 
       }
     }
 
     const _token = localStorage.getItem('token')
-    const _username= localStorage.getItem('username')
+    const _username = localStorage.getItem('username')
     if (_token && _username) {
-      logging.info("UserProvider","Found username and token")
-      validatetoken(_token)
-      if (tokenValid) {
-        logging.info("UserProvider","Token was validated by backend!!")
-
-        //if Valid
-        // set username, token and token Valid
-        login(_username,_token)
-        
-      }
-
-
-      //Else if token unidentified or expired 
-      // 
+      logging.info("UserProvider", "Found username and token")
+      validatetoken(_token, _username)
     }
     else {
-      console.log("ssdsds")
       //There is no stored token/username in localStorage, so we reset the localstorage and hooks
       logout()
+      logging.info("UserProvider", "No Stored Username or token, resetiing localstorage and hooks!")
     }
   }, [])
   const login = (_username: string, _token: string) => {
@@ -85,10 +76,12 @@ const UserProvider: React.FC = ({children}) => {
     setTokenValid(false)
     setAuthenticated(false)
     localStorage.removeItem('token')
+    localStorage.removeItem('username')
+
   }
 
   return (
-    <UserContext.Provider value={{ user, token, tokenValid,authenticated, login, logout }}>
+    <UserContext.Provider value={{ user, token, tokenValid, authenticated, login, logout }}>
       {children}
     </UserContext.Provider>
   );
