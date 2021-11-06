@@ -29,7 +29,6 @@ const EntryComponent = () => {
     if (tokenValid && authenticated) {
         return (
             <QueryClientProvider client={queryClient}>
-                <BrowserRouter>
                     <Switch>
                         <Route path="/planner" component={TimespanPlanner} />
                         <Route path="/sample" component={Sample} />
@@ -38,7 +37,6 @@ const EntryComponent = () => {
                         <Route path="/" component={Home} />
 
                     </Switch>
-                </BrowserRouter>
                 <Toaster />
             </QueryClientProvider>)
     }

@@ -8,7 +8,9 @@ import UserProvider from 'contexts/user.context';
 
 ReactDOM.render(
   <UserProvider>
-    <EntryComponent />
+    <BrowserRouter>
+      <EntryComponent />
+    </BrowserRouter>
   </UserProvider>,
   document.getElementById('root')
 );

@@ -35,22 +35,28 @@ const UserProvider: React.FC = ({children}) => {
       if (result) {
         logging.info("UserProvider", "Token verified by backend!");
         setTokenValid(true)
+        setAuthenticated(true)
       }
       else {
         logging.info("UserProvider", "Token Declined  by backend!");
         setTokenValid(false)
+        setAuthenticated(false)
+
       }
     }
 
     const _token = localStorage.getItem('token')
     const _username= localStorage.getItem('username')
     if (_token && _username) {
+      logging.info("UserProvider","Found username and token")
       validatetoken(_token)
-
       if (tokenValid) {
+        logging.info("UserProvider","Token was validated by backend!!")
+
         //if Valid
         // set username, token and token Valid
         login(_username,_token)
+        
       }
 
 
@@ -58,6 +64,7 @@ const UserProvider: React.FC = ({children}) => {
       // 
     }
     else {
+      console.log("ssdsds")
       //There is no stored token/username in localStorage, so we reset the localstorage and hooks
       logout()
     }
@@ -68,6 +75,8 @@ const UserProvider: React.FC = ({children}) => {
     setTokenValid(true)
     setAuthenticated(true)
     localStorage.setItem('token', _token)
+    localStorage.setItem('username', _username)
+
   }
 
   const logout = () => {
