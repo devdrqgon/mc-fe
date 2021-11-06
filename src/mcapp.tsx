@@ -43,13 +43,13 @@ const Mcapp = () => {
             const tokenFromStorage = localStorage.getItem('token')
            
            
-            validatetoken(tokenFromStorage!)
+            validatetoken(tokenFromStorage || '')
             if (localStorage.getItem('tokenFlag') && localStorage.getItem('tokenFlag') === 'valid') {
                 /** User's token validated, so we redirect him to :  */
                 setLoading(false)
                 setToken(tokenFromStorage)
                 setUser(usrFromStorage)
-                history.push("/planner")
+                history.push(history.location.pathname)
             }
             else {
                 authUtils.ResetUserLocalData()

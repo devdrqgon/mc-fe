@@ -32,6 +32,7 @@ export default function LoginPage() {
                 setUIErr('Login failed!')
             }
         } catch (error) {
+            setUIErr('Login failed!')
             logging.error("Login", (error as Error).message, error)
         }
     }
@@ -44,6 +45,8 @@ export default function LoginPage() {
             <button onClick={loginClicked}>
                 Login!
             </button>
+            <br />
+            {uiErr}
         </div>
     )
 }

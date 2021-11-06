@@ -14,7 +14,7 @@ const ResetUserLocalData = () => {
 const localStorageHasData = () => {
     let _token = localStorage.getItem('token')
     let _user = localStorage.getItem('user')
-    let _tokenValid = localStorage.getItem('tokenValid')
+    let _tokenValid = localStorage.getItem('tokenFlag')
 
     if (_user === null || _token === null  || _tokenValid === null ) {
         logging.info("localStorageHasData", " [404] token, user or tokenFlag not found in local storage")
@@ -41,6 +41,10 @@ async function StoredTokenIsValid(_token: string): Promise<void> {
         if (response.status === 200 || response.status === 304) {
             logging.info("localStorageDataIsValid", "Token verified by backend!");
             localStorage.setItem('tokenFlag', 'valid');
+        }
+        else{
+            ResetUserLocalData()
+
         }
 
     } catch (e) {
