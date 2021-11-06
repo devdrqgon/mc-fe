@@ -11,7 +11,7 @@ import {
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { Redirect } from "react-router-dom";
-import UserContext from 'contexts/user.context';
+import { UserContext } from 'contexts/user.context';
 
 const queryClient = new QueryClient();
 

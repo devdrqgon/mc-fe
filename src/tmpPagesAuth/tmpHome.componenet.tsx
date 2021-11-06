@@ -1,4 +1,4 @@
-import UserContext from 'contexts/user.context'
+import { UserContext } from 'contexts/user.context'
 import React, { useContext, useEffect } from 'react'
 
 export default function TmpHome() {

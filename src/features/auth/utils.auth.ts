@@ -16,7 +16,7 @@ const localStorageHasData = () => {
     let _user = localStorage.getItem('user')
     let _tokenValid = localStorage.getItem('tokenFlag')
 
-    if (_user === null || _token === null  || _tokenValid === null ) {
+    if (_user === null || _token === null || _tokenValid === null) {
         logging.info("localStorageHasData", " [404] token, user or tokenFlag not found in local storage")
         ResetUserLocalData()
         return false
@@ -26,7 +26,7 @@ const localStorageHasData = () => {
 
 }
 
-async function StoredTokenIsValid(_token: string): Promise<void> {
+async function StoredTokenIsValid(_token: string): Promise<boolean> {
     try {
         const response = await axios({
             method: 'GET',
@@ -40,17 +40,16 @@ async function StoredTokenIsValid(_token: string): Promise<void> {
 
         if (response.status === 200 || response.status === 304) {
             logging.info("localStorageDataIsValid", "Token verified by backend!");
-            localStorage.setItem('tokenFlag', 'valid');
+            return true
         }
-        else{
-            ResetUserLocalData()
-
+        else {
+            return false
         }
 
     } catch (e) {
         //! Maybe, When including refresh tokens this has to be updated because currently we are delteing the user from local storage as well
         logging.info("localStorageDataIsValid", "Token was declined by backend!");
-        ResetUserLocalData()
+        return false
     }
 }
 

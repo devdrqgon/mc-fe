@@ -1,15 +1,15 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import logging from 'config/logging'
-import UserContext from 'contexts/user.context'
 import React, { ChangeEvent, useContext } from 'react'
 import { useHistory } from 'react-router'
 import authUtils from 'features/auth/utils.auth'
+import { UserContext } from "contexts/user.context"
 
 export default function LoginPage() {
     const [username, setUsername] = React.useState<string>('')
     const [password, setPassword] = React.useState<string>('')
     const [uiErr, setUIErr] = React.useState<string>('')
-    const userContext = useContext(UserContext)
+    const { user, token, tokenValid, login, logout, authenticated } = useContext(UserContext);
 
     const history = useHistory()
     const loginClicked = async () => {
@@ -25,9 +25,9 @@ export default function LoginPage() {
             })
 
             if (response.status === 200) {
-                authUtils.SaveLoginData(response.data.user.username, response.data.token);
+                login(response.data.user.username, response.data.token);
                 //save user & Token
-                history.push('/planner')
+                history.push('/')
             } else {
                 setUIErr('Login failed!')
             }
