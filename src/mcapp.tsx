@@ -41,10 +41,10 @@ const Mcapp = () => {
         if (authUtils.localStorageHasData()) {
             const usrFromStorage = localStorage.getItem('user')
             const tokenFromStorage = localStorage.getItem('token')
-            const tokenFlag = localStorage.getItem('tokenFlag')
+           
+           
             validatetoken(tokenFromStorage!)
-
-            if (tokenFlag === 'valid') {
+            if (localStorage.getItem('tokenFlag') && localStorage.getItem('tokenFlag') === 'valid') {
                 /** User's token validated, so we redirect him to :  */
                 setLoading(false)
                 setToken(tokenFromStorage)
@@ -52,7 +52,7 @@ const Mcapp = () => {
                 history.push("/planner")
             }
             else {
-                authUtils.ResetUserData()
+                authUtils.ResetUserLocalData()
                 history.push("/login")
                 setLoading(false)
                 setToken(null)
@@ -60,11 +60,12 @@ const Mcapp = () => {
             }
         }
         else {
+            authUtils.ResetUserLocalData()
+            history.push("/login")
             logging.info(COMPOENENT, "redirecting to login Page")
             setLoading(false)
             setToken(null)
             setUser(null)
-            history.push("/login")
         }
     }, [])
 

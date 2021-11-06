@@ -2,25 +2,31 @@ import axios from "axios";
 import logging from "config/logging";
 
 
-const ResetUserData = () => {
-    localStorage.removeItem('tokenFlag');
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
+const ResetUserLocalData = () => {
+    localStorage.setItem('tokenFlag', 'invalid')
+    localStorage.setItem('user', 'undef')
+    localStorage.setItem('token', 'undef')
 }
+
+
+
 
 const localStorageHasData = () => {
     let _token = localStorage.getItem('token')
     let _user = localStorage.getItem('user')
-    if (_user === null || _token === null) {
-        logging.info("localStorageHasData", " [404] token or user not found in local storage")
+    let _tokenValid = localStorage.getItem('tokenValid')
+
+    if (_user === null || _token === null  || _tokenValid === null ) {
+        logging.info("localStorageHasData", " [404] token, user or tokenFlag not found in local storage")
+        ResetUserLocalData()
         return false
     }
-    logging.info("localStorageHasData", "[200] token AND user FOUND in local storage")
+    logging.info("localStorageHasData", "[200] token AND user AND TokenFlag FOUND in local storage")
     return true
 
 }
 
-async function StoredTokenIsValid(_token: string): Promise<boolean> {
+async function StoredTokenIsValid(_token: string): Promise<void> {
     try {
         const response = await axios({
             method: 'GET',
@@ -30,20 +36,17 @@ async function StoredTokenIsValid(_token: string): Promise<boolean> {
             }
         });
 
+        logging.info("sad", "happy", response)
+
         if (response.status === 200 || response.status === 304) {
             logging.info("localStorageDataIsValid", "Token verified by backend!");
             localStorage.setItem('tokenFlag', 'valid');
-
-        }else{
-            logging.info("localStorageDataIsValid", "Token was declined by backend!");
-           localStorage.setItem('tokenFlag', 'invalid');
-
         }
 
-        return true;
     } catch (e) {
-        logging.info("localStorageDataIsValid",(e as Error).message,e);
-        return false;
+        //! Maybe, When including refresh tokens this has to be updated because currently we are delteing the user from local storage as well
+        logging.info("localStorageDataIsValid", "Token was declined by backend!");
+        ResetUserLocalData()
     }
 }
 
@@ -62,7 +65,7 @@ const SaveLoginData = (_user: string, _token: string) => {
 
 export default {
     SaveLoginData,
-    ResetUserData,
+    ResetUserLocalData,
     localStorageHasData,
     StoredTokenIsValid
 }
