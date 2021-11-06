@@ -64,9 +64,9 @@ const UserProvider: React.FC = ({ children }) => {
     setUser(_username)
     setToken(_token)
     setTokenValid(true)
-    setAuthenticated(true)
     localStorage.setItem('token', _token)
     localStorage.setItem('username', _username)
+    setAuthenticated(true)
 
   }
 
@@ -74,9 +74,9 @@ const UserProvider: React.FC = ({ children }) => {
     setUser(null)
     setToken(null)
     setTokenValid(false)
-    setAuthenticated(false)
     localStorage.removeItem('token')
     localStorage.removeItem('username')
+    setAuthenticated(false)
 
   }
 

@@ -1,7 +1,9 @@
+import { TimespanPlanner } from "features/timespanPlanner/timeSpanPlanner"
+
 const Home =() => {
     return (
         <>
-            The Secure Home page!!!
+           <TimespanPlanner/>
         </>
     )
 

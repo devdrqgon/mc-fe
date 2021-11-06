@@ -10,7 +10,6 @@ import axios from 'axios';
 import UserProvider, { UserContext } from 'contexts/user.context';
 import Register from 'tmpPagesAuth/register.component';
 import LoginPage from 'tmpPagesAuth/login.component';
-import TmpHome from 'tmpPagesAuth/tmpHome.componenet';
 import authUtils from 'features/auth/utils.auth'
 import EntryComponent from 'entryComponent';
 
