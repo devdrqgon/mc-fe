@@ -3,6 +3,7 @@ import logging from 'config/logging'
 import UserContext from 'contexts/user.context'
 import React, { ChangeEvent, useContext } from 'react'
 import { useHistory } from 'react-router'
+import authUtils from 'features/auth/utils.auth'
 
 export default function LoginPage() {
     const [username, setUsername] = React.useState<string>('')
@@ -24,7 +25,7 @@ export default function LoginPage() {
             })
 
             if (response.status === 200) {
-                userContext.SaveLoginData(response.data.user.username, response.data.token);
+                authUtils.SaveLoginData(response.data.user.username, response.data.token);
                 //save user & Token
                 history.push('/planner')
             } else {

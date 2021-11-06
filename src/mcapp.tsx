@@ -11,7 +11,7 @@ import { UserContextProvider } from 'contexts/user.context';
 import Register from 'tmpPagesAuth/register.component';
 import LoginPage from 'tmpPagesAuth/login.component';
 import TmpHome from 'tmpPagesAuth/tmpHome.componenet';
-import authUtils from 'features/auth/utils'
+import authUtils from 'features/auth/utils.auth'
 const queryClient = new QueryClient({
     queryCache: new QueryCache({
         onError: (error: any) =>
@@ -27,43 +27,52 @@ const Mcapp = () => {
     const [token, setToken] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
+
     /** change pages without using redirect  */
     const history = useHistory()
-    
+
     useEffect(() => {
         logging.info(COMPOENENT, "Loading app..")
+        async function validatetoken(token: string) {
+            await authUtils.StoredTokenIsValid(token)
+            
+        }
 
-        if (user === null || token === null) {
-            logging.info(COMPOENENT, 'Not logged in in current session, checking localstorage');
+        if (authUtils.localStorageHasData()) {
+            const usrFromStorage = localStorage.getItem('user')
+            const tokenFromStorage = localStorage.getItem('token')
+            const tokenFlag = localStorage.getItem('tokenFlag')
+            validatetoken(tokenFromStorage!)
 
-            let _token = localStorage.getItem('token')
-            let _user = localStorage.getItem('user')
-
-            if (_user === null || _token === null) {
-                logging.info(COMPOENENT, 'Nothing in localstorage, removing vars and redirecting');
-
-                authUtils.ResetUserData()
-                if (history.location.pathname !== "/register") {
-                    history.push('/login')
-                }
+            if (tokenFlag === 'valid') {
+                /** User's token validated, so we redirect him to :  */
                 setLoading(false)
+                setToken(tokenFromStorage)
+                setUser(usrFromStorage)
+                history.push("/planner")
             }
             else {
-                logging.info('Credentials found, verifying.', 'Auth')
-                authUtils.SaveLoginData(_user, _token)
-                authUtils.VerifyLocalStorageCredentials(_user, _token)
-                
+                authUtils.ResetUserData()
+                history.push("/login")
+                setLoading(false)
+                setToken(null)
+                setUser(null)
             }
+        }
+        else {
+            logging.info(COMPOENENT, "redirecting to login Page")
+            setLoading(false)
+            setToken(null)
+            setUser(null)
+            history.push("/login")
         }
     }, [])
 
     if (loading) return <h1>Loading..</h1>
-    
+
     let userContextValue = {
         user,
         token,
-        SaveLoginData: authUtils.SaveLoginData,
-        Logout: authUtils.ResetUserData
     }
 
 
