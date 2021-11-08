@@ -10,13 +10,11 @@ export default function Register() {
 
     const history = useHistory()
     const registerClicked = async () => {
-        const kk: AxiosRequestConfig = {
-
-        }
+    
         try {
             const response = await axios({
                 method: 'POST',
-                url: 'http://localhost:8000/users/register',
+                url: 'http://localhost:8000/users/auth/register',
                 data: {
                     username,
                     password

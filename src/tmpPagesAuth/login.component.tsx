@@ -4,6 +4,7 @@ import React, { ChangeEvent, useContext } from 'react'
 import { useHistory } from 'react-router'
 import authUtils from 'features/auth/utils.auth'
 import { UserContext } from "contexts/user.context"
+import { Link } from 'react-router-dom'
 
 export default function LoginPage() {
     const [username, setUsername] = React.useState<string>('')
@@ -17,7 +18,7 @@ export default function LoginPage() {
         try {
             const response : AxiosResponse<any, any>= await axios({
                 method: 'POST',
-                url: 'http://localhost:8000/users/login',
+                url: 'http://localhost:8000/users/auth/login',
                 data: {
                     username,
                     password
@@ -45,6 +46,8 @@ export default function LoginPage() {
             <button onClick={loginClicked}>
                 Login!
             </button>
+            <br />
+            <Link to={"/register"}>No Account? Register here!</Link>
             <br />
             {uiErr}
         </div>

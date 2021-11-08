@@ -7,7 +7,7 @@ async function StoredTokenIsValid(_token: string): Promise<boolean> {
     try {
         const response = await axios({
             method: 'GET',
-            url: 'http://localhost:8000/users/validate',
+            url: 'http://localhost:8000/users/auth/validate',
             headers: {
                 Authorization: `Bearer ${_token}`
             }

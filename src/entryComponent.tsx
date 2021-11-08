@@ -34,10 +34,7 @@ const EntryComponent = () => {
                 <Switch>
                     <Route path="/planner" component={TimespanPlanner} />
                     <Route path="/sample" component={Sample} />
-                    <Route path="/register" component={Register} />
-                    <Route path="/login" component={LoginPage} />
                     <Route path="/" component={Home} />
-
                 </Switch>
                 <Toaster />
             </QueryClientProvider>)
