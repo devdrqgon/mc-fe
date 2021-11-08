@@ -6,6 +6,7 @@ export interface Bill {
     text: number,
     userId: string,
     paid: boolean,
+    when: number,
 }
 
 export interface TimespanPlan {
