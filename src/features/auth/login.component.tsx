@@ -26,9 +26,11 @@ export default function LoginPage() {
             })
 
             if (response.status === 200) {
-                login(response.data.user.username, response.data.token);
+                login(response.data.user.username, response.data.token)
+              
+                    history.push('/home')
+                
                 //save user & Token
-                history.push('/')
             } else {
                 setUIErr('Login failed!')
             }

@@ -1,6 +1,7 @@
 
 
 import { Header } from 'features/appHeader/header'
+import LoginPage from 'features/auth/login.component'
 import Sample from 'features/planOverview/sample'
 import { TimespanPlanner } from 'features/timespanPlanner/timeSpanPlanner'
 import Home from 'home'
@@ -24,6 +25,7 @@ const AuthApp = () => {
             <Switch>
                 <Route path="/planner" component={TimespanPlanner} />
                 <Route path="/sample" component={Sample} />
+                <Route path="/login" component={LoginPage} />
                 <Route path="/" component={Home} />
             </Switch>
             <Toaster />

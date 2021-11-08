@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import authUtils from 'features/auth/utils.auth'
 import logging from 'config/logging';
+import { useHistory } from 'react-router';
 
 
 
@@ -28,6 +29,7 @@ const UserProvider: React.FC = ({ children }) => {
   const [token, setToken] = React.useState<string | null>(null)
   const [tokenValid, setTokenValid] = React.useState(false)
   const [authenticated, setAuthenticated] = React.useState(false)
+  const history = useHistory()
 
   useEffect(() => {
     async function validatetoken(token: string, username: string) {
@@ -71,6 +73,7 @@ const UserProvider: React.FC = ({ children }) => {
   }
 
   const logout = () => {
+    history.push('/login')
     setUser(null)
     setToken(null)
     setTokenValid(false)
