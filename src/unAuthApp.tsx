@@ -1,6 +1,6 @@
 import { Route, Switch } from "react-router-dom"
-import LoginPage from "tmpPagesAuth/login.component"
-import Register from "tmpPagesAuth/register.component"
+import LoginPage from "features/auth/login.component"
+import Register from "features/auth/register.component"
 
 const UnAuthApp=() => {
     return(
