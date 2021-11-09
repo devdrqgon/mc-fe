@@ -8,7 +8,7 @@ import Home from 'home'
 import toast, { Toaster } from 'react-hot-toast'
 import { QueryClient, QueryCache, QueryClientProvider } from 'react-query'
 import { Switch, Route } from 'react-router'
-
+import { ReactQueryDevtools } from "react-query/devtools"
 const queryClient = new QueryClient({
     queryCache: new QueryCache({
         onError: (error: any) =>
@@ -28,6 +28,8 @@ const AuthApp = () => {
                 <Route path="/login" component={LoginPage} />
                 <Route path="/" component={Home} />
             </Switch>
+            <ReactQueryDevtools />
+
             <Toaster />
         </QueryClientProvider>
     )
