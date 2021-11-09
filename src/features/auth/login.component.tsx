@@ -13,10 +13,25 @@ export default function LoginPage() {
     const { user, token, tokenValid, login, logout, authenticated } = useContext(UserContext);
 
     const history = useHistory()
+    async function checkIfNewUser() {
+        const result: AxiosResponse<any, any> = await axios({
+            method: 'GET',
+            url: `http://localhost:8000/users/info/${localStorage.getItem('username')}`,
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+        if (result.data.usrInfo.length === 0) {
+            history.push('/newuser')
+        } else {
+            history.push('/olduser')
+        }
+    }
     const loginClicked = async () => {
-      
+
         try {
-            const response : AxiosResponse<any, any>= await axios({
+
+            const response: AxiosResponse<any, any> = await axios({
                 method: 'POST',
                 url: 'http://localhost:8000/users/auth/login',
                 data: {
@@ -27,9 +42,9 @@ export default function LoginPage() {
 
             if (response.status === 200) {
                 login(response.data.user.username, response.data.token)
-              
-                    history.push('/home')
-                
+
+                checkIfNewUser()
+
                 //save user & Token
             } else {
                 setUIErr('Login failed!')
