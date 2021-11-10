@@ -6,28 +6,49 @@ export const Header = () => {
     const { user, token, tokenValid, login, logout, authenticated } = useContext(UserContext);
     return (
         <div style={{
-            backgroundColor: user ? '#1495CE' : '#A61E4A',
+            backgroundColor: '#1495CE',
             display: 'grid',
-            gridTemplateColumns: '1.8fr 0.2fr',
+            gridTemplateColumns: '2.6fr 0.4fr',
             gridTemplateRows: '1fr',
             gap: '0px 0px',
             gridTemplateAreas: `
-                    '. profileIcon'
+                    'brand profileIcon'
                 `
         }}>
-            {user ?
-                <div style={{
-                    gridArea: 'profileIcon'
-                }}
-                >
-                    welcome {localStorage.getItem('username')} !  <button onClick={logout}>logout</button>
-                </div> :
-                <div style={{
-                    gridArea: 'profileIcon',
-                    color: 'white'
+            <div
+                style={{
+                    gridArea: 'brand',
                 }}>
-                    LoggedOut!
-                </div>}
+                <div
+                style={{
+                    fontSize: 'x-large',
+                    color: 'white',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    backgroundColor: '#1495CE'
+                }}>
+                    MoneyCoach beta!
+                </div>
+            </div>
+            <div style={{
+                fontSize: 'large',
+                gridArea: 'profileIcon',
+                color: 'white'
+            }}
+            >
+                {user ?
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <div>
+                            welcome {localStorage.getItem('username')}!
+                        </div>
+                        <div>
+                            <button onClick={logout}>logout</button>
+                        </div>
+                    </div>
+                    :
+                    <>
+                    </>}
+            </div>
         </div >
     )
 
