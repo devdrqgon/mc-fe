@@ -17,7 +17,6 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 function OldUser() {
@@ -176,9 +175,7 @@ function OldUser() {
                 boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
                 transition: '0.3s',
                 backgroundColor: '#17191E',
-                overflowY: 'scroll',
-                overflowX: 'visible',
-
+                maxHeight: '70vh'
             }}>
                 <div style={{
                     display: 'grid',
@@ -252,12 +249,20 @@ function OldUser() {
                         </Typography>
                     </div>
                 </div>
-                {bills?.map((b) => (
-                    <div style={{ marginBottom: '10px' }} key={uuidv4()}>
-                        <Bill paid={b.paid} text={b.text} sum={b.sum} due={b.when} />
+                <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        overflowY: 'scroll'
+                    }}
+                >
+                    {bills?.map((b) => (
+                        <div style={{ marginBottom: '10px' }} key={uuidv4()}>
+                            <Bill paid={b.paid} text={b.text} sum={b.sum} due={b.when} />
 
-                    </div>
-                ))}
+                        </div>
+                    ))}
+                </div>
             </div>
 
             <div style={{
@@ -268,7 +273,17 @@ function OldUser() {
 
 
             }}>
-                transactions: <button>  TODO:: Connect your bank </button>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+
+                    <Typography variant="h6" component="div">
+                        Transactions
+                    </Typography>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Typography variant="body1" component="div">
+                       TODO
+                    </Typography>
+                </div>
             </div>
             <div style={{
                 gridArea: 'insights',
@@ -278,7 +293,17 @@ function OldUser() {
 
 
             }}>
-                Insights TODO
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+
+                    <Typography variant="h6" component="div">
+                        Insghts
+                    </Typography>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Typography variant="body1" component="div">
+                        TODO
+                    </Typography>
+                </div>
             </div>
             <Dialog open={openDialog} onClose={handleClickDialogClose}>
                 <DialogTitle style={{ backgroundColor: '#071D24', color: '#fff' }}>New Bill</DialogTitle>

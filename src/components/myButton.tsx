@@ -40,11 +40,11 @@ export const BootstrapButton = styled(Button)({
   },
 });
 
-const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
+export const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
   color: theme.palette.getContrastText(purple[500]),
-  backgroundColor: purple[500],
+  backgroundColor: '#ce4318',
   '&:hover': {
-    backgroundColor: purple[700],
+    backgroundColor: '#800000',
   },
 }));
 

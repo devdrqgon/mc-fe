@@ -1,5 +1,6 @@
 import React from 'react'
 import Typography from '@mui/material/Typography';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 enum BillStatus {
     paid = "paid",
@@ -57,7 +58,7 @@ const Bill: React.FC<BillProps> = (props) => {
             <div style={{
                 fontSize: '25px',
                 display: 'grid',
-                gridTemplateColumns: '2fr 0.5fr 0.4fr 0.3fr',
+                gridTemplateColumns: '2fr 0.3fr 0.2fr 0.1fr',
                 gridTemplateRows: '1fr',
                 gap: '0px 0px',
                 gridTemplateAreas: `
@@ -65,12 +66,12 @@ const Bill: React.FC<BillProps> = (props) => {
                 `,
                 gridArea: 'main',
             }}>
-                
+
                 <div style={{
                     gridArea: 'text',
                     borderRight: '1px solid #A89B93',
                 }}>
-                    <Typography variant="h6" component="div">
+                    <Typography variant="body1" component="div">
                         {props.text}
                     </Typography>
 
@@ -79,7 +80,7 @@ const Bill: React.FC<BillProps> = (props) => {
                     gridArea: 'sum',
                     borderRight: '1px solid #A89B93',
                 }}>
-                    <Typography variant="h6" component="div">
+                    <Typography variant="body1" component="div">
                         {props.sum}€
                     </Typography>
                 </div>
@@ -87,8 +88,8 @@ const Bill: React.FC<BillProps> = (props) => {
                     gridArea: 'due',
                     borderRight: '1px solid #A89B93',
                 }}>
-                    <Typography variant="h6" component="div">
-              {props.due}th
+                    <Typography variant="body1" component="div">
+                        {props.due}th
                     </Typography>
 
                 </div>
@@ -96,7 +97,7 @@ const Bill: React.FC<BillProps> = (props) => {
                     gridArea: 'actions',
 
                 }}>
-                    <button style={{ backgroundColor: '#333333', color: "#fff" }}> actions</button>
+                    <MoreVertIcon  fontSize={"medium"} />
                 </div>
             </div>
             <div style={{

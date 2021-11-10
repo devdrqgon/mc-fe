@@ -2,6 +2,7 @@ import { UserContext } from 'contexts/user.context';
 import React, { useContext } from 'react'
 import Typography from '@mui/material/Typography';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
+import { ColorButton } from 'components/myButton';
 
 export const Header = () => {
 
@@ -14,28 +15,30 @@ export const Header = () => {
                         {
 
                             display: 'grid',
-                            gridTemplateColumns: '2.6fr 0.2fr',
+                            gridTemplateColumns: '0.5fr 2.6fr 0.4fr',
                             gridTemplateRows: '1fr',
                             gap: '0px 0px',
                             gridTemplateAreas: `
-                            'brand profileIcon'
+                            'left brand right'
                             `,
                             backgroundColor: '#071D24',
                             color: '#fff',
                         }
                     }>
+                        <div style={{ gridArea: 'left', display: 'flex', justifyContent: 'center' }}>
+                            <Typography style={{ marginTop: '20px', marginRight: '12px' }} variant="h6" gutterBottom component="div">
+                                welcome {localStorage.getItem('username')}!
+                            </Typography>
+                        </div>
                         <div style={{ gridArea: 'brand', display: 'flex', justifyContent: 'center' }}>
                             <Typography style={{ marginTop: '15px' }} variant="h4" gutterBottom component="div">
                                 MoneyCoach
                             </Typography>
                         </div>
-                        <div style={{ gridArea: 'profileIcon', display: 'flex' }}>
-                            <Typography style={{ marginTop: '20px', marginRight: '12px' }} variant="h6" gutterBottom component="div">
-                                welcome {localStorage.getItem('username')}!
-                            </Typography>
-                            <div style={{ marginTop: '23px' }}>
-                                <LogoutRoundedIcon onClick={logout} />
-                            </div>
+                        <div style={{ gridArea: 'right', display: 'flex' }}>
+
+                        <ColorButton style={{height: '40px', marginTop: '13px'}} variant="contained" onClick={logout}> Sign out</ColorButton>
+
 
                         </div>
                     </div>
