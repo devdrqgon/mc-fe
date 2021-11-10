@@ -39,6 +39,7 @@ const UserProvider: React.FC = ({ children }) => {
         setTokenValid(true)
         setAuthenticated(true)
         login(username, token)
+        history.push('/olduser')
       }
       else {
         logging.info("UserProvider", "Token Declined  by backend!");

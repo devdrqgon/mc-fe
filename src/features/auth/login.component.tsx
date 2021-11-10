@@ -21,7 +21,7 @@ export default function LoginPage() {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         })
-        if (result.data.usrInfo.length === 0) {
+        if (result.data.info.length === 0) {
             history.push('/newuser')
         } else {
             history.push('/olduser')

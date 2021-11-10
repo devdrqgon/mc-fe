@@ -127,11 +127,11 @@ const Home = () => {
                     Authorization: `Bearer ${token}`
                 }
             })
-            if (result.data.usrInfo.length === 0) {
+            if (result.data.info.length === 0) {
                 setNewUser(true)
             } else {
                 setNewUser(false)
-                setCurrentGrossBalance(result.data.usrInfo[0].grossBalance)
+                setCurrentGrossBalance(result.data.info.grossBalance)
             }
         }
 

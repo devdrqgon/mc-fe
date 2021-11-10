@@ -24,7 +24,7 @@ const OnBoarding = () => {
             Authorization: `Bearer ${localStorage.getItem('token')}`
         }
     })
-    const { data: bills } = useQuery<any[]>(
+     const { data: bills } = useQuery<any[]>(
         "bills",
         async () => (await axiosClient.get<any>(`/bills/get/all/${localStorage.getItem('username')}`)).data.bill,
         {
