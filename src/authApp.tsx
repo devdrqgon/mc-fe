@@ -8,7 +8,7 @@ import toast, { Toaster } from 'react-hot-toast'
 import { QueryClient, QueryCache, QueryClientProvider } from 'react-query'
 import { Switch, Route } from 'react-router'
 import { ReactQueryDevtools } from "react-query/devtools"
-import OnBoarding from 'onBoarding'
+import OnBoarding from 'features/onBoarding/onBoarding'
 import OldUser from 'oldUser'
 
 // export const queryClient = new QueryClient({
