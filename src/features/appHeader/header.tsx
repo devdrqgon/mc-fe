@@ -19,11 +19,12 @@ export const Header = () => {
                 <div style={{
                     gridArea: 'profileIcon'
                 }}
-                    onClick={logout}>
-                    logout
+                >
+                    welcome {localStorage.getItem('username')} !  <button onClick={logout}>logout</button>
                 </div> :
                 <div style={{
-                    gridArea: 'profileIcon'
+                    gridArea: 'profileIcon',
+                    color: 'white'
                 }}>
                     LoggedOut!
                 </div>}

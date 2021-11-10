@@ -3,9 +3,10 @@
 export interface Bill {
     id: string,
     sum: number,
-    text: number,
-    userId: string,
+    text: string,
+    username: string,
     paid: boolean,
+    when: number,
 }
 
 export interface TimespanPlan {

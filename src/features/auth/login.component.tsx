@@ -13,10 +13,25 @@ export default function LoginPage() {
     const { user, token, tokenValid, login, logout, authenticated } = useContext(UserContext);
 
     const history = useHistory()
+    async function checkIfNewUser() {
+        const result: AxiosResponse<any, any> = await axios({
+            method: 'GET',
+            url: `http://localhost:8000/users/info/${localStorage.getItem('username')}`,
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+        if (result.data.info.length === 0) {
+            history.push('/newuser')
+        } else {
+            history.push('/olduser')
+        }
+    }
     const loginClicked = async () => {
-      
+
         try {
-            const response : AxiosResponse<any, any>= await axios({
+
+            const response: AxiosResponse<any, any> = await axios({
                 method: 'POST',
                 url: 'http://localhost:8000/users/auth/login',
                 data: {
@@ -26,9 +41,11 @@ export default function LoginPage() {
             })
 
             if (response.status === 200) {
-                login(response.data.user.username, response.data.token);
+                login(response.data.user.username, response.data.token)
+
+                checkIfNewUser()
+
                 //save user & Token
-                history.push('/')
             } else {
                 setUIErr('Login failed!')
             }
@@ -41,7 +58,7 @@ export default function LoginPage() {
         <div>
             <input onChange={(e: ChangeEvent<HTMLInputElement>) => { setUsername(e.target.value as unknown as string) }} ></input>
             <br />
-            <input onChange={(e: ChangeEvent<HTMLInputElement>) => { setPassword(e.target.value as unknown as string) }}  ></input>
+            <input onChange={(e: ChangeEvent<HTMLInputElement>) => { setPassword(e.target.value as unknown as string) }} type={"password"} ></input>
             <br />
             <button onClick={loginClicked}>
                 Login!
