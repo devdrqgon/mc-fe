@@ -23,19 +23,22 @@ export const queryClient = new QueryClient();
 
 const AuthApp = () => {
     return (
-        <QueryClientProvider client={queryClient}>
-            <Header />
-            <Switch>
-                <Route path="/planner" component={TimespanPlanner} />
-                <Route path="/sample" component={Sample} />
-                <Route path="/login" component={LoginPage} />
-                <Route path="/newuser" component={OnBoarding} />
-                <Route path="/olduser" component={OldUser} />
+        <div style={{backgroundColor: '#0F1218'}}>
+            <QueryClientProvider client={queryClient}>
+                <Header />
+                <Switch>
+                    <Route path="/planner" component={TimespanPlanner} />
+                    <Route path="/sample" component={Sample} />
+                    <Route path="/login" component={LoginPage} />
+                    <Route path="/newuser" component={OnBoarding} />
+                    <Route path="/olduser" component={OldUser} />
 
-            </Switch>
-            {/* <ReactQueryDevtools /> */}
+                </Switch>
+                {/* <ReactQueryDevtools /> */}
 
-        </QueryClientProvider>
+            </QueryClientProvider>
+        </div>
+
     )
 }
 

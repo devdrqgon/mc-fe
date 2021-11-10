@@ -20,20 +20,20 @@ export const Header = () => {
                             gridTemplateAreas: `
                             'brand profileIcon'
                             `,
-                            backgroundColor: '#0063cc',
+                            backgroundColor: '#071D24',
                             color: '#fff',
                         }
                     }>
                         <div style={{ gridArea: 'brand', display: 'flex', justifyContent: 'center' }}>
-                            <Typography  style={{marginTop: '5px'}}variant="h4" gutterBottom component="div">
+                            <Typography style={{ marginTop: '15px' }} variant="h4" gutterBottom component="div">
                                 MoneyCoach
                             </Typography>
                         </div>
                         <div style={{ gridArea: 'profileIcon', display: 'flex' }}>
-                            <Typography style={{marginTop: '7px', marginRight: '20px'}} variant="h6" gutterBottom component="div">
+                            <Typography style={{ marginTop: '7px', marginRight: '20px' }} variant="h6" gutterBottom component="div">
                                 welcome {localStorage.getItem('username')}!
                             </Typography>
-                            <div style={{marginTop: '10px'}}>
+                            <div style={{ marginTop: '10px' }}>
                                 <LogoutRoundedIcon onClick={logout} />
                             </div>
 
@@ -44,9 +44,9 @@ export const Header = () => {
 
                 <>
                     <div
-                        style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#0063cc', color: '#fff' }}
+                        style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#071D24', color: '#fff' }}
                     >
-                        <Typography variant="h4" gutterBottom component="div">
+                        <Typography style={{ marginTop: '15px' }} variant="h4" gutterBottom component="div">
                             MoneyCoach
                         </Typography>
                     </div>

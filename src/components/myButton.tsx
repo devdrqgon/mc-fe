@@ -11,8 +11,8 @@ export const BootstrapButton = styled(Button)({
   padding: '6px 12px',
   border: '1px solid',
   lineHeight: 1.5,
-  backgroundColor: '#0063cc',
-  borderColor: '#0063cc',
+  backgroundColor: '#071D24',
+  borderColor: '#071D24',
   fontFamily: [
     '-apple-system',
     'BlinkMacSystemFont',
@@ -26,7 +26,7 @@ export const BootstrapButton = styled(Button)({
     '"Segoe UI Symbol"',
   ].join(','),
   '&:hover': {
-    backgroundColor: '#0069d9',
+    backgroundColor: '#11365d',
     borderColor: '#0062cc',
     boxShadow: 'none',
   },

@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import { BootstrapButton } from 'components/myButton'
 import { Link } from 'react-router-dom';
-
+import background from "./wheat.png"
 export default function Register() {
     const [username, setUsername] = React.useState<string>('')
     const [password, setPassword] = React.useState<string>('')
@@ -49,6 +49,8 @@ export default function Register() {
             `,
                 height: '95vh',
                 width: '100wh',
+                backgroundImage: `url(${background})` 
+
 
             }}
         >

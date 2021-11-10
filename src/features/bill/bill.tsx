@@ -1,4 +1,6 @@
 import React from 'react'
+import Typography from '@mui/material/Typography';
+
 enum BillStatus {
     paid = "paid",
     overdue = "overdue",
@@ -70,35 +72,45 @@ const Bill: React.FC<BillProps> = (props) => {
                 }}>
                     <button style={{
                         color: 'white',
-                        backgroundColor: '#1495CE',
+                        backgroundColor: '#333333',
                         width: '100%',
                         height: '100%',
                         display: 'block'
-                    }}>mark as paid</button>
+                    }}>
+                        mark as paid
+                    </button>
                 </div>
                 <div style={{
                     gridArea: 'text',
                     borderRight: '1px solid #A89B93',
                 }}>
-                    {props.text}
+                    <Typography variant="h6" component="div">
+                        {props.text}
+                    </Typography>
+
                 </div>
                 <div style={{
                     gridArea: 'sum',
                     borderRight: '1px solid #A89B93',
                 }}>
-                    {props.sum}€
+                    <Typography variant="h6" component="div">
+                        {props.sum}€
+                    </Typography>
                 </div>
                 <div style={{
                     gridArea: 'due',
                     borderRight: '1px solid #A89B93',
                 }}>
-                    {props.due}th 
+                    <Typography variant="h6" component="div">
+                        {props.due}th
+                    </Typography>
+
                 </div>
                 <div style={{
                     gridArea: 'actions',
 
                 }}>
-                    <button> actions</button>
+                    <button style={{backgroundColor: '#333333' , color: "#fff"}}> actions</button>
                 </div>
             </div>
             <div style={{

@@ -2,23 +2,21 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import logging from 'config/logging'
 import React, { ChangeEvent, useContext } from 'react'
 import { useHistory } from 'react-router'
-import authUtils from 'features/auth/utils.auth'
 import { UserContext } from "contexts/user.context"
 import { Link } from 'react-router-dom'
-import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import { BootstrapButton } from 'components/myButton'
 import toast from 'react-hot-toast'
+import background from "./loubia.png"
 
 export default function LoginPage() {
     const [username, setUsername] = React.useState<string>('')
     const [password, setPassword] = React.useState<string>('')
     const [uiErr, setUIErr] = React.useState<string>('')
-    const { user, token, tokenValid, login, logout, authenticated } = useContext(UserContext);
+    const { login } = useContext(UserContext);
 
     const history = useHistory()
     async function checkIfNewUser() {
@@ -74,7 +72,7 @@ export default function LoginPage() {
                 `,
                 height: '95vh',
                 width: '100wh',
-
+                backgroundImage: `url(${background})` 
             }}
         >
             <div
@@ -88,9 +86,9 @@ export default function LoginPage() {
 
                 }}>
                 <Card style={{
-
                     width: '400px',
                     height: '600px',
+                    
 
                 }}>
                     <CardContent>
