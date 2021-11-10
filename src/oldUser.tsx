@@ -67,7 +67,8 @@ function OldUser() {
             gridAutoRows: '1fr',
             gridTemplateColumns: '0.9fr 1.1fr 1fr',
             gridTemplateRows: '0.3fr 1.7fr',
-            gap: '10px 10px',
+            gap: '30px 30px',
+            margin: '25px 15px 5px 15px',
             gridTemplateAreas: `
             'balance savings nxtIncome'
             'insights transactions bills'
@@ -76,7 +77,10 @@ function OldUser() {
             <div style={{
                 gridArea: 'balance',
                 // backgroundColor: '#F99A20'
-                border: '1px solid #F99A20'
+                // border: '1px solid #F99A20'
+                // borderRadius: '10%',
+                boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+                transition: '0.3s',
 
             }}>
                 Your current balance:   {userinfo?.grossBalance}€
@@ -85,16 +89,16 @@ function OldUser() {
 
             <div style={{
                 gridArea: 'savings',
-                border: '1px solid #63B246',
-                backgroundColor: '#F3F4F6'
+                boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+                transition: '0.3s',
             }}>
                 savings: TODO
             </div>
 
             <div style={{
-                border: '1px solid #E9A77B',
+                boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+                transition: '0.3s',
                 gridArea: 'nxtIncome',
-                backgroundColor: '#F3F4F6'
 
             }}>
                 nxt Income in xx days TODO
@@ -105,7 +109,8 @@ function OldUser() {
                 display: 'flex',
                 padding: '15px',
                 flexDirection: 'column',
-                border: '1px solid #F8BB19'
+                boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+                transition: '0.3s',
             }}>
                 <div style={{
                     marginBottom: '30px',
@@ -159,8 +164,8 @@ function OldUser() {
 
             <div style={{
                 gridArea: 'transactions',
-                border: '1px solid #95CBBB',
-                backgroundColor: '#F3F4F6'
+                boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+                transition: '0.3s',
 
 
             }}>
@@ -168,8 +173,9 @@ function OldUser() {
             </div>
             <div style={{
                 gridArea: 'insights',
-                border: '1px solid #BCCCE3',
-                backgroundColor: '#F3F4F6'
+                boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+                transition: '0.3s',
+
 
             }}>
                 Insights TODO

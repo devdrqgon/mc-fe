@@ -33,9 +33,8 @@ const AuthApp = () => {
                 <Route path="/olduser" component={OldUser} />
 
             </Switch>
-            <ReactQueryDevtools />
+            {/* <ReactQueryDevtools /> */}
 
-            <Toaster />
         </QueryClientProvider>
     )
 }

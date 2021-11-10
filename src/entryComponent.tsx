@@ -3,6 +3,7 @@ import { Header } from "features/appHeader/header"
 import { useContext } from "react"
 import UnAuthApp from "unAuthApp"
 import AuthApp from "authApp"
+import { Toaster } from "react-hot-toast"
 
 
 
@@ -17,6 +18,8 @@ const EntryComponent = () => {
         <>
             <Header />
             <UnAuthApp />
+            <Toaster />
+
         </>
     )
 
