@@ -44,7 +44,6 @@ const Bill: React.FC<BillProps> = (props) => {
     return (
         <div
             style={{
-                border: '1px solid #A89B93',
                 display: 'grid',
                 gridTemplateColumns: '1fr',
                 gridTemplateRows: '1.8fr 0.2fr',
@@ -52,34 +51,21 @@ const Bill: React.FC<BillProps> = (props) => {
                 gridTemplateAreas: `
                 'main'
                 'footer'
-                `
+                `,
+                backgroundColor: '#333333'
             }}>
             <div style={{
                 fontSize: '25px',
                 display: 'grid',
-                gridTemplateColumns: '1.2fr 2fr 0.6fr 0.6fr 1fr',
+                gridTemplateColumns: '2fr 0.6fr 0.6fr 1fr',
                 gridTemplateRows: '1fr',
                 gap: '0px 0px',
                 gridTemplateAreas: `
-                'pay text sum due actions'
+                 'text sum due actions'
                 `,
                 gridArea: 'main',
             }}>
-                <div style={{
-                    gridArea: 'pay',
-                    borderRight: '1px solid #A89B93',
-
-                }}>
-                    <button style={{
-                        color: 'white',
-                        backgroundColor: '#333333',
-                        width: '100%',
-                        height: '100%',
-                        display: 'block'
-                    }}>
-                        mark as paid
-                    </button>
-                </div>
+                
                 <div style={{
                     gridArea: 'text',
                     borderRight: '1px solid #A89B93',
@@ -110,7 +96,7 @@ const Bill: React.FC<BillProps> = (props) => {
                     gridArea: 'actions',
 
                 }}>
-                    <button style={{backgroundColor: '#333333' , color: "#fff"}}> actions</button>
+                    <button style={{ backgroundColor: '#333333', color: "#fff" }}> actions</button>
                 </div>
             </div>
             <div style={{

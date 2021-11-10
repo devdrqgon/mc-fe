@@ -162,8 +162,12 @@ function OldUser() {
                             Bills
                         </Typography>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <div style={{ display: 'flex', height: '30px', width: '84%' }}>
+                    
+
+
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <div style={{ display: 'flex', height: '30px', marginBottom: '40px' }}>
                             <input placeholder={"what"} ref={whatRef} type={"text"}></input>
                             <input placeholder={"how much"} ref={sumRef} type={"number"}></input>
                             <input placeholder={"when"} ref={whenRef} type={"number"}></input>
@@ -196,10 +200,6 @@ function OldUser() {
                                 }}> +</button>
                         </div>
                     </div>
-
-
-                </div>
-
                 {bills?.map((b) => (
                     <div style={{ marginBottom: '10px' }} key={uuidv4()}>
                         <Bill paid={b.paid} text={b.text} sum={b.sum} due={b.when} />
