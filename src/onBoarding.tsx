@@ -63,6 +63,7 @@ const OnBoarding = () => {
     const whenRef = useRef<HTMLInputElement>(null);
     const sumRef = useRef<HTMLInputElement>(null);
     const currentBalanceRef = useRef<HTMLInputElement>(null);
+    const [newBillFlag, setnewBillFlag] = useState(false)
 
     return (
         <div
@@ -97,7 +98,7 @@ const OnBoarding = () => {
                     <button
                         onClick={() => {
                             createUserInfoMutation.mutate({
-                                grossBalance: 200,
+                                grossBalance: currentBalanceRef.current!.value as unknown as number,
                                 username: localStorage.getItem('username')!,
                             }) //text: textRef.current!.value ?? ""
                         }}
@@ -113,21 +114,31 @@ const OnBoarding = () => {
             }}>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <h3>
-                        Bills
+                        Bills, (u can add them later if u lazy)
                     </h3>
                 </div>
                 <div style={{ display: 'flex' }}>
                     <input placeholder={"what"} ref={whatRef} type={"text"}></input>
                     <input placeholder={"how much"} ref={sumRef} type={"number"}></input>
                     <input placeholder={"when"} ref={whenRef} type={"number"}></input>
+                    <div>
+                            <input
+                                type="checkbox"
+                                checked={newBillFlag}
+                                onChange={() => {
+                                    setnewBillFlag(!newBillFlag)
+                                }}
+                            />
+                           
+                        </div>
                     <button
                         onClick={() => {
                             createBillMutation.mutate({
-                                sum: 20,
+                                sum: sumRef.current!.value as unknown as number ?? 0,
                                 text: whatRef.current!.value ?? "",
                                 username: localStorage.getItem('username')!,
-                                paid: true,
-                                when: 4
+                                paid: newBillFlag,
+                                when: whenRef.current!.value as unknown as number ?? 0,
 
                             }) //text: textRef.current!.value ?? ""
                         }}
@@ -148,6 +159,7 @@ const OnBoarding = () => {
                 marginTop: '50px'
             }}>
                 <button
+                disabled={!saved}
                     onClick={() => {history.push("/olduser")}}
                 >Terminate Init</button>
             </div>

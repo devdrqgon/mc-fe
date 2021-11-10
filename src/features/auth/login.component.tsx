@@ -58,7 +58,7 @@ export default function LoginPage() {
         <div>
             <input onChange={(e: ChangeEvent<HTMLInputElement>) => { setUsername(e.target.value as unknown as string) }} ></input>
             <br />
-            <input onChange={(e: ChangeEvent<HTMLInputElement>) => { setPassword(e.target.value as unknown as string) }}  ></input>
+            <input onChange={(e: ChangeEvent<HTMLInputElement>) => { setPassword(e.target.value as unknown as string) }} type={"password"} ></input>
             <br />
             <button onClick={loginClicked}>
                 Login!

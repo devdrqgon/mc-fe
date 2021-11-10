@@ -79,7 +79,7 @@ function OldUser() {
                 border: '1px solid #F99A20'
 
             }}>
-                Your current balance:   {userinfo?.grossBalance}
+                Your current balance:   {userinfo?.grossBalance}€
 
             </div>
 
@@ -127,7 +127,7 @@ function OldUser() {
                                     setnewBillFlag(!newBillFlag)
                                 }}
                             />
-                           
+
                         </div>
                         <button
                             onClick={() => {
