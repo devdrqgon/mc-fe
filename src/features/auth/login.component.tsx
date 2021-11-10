@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import { BootstrapButton } from 'components/myButton'
 import toast from 'react-hot-toast'
-import background from "./loubia.png"
+import background from "./wheat.png"
 
 export default function LoginPage() {
     const [username, setUsername] = React.useState<string>('')
