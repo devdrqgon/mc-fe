@@ -27,7 +27,7 @@ export const Header = () => {
                     justifyContent: 'center',
                     backgroundColor: '#1495CE'
                 }}>
-                    MoneyCoach beta!
+                    MoneyCoach! beta
                 </div>
             </div>
             <div style={{
