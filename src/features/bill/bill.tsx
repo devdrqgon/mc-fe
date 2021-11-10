@@ -57,7 +57,7 @@ const Bill: React.FC<BillProps> = (props) => {
             <div style={{
                 fontSize: '25px',
                 display: 'grid',
-                gridTemplateColumns: '2fr 0.6fr 0.6fr 1fr',
+                gridTemplateColumns: '2fr 0.5fr 0.4fr 0.3fr',
                 gridTemplateRows: '1fr',
                 gap: '0px 0px',
                 gridTemplateAreas: `
@@ -88,7 +88,7 @@ const Bill: React.FC<BillProps> = (props) => {
                     borderRight: '1px solid #A89B93',
                 }}>
                     <Typography variant="h6" component="div">
-                        {props.due}th
+              {props.due}th
                     </Typography>
 
                 </div>

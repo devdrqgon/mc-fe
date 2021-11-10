@@ -14,7 +14,7 @@ export const Header = () => {
                         {
 
                             display: 'grid',
-                            gridTemplateColumns: '2.6fr 0.4fr',
+                            gridTemplateColumns: '2.6fr 0.2fr',
                             gridTemplateRows: '1fr',
                             gap: '0px 0px',
                             gridTemplateAreas: `
@@ -30,10 +30,10 @@ export const Header = () => {
                             </Typography>
                         </div>
                         <div style={{ gridArea: 'profileIcon', display: 'flex' }}>
-                            <Typography style={{ marginTop: '7px', marginRight: '20px' }} variant="h6" gutterBottom component="div">
+                            <Typography style={{ marginTop: '20px', marginRight: '12px' }} variant="h6" gutterBottom component="div">
                                 welcome {localStorage.getItem('username')}!
                             </Typography>
-                            <div style={{ marginTop: '10px' }}>
+                            <div style={{ marginTop: '23px' }}>
                                 <LogoutRoundedIcon onClick={logout} />
                             </div>
 

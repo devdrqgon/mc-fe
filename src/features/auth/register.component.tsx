@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import { BootstrapButton } from 'components/myButton'
 import { Link } from 'react-router-dom';
-import background from "./wheat.png"
+import background from "./bubble.png"
 export default function Register() {
     const [username, setUsername] = React.useState<string>('')
     const [password, setPassword] = React.useState<string>('')
@@ -59,15 +59,14 @@ export default function Register() {
                     gridArea: 'login',
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'center',
                     alignItems: 'center'
 
 
                 }}>
                 <Card style={{
-
+                    marginTop: "200px",
                     width: '400px',
-                    height: '600px',
+                    height: '300px',
 
                 }}>
                     <CardContent>
@@ -85,8 +84,7 @@ export default function Register() {
                                 'footer'
                             `
                                 ,
-                                height: '65vh',
-                                width: '100wh',
+                             
                             }}>
                             <div
                                 style={{
@@ -103,7 +101,7 @@ export default function Register() {
                                 style={{
                                     gridArea: 'main',
                                     display: 'flex',
-                                    flexDirection: 'column'
+                                    flexDirection: 'column',
                                 }}>
                                 <TextField style={{ marginBottom: '20px' }} onChange={(e: ChangeEvent<HTMLInputElement>) => { setUsername(e.target.value as unknown as string) }} id="outlined-basic" label="Username" variant="outlined" />
 

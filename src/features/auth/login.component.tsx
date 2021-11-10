@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import { BootstrapButton } from 'components/myButton'
 import toast from 'react-hot-toast'
-import background from "./wheat.png"
+import background from "./bubble.png"
 
 export default function LoginPage() {
     const [username, setUsername] = React.useState<string>('')
@@ -80,14 +80,14 @@ export default function LoginPage() {
                     gridArea: 'login',
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'center',
                     alignItems: 'center'
 
 
                 }}>
                 <Card style={{
+                    marginTop: "200px",
                     width: '400px',
-                    height: '600px',
+                    height: '300px',
                     
 
                 }}>
@@ -106,8 +106,6 @@ export default function LoginPage() {
                                     'footer'
                                 `
                                 ,
-                                height: '65vh',
-                                width: '100wh',
                             }}>
                             <div
                                 style={{
