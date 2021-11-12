@@ -21,7 +21,7 @@ export const Header = () => {
                             gridTemplateAreas: `
                             'left brand right'
                             `,
-                            backgroundColor: '#1C202F',
+                            backgroundColor: '#1D232A',
                             color: '#fff',
                         }
                     }>

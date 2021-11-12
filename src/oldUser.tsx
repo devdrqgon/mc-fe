@@ -98,79 +98,79 @@ function OldUser() {
             }}>
 
                 <div style={{
-                    // border: '1px solid #F99A20'
-                    // borderRadius: '10%',
                     boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
                     transition: '0.3s',
-                    backgroundColor: '#181E2E'
+
+                    border: '1px solid #30363C',
+                    borderRadius: '6px'
+
                 }}>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
 
-                        <Typography variant="h6" component="div">
+                        <Typography variant="body1" component="div">
                             Gross balance
                         </Typography>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <Typography variant="h4" component="div">
+                        <Typography variant="subtitle1" component="div">
                             {userinfo?.grossBalance}€
                         </Typography>
                     </div>
                 </div>
                 <div style={{
-                    // border: '1px solid #F99A20'
-                    // borderRadius: '10%',
+                    border: '1px solid #30363C',
+                    borderRadius: '6px',
                     boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
                     transition: '0.3s',
-                    backgroundColor: '#181E2E'
                 }}>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
 
-                        <Typography variant="h6" component="div">
+                        <Typography variant="body1" component="div">
                             Nett balance
                         </Typography>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <Typography variant="h4" component="div">
+                        <Typography variant="subtitle1" component="div">
                             {userinfo?.grossBalance}€
                         </Typography>
                     </div>
                 </div>
 
                 <div style={{
+                    border: '1px solid #30363C',
+                    borderRadius: '6px',
                     boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
                     transition: '0.3s',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    backgroundColor: '#181E2E'
 
                 }}>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <Typography variant="h6" component="div">
-                            savings
+
+                        <Typography variant="body1" component="div">
+                            Savings
                         </Typography>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <Typography variant="h4" component="div">
+                        <Typography variant="subtitle1" component="div">
                             0€
                         </Typography>
                     </div>
                 </div>
 
                 <div style={{
+                    border: '1px solid #30363C',
+                    borderRadius: '6px',
                     boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
                     transition: '0.3s',
-                    backgroundColor: '#181E2E',
-
-
                 }}>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <Typography variant="h6" component="div">
-                            untill next income
+
+                        <Typography variant="body1" component="div">
+                            next income
                         </Typography>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <Typography variant="h4" component="div">
-                            6 days
+                        <Typography variant="subtitle1" component="div">
+                            5 days
                         </Typography>
                     </div>
                 </div>
@@ -189,20 +189,21 @@ function OldUser() {
                 gridTemplateAreas: `
                 'insights transactions bills'
                 `,
-                height: '88vh',
-                color: '#fff'
+                color: '#fff',
             }}>
 
 
                 <div style={{
                     gridArea: 'bills',
+                    border: '1px solid #30363C',
+                    borderRadius: '6px',
+                    boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+                    transition: '0.3s',
                     display: 'flex',
                     padding: '15px',
                     flexDirection: 'column',
-                    boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
-                    transition: '0.3s',
-                    backgroundColor: '#181E2E',
-                    maxHeight: '70vh'
+                    maxHeight: '70vh',
+
                 }}>
                     <div style={{
                         display: 'grid',
@@ -294,10 +295,14 @@ function OldUser() {
 
                 <div style={{
                     gridArea: 'transactions',
-                    backgroundColor: '#181E2E',
+                    border: '1px solid #30363C',
+                    borderRadius: '6px',
                     boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
                     transition: '0.3s',
-
+                    display: 'flex',
+                    padding: '15px',
+                    flexDirection: 'column',
+                    maxHeight: '70vh',
 
                 }}>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -314,16 +319,21 @@ function OldUser() {
                 </div>
                 <div style={{
                     gridArea: 'insights',
-                    backgroundColor: '#181E2E',
+                    border: '1px solid #30363C',
+                    borderRadius: '6px',
                     boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
                     transition: '0.3s',
+                    display: 'flex',
+                    padding: '15px',
+                    flexDirection: 'column',
+                    maxHeight: '70vh',
 
 
                 }}>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
 
                         <Typography variant="h6" component="div">
-                            Insghts
+                            Insights
                         </Typography>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>

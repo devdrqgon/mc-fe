@@ -24,7 +24,7 @@ export const queryClient = new QueryClient();
 const AuthApp = () => {
     return (
         <div style={{
-            backgroundColor: '#272A36',
+            height: '100vh'
         }}>
             <QueryClientProvider client={queryClient}>
                 <Header />
