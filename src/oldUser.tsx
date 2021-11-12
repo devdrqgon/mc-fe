@@ -190,6 +190,7 @@ function OldUser() {
                 'insights transactions bills'
                 `,
                 color: '#fff',
+
             }}>
 
 
