@@ -21,23 +21,23 @@ export const Header = () => {
                             gridTemplateAreas: `
                             'left brand right'
                             `,
-                            backgroundColor: '#071D24',
+                            backgroundColor: '#1C202F',
                             color: '#fff',
                         }
                     }>
                         <div style={{ gridArea: 'left', display: 'flex', justifyContent: 'center' }}>
-                            <Typography style={{ marginTop: '20px', marginRight: '12px' }} variant="h6" gutterBottom component="div">
+                            <Typography style={{ marginTop: '20px', marginRight: '12px' }} variant="subtitle2" gutterBottom component="div">
                                 welcome {localStorage.getItem('username')}!
                             </Typography>
                         </div>
                         <div style={{ gridArea: 'brand', display: 'flex', justifyContent: 'center' }}>
-                            <Typography style={{ marginTop: '15px' }} variant="h4" gutterBottom component="div">
+                            <Typography style={{ marginTop: '15px' }} variant="subtitle1" gutterBottom component="div">
                                 MoneyCoach
                             </Typography>
                         </div>
                         <div style={{ gridArea: 'right', display: 'flex' }}>
 
-                        <ColorButton style={{height: '40px', marginTop: '13px'}} variant="contained" onClick={logout}> Sign out</ColorButton>
+                        <ColorButton style={{height: '30px', marginTop: '10px'}} variant="contained" onClick={logout}> Sign out</ColorButton>
 
 
                         </div>

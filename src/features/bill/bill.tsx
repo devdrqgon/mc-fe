@@ -37,9 +37,9 @@ const Bill: React.FC<BillProps> = (props) => {
                 return 'yellow'
 
             case BillStatus.overdue:
-                return 'red'
+                return '#f8334d'
             case BillStatus.paid:
-                return 'green'
+                return '#01FFA4'
         }
     }
     return (

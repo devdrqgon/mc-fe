@@ -2,6 +2,7 @@ import { queryClient } from 'authApp';
 import axios from 'axios'
 import React, { useRef, useState } from "react";
 import { v4 as uuidv4, v4 } from 'uuid';
+import Typography from '@mui/material/Typography';
 
 import { Bill } from 'react-app-env';
 import {
@@ -24,7 +25,7 @@ const OnBoarding = () => {
             Authorization: `Bearer ${localStorage.getItem('token')}`
         }
     })
-     const { data: bills } = useQuery<any[]>(
+    const { data: bills } = useQuery<any[]>(
         "bills",
         async () => (await axiosClient.get<any>(`/bills/get/all/${localStorage.getItem('username')}`)).data.bill,
         {
@@ -77,21 +78,28 @@ const OnBoarding = () => {
                 'Title Title'
                 'infos bills'
                 'ops ops'
-                `
+                `,
+                height: '90vh',
+                color: '#fff'
             }}>
             <div
                 style={{
-                    gridArea: 'Title'
+                    gridArea: 'Title',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    marginTop: '23px'
                 }}>
-                mc needs to know few things....
+                <Typography variant="h5" component="div">
+                    mc needs to know few things....
+                </Typography>
 
             </div>
-            <div style={{ gridArea: 'infos', borderRight: '5px green solid' }}>
+            <div style={{ gridArea: 'infos', borderRight: '5px #071D24 solid' }}>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
 
-                    <h3>
+                    <Typography variant="h5" component="div">
                         Infos
-                    </h3>
+                    </Typography>
                 </div>
                 <div>
                     <input placeholder={"current gross balance"} ref={currentBalanceRef} type={"text"}></input>
@@ -113,24 +121,25 @@ const OnBoarding = () => {
                 flexDirection: 'column'
             }}>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <h3>
+
+                    <Typography variant="h5" component="div">
                         Bills, (u can add them later if u lazy)
-                    </h3>
+                    </Typography>
                 </div>
                 <div style={{ display: 'flex' }}>
                     <input placeholder={"what"} ref={whatRef} type={"text"}></input>
                     <input placeholder={"how much"} ref={sumRef} type={"number"}></input>
                     <input placeholder={"when"} ref={whenRef} type={"number"}></input>
                     <div>
-                            <input
-                                type="checkbox"
-                                checked={newBillFlag}
-                                onChange={() => {
-                                    setnewBillFlag(!newBillFlag)
-                                }}
-                            />
-                           
-                        </div>
+                        <input
+                            type="checkbox"
+                            checked={newBillFlag}
+                            onChange={() => {
+                                setnewBillFlag(!newBillFlag)
+                            }}
+                        />
+
+                    </div>
                     <button
                         onClick={() => {
                             createBillMutation.mutate({
@@ -159,8 +168,8 @@ const OnBoarding = () => {
                 marginTop: '50px'
             }}>
                 <button
-                disabled={!saved}
-                    onClick={() => {history.push("/olduser")}}
+                    disabled={!saved}
+                    onClick={() => { history.push("/olduser") }}
                 >Terminate Init</button>
             </div>
         </div >
