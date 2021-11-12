@@ -18,6 +18,8 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import { BootstrapButton, ColorButton } from 'components/myButton';
+import CreateSavingPlan from 'features/savingPlan/createSavingPlan';
 
 function OldUser() {
     const axiosClient = axios.create({
@@ -62,14 +64,22 @@ function OldUser() {
     const whatRef = useRef<HTMLInputElement>(null);
     const whenRef = useRef<HTMLInputElement>(null);
     const sumRef = useRef<HTMLInputElement>(null);
-    const currentBalanceRef = useRef<HTMLInputElement>(null);
-    const [openDialog, setOpenDialog] = React.useState(false);
-    const handleClickDialogOpen = () => {
-        setOpenDialog(true);
+    const [openBillDialog, setOpenBillDialog] = React.useState(false)
+    const [openSavingDialog, setOpenSavingDialog] = React.useState(false);
+    
+    const handleClickDialogSavingOpen = () => {
+        setOpenSavingDialog(true);
     };
 
-    const handleClickDialogClose = () => {
-        setOpenDialog(false);
+    const handleClickDialogSavingClose = () => {
+        setOpenSavingDialog(false);
+    }
+    const handleClickBillDialogOpen = () => {
+        setOpenBillDialog(true);
+    };
+
+    const handleClickDialogBillClose = () => {
+        setOpenBillDialog(false);
     }
 
     const handleBillDialogSubmit = () => {
@@ -81,7 +91,7 @@ function OldUser() {
             when: whenRef.current!.value as unknown as number ?? 0,
 
         })
-        setOpenDialog(false)
+        setOpenBillDialog(false)
 
     }
     return (
@@ -155,7 +165,24 @@ function OldUser() {
                         </Typography>
                     </div>
                 </div>
+                <div style={{
+                    border: '1px solid #30363C',
+                    borderRadius: '6px',
+                    boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+                    transition: '0.3s',
+                }}>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
 
+                        <Typography variant="body1" component="div">
+                            Saving Goal
+                        </Typography>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <Typography variant="subtitle1" component="div">
+                            <ColorButton onClick={handleClickDialogSavingOpen}>  set a plan</ColorButton>
+                        </Typography>
+                    </div>
+                </div>
                 <div style={{
                     border: '1px solid #30363C',
                     borderRadius: '6px',
@@ -170,7 +197,7 @@ function OldUser() {
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <Typography variant="subtitle1" component="div">
-                            5 days
+                            2600€ in 5 days
                         </Typography>
                     </div>
                 </div>
@@ -227,7 +254,7 @@ function OldUser() {
                             style={{ gridArea: 'ops' }}
                         >
                             <button
-                                onClick={handleClickDialogOpen}
+                                onClick={handleClickBillDialogOpen}
                                 style={{
                                     backgroundColor: '#01FFA4', //071D24  66FF75
                                     fontSize: '25px',
@@ -343,7 +370,7 @@ function OldUser() {
                         </Typography>
                     </div>
                 </div>
-                <Dialog open={openDialog} onClose={handleClickDialogClose}>
+                <Dialog open={openBillDialog} onClose={handleClickDialogBillClose}>
                     <DialogTitle style={{ backgroundColor: '#071D24', color: '#fff' }}>New Bill</DialogTitle>
                     <DialogContent style={{ backgroundColor: '#17191E', color: '#fff' }}>
 
@@ -374,10 +401,17 @@ function OldUser() {
                         </div>
                     </DialogContent>
                     <DialogActions style={{ backgroundColor: '#071D24' }}>
-                        <Button onClick={handleClickDialogClose}>Cancel</Button>
+                        <Button onClick={handleClickDialogBillClose}>Cancel</Button>
                         <Button onClick={handleBillDialogSubmit}>Add</Button>
                     </DialogActions>
                 </Dialog>
+                <Dialog open={openSavingDialog} onClose={handleClickDialogSavingClose}>
+                    <DialogTitle style={{ backgroundColor: '#071D24', color: '#fff' }}> Achieve your Saving Plan! </DialogTitle>
+                    <DialogContent style={{ backgroundColor: '#17191E', color: '#fff' }}>
+                        <CreateSavingPlan/>
+                    </DialogContent>
+                </Dialog>
+
             </div ></>
     )
 }

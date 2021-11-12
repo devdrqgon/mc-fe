@@ -15,7 +15,7 @@ export const Header = () => {
                         {
 
                             display: 'grid',
-                            gridTemplateColumns: '0.5fr 2.6fr 0.4fr',
+                            gridTemplateColumns: '0.5fr 2.6fr 1fr',
                             gridTemplateRows: '1fr',
                             gap: '0px 0px',
                             gridTemplateAreas: `
@@ -36,8 +36,9 @@ export const Header = () => {
                             </Typography>
                         </div>
                         <div style={{ gridArea: 'right', display: 'flex' }}>
+                            <ColorButton variant="contained" onClick={() => {alert("Connect bank!")}}> Connect your bank</ColorButton>
 
-                        <ColorButton style={{height: '30px', marginTop: '10px'}} variant="contained" onClick={logout}> Sign out</ColorButton>
+                            <ColorButton style={{  marginLeft: '10px' }} variant="contained" onClick={logout}> Sign out</ColorButton>
 
 
                         </div>
