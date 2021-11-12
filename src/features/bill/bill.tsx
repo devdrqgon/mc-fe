@@ -1,4 +1,7 @@
 import React from 'react'
+import Typography from '@mui/material/Typography';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+
 enum BillStatus {
     paid = "paid",
     overdue = "overdue",
@@ -34,15 +37,14 @@ const Bill: React.FC<BillProps> = (props) => {
                 return 'yellow'
 
             case BillStatus.overdue:
-                return 'red'
+                return '#f8334d'
             case BillStatus.paid:
-                return 'green'
+                return '#01FFA4'
         }
     }
     return (
         <div
             style={{
-                border: '1px solid #A89B93',
                 display: 'grid',
                 gridTemplateColumns: '1fr',
                 gridTemplateRows: '1.8fr 0.2fr',
@@ -50,55 +52,52 @@ const Bill: React.FC<BillProps> = (props) => {
                 gridTemplateAreas: `
                 'main'
                 'footer'
-                `
+                `,
+                backgroundColor: '#333333'
             }}>
             <div style={{
                 fontSize: '25px',
                 display: 'grid',
-                gridTemplateColumns: '1.2fr 2fr 0.6fr 0.6fr 1fr',
+                gridTemplateColumns: '2fr 0.3fr 0.2fr 0.1fr',
                 gridTemplateRows: '1fr',
                 gap: '0px 0px',
                 gridTemplateAreas: `
-                'pay text sum due actions'
+                 'text sum due actions'
                 `,
                 gridArea: 'main',
             }}>
-                <div style={{
-                    gridArea: 'pay',
-                    borderRight: '1px solid #A89B93',
 
-                }}>
-                    <button style={{
-                        color: 'white',
-                        backgroundColor: '#1495CE',
-                        width: '100%',
-                        height: '100%',
-                        display: 'block'
-                    }}>mark as paid</button>
-                </div>
                 <div style={{
                     gridArea: 'text',
                     borderRight: '1px solid #A89B93',
                 }}>
-                    {props.text}
+                    <Typography variant="body1" component="div">
+                        {props.text}
+                    </Typography>
+
                 </div>
                 <div style={{
                     gridArea: 'sum',
                     borderRight: '1px solid #A89B93',
                 }}>
-                    {props.sum}€
+                    <Typography variant="body1" component="div">
+                        {props.sum}€
+                    </Typography>
                 </div>
                 <div style={{
                     gridArea: 'due',
                     borderRight: '1px solid #A89B93',
                 }}>
-                    {props.due}th 
+                    <Typography variant="body1" component="div">
+                        {props.due}th
+                    </Typography>
+
                 </div>
                 <div style={{
                     gridArea: 'actions',
 
                 }}>
-                    <button> actions</button>
+                    <MoreVertIcon  fontSize={"medium"} />
                 </div>
             </div>
             <div style={{
