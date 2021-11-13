@@ -10,7 +10,7 @@ import {
     QueryClient,
     UseQueryOptions,
 } from "react-query"
-import { v4 as uuidv4, v4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
