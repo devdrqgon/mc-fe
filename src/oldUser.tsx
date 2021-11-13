@@ -43,6 +43,14 @@ function OldUser() {
             },
         }
     )
+    const { data: savingPlan } = useQuery<any>(
+        "savingplan",
+        async () => (await axiosClient.get<any>(`/plans/get/${localStorage.getItem('username')}`)).data.plan[0],
+        {
+            initialData: [],
+
+        }
+    )
     const { data: userinfo } = useQuery<any>(
         "userinfo",
         async () => (await axiosClient.get<any>(`/users/info/${localStorage.getItem('username')}`)).data.info[0],
@@ -66,7 +74,7 @@ function OldUser() {
     const sumRef = useRef<HTMLInputElement>(null);
     const [openBillDialog, setOpenBillDialog] = React.useState(false)
     const [openSavingDialog, setOpenSavingDialog] = React.useState(false);
-    
+
     const handleClickDialogSavingOpen = () => {
         setOpenSavingDialog(true);
     };
@@ -178,9 +186,16 @@ function OldUser() {
                         </Typography>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <Typography variant="subtitle1" component="div">
-                            <ColorButton onClick={handleClickDialogSavingOpen}>  set a plan</ColorButton>
-                        </Typography>
+                        {savingPlan ?
+                            <Typography variant="subtitle1" component="div">
+                                {savingPlan?.savingGoal}
+                            </Typography>
+                            :
+                            <Typography variant="subtitle1" component="div">
+                                <ColorButton onClick={handleClickDialogSavingOpen}>  set a plan</ColorButton>
+                            </Typography>
+                        }
+
                     </div>
                 </div>
                 <div style={{
@@ -405,10 +420,24 @@ function OldUser() {
                         <Button onClick={handleBillDialogSubmit}>Add</Button>
                     </DialogActions>
                 </Dialog>
-                <Dialog open={openSavingDialog} onClose={handleClickDialogSavingClose}>
-                    <DialogTitle style={{ backgroundColor: '#071D24', color: '#fff' }}> Achieve your Saving Plan! </DialogTitle>
+                <Dialog open={openSavingDialog} fullScreen onClose={handleClickDialogSavingClose}>
+                    <DialogTitle
+                        style={{
+                            backgroundColor: '#071D24',
+                            color: '#fff',
+                            display: 'flex',
+                            justifyContent: 'space-between'
+                        }}
+                    >
+                        <div>
+                            Achieve your Saving Plan!
+                        </div>
+                        <div>
+                            <ColorButton style={{ marginLeft: '10px' }} variant="contained" onClick={handleClickDialogSavingClose}> Cancel</ColorButton>
+                        </div>
+                    </DialogTitle>
                     <DialogContent style={{ backgroundColor: '#17191E', color: '#fff' }}>
-                        <CreateSavingPlan/>
+                        <CreateSavingPlan setOpenSavingDialog={setOpenSavingDialog} />
                     </DialogContent>
                 </Dialog>
 
