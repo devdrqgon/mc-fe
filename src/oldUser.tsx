@@ -20,7 +20,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { BootstrapButton, ColorButton } from 'components/myButton';
 import CreateSavingPlan from 'features/savingPlan/createSavingPlan';
-
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 function OldUser() {
     const axiosClient = axios.create({
         baseURL: "http://localhost:8000/",
@@ -182,7 +182,7 @@ function OldUser() {
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
 
                         <Typography variant="body1" component="div">
-                            Saving Goal
+                            Wishlist
                         </Typography>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -191,9 +191,8 @@ function OldUser() {
                                 {savingPlan?.savingGoal}
                             </Typography>
                             :
-                            <Typography variant="subtitle1" component="div">
-                                <ColorButton onClick={handleClickDialogSavingOpen}>  set a plan</ColorButton>
-                            </Typography>
+                            <OpenInNewIcon onClick={handleClickDialogSavingOpen} />
+
                         }
 
                     </div>

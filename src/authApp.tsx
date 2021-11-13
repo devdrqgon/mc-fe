@@ -31,7 +31,6 @@ const AuthApp = () => {
                 <Switch>
                     <Route path="/planner" component={TimespanPlanner} />
                     <Route path="/sample" component={Sample} />
-                    <Route path="/login" component={LoginPage} />
                     <Route path="/newuser" component={OnBoarding} />
                     <Route path="/olduser" component={OldUser} />
 
