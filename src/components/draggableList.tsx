@@ -43,10 +43,10 @@ const DraggableList = () => {
         setdraggableList(array_move(draggableList, indexDragFromElement!, indexTo))
 
     }
-
     useEffect(() => {
-        console.log(array_move([3,2,1], 2,0))
-    }, [])
+       
+    }, [draggableList])
+ 
     return (
         <>
 
@@ -90,7 +90,7 @@ const DraggableList = () => {
                                 onDragEnter={(event) => { (event.target as HTMLDivElement).style.backgroundColor = "#595e64" }}
                                 onDragLeave={(event) => { (event.target as HTMLDivElement).style.backgroundColor = "transparent" }}
                                 // onDropCapture={()=>alert("onDropCapture")}
-                                onDrop={(event) => { handleOnDrop(event, draggableList.indexOf(element)) }}
+                                onDropCapture={(event) => { handleOnDrop(event, draggableList.indexOf(element)) }}
 
                                 onDragOver={(event) => { event.preventDefault() }}
                                 // onDrop={()=> setdragging(false)}
