@@ -1,12 +1,7 @@
-import { queryClient } from 'authApp';
-import axios from 'axios'
 import Bill from 'features/bill/bill';
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import {
-    useQuery,
-    useMutation,
-    QueryFunction,
-    QueryKey,
+    useQuery
 } from "react-query"
 import { v4 as uuidv4 } from 'uuid';
 import Typography from '@mui/material/Typography';
@@ -19,12 +14,17 @@ import { ColorButton } from 'components/myButton';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import PlansOverview from 'features/savingPlan/plans.overview';
 import budgetCore from 'features/budget/budgetCalculator.core'
-import { BillResponse } from 'react-app-env';
 import { axiosClient } from 'config/config';
 import billHooks  from 'hooks/useBills';
 import userInfoHooks from 'hooks/useUserInfo'
 function OldUser() {
 
+    const { status:  getBillsStatus, data: bills, error:  getBillsError, isFetching: getBillsIsFetching } = billHooks.useGetUserAllBills();
+    const { status, data: userinfo, error, isFetching } = userInfoHooks.useGetUserInfos()
+    const createPost = billHooks.usePostBill()
+    const [newBillFlag, setnewBillFlag] = useState(false)
+    const [openBillDialog, setOpenBillDialog] = useState(false)
+    const [openSavingDialog, setOpenSavingDialog] = useState(false);
 
     const { data: savingPlan } = useQuery<any>(
         "savingplan",
@@ -37,17 +37,9 @@ function OldUser() {
    
 
 
-    const { status:  getBillsStatus, data: bills, error:  getBillsError, isFetching: getBillsIsFetching } = billHooks.useGetUserAllBills();
-    const { status, data: userinfo, error, isFetching } = userInfoHooks.useGetUserInfos();
-    
-
-    const [newBillFlag, setnewBillFlag] = useState(false)
-
     const whatRef = useRef<HTMLInputElement>(null);
     const whenRef = useRef<HTMLInputElement>(null);
     const sumRef = useRef<HTMLInputElement>(null);
-    const [openBillDialog, setOpenBillDialog] = React.useState(false)
-    const [openSavingDialog, setOpenSavingDialog] = React.useState(false);
 
     const countDaysUntillNextSalary = (dayOfMonthOfSalary: number) => {
         const today = new Date().getDate()
@@ -75,7 +67,6 @@ function OldUser() {
         setOpenBillDialog(false);
     }
 
-    const createPost = billHooks.usePostBill()
 
     const handleBillDialogSubmit = () => {
         createPost.mutate({
