@@ -18,11 +18,12 @@ import useBills from 'hooks/useBills';
 
 
 const OnBoarding = () => {
-    const history = useHistory()
 
-    const [saved, setSaved] = useState(false)
-  
+    const history = useHistory()
     const { status, data: bills, error, isFetching } = useBills.useGetUserAllBills();
+    const [saved, setSaved] = useState(false)
+    const [newBillFlag, setnewBillFlag] = useState(false)
+
 
     const createBillMutation = useMutation<Response, unknown, {
         sum: number,
@@ -61,10 +62,8 @@ const OnBoarding = () => {
     const currentBalanceRef = useRef<HTMLInputElement>(null);
     const daySalaryRef = useRef<HTMLInputElement>(null);
     const miscBudgetRef = useRef<HTMLInputElement>(null);
-
     const foodBudgetRef = useRef<HTMLInputElement>(null);
 
-    const [newBillFlag, setnewBillFlag] = useState(false)
 
     return (
         <div
