@@ -24,3 +24,9 @@ export interface IGoal{
     cost: number,
     deadline?: Date
 }
+
+
+export interface BillResponse {
+    bills: any[],
+    sum: number
+}

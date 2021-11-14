@@ -4,7 +4,7 @@ import React, { useRef, useState } from "react";
 import { v4 as uuidv4, v4 } from 'uuid';
 import Typography from '@mui/material/Typography';
 
-import { Bill } from 'react-app-env';
+import { Bill, BillResponse } from 'react-app-env';
 import {
     useQuery,
     useMutation,
@@ -25,11 +25,11 @@ const OnBoarding = () => {
             Authorization: `Bearer ${localStorage.getItem('token')}`
         }
     })
-    const { data: bills } = useQuery<any[]>(
+    const { data: bills } = useQuery<BillResponse>(
         "bills",
         async () => (await axiosClient.get<any>(`/bills/get/all/${localStorage.getItem('username')}`)).data.bill,
         {
-            initialData: [],
+            initialData: undefined,
         }
     )
     const createBillMutation = useMutation<Response, unknown, {
@@ -172,7 +172,7 @@ const OnBoarding = () => {
                 {bills?
                     <>
 
-                        {bills?.map((b) => (
+                        {bills?.bills.map((b) => (
                             <div key={uuidv4()} style={{ display: 'flex' }}>
                                 {b.text} , {b.sum} , {b.when}
                             </div>

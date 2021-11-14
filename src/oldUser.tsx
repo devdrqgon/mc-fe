@@ -17,6 +17,7 @@ import {  ColorButton } from 'components/myButton';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import PlansOverview from 'features/savingPlan/plans.overview';
 import budgetCore from 'features/budget/budgetCalculator.core'
+import { BillResponse } from 'react-app-env';
 
 function OldUser() {
     const axiosClient = axios.create({
@@ -491,8 +492,3 @@ function OldUser() {
 
 export default OldUser
 
-
-interface BillResponse {
-    bills: any[],
-    sum: number
-}
