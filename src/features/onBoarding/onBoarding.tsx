@@ -50,6 +50,9 @@ const OnBoarding = () => {
     const createUserInfoMutation = useMutation<Response, unknown, {
         username: string,
         grossBalance: number,
+        daySalary: number,
+        foodBudget: number,
+        miscBudget: number,
 
     }>((data) => axiosClient.post("/users/info/",
         data),
@@ -64,6 +67,11 @@ const OnBoarding = () => {
     const whenRef = useRef<HTMLInputElement>(null);
     const sumRef = useRef<HTMLInputElement>(null);
     const currentBalanceRef = useRef<HTMLInputElement>(null);
+    const daySalaryRef = useRef<HTMLInputElement>(null);
+    const miscBudgetRef = useRef<HTMLInputElement>(null);
+
+    const foodBudgetRef = useRef<HTMLInputElement>(null);
+
     const [newBillFlag, setnewBillFlag] = useState(false)
 
     return (
@@ -102,12 +110,18 @@ const OnBoarding = () => {
                     </Typography>
                 </div>
                 <div>
-                    <input placeholder={"current gross balance"} ref={currentBalanceRef} type={"text"}></input>
+                    <input placeholder={"how much is your salary"} ref={currentBalanceRef} type={"number"}></input>
+                    <input placeholder={"day of month u get ur salary"} ref={daySalaryRef} type={"number"}></input>
+                    <input placeholder={"food budget per week"} ref={foodBudgetRef} type={"number"}></input>
+                    <input placeholder={"misc budget per week"} ref={miscBudgetRef} type={"number"}></input>
                     <button
                         onClick={() => {
                             createUserInfoMutation.mutate({
                                 grossBalance: currentBalanceRef.current!.value as unknown as number,
                                 username: localStorage.getItem('username')!,
+                                daySalary: daySalaryRef.current!.value as unknown as number,
+                                miscBudget: miscBudgetRef.current!.value as unknown as number,
+                                foodBudget: foodBudgetRef.current!.value as unknown as number,
                             }) //text: textRef.current!.value ?? ""
                         }}
                     >save</button>
@@ -155,11 +169,19 @@ const OnBoarding = () => {
                         +
                     </button>
                 </div>
-                {bills?.map((b) => (
-                    <div key={uuidv4()} style={{ display: 'flex' }}>
-                        {b.text} , {b.sum} , {b.when}
-                    </div>
-                ))}
+                {bills?
+                    <>
+
+                        {bills?.map((b) => (
+                            <div key={uuidv4()} style={{ display: 'flex' }}>
+                                {b.text} , {b.sum} , {b.when}
+                            </div>
+                        ))}
+                    </>
+                    :
+                    <></>
+
+                }
             </div>
             <div style={{
                 gridArea: 'ops',

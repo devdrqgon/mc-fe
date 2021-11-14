@@ -1,26 +1,23 @@
 import { queryClient } from 'authApp';
 import axios from 'axios'
 import Bill from 'features/bill/bill';
-import { userInfo } from 'os'
 import React, { useRef, useState } from 'react'
 import {
     useQuery,
     useMutation,
-    QueryClientProvider,
-    QueryClient,
-    UseQueryOptions,
 } from "react-query"
 import { v4 as uuidv4 } from 'uuid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { BootstrapButton, ColorButton } from 'components/myButton';
-import CreateSavingPlan from 'features/savingPlan/createSavingPlan';
+import {  ColorButton } from 'components/myButton';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import PlansOverview from 'features/savingPlan/plans.overview';
+import budgetCore from 'features/budget/budgetCalculator.core'
+
 function OldUser() {
     const axiosClient = axios.create({
         baseURL: "http://localhost:8000/",
@@ -59,11 +56,11 @@ function OldUser() {
 
         }
     )
-    const { data: bills } = useQuery<any[]>(
+    const { data: bills } = useQuery<BillResponse>(
         "bills",
-        async () => (await axiosClient.get<any>(`/bills/get/all/${localStorage.getItem('username')}`)).data.bill,
+        async () => (await axiosClient.get<any>(`/bills/get/all/${localStorage.getItem('username')}`)).data,
         {
-            initialData: [],
+            initialData: undefined,
         }
     )
 
@@ -75,6 +72,17 @@ function OldUser() {
     const [openBillDialog, setOpenBillDialog] = React.useState(false)
     const [openSavingDialog, setOpenSavingDialog] = React.useState(false);
 
+    const countDaysUntillNextSalary = (dayOfMonthOfSalary: number) => {
+        const today = new Date().getDate()
+        if (today === dayOfMonthOfSalary) { return 0 }
+        if (today < dayOfMonthOfSalary) {
+            return (dayOfMonthOfSalary - today)
+        }
+        else {
+            //the remaining days of the current month + the days of the next month 
+            return dayOfMonthOfSalary - today
+        }
+    }
     const handleClickDialogSavingOpen = () => {
         setOpenSavingDialog(true);
     };
@@ -144,12 +152,36 @@ function OldUser() {
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
 
                         <Typography variant="body1" component="div">
-                            Nett balance
+                            Income After Bills
                         </Typography>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <Typography variant="subtitle1" component="div">
-                            {userinfo?.grossBalance}€
+                            {userinfo?.grossBalance - bills?.sum!}€
+                        </Typography>
+                    </div>
+                </div>
+
+                <div style={{
+                    border: '1px solid #30363C',
+                    borderRadius: '6px',
+                    boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+                    transition: '0.3s',
+                }}>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+
+                        <Typography variant="body1" component="div">
+                            Saved
+                        </Typography>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <Typography variant="subtitle1" component="div">
+                            {budgetCore.getRestMoney(
+                                userinfo?.grossBalance,
+                                bills?.sum!,
+                                userinfo?.foodBudget,
+                                userinfo?.miscBudget)
+                            }€
                         </Typography>
                     </div>
                 </div>
@@ -164,12 +196,16 @@ function OldUser() {
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
 
                         <Typography variant="body1" component="div">
-                            Savings
+                            weekly budget
                         </Typography>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <Typography variant="subtitle1" component="div">
-                            0€
+                            {budgetCore.getWeeklyBudget(
+                                userinfo?.foodBudget! as number,
+                                userinfo?.miscBudget! as number
+                            )
+                            }€
                         </Typography>
                     </div>
                 </div>
@@ -206,12 +242,20 @@ function OldUser() {
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
 
                         <Typography variant="body1" component="div">
-                            next income
+                            next income in 
                         </Typography>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <Typography variant="subtitle1" component="div">
-                            2600€ in 5 days
+                           { userinfo !== undefined ?
+                                <> 
+                                 {countDaysUntillNextSalary(userinfo.daySalary as number)} days
+                                 </>
+                                 :
+                                 <> 
+                                 Loading
+                                 </> 
+                            }
                         </Typography>
                     </div>
                 </div>
@@ -326,7 +370,7 @@ function OldUser() {
                             overflowY: 'scroll'
                         }}
                     >
-                        {bills?.map((b) => (
+                        {bills?.bills.map((b: any) => (
                             <div style={{ marginBottom: '10px' }} key={uuidv4()}>
                                 <Bill paid={b.paid} text={b.text} sum={b.sum} due={b.when} />
 
@@ -429,14 +473,15 @@ function OldUser() {
                         }}
                     >
                         <div>
-                            Achieve your Saving Plan!
+                            Your wishlist
                         </div>
                         <div>
                             <ColorButton style={{ marginLeft: '10px' }} variant="contained" onClick={handleClickDialogSavingClose}> Cancel</ColorButton>
                         </div>
                     </DialogTitle>
                     <DialogContent style={{ backgroundColor: '#17191E', color: '#fff' }}>
-                        <CreateSavingPlan setOpenSavingDialog={setOpenSavingDialog} />
+                        {/* <CreateSavingPlan setOpenSavingDialog={setOpenSavingDialog} /> */}
+                        <PlansOverview />
                     </DialogContent>
                 </Dialog>
 
@@ -445,3 +490,9 @@ function OldUser() {
 }
 
 export default OldUser
+
+
+interface BillResponse {
+    bills: any[],
+    sum: number
+}

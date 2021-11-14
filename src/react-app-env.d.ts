@@ -18,3 +18,9 @@ export interface TimespanPlan {
     opsRef: Array<string> | undefined,
     userId: string,
 }
+
+export interface IGoal{
+    text: string,
+    cost: number,
+    deadline?: Date
+}

@@ -33,7 +33,6 @@ const UserProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     async function validatetoken(token: string, username: string) {
-      alert("validatetoken")
       const result = await authUtils.StoredTokenIsValid(token)
       if (result) {
         logging.info("UserProvider", "Token verified by backend!");
