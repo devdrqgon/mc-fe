@@ -5,6 +5,8 @@ import React, { useRef, useState } from 'react'
 import {
     useQuery,
     useMutation,
+    QueryFunction,
+    QueryKey,
 } from "react-query"
 import { v4 as uuidv4 } from 'uuid';
 import Typography from '@mui/material/Typography';
@@ -13,19 +15,16 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import {  ColorButton } from 'components/myButton';
+import { ColorButton } from 'components/myButton';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import PlansOverview from 'features/savingPlan/plans.overview';
 import budgetCore from 'features/budget/budgetCalculator.core'
 import { BillResponse } from 'react-app-env';
+import { axiosClient } from 'config/config';
+import useBills from 'hooks/useBills';
 
 function OldUser() {
-    const axiosClient = axios.create({
-        baseURL: "http://localhost:8000/",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-    })
+
     const createBillMutation = useMutation<Response, unknown, {
         sum: number,
         text: string,
@@ -57,13 +56,10 @@ function OldUser() {
 
         }
     )
-    const { data: bills } = useQuery<BillResponse>(
-        "bills",
-        async () => (await axiosClient.get<any>(`/bills/get/all/${localStorage.getItem('username')}`)).data,
-        {
-            initialData: undefined,
-        }
-    )
+
+
+    const { status, data: bills, error, isFetching } = useBills();
+
 
     const [newBillFlag, setnewBillFlag] = useState(false)
 
@@ -243,19 +239,19 @@ function OldUser() {
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
 
                         <Typography variant="body1" component="div">
-                            next income in 
+                            next income in
                         </Typography>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <Typography variant="subtitle1" component="div">
-                           { userinfo !== undefined ?
-                                <> 
-                                 {countDaysUntillNextSalary(userinfo.daySalary as number)} days
-                                 </>
-                                 :
-                                 <> 
-                                 Loading
-                                 </> 
+                            {userinfo !== undefined ?
+                                <>
+                                    {countDaysUntillNextSalary(userinfo.daySalary as number)} days
+                                </>
+                                :
+                                <>
+                                    Loading
+                                </>
                             }
                         </Typography>
                     </div>

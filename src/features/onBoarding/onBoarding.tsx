@@ -12,6 +12,8 @@ import {
     QueryClient,
 } from "react-query";
 import { useHistory } from 'react-router';
+import { axiosClient } from 'config/config';
+import useBills from 'hooks/useBills';
 
 
 
@@ -19,19 +21,9 @@ const OnBoarding = () => {
     const history = useHistory()
 
     const [saved, setSaved] = useState(false)
-    const axiosClient = axios.create({
-        baseURL: "http://localhost:8000/",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-    })
-    const { data: bills } = useQuery<BillResponse>(
-        "bills",
-        async () => (await axiosClient.get<any>(`/bills/get/all/${localStorage.getItem('username')}`)).data.bill,
-        {
-            initialData: undefined,
-        }
-    )
+  
+    const { status, data: bills, error, isFetching } = useBills();
+
     const createBillMutation = useMutation<Response, unknown, {
         sum: number,
         text: string,
