@@ -21,25 +21,11 @@ import PlansOverview from 'features/savingPlan/plans.overview';
 import budgetCore from 'features/budget/budgetCalculator.core'
 import { BillResponse } from 'react-app-env';
 import { axiosClient } from 'config/config';
-import useBills from 'hooks/useBills';
-
+import billHooks  from 'hooks/useBills';
+import userInfoHooks from 'hooks/useUserInfo'
 function OldUser() {
 
-    const createBillMutation = useMutation<Response, unknown, {
-        sum: number,
-        text: string,
-        username: string,
-        paid: boolean,
-        when: number
-    }>((data) => axiosClient.post("/bills",
-        data),
-        {
-            onSettled: () => {
-                queryClient.invalidateQueries("bills");
-                // whatRef.current!.value = "";
-            },
-        }
-    )
+
     const { data: savingPlan } = useQuery<any>(
         "savingplan",
         async () => (await axiosClient.get<any>(`/plans/get/${localStorage.getItem('username')}`)).data.plan[0],
@@ -48,18 +34,12 @@ function OldUser() {
 
         }
     )
-    const { data: userinfo } = useQuery<any>(
-        "userinfo",
-        async () => (await axiosClient.get<any>(`/users/info/${localStorage.getItem('username')}`)).data.info[0],
-        {
-            initialData: [],
-
-        }
-    )
+   
 
 
-    const { status, data: bills, error, isFetching } = useBills();
-
+    const { status:  getBillsStatus, data: bills, error:  getBillsError, isFetching: getBillsIsFetching } = billHooks.useGetUserAllBills();
+    const { status, data: userinfo, error, isFetching } = userInfoHooks.useGetUserInfos();
+    
 
     const [newBillFlag, setnewBillFlag] = useState(false)
 
@@ -95,14 +75,15 @@ function OldUser() {
         setOpenBillDialog(false);
     }
 
+    const createPost = billHooks.usePostBill()
+
     const handleBillDialogSubmit = () => {
-        createBillMutation.mutate({
+        createPost.mutate({
             sum: sumRef.current!.value as unknown as number ?? 0,
             text: whatRef.current!.value ?? "",
             username: localStorage.getItem('username')!,
             paid: newBillFlag,
             when: whenRef.current!.value as unknown as number ?? 0,
-
         })
         setOpenBillDialog(false)
 
@@ -154,7 +135,7 @@ function OldUser() {
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <Typography variant="subtitle1" component="div">
-                            {userinfo?.grossBalance - bills?.sum!}€
+                            {userinfo?.grossBalance! - bills?.sum!}€
                         </Typography>
                     </div>
                 </div>
@@ -174,10 +155,10 @@ function OldUser() {
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <Typography variant="subtitle1" component="div">
                             {budgetCore.getRestMoney(
-                                userinfo?.grossBalance,
+                                userinfo?.grossBalance!,
                                 bills?.sum!,
-                                userinfo?.foodBudget,
-                                userinfo?.miscBudget)
+                                userinfo?.foodBudget!,
+                                userinfo?.miscBudget!)
                             }€
                         </Typography>
                     </div>

@@ -22,7 +22,7 @@ const OnBoarding = () => {
 
     const [saved, setSaved] = useState(false)
   
-    const { status, data: bills, error, isFetching } = useBills();
+    const { status, data: bills, error, isFetching } = useBills.useGetUserAllBills();
 
     const createBillMutation = useMutation<Response, unknown, {
         sum: number,

@@ -30,3 +30,11 @@ export interface BillResponse {
     bills: any[],
     sum: number
 }
+
+export interface IUserInfoResponse {
+    username:  string,
+    grossBalance: number,
+    daySalary: number,
+    foodBudget: number,
+    miscBudget: number
+}
