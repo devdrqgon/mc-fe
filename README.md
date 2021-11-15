@@ -5,8 +5,7 @@
   + :white_check_mark: Login
   + :white_check_mark: Register   
 + OnBoarding
-  + :white_check_mark: insert bills 
-  + :white_check_mark: insert initial info 
+  + :white_check_mark: insert User infos and bills
 
 + Dashboard: 
   +   :white_check_mark: show user infos 
