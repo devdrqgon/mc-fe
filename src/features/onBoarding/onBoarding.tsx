@@ -20,7 +20,6 @@ import useBills from 'hooks/useBills';
 const OnBoarding = () => {
 
     const history = useHistory()
-    const { status, data: bills, error, isFetching } = useBills.useGetUserAllBills();
     const [saved, setSaved] = useState(false)
     const [newBillFlag, setnewBillFlag] = useState(false)
 
@@ -42,12 +41,26 @@ const OnBoarding = () => {
     )
     const createUserInfoMutation = useMutation<Response, unknown, {
         username: string,
-        grossBalance: number,
-        daySalary: number,
-        foodBudget: number,
-        miscBudget: number,
+        salary: number,
+        dayOfMonthOfSalary: number,
+        bills: Array<{
+            billName: string,
+            username: string
+            paid: boolean
+            when: number
+        }>,
+        accounts: Array<{
+            accountType: string,
+            balance: string
+            active: boolean
+        }>
 
-    }>((data) => axiosClient.post("/users/info/",
+    }>((data) => axios.create({
+        baseURL: "http://localhost:8000/",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+    }).post("/users/info/",
         data),
         {
             onSettled: () => {
@@ -60,9 +73,8 @@ const OnBoarding = () => {
     const whenRef = useRef<HTMLInputElement>(null);
     const sumRef = useRef<HTMLInputElement>(null);
     const currentBalanceRef = useRef<HTMLInputElement>(null);
-    const daySalaryRef = useRef<HTMLInputElement>(null);
     const miscBudgetRef = useRef<HTMLInputElement>(null);
-    const foodBudgetRef = useRef<HTMLInputElement>(null);
+    const dayOfMonthOfSalary = useRef<HTMLInputElement>(null);
 
 
     return (
@@ -101,18 +113,16 @@ const OnBoarding = () => {
                     </Typography>
                 </div>
                 <div>
-                    <input placeholder={"how much is your salary"} ref={currentBalanceRef} type={"number"}></input>
-                    <input placeholder={"day of month u get ur salary"} ref={daySalaryRef} type={"number"}></input>
-                    <input placeholder={"food budget per week"} ref={foodBudgetRef} type={"number"}></input>
-                    <input placeholder={"misc budget per week"} ref={miscBudgetRef} type={"number"}></input>
+                    <input placeholder={"salary"} ref={currentBalanceRef} type={"number"}></input>
+                    <input placeholder={"dayOfMonthOfSalary"} ref={dayOfMonthOfSalary} type={"number"}></input>
                     <button
                         onClick={() => {
                             createUserInfoMutation.mutate({
-                                grossBalance: currentBalanceRef.current!.value as unknown as number,
                                 username: localStorage.getItem('username')!,
-                                daySalary: daySalaryRef.current!.value as unknown as number,
-                                miscBudget: miscBudgetRef.current!.value as unknown as number,
-                                foodBudget: foodBudgetRef.current!.value as unknown as number,
+                                salary: currentBalanceRef.current!.value as unknown as number,
+                                dayOfMonthOfSalary: dayOfMonthOfSalary.current!.value as unknown as number,
+                                bills: [],
+                                accounts: []
                             }) //text: textRef.current!.value ?? ""
                         }}
                     >save</button>
@@ -160,19 +170,7 @@ const OnBoarding = () => {
                         +
                     </button>
                 </div>
-                {bills?
-                    <>
 
-                        {bills?.bills.map((b) => (
-                            <div key={uuidv4()} style={{ display: 'flex' }}>
-                                {b.text} , {b.sum} , {b.when}
-                            </div>
-                        ))}
-                    </>
-                    :
-                    <></>
-
-                }
             </div>
             <div style={{
                 gridArea: 'ops',
