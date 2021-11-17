@@ -1,0 +1,25 @@
+as a user, after first login, I wanna give my basic infos and bills.
+
+As a user, I want:
+    * to always be able to see: 
+        + My Gross Salary 
+        + My Nett Slaray(after bills)
+        + My current gross balance 
+        + My current nett balance 
+        + My protected Budget(Weekly & Monthly)
+        + the remaining of my budget (Weekly & Monthly)
+        + How much money I am saving per month 
+        + How much money I saved so far 
+        + The status of my bills
+
+    * to manually update my gross Salary.
+        When my gross Salary is edited: 
+        the following has to be automatically updated:
+            + My readOnly nett Salary has
+            + My readOnly mtbs 
+            + If necessary, my budget(Weekly & Monthly)
+  
+    
+    * track my Wishlist
+
+    * Forsee the consequences of an expense

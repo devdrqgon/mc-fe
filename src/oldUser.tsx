@@ -1,87 +1,82 @@
-import { queryClient } from 'authApp';
-import axios from 'axios'
 import Bill from 'features/bill/bill';
-import { userInfo } from 'os'
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import {
-    useQuery,
-    useMutation,
-    QueryClientProvider,
-    QueryClient,
-    UseQueryOptions,
+    useQuery
 } from "react-query"
-import { v4 as uuidv4, v4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-
+import { ColorButton } from 'components/myButton';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import PlansOverview from 'features/savingPlan/plans.overview';
+import budgetCore from 'features/budget/budgetCalculator.core'
+import { axiosClient } from 'config/config';
+import billHooks  from 'hooks/useBills';
+import userInfoHooks from 'hooks/useUserInfo'
 function OldUser() {
-    const axiosClient = axios.create({
-        baseURL: "http://localhost:8000/",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-    })
-    const createBillMutation = useMutation<Response, unknown, {
-        sum: number,
-        text: string,
-        username: string,
-        paid: boolean,
-        when: number
-    }>((data) => axiosClient.post("/bills",
-        data),
-        {
-            onSettled: () => {
-                queryClient.invalidateQueries("bills");
-                // whatRef.current!.value = "";
-            },
-        }
-    )
-    const { data: userinfo } = useQuery<any>(
-        "userinfo",
-        async () => (await axiosClient.get<any>(`/users/info/${localStorage.getItem('username')}`)).data.info[0],
-        {
-            initialData: [],
 
-        }
-    )
-    const { data: bills } = useQuery<any[]>(
-        "bills",
-        async () => (await axiosClient.get<any>(`/bills/get/all/${localStorage.getItem('username')}`)).data.bill,
-        {
-            initialData: [],
-        }
-    )
-
+    const { status:  getBillsStatus, data: bills, error:  getBillsError, isFetching: getBillsIsFetching } = billHooks.useGetUserAllBills();
+    const { status, data: userinfo, error, isFetching } = userInfoHooks.useGetUserInfos()
+    const createPost = billHooks.usePostBill()
     const [newBillFlag, setnewBillFlag] = useState(false)
+    const [openBillDialog, setOpenBillDialog] = useState(false)
+    const [openSavingDialog, setOpenSavingDialog] = useState(false);
+
+    const { data: savingPlan } = useQuery<any>(
+        "savingplan",
+        async () => (await axiosClient.get<any>(`/plans/get/${localStorage.getItem('username')}`)).data.plan[0],
+        {
+            initialData: [],
+
+        }
+    )
+   
+
 
     const whatRef = useRef<HTMLInputElement>(null);
     const whenRef = useRef<HTMLInputElement>(null);
     const sumRef = useRef<HTMLInputElement>(null);
-    const currentBalanceRef = useRef<HTMLInputElement>(null);
-    const [openDialog, setOpenDialog] = React.useState(false);
-    const handleClickDialogOpen = () => {
-        setOpenDialog(true);
+
+    const countDaysUntillNextSalary = (dayOfMonthOfSalary: number) => {
+        const today = new Date().getDate()
+        if (today === dayOfMonthOfSalary) { return 0 }
+        if (today < dayOfMonthOfSalary) {
+            return (dayOfMonthOfSalary - today)
+        }
+        else {
+            //the remaining days of the current month + the days of the next month 
+            return dayOfMonthOfSalary - today
+        }
+    }
+    const handleClickDialogSavingOpen = () => {
+        setOpenSavingDialog(true);
     };
 
-    const handleClickDialogClose = () => {
-        setOpenDialog(false);
+    const handleClickDialogSavingClose = () => {
+        setOpenSavingDialog(false);
+    }
+    const handleClickBillDialogOpen = () => {
+        setOpenBillDialog(true);
+    };
+
+    const handleClickDialogBillClose = () => {
+        setOpenBillDialog(false);
     }
 
+
     const handleBillDialogSubmit = () => {
-        createBillMutation.mutate({
+        createPost.mutate({
             sum: sumRef.current!.value as unknown as number ?? 0,
             text: whatRef.current!.value ?? "",
             username: localStorage.getItem('username')!,
             paid: newBillFlag,
             when: whenRef.current!.value as unknown as number ?? 0,
-
         })
-        setOpenDialog(false)
+        setOpenBillDialog(false)
 
     }
     return (
@@ -126,12 +121,36 @@ function OldUser() {
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
 
                         <Typography variant="body1" component="div">
-                            Nett balance
+                            Income After Bills
                         </Typography>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <Typography variant="subtitle1" component="div">
-                            {userinfo?.grossBalance}€
+                            {userinfo?.grossBalance! - bills?.sum!}€
+                        </Typography>
+                    </div>
+                </div>
+
+                <div style={{
+                    border: '1px solid #30363C',
+                    borderRadius: '6px',
+                    boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+                    transition: '0.3s',
+                }}>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+
+                        <Typography variant="body1" component="div">
+                            Saved
+                        </Typography>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <Typography variant="subtitle1" component="div">
+                            {budgetCore.getRestMoney(
+                                userinfo?.grossBalance!,
+                                bills?.sum!,
+                                userinfo?.foodBudget!,
+                                userinfo?.miscBudget!)
+                            }€
                         </Typography>
                     </div>
                 </div>
@@ -146,16 +165,19 @@ function OldUser() {
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
 
                         <Typography variant="body1" component="div">
-                            Savings
+                            weekly budget
                         </Typography>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <Typography variant="subtitle1" component="div">
-                            0€
+                            {budgetCore.getWeeklyBudget(
+                                userinfo?.foodBudget! as number,
+                                userinfo?.miscBudget! as number
+                            )
+                            }€
                         </Typography>
                     </div>
                 </div>
-
                 <div style={{
                     border: '1px solid #30363C',
                     borderRadius: '6px',
@@ -165,12 +187,44 @@ function OldUser() {
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
 
                         <Typography variant="body1" component="div">
-                            next income
+                            Wishlist
+                        </Typography>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        {savingPlan ?
+                            <Typography variant="subtitle1" component="div">
+                                {savingPlan?.savingGoal}
+                            </Typography>
+                            :
+                            <OpenInNewIcon onClick={handleClickDialogSavingOpen} />
+
+                        }
+
+                    </div>
+                </div>
+                <div style={{
+                    border: '1px solid #30363C',
+                    borderRadius: '6px',
+                    boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+                    transition: '0.3s',
+                }}>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+
+                        <Typography variant="body1" component="div">
+                            next income in
                         </Typography>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <Typography variant="subtitle1" component="div">
-                            5 days
+                            {userinfo !== undefined ?
+                                <>
+                                    {countDaysUntillNextSalary(userinfo.daySalary as number)} days
+                                </>
+                                :
+                                <>
+                                    Loading
+                                </>
+                            }
                         </Typography>
                     </div>
                 </div>
@@ -227,7 +281,7 @@ function OldUser() {
                             style={{ gridArea: 'ops' }}
                         >
                             <button
-                                onClick={handleClickDialogOpen}
+                                onClick={handleClickBillDialogOpen}
                                 style={{
                                     backgroundColor: '#01FFA4', //071D24  66FF75
                                     fontSize: '25px',
@@ -285,7 +339,7 @@ function OldUser() {
                             overflowY: 'scroll'
                         }}
                     >
-                        {bills?.map((b) => (
+                        {bills?.bills.map((b: any) => (
                             <div style={{ marginBottom: '10px' }} key={uuidv4()}>
                                 <Bill paid={b.paid} text={b.text} sum={b.sum} due={b.when} />
 
@@ -343,7 +397,7 @@ function OldUser() {
                         </Typography>
                     </div>
                 </div>
-                <Dialog open={openDialog} onClose={handleClickDialogClose}>
+                <Dialog open={openBillDialog} onClose={handleClickDialogBillClose}>
                     <DialogTitle style={{ backgroundColor: '#071D24', color: '#fff' }}>New Bill</DialogTitle>
                     <DialogContent style={{ backgroundColor: '#17191E', color: '#fff' }}>
 
@@ -374,12 +428,35 @@ function OldUser() {
                         </div>
                     </DialogContent>
                     <DialogActions style={{ backgroundColor: '#071D24' }}>
-                        <Button onClick={handleClickDialogClose}>Cancel</Button>
+                        <Button onClick={handleClickDialogBillClose}>Cancel</Button>
                         <Button onClick={handleBillDialogSubmit}>Add</Button>
                     </DialogActions>
                 </Dialog>
+                <Dialog open={openSavingDialog} fullScreen onClose={handleClickDialogSavingClose}>
+                    <DialogTitle
+                        style={{
+                            backgroundColor: '#071D24',
+                            color: '#fff',
+                            display: 'flex',
+                            justifyContent: 'space-between'
+                        }}
+                    >
+                        <div>
+                            Your wishlist
+                        </div>
+                        <div>
+                            <ColorButton style={{ marginLeft: '10px' }} variant="contained" onClick={handleClickDialogSavingClose}> Cancel</ColorButton>
+                        </div>
+                    </DialogTitle>
+                    <DialogContent style={{ backgroundColor: '#17191E', color: '#fff' }}>
+                        {/* <CreateSavingPlan setOpenSavingDialog={setOpenSavingDialog} /> */}
+                        <PlansOverview />
+                    </DialogContent>
+                </Dialog>
+
             </div ></>
     )
 }
 
 export default OldUser
+

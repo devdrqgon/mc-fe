@@ -18,3 +18,23 @@ export interface TimespanPlan {
     opsRef: Array<string> | undefined,
     userId: string,
 }
+
+export interface IGoal{
+    text: string,
+    cost: number,
+    deadline?: Date
+}
+
+
+export interface BillResponse {
+    bills: any[],
+    sum: number
+}
+
+export interface IUserInfoResponse {
+    username:  string,
+    grossBalance: number,
+    daySalary: number,
+    foodBudget: number,
+    miscBudget: number
+}

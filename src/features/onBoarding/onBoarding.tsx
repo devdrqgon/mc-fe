@@ -4,7 +4,7 @@ import React, { useRef, useState } from "react";
 import { v4 as uuidv4, v4 } from 'uuid';
 import Typography from '@mui/material/Typography';
 
-import { Bill } from 'react-app-env';
+import { Bill, BillResponse } from 'react-app-env';
 import {
     useQuery,
     useMutation,
@@ -12,26 +12,18 @@ import {
     QueryClient,
 } from "react-query";
 import { useHistory } from 'react-router';
+import { axiosClient } from 'config/config';
+import useBills from 'hooks/useBills';
 
 
 
 const OnBoarding = () => {
-    const history = useHistory()
 
+    const history = useHistory()
     const [saved, setSaved] = useState(false)
-    const axiosClient = axios.create({
-        baseURL: "http://localhost:8000/",
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-    })
-    const { data: bills } = useQuery<any[]>(
-        "bills",
-        async () => (await axiosClient.get<any>(`/bills/get/all/${localStorage.getItem('username')}`)).data.bill,
-        {
-            initialData: [],
-        }
-    )
+    const [newBillFlag, setnewBillFlag] = useState(false)
+
+
     const createBillMutation = useMutation<Response, unknown, {
         sum: number,
         text: string,
@@ -49,9 +41,26 @@ const OnBoarding = () => {
     )
     const createUserInfoMutation = useMutation<Response, unknown, {
         username: string,
-        grossBalance: number,
+        salary: number,
+        dayOfMonthOfSalary: number,
+        bills: Array<{
+            billName: string,
+            username: string
+            paid: boolean
+            when: number
+        }>,
+        accounts: Array<{
+            accountType: string,
+            balance: string
+            active: boolean
+        }>
 
-    }>((data) => axiosClient.post("/users/info/",
+    }>((data) => axios.create({
+        baseURL: "http://localhost:8000/",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+    }).post("/users/info/",
         data),
         {
             onSettled: () => {
@@ -64,7 +73,9 @@ const OnBoarding = () => {
     const whenRef = useRef<HTMLInputElement>(null);
     const sumRef = useRef<HTMLInputElement>(null);
     const currentBalanceRef = useRef<HTMLInputElement>(null);
-    const [newBillFlag, setnewBillFlag] = useState(false)
+    const miscBudgetRef = useRef<HTMLInputElement>(null);
+    const dayOfMonthOfSalary = useRef<HTMLInputElement>(null);
+
 
     return (
         <div
@@ -102,12 +113,16 @@ const OnBoarding = () => {
                     </Typography>
                 </div>
                 <div>
-                    <input placeholder={"current gross balance"} ref={currentBalanceRef} type={"text"}></input>
+                    <input placeholder={"salary"} ref={currentBalanceRef} type={"number"}></input>
+                    <input placeholder={"dayOfMonthOfSalary"} ref={dayOfMonthOfSalary} type={"number"}></input>
                     <button
                         onClick={() => {
                             createUserInfoMutation.mutate({
-                                grossBalance: currentBalanceRef.current!.value as unknown as number,
                                 username: localStorage.getItem('username')!,
+                                salary: currentBalanceRef.current!.value as unknown as number,
+                                dayOfMonthOfSalary: dayOfMonthOfSalary.current!.value as unknown as number,
+                                bills: [],
+                                accounts: []
                             }) //text: textRef.current!.value ?? ""
                         }}
                     >save</button>
@@ -155,11 +170,7 @@ const OnBoarding = () => {
                         +
                     </button>
                 </div>
-                {bills?.map((b) => (
-                    <div key={uuidv4()} style={{ display: 'flex' }}>
-                        {b.text} , {b.sum} , {b.when}
-                    </div>
-                ))}
+
             </div>
             <div style={{
                 gridArea: 'ops',

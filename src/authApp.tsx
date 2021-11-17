@@ -3,7 +3,6 @@
 import { Header } from 'features/appHeader/header'
 import LoginPage from 'features/auth/login.component'
 import Sample from 'features/planOverview/sample'
-import { TimespanPlanner } from 'features/timespanPlanner/timeSpanPlanner'
 import toast, { Toaster } from 'react-hot-toast'
 import { QueryClient, QueryCache, QueryClientProvider } from 'react-query'
 import { Switch, Route } from 'react-router'
@@ -29,9 +28,8 @@ const AuthApp = () => {
             <QueryClientProvider client={queryClient}>
                 <Header />
                 <Switch>
-                    <Route path="/planner" component={TimespanPlanner} />
+                    {/* <Route path="/planner" component={TimespanPlanner} /> */}
                     <Route path="/sample" component={Sample} />
-                    <Route path="/login" component={LoginPage} />
                     <Route path="/newuser" component={OnBoarding} />
                     <Route path="/olduser" component={OldUser} />
 

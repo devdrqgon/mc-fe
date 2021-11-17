@@ -74,7 +74,6 @@ const UserProvider: React.FC = ({ children }) => {
   }
 
   const logout = () => {
-    history.push('/login')
     setUser(null)
     setToken(null)
     setTokenValid(false)
