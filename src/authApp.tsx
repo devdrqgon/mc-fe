@@ -30,7 +30,12 @@ const AuthApp = () => {
                 <Switch>
                     {/* <Route path="/planner" component={TimespanPlanner} /> */}
                     <Route path="/sample" component={Sample} />
-                    <Route path="/newuser" component={OnBoarding} />
+                    <Route path="/newuser" exact
+                        render={() => (
+                            <OnBoarding _username={localStorage.getItem('username')!}/>
+                        )}
+                    />
+                   
                     <Route path="/olduser" component={OldUser} />
 
                 </Switch>

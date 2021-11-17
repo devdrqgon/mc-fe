@@ -1,5 +1,6 @@
 /// <reference types="react-scripts" />
 
+ 
 export interface Bill {
     id: string,
     sum: number,
