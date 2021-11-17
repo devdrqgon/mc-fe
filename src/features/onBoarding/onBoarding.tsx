@@ -1,6 +1,6 @@
 import { queryClient } from 'authApp';
 import axios from 'axios'
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4, v4 } from 'uuid';
 import Typography from '@mui/material/Typography';
 
@@ -14,31 +14,43 @@ import {
 import { useHistory } from 'react-router';
 import { axiosClient } from 'config/config';
 import useBills from 'hooks/useBills';
+import BillCreator from 'features/bill/billCreator';
 
 
 
 const OnBoarding = () => {
 
+    //Bills
+    const [uiBills, setUIBills] = useState<Array<{
+        billName: string,
+        username: string
+        paid: boolean
+        cost: number,
+        when: number
+    }>>([])
+    useEffect(() => {
+
+    }, [uiBills])
+    const handleNewBillCallback = (_bill: {
+        billName: string,
+        username: string
+        paid: boolean
+        cost: number,
+        when: number
+    }) => {
+        setUIBills(() => [...uiBills, _bill])
+    }
+
+    const currentBalanceRef = useRef<HTMLInputElement>(null);
+    const miscBudgetRef = useRef<HTMLInputElement>(null);
+    const dayOfMonthOfSalaryRef = useRef<HTMLInputElement>(null);
+
+
     const history = useHistory()
     const [saved, setSaved] = useState(false)
-    const [newBillFlag, setnewBillFlag] = useState(false)
 
 
-    const createBillMutation = useMutation<Response, unknown, {
-        sum: number,
-        text: string,
-        username: string,
-        paid: boolean,
-        when: number
-    }>((data) => axiosClient.post("/bills",
-        data),
-        {
-            onSettled: () => {
-                queryClient.invalidateQueries("bills");
-                whatRef.current!.value = "";
-            },
-        }
-    )
+
     const createUserInfoMutation = useMutation<Response, unknown, {
         username: string,
         salary: number,
@@ -68,13 +80,6 @@ const OnBoarding = () => {
             },
         }
     )
-
-    const whatRef = useRef<HTMLInputElement>(null);
-    const whenRef = useRef<HTMLInputElement>(null);
-    const sumRef = useRef<HTMLInputElement>(null);
-    const currentBalanceRef = useRef<HTMLInputElement>(null);
-    const miscBudgetRef = useRef<HTMLInputElement>(null);
-    const dayOfMonthOfSalary = useRef<HTMLInputElement>(null);
 
 
     return (
@@ -114,13 +119,13 @@ const OnBoarding = () => {
                 </div>
                 <div>
                     <input placeholder={"salary"} ref={currentBalanceRef} type={"number"}></input>
-                    <input placeholder={"dayOfMonthOfSalary"} ref={dayOfMonthOfSalary} type={"number"}></input>
+                    <input placeholder={"dayOfMonthOfSalary"} ref={dayOfMonthOfSalaryRef} type={"number"}></input>
                     <button
                         onClick={() => {
                             createUserInfoMutation.mutate({
                                 username: localStorage.getItem('username')!,
                                 salary: currentBalanceRef.current!.value as unknown as number,
-                                dayOfMonthOfSalary: dayOfMonthOfSalary.current!.value as unknown as number,
+                                dayOfMonthOfSalary: dayOfMonthOfSalaryRef.current!.value as unknown as number,
                                 bills: [],
                                 accounts: []
                             }) //text: textRef.current!.value ?? ""
@@ -141,35 +146,7 @@ const OnBoarding = () => {
                         Bills, (u can add them later if u lazy)
                     </Typography>
                 </div>
-                <div style={{ display: 'flex' }}>
-                    <input placeholder={"what"} ref={whatRef} type={"text"}></input>
-                    <input placeholder={"how much"} ref={sumRef} type={"number"}></input>
-                    <input placeholder={"when"} ref={whenRef} type={"number"}></input>
-                    <div>
-                        <input
-                            type="checkbox"
-                            checked={newBillFlag}
-                            onChange={() => {
-                                setnewBillFlag(!newBillFlag)
-                            }}
-                        />
-
-                    </div>
-                    <button
-                        onClick={() => {
-                            createBillMutation.mutate({
-                                sum: sumRef.current!.value as unknown as number ?? 0,
-                                text: whatRef.current!.value ?? "",
-                                username: localStorage.getItem('username')!,
-                                paid: newBillFlag,
-                                when: whenRef.current!.value as unknown as number ?? 0,
-
-                            }) //text: textRef.current!.value ?? ""
-                        }}
-                    >
-                        +
-                    </button>
-                </div>
+                <BillCreator handleBillCallback={handleNewBillCallback} _username={"ad"} _uiBillsProp={uiBills}></BillCreator>
 
             </div>
             <div style={{
