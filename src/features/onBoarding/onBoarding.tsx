@@ -2,7 +2,6 @@ import axios from 'axios'
 import React, { useEffect, useRef, useState } from "react"
 import { v4 as uuidv4, v4 } from 'uuid'
 import Typography from '@mui/material/Typography'
-
 import { useMutation } from "react-query"
 import { useHistory } from 'react-router'
 import BillCreator from 'components/billCreator'
@@ -12,7 +11,14 @@ enum AccountType {
     saving = "saving"
 }
 
-const OnBoarding = (props: {_username: string}) => {
+const OnBoarding = (props: { _username: string }) => {
+    //Config budget
+    //hooks
+   
+    //refs
+    const configBudgetFood = useRef<HTMLInputElement>(null)
+    const configBudgetOthers = useRef<HTMLInputElement>(null)
+   
     //Salary Info
     //hooks
     const [uiSalaryInfo, setUISalaryInfo] = useState<{
@@ -42,34 +48,32 @@ const OnBoarding = (props: {_username: string}) => {
     //Accounts
     //hooks
     const [uiAccounts, setUIAccounts] = useState<Array<{
-        type: AccountType
-        balance: number
+        accountType: AccountType,
+        balance: number,
+        active: boolean
     }>>([
-        { type: AccountType.main, balance: 0 },
-        { type: AccountType.saving, balance: 0 }
+        { accountType: AccountType.main, balance: 0, active: true },
+        { accountType: AccountType.saving, balance: 0, active: false }
     ])
     //refs
     const mainAccountBalanceRef = useRef<HTMLInputElement>(null)
     const savingAccountBalanceRef = useRef<HTMLInputElement>(null)
-
-
     //handlers
-
     const UpdateUIAccountsClicked = () => {
         setUIAccounts(
             [
                 {
-                    type: AccountType.main,
-                    balance: mainAccountBalanceRef.current!.value as unknown as number
+                    accountType: AccountType.main,
+                    balance: mainAccountBalanceRef.current!.value as unknown as number,
+                    active: true
                 },
                 {
-                    type: AccountType.saving,
-                    balance: savingAccountBalanceRef.current!.value as unknown as number
+                    accountType: AccountType.saving,
+                    balance: savingAccountBalanceRef.current!.value as unknown as number,
+                    active: false
                 }
             ]
         )
-        //Prepare uiAccounts Array
-        //Update hook
     }
 
     //Bills
@@ -95,15 +99,20 @@ const OnBoarding = (props: {_username: string}) => {
 
 
     //Save
-    const  saveAllinDB = () =>{
+    const saveAllinDB = () => {
         createUserInfoMutation.mutate({
             username: props._username,
             salary: {
                 amount: uiSalaryInfo.amount,
                 dayOfMonth: uiSalaryInfo.dayOfMonth
             },
-            bills: [],
-            accounts: []
+            bills: uiBills,
+            accounts: uiAccounts,
+            weeklybudget: {
+                limit: configBudgetFood.current!.value as unknown as number,
+                spent: 0
+            }
+
         })
     }
     const miscBudgetRef = useRef<HTMLInputElement>(null);
@@ -128,10 +137,14 @@ const OnBoarding = (props: {_username: string}) => {
             when: number
         }>,
         accounts: Array<{
-            accountType: string,
-            balance: string
+            accountType: AccountType,
+            balance: number
             active: boolean
-        }>
+        }>,
+        weeklybudget: {
+            limit: number,
+            spent: number
+        }
 
     }>((data) => axios.create({
         baseURL: "http://localhost:8000/",
@@ -143,7 +156,7 @@ const OnBoarding = (props: {_username: string}) => {
         {
             onSettled: () => {
                 console.info("created user info")
-                setSaved(true)
+                history.push('/olduser')
             },
         }
     )
@@ -180,7 +193,7 @@ const OnBoarding = (props: {_username: string}) => {
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
 
                     <Typography variant="h5" component="div">
-                        Infos
+                        Salary Info
                     </Typography>
                 </div>
                 <div>
@@ -192,6 +205,7 @@ const OnBoarding = (props: {_username: string}) => {
                 </div>
 
             </div>
+
             <div style={{
                 gridArea: 'bills',
                 display: 'flex',
@@ -245,6 +259,19 @@ const OnBoarding = (props: {_username: string}) => {
                         <button onClick={UpdateUIAccountsClicked}> Update UIAccounts</button>
                     </div>
                 </div>
+            </div>
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                }}
+            >
+                <Typography variant="h5" component="div">
+                    Config
+                </Typography>
+
+                <input type="number" placeholder="food" ref={configBudgetFood} />
+                <input type="number" placeholder="others" ref={configBudgetOthers} />
             </div>
             <div>
                 <button onClick={saveAllinDB}>SaveALLinDB</button>
