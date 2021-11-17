@@ -14,11 +14,11 @@ enum AccountType {
 const OnBoarding = (props: { _username: string }) => {
     //Config budget
     //hooks
-   
+
     //refs
     const configBudgetFood = useRef<HTMLInputElement>(null)
     const configBudgetOthers = useRef<HTMLInputElement>(null)
-   
+
     //Salary Info
     //hooks
     const [uiSalaryInfo, setUISalaryInfo] = useState<{
@@ -109,7 +109,7 @@ const OnBoarding = (props: { _username: string }) => {
             bills: uiBills,
             accounts: uiAccounts,
             weeklybudget: {
-                limit: configBudgetFood.current!.value as unknown as number,
+                limit: (parseFloat(configBudgetFood.current!.value) + parseFloat(configBudgetOthers.current!.value) ),
                 spent: 0
             }
 
