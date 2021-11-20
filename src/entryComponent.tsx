@@ -13,8 +13,11 @@ const EntryComponent = () => {
     const history = useHistory()
     const { tokenValid, authenticated } = useContext(UserContext);
 
-    if(history.location.pathname.includes("/test")){
-        return <TestPage/>
+    if (history.location.pathname.includes("/test")) {
+
+        return (
+            <TestPage />
+        )
     }
     if (tokenValid && authenticated)
         return <AuthApp />

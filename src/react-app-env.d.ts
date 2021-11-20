@@ -1,6 +1,6 @@
 /// <reference types="react-scripts" />
 
- 
+
 export interface Bill {
     id: string,
     sum: number,
@@ -20,7 +20,7 @@ export interface TimespanPlan {
     userId: string,
 }
 
-export interface IGoal{
+export interface IGoal {
     text: string,
     cost: number,
     deadline?: Date
@@ -32,8 +32,34 @@ export interface BillResponse {
     sum: number
 }
 
+export interface InfosOfUser {
+    username: string,
+    salary: {
+        amount: number,
+        dayOfMonth: number
+    },
+    bills: Array<{
+        billName: string,
+        username: string
+        paid: boolean,
+        cost: number,
+        when: number,
+    }>,
+    accounts: Array<{
+        accountType: AccountType,
+        balance: number
+        active: boolean
+    }>,
+    weeklybudget: {
+        limit: number,
+        spent: number
+    }
+
+}
+
+
 export interface IUserInfoResponse {
-    username:  string,
+    username: string,
     grossBalance: number,
     daySalary: number,
     foodBudget: number,

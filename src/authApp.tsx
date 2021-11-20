@@ -1,9 +1,7 @@
 
 
 import { Header } from 'features/appHeader/header'
-import LoginPage from 'features/auth/login.component'
 import Sample from 'features/planOverview/sample'
-import toast, { Toaster } from 'react-hot-toast'
 import { QueryClient, QueryCache, QueryClientProvider } from 'react-query'
 import { Switch, Route } from 'react-router'
 import { ReactQueryDevtools } from "react-query/devtools"
@@ -39,7 +37,7 @@ const AuthApp = () => {
                     <Route path="/olduser" component={OldUser} />
 
                 </Switch>
-                {/* <ReactQueryDevtools /> */}
+                <ReactQueryDevtools />
 
             </QueryClientProvider>
         </div>

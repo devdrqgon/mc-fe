@@ -1,8 +1,8 @@
-const getRestMoney = (gross: number, sumBills: number, food: number, misc: number) => {
+const getRestMoney = (gross: number, sumBills: number, weeklyBudget: number) => {
 
 
 
-    return gross - sumBills - ((food * 4) + (misc * 4))
+    return gross - sumBills - (weeklyBudget * 4)
 
 }
 

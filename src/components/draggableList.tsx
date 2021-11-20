@@ -1,7 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import ReorderIcon from '@mui/icons-material/Reorder'
 import { JSXElementConstructor, ReactElement, ReactNodeArray, ReactPortal, useEffect, useState } from 'react';
 import { IGoal } from 'react-app-env';
 import { v4 as uuidv4, v4 } from 'uuid'
@@ -116,7 +114,6 @@ const DraggableList: React.FC<DraggableListProps> = (props) => {
                                     {element.text}
                                     {element.cost}
 
-                                    <ReorderIcon />
                                 </div>
                             </li>
                         ))

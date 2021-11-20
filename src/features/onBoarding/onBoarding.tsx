@@ -1,12 +1,11 @@
 import axios from 'axios'
 import React, { useEffect, useRef, useState } from "react"
 import { v4 as uuidv4, v4 } from 'uuid'
-import Typography from '@mui/material/Typography'
 import { useMutation } from "react-query"
 import { useHistory } from 'react-router'
 import BillCreator from 'components/billCreator'
 
-enum AccountType {
+export enum AccountType {
     main = "main",
     saving = "saving"
 }
@@ -109,7 +108,7 @@ const OnBoarding = (props: { _username: string }) => {
             bills: uiBills,
             accounts: uiAccounts,
             weeklybudget: {
-                limit: (parseFloat(configBudgetFood.current!.value) + parseFloat(configBudgetOthers.current!.value) ),
+                limit: (parseFloat(configBudgetFood.current!.value) + parseFloat(configBudgetOthers.current!.value)),
                 spent: 0
             }
 
@@ -184,17 +183,13 @@ const OnBoarding = (props: { _username: string }) => {
                     justifyContent: 'center',
                     marginTop: '23px'
                 }}>
-                <Typography variant="h5" component="div">
-                    mc needs to know few things....
-                </Typography>
+                mc needs to know few things....
 
             </div>
             <div style={{ gridArea: 'infos', borderRight: '5px #071D24 solid' }}>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
 
-                    <Typography variant="h5" component="div">
-                        Salary Info
-                    </Typography>
+                    Salary Info
                 </div>
                 <div>
                     <input placeholder={"salary"} ref={currentBalanceRef} type={"number"}></input>
@@ -213,9 +208,8 @@ const OnBoarding = (props: { _username: string }) => {
             }}>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
 
-                    <Typography variant="h5" component="div">
-                        Bills, (u can add them later if u lazy)
-                    </Typography>
+                    Bills, (u can add them later if u lazy)
+
                 </div>
                 <BillCreator handleBillCallback={handleNewBillCallback} _username={props._username} _uiBillsProp={uiBills}></BillCreator>
 
@@ -228,9 +222,8 @@ const OnBoarding = (props: { _username: string }) => {
                 marginTop: '50px'
             }}>
                 <div>
-                    <Typography variant="h5" component="div">
-                        Accounts
-                    </Typography>
+                    Accounts
+
                 </div>
                 <div
                     style={{
@@ -266,9 +259,7 @@ const OnBoarding = (props: { _username: string }) => {
                     flexDirection: 'column',
                 }}
             >
-                <Typography variant="h5" component="div">
-                    Config
-                </Typography>
+                Config
 
                 <input type="number" placeholder="food" ref={configBudgetFood} />
                 <input type="number" placeholder="others" ref={configBudgetOthers} />
