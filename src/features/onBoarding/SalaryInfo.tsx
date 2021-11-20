@@ -14,7 +14,7 @@ const SalaryInfo: React.FC<SalaryInfoProps> = ({ _handleChange }) => {
     const format = (val: any) => `€` + val
     const parse = (val: any) => val.replace(/^\€/, "")
 
-    const [amountSalary, setAmountSalary] = useState("")
+    const [amountSalary, setAmountSalary] = useState("0")
     const [dayOfMonthOfSalary, setDayOfMonthOfSalary] = useState("1")
 
     const onChangeAmount = (newAmount: string) => {

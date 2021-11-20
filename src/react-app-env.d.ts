@@ -65,3 +65,8 @@ export interface IUserInfoResponse {
     foodBudget: number,
     miscBudget: number
 }
+
+export interface BudgetConfigUI{
+    food: number,
+    others: number
+}

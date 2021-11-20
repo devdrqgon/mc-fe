@@ -2,14 +2,63 @@ import { FormControl, FormLabel } from "@chakra-ui/form-control"
 import { Input } from "@chakra-ui/input"
 import { SimpleGrid, GridItem, VStack, Heading } from "@chakra-ui/layout"
 import { NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper } from "@chakra-ui/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
-const Accounts = () => {
+
+export enum AccountType {
+    main = "main",
+    saving = "saving"
+}
+
+export interface AccountsInfo {
+    accountType: AccountType,
+    balance: number,
+    active: boolean
+}
+interface AccountsProps {
+    _handleChangeCallback: (_a: AccountsInfo[]) => void
+}
+
+const Accounts: React.FC<AccountsProps> = ({ _handleChangeCallback }) => {
+
+
+    const [mainBalance, setMainBalance] = useState('0')
+    const [savingBalance, setSavingBalance] = useState('0')
+
     const format = (val: any) => `€` + val
-    const parse = (val: any) => val.replace(/^\$/, "")
+    const parse = (val: any) => val.replace(/^\€/, "")
 
-    const [value, setValue] = useState("1.53")
 
+    const onDataChanged = () => {
+        // get main balance
+        const m = parse(mainBalance)
+        const s = parse(savingBalance)
+        _handleChangeCallback([
+            {
+                accountType: AccountType.main,
+                balance: parseFloat(m),
+                active: true
+            },
+            {
+                accountType: AccountType.saving,
+                balance: parseFloat(s),
+                active: true
+            }
+        ])
+    }
+
+    const onMainChanged = (_newMain: string) => {
+        setMainBalance(_newMain)
+    }
+
+
+    const onSavingChanged = (_newSaving: string) => {
+        setSavingBalance(_newSaving)
+    }
+
+    useEffect(() => {
+        onDataChanged()
+    }, [mainBalance,savingBalance])
     return (
         <>
             <SimpleGrid columns={8}>
@@ -30,8 +79,8 @@ const Accounts = () => {
                                 Main Account
                             </FormLabel>
                             <NumberInput
-                                onChange={(valueString) => setValue(parse(valueString))}
-                                value={format(value)}
+                                onChange={(valueString) => onMainChanged(parse(valueString))}
+                                value={format(mainBalance)}
                             >
                                 <NumberInputField />
                                 <NumberInputStepper>
@@ -45,9 +94,8 @@ const Accounts = () => {
                                 Saving Account
                             </FormLabel>
                             <NumberInput
-                                onChange={(valueString) => setValue(parse(valueString))}
-                                value={format(value)}
-                                max={50}
+                                onChange={(valueString) => onSavingChanged(parse(valueString))}
+                                value={format(savingBalance)}
                             >
                                 <NumberInputField />
                                 <NumberInputStepper>

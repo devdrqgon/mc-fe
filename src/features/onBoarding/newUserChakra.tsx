@@ -2,7 +2,8 @@ import { Button, Container, Divider, Flex, FormControl, FormLabel, GridItem, Hea
 import BillCreator from "components/billCreator"
 import BillViewer from "components/billViewer"
 import { useRef, useState } from "react"
-import Accounts from "./accounts"
+import { BudgetConfigUI } from "react-app-env"
+import Accounts, { AccountsInfo as AccountsInfoUI } from "./accounts"
 import BudgetConfig from "./budgetConfig"
 import SalaryInfo from "./SalaryInfo"
 
@@ -42,7 +43,22 @@ const NewUserChakra = () => {
         setUISalaryInfo(_salaryInfo)
     }
 
- 
+    //Accounts
+    //hooks
+    const [uiAccounts, setUIAccounts] = useState<AccountsInfoUI[]>([])
+    const handleEditAccountsDataCallback = (_a: AccountsInfoUI[]) => {
+        setUIAccounts(_a)
+    }
+
+    //BudgetConfig
+    //hooks
+    const [uiBudgetConfig, setUIBudgetConfig] = useState<BudgetConfigUI | null >(null)
+    //handler 
+    const handleEditBudgetConfigCallback = (_c: BudgetConfigUI) => {
+        setUIBudgetConfig(_c)
+    }
+
+
 
     return (
         <>
@@ -61,7 +77,7 @@ const NewUserChakra = () => {
                     // bg="red.100"
 
                     >
-                        <Accounts />
+                        <Accounts _handleChangeCallback={handleEditAccountsDataCallback} />
                     </VStack>
                     <Divider orientation="vertical" />
                     <VStack
@@ -81,7 +97,7 @@ const NewUserChakra = () => {
                         alignItems="flex-start "
                     // bg="yellow.100"
                     >
-                        <BudgetConfig />
+                        <BudgetConfig  _handleChange={handleEditBudgetConfigCallback}/>
                     </VStack>
                 </Flex>
                 <Divider orientation="horizontal" />
