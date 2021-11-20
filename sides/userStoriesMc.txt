@@ -1,4 +1,14 @@
 as a user, after first login, I wanna give my basic infos and bills.
+Once i have entered all my infos, I click on Save.
+
+Once I click on save, a modal opens up:
+    Model desribes 3 States:
+        1- On Success, redirecting you to your dashboard in 3,2,1
+        2- Loading: Still waiting for server response 
+        3- Some Error, show button to close modal, and stay on onBoarding Page 
+
+    How to achieve:
+        - Prepare a generic Modal component that takes callbacks 
 
 As a user, I want:
     * to always be able to see: 

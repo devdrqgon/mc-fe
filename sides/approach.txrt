@@ -9,7 +9,11 @@ Can I afford to buy clothes which cost 300?
                     + food budget 
                     + saving budget 
 
-
 Steps to achieve this: 
 1- get User info from newUser Component UI 
 2- in Dashboard, add a card called can I afford this? 
+
+
+
+
+

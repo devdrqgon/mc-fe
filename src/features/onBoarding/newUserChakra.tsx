@@ -1,6 +1,7 @@
-import { Button, Container, Divider, Flex, FormControl, FormLabel, GridItem, Heading, Input, SimpleGrid, VStack } from "@chakra-ui/react"
+import { Button, Container, Divider, Flex, FormControl, FormLabel, GridItem, Heading, Input, SimpleGrid, useDisclosure, VStack } from "@chakra-ui/react"
 import BillCreator from "components/billCreator"
 import BillViewer from "components/billViewer"
+import MCModal from "components/modal"
 import { useRef, useState } from "react"
 import { BudgetConfigUI } from "react-app-env"
 import Accounts, { AccountsInfo as AccountsInfoUI } from "./accounts"
@@ -52,13 +53,14 @@ const NewUserChakra = () => {
 
     //BudgetConfig
     //hooks
-    const [uiBudgetConfig, setUIBudgetConfig] = useState<BudgetConfigUI | null >(null)
+    const [uiBudgetConfig, setUIBudgetConfig] = useState<BudgetConfigUI | null>(null)
     //handler 
     const handleEditBudgetConfigCallback = (_c: BudgetConfigUI) => {
         setUIBudgetConfig(_c)
     }
 
 
+    const { isOpen, onOpen, onClose } = useDisclosure({ id: 'mcModal' })
 
     return (
         <>
@@ -77,6 +79,12 @@ const NewUserChakra = () => {
                     // bg="red.100"
 
                     >
+                        <Button onClick={onOpen}>Open MModal</Button>
+
+                        <MCModal _isOpen={isOpen} _onClose={onClose}
+                            _body={<div>
+                                        Hey Ahmed! u rock! 
+                            </div>} />
                         <Accounts _handleChangeCallback={handleEditAccountsDataCallback} />
                     </VStack>
                     <Divider orientation="vertical" />
@@ -97,7 +105,7 @@ const NewUserChakra = () => {
                         alignItems="flex-start "
                     // bg="yellow.100"
                     >
-                        <BudgetConfig  _handleChange={handleEditBudgetConfigCallback}/>
+                        <BudgetConfig _handleChange={handleEditBudgetConfigCallback} />
                     </VStack>
                 </Flex>
                 <Divider orientation="horizontal" />
