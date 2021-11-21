@@ -21,14 +21,20 @@ interface MCModalProps {
     _title: string,
     _nextStep?: () => void,
     _disableCloseBtn?: boolean,
-    _BackBtn?: () => void,
+    _backBtn?: () => void,
+    _submitBtn?: () => void,
+    _hideFooter?: boolean,
+    _closeOnOverlayClick?: true
 }
 const MCModal: React.FC<MCModalProps> = (props) => {
 
     return (
         <>
             <Modal
-                id={"mcModal"} isOpen={props._isOpen} onClose={props._onClose}>
+                id={"mcModal"}
+                isOpen={props._isOpen}
+                onClose={props._onClose}
+                closeOnOverlayClick={props._closeOnOverlayClick? false : true}>
                 <ModalOverlay />
 
                 <ModalContent>
@@ -45,17 +51,39 @@ const MCModal: React.FC<MCModalProps> = (props) => {
 
                         {props._body}
                     </ModalBody>
-                    <ModalFooter>
-                        <HStack pl={5} pr={5} w="full" justify="space-between">
-                            <Button>
-                                Back
-                            </Button>
-                            <Button color="green.400" mr={3} onClick={props._nextStep}>
-                                Next
-                            </Button>
-                        </HStack>
+                    {props._hideFooter && props._hideFooter === true ?
 
-                    </ModalFooter>
+                        <> </>
+                        :
+                        <ModalFooter>
+                            {props._backBtn ?
+                                <HStack pl={5} pr={5} w="full" justify="space-between">
+                                    <Button onClick={props._backBtn}>
+                                        Back
+                                    </Button>
+                                    {props._submitBtn ?
+                                        <Button color="green.400" onClick={props._submitBtn}>
+                                            submit
+                                        </Button>
+                                        :
+                                        <Button color="green.400" onClick={props._nextStep}>
+                                            Next
+                                        </Button>}
+                                </HStack>
+                                :
+                                <>
+                                    {props._submitBtn ?
+                                        <Button color="green.400" onClick={props._submitBtn}>
+                                            submit
+                                        </Button>
+                                        :
+                                        <Button color="green.400" onClick={props._nextStep}>
+                                            Next
+                                        </Button>
+                                    }
+                                </>
+                            }
+                        </ModalFooter>}
                 </ModalContent>
             </Modal>
         </>
