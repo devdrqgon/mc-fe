@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import { BudgetConfigUI } from "react-app-env"
 
 interface BudgetConfigProps {
-    _handleChange: (c: BudgetConfigUI) => void
+    _handleChange?: (c: BudgetConfigUI) => void
 }
 const BudgetConfig: React.FC<BudgetConfigProps> = ({ _handleChange }) => {
 
@@ -19,14 +19,16 @@ const BudgetConfig: React.FC<BudgetConfigProps> = ({ _handleChange }) => {
         // get main balance
         const f = parse(food)
         const o = parse(others)
-        _handleChange({
+
+        _handleChange!({
             food: f,
             others: o
         })
     }
 
     useEffect(() => {
-        onDataChanged()
+        if (_handleChange)
+            onDataChanged()
     }, [food, others])
     return (
         <>
@@ -39,9 +41,7 @@ const BudgetConfig: React.FC<BudgetConfigProps> = ({ _handleChange }) => {
                         spacing={10}
                         p={10}
                     >
-                        <Heading fontSize="30px">
-                            Your Budget
-                        </Heading>
+                      
 
                         <FormControl>
                             <FormLabel>

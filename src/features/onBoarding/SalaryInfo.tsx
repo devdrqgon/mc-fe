@@ -6,7 +6,7 @@ import { useRef, useState } from "react"
 import { SalaryInfoUI } from "react-app-env"
 
 interface SalaryInfoProps {
-    _handleChange: (s: SalaryInfoUI) => void
+    _handleChange?: (s: SalaryInfoUI) => void
 }
 const SalaryInfo: React.FC<SalaryInfoProps> = ({ _handleChange }) => {
     //refs
@@ -18,17 +18,22 @@ const SalaryInfo: React.FC<SalaryInfoProps> = ({ _handleChange }) => {
     const [dayOfMonthOfSalary, setDayOfMonthOfSalary] = useState("1")
 
     const onChangeAmount = (newAmount: string) => {
-        _handleChange({
-            amount: parseFloat(parse(newAmount)),
-            dayOfMonth: parseInt(dayOfMonthOfSalary)
-        })
+        if (_handleChange) {
+            _handleChange({
+                amount: parseFloat(parse(newAmount)),
+                dayOfMonth: parseInt(dayOfMonthOfSalary)
+            })
+        }
         setAmountSalary(parse(newAmount))
     }
     const onChangeDay = (newDay: string) => {
-        _handleChange({
-            amount: parseFloat(amountSalary),
-            dayOfMonth: parseInt(newDay)
-        })
+
+        if (_handleChange) {
+            _handleChange({
+                amount: parseFloat(amountSalary),
+                dayOfMonth: parseInt(newDay)
+            })
+        }
         setDayOfMonthOfSalary(newDay)
     }
 
@@ -43,9 +48,7 @@ const SalaryInfo: React.FC<SalaryInfoProps> = ({ _handleChange }) => {
                         spacing={10}
                         p={10}
                     >
-                        <Heading fontSize="27px">
-                            Your Salary Info
-                        </Heading>
+                        
 
                         <FormControl>
                             <FormLabel>

@@ -1,44 +1,27 @@
-// import axios from "axios"
-// import { UserContext } from "contexts/user.context"
-// import React, { useState } from "react"
-// import { BillResponse } from "react-app-env"
+import { Flex, Box, HStack } from "@chakra-ui/react"
 
-// const Dashboard = () => {
-//     // get username & token 
-//     const useUser = React.useContext(UserContext)
-//     const [userBills, setUserBills] = useState()
-//     const effect: React.EffectCallback = () => {
+const Dashboard = () => {
+    return (
+        <>
+            <HStack
+                py={3}
+                justifyContent="center"
+                spacing="24px">
+                <Box
+                    borderWidth="1px"
+                    borderRadius="lg"
+                >
+                    Gross Income
+                </Box>
+                <Box>
+                    Nett Income
+                </Box>
+                <Box>
+                    Days untill next Income
+                </Box>
+            </HStack>
+        </>
+    )
+}
 
-//         const getBills = async (): Promise<BillResponse> => {
-//             const response = await axios({
-//                 method: 'GET',
-//                 url: `http://localhost:8000/bills/get/all/${useUser.user}`,
-//                 headers: {
-//                     Authorization: `Bearer ${useUser.token}`
-//                 }
-//             })
-
-//             if(response.status === 200){
-//                 setUserBills(response.data as BillResponse)
-//             }
-
-//         }
-
-
-//         // Get User Infos 
-
-//         //When got setUserInfoReady(true)
-//         // Get User Bills 
-//         //When got setUserBillsIsReady(true)
-//     }
-//     React.useEffect(effect, [])
-//     return (
-//         <>
-//         </>
-
-//     )
-// }
-
-// export default Dashboard
-
-export{}
+export default Dashboard

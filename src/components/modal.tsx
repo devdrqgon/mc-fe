@@ -8,34 +8,53 @@ import {
     ModalBody,
     ModalCloseButton,
     Button,
+    Box,
+    HStack,
 } from "@chakra-ui/react"
 import { ReactNode } from "react"
 import { JsxElement } from "typescript"
 
 interface MCModalProps {
-    _isOpen : boolean,
+    _isOpen: boolean,
     _onClose: () => void,
-    _body: ReactNode
+    _body: ReactNode,
+    _title: string,
+    _nextStep?: () => void,
+    _disableCloseBtn?: boolean,
+    _BackBtn?: () => void,
 }
-const MCModal: React.FC<MCModalProps> = ({_isOpen, _onClose, _body}) => {
+const MCModal: React.FC<MCModalProps> = (props) => {
 
     return (
         <>
-
-            <Modal id={"mcModal"} isOpen={_isOpen} onClose={_onClose}>
+            <Modal
+                id={"mcModal"} isOpen={props._isOpen} onClose={props._onClose}>
                 <ModalOverlay />
+
                 <ModalContent>
-                    <ModalHeader>Modal Title</ModalHeader>
-                    <ModalCloseButton />
+
+                    <ModalHeader fontSize={23}>
+                        {props._title}
+                    </ModalHeader>
+                    {props._disableCloseBtn === true ?
+                        <> </>
+                        :
+                        <ModalCloseButton />
+                    }
                     <ModalBody>
-                        
-                            {_body}
+
+                        {props._body}
                     </ModalBody>
                     <ModalFooter>
-                        <Button colorScheme="blue" mr={3} onClick={_onClose}>
-                            Close
-                        </Button>
-                        <Button variant="ghost">Secondary Action</Button>
+                        <HStack pl={5} pr={5} w="full" justify="space-between">
+                            <Button>
+                                Back
+                            </Button>
+                            <Button color="green.400" mr={3} onClick={props._nextStep}>
+                                Next
+                            </Button>
+                        </HStack>
+
                     </ModalFooter>
                 </ModalContent>
             </Modal>

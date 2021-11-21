@@ -145,7 +145,7 @@ const NewUserChakra = (props: {
 
                     >
 
-                        <MCModal _isOpen={isOpen} _onClose={onClose}
+                        <MCModal _title="" _isOpen={isOpen} _onClose={onClose}
                             _body={modalBody} />
                         <Accounts _handleChangeCallback={handleEditAccountsDataCallback} />
                     </VStack>

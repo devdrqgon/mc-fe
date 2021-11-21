@@ -16,7 +16,7 @@ export interface AccountsInfo {
     active: boolean
 }
 interface AccountsProps {
-    _handleChangeCallback: (_a: AccountsInfo[]) => void
+    _handleChangeCallback?: (_a: AccountsInfo[]) => void
 }
 
 const Accounts: React.FC<AccountsProps> = ({ _handleChangeCallback }) => {
@@ -33,7 +33,7 @@ const Accounts: React.FC<AccountsProps> = ({ _handleChangeCallback }) => {
         // get main balance
         const m = parse(mainBalance)
         const s = parse(savingBalance)
-        _handleChangeCallback([
+        _handleChangeCallback!([
             {
                 accountType: AccountType.main,
                 balance: parseFloat(m),
@@ -57,8 +57,9 @@ const Accounts: React.FC<AccountsProps> = ({ _handleChangeCallback }) => {
     }
 
     useEffect(() => {
-        onDataChanged()
-    }, [mainBalance,savingBalance])
+        if (_handleChangeCallback)
+            onDataChanged()
+    }, [mainBalance, savingBalance])
     return (
         <>
             <SimpleGrid columns={8}>
@@ -70,9 +71,7 @@ const Accounts: React.FC<AccountsProps> = ({ _handleChangeCallback }) => {
                         spacing={10}
                         p={10}
                     >
-                        <Heading fontSize="30px">
-                            Your Accounts
-                        </Heading>
+                      
 
                         <FormControl>
                             <FormLabel>
