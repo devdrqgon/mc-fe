@@ -12,8 +12,6 @@ import {
     HStack,
 } from "@chakra-ui/react"
 import { ReactNode } from "react"
-import { JsxElement } from "typescript"
-
 interface MCModalProps {
     _isOpen: boolean,
     _onClose: () => void,
