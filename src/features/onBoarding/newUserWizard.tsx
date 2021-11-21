@@ -7,7 +7,7 @@ import SalaryInfo from "./SalaryInfo";
 import BudgetConfig from "./budgetConfig";
 import { Box, VStack } from "@chakra-ui/layout";
 import { Modal } from "@chakra-ui/modal";
-import { Spinner } from "@chakra-ui/react";
+import { Button, Spinner } from "@chakra-ui/react";
 import axios, { AxiosResponse } from "axios";
 import BillCreator from "components/billCreator";
 import BillViewer from "components/billViewer";
@@ -150,7 +150,7 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
             if (response.status === 201) {
                 setAfterSubmitModalBody(
                     <Box>
-                        Success!
+                        Success! <Button onClick={onClose}> Go to my Dashboard</Button>
                     </Box>
                 )
             }
@@ -178,7 +178,7 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
     return (
         <>
             <MCModal
-                _title={"Let's get you quickly started, Ahmed!"}
+                _title={submitClicked === false ?"Let's get you quickly started, Ahmed!" : ""}
                 _body={submitClicked === false ? generateWizardBody() : afterSubmitModalBody}
                 _isOpen={isOpen}
                 _onClose={onClose}

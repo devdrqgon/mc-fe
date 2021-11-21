@@ -3,7 +3,6 @@ import logging from 'config/logging'
 import React, { ChangeEvent } from 'react'
 import { useHistory } from 'react-router'
 import { Link } from 'react-router-dom';
-import background from "./bubble.png"
 export default function Register() {
     const [username, setUsername] = React.useState<string>('')
     const [password, setPassword] = React.useState<string>('')
@@ -44,8 +43,6 @@ export default function Register() {
             `,
                 height: '95vh',
                 width: '100wh',
-                backgroundImage: `url(${background})`
-
 
             }}
         >

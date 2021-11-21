@@ -29,6 +29,7 @@ const MCModal: React.FC<MCModalProps> = (props) => {
     return (
         <>
             <Modal
+                size={"xl"}
                 id={"mcModal"}
                 isOpen={props._isOpen}
                 onClose={props._onClose}

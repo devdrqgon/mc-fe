@@ -5,7 +5,6 @@ import { useHistory } from 'react-router'
 import { UserContext } from "contexts/user.context"
 import { Link } from 'react-router-dom'
 import toast from 'react-hot-toast'
-import background from "./bubble.png"
 import { InfosOfUser } from 'react-app-env'
 
 export default function LoginPage() {
@@ -71,7 +70,6 @@ export default function LoginPage() {
                 `,
                 height: '95vh',
                 width: '100wh',
-                backgroundImage: `url(${background})`
             }}
         >
             <div

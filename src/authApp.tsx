@@ -6,6 +6,7 @@ import { QueryClient, QueryCache, QueryClientProvider } from 'react-query'
 import { Switch, Route } from 'react-router'
 import { ReactQueryDevtools } from "react-query/devtools"
 import OldUser from 'oldUser'
+import NewUserWizard from 'features/onBoarding/newUserWizard'
 
 // export const queryClient = new QueryClient({
 //     queryCache: new QueryCache({
@@ -27,8 +28,14 @@ const AuthApp = () => {
                 <Switch>
                     {/* <Route path="/planner" component={TimespanPlanner} /> */}
                     <Route path="/sample" component={Sample} />
-                   
-
+                    <Route path="/newuser" exact
+                        render={(props) => (
+                            <NewUserWizard
+                                _username={localStorage.getItem('username')!}
+                                _token={`Bearer ${localStorage.getItem('token')!}`}
+                            />
+                        )}
+                    />
                     <Route path="/olduser" component={OldUser} />
 
                 </Switch>
