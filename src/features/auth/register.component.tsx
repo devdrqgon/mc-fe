@@ -93,7 +93,7 @@ export default function Register() {
 
                         <input type="password" onChange={(e: ChangeEvent<HTMLInputElement>) => { setPassword(e.target.value as unknown as string) }} />
 
-                        <button>
+                        <button onClick={registerClicked}>
                             Sign Up
                         </button>
                         <div

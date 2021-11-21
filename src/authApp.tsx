@@ -31,7 +31,7 @@ const AuthApp = () => {
                     <Route path="/sample" component={Sample} />
                     <Route path="/newuser" exact
                         render={() => (
-                            <NewUserChakra _username={localStorage.getItem('username')!} _token={localStorage.getItem('token')!} />
+                            <NewUserChakra _username={localStorage.getItem('username')!} _token={`token ${localStorage.getItem('token')!}`} />
                         )}
                     />
 
