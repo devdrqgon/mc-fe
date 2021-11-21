@@ -12,7 +12,8 @@ const Testpage = () => {
 
         }
     }, [])
-
+    const _TestToken = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZsYWQiLCJpYXQiOjE2Mzc0NDQzMjIsImV4cCI6MTYzNzcwMzUyMiwiaXNzIjoiQW1kZXYifQ.VIKg7HhHPX3Vl3MvxnqC2FCi9ZK06oJFiA39cNELUug`
+    const _TestUsername = 'vlad'
     return (
         <>
             <QueryClientProvider client={queryClient}>
@@ -35,7 +36,7 @@ const Testpage = () => {
                         />
                         <Route exact path="/test/newuser"
                             render={() => (
-                                <NewUserChakra />
+                                <NewUserChakra _username={_TestUsername} _token={_TestToken} />
                             )}
                         />
                     </Switch>

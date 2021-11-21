@@ -1,19 +1,85 @@
 import { Button, Container, Divider, Flex, FormControl, FormLabel, GridItem, Heading, Input, SimpleGrid, useDisclosure, VStack } from "@chakra-ui/react"
+import axios, { AxiosResponse } from "axios"
 import BillCreator from "components/billCreator"
 import BillViewer from "components/billViewer"
 import MCModal from "components/modal"
-import { useRef, useState } from "react"
-import { BudgetConfigUI } from "react-app-env"
+import React, { ReactNode, useRef, useState } from "react"
+import { BudgetConfigUI, SalaryInfoUI } from "react-app-env"
+import { setTimeout } from "timers"
 import Accounts, { AccountsInfo as AccountsInfoUI } from "./accounts"
 import BudgetConfig from "./budgetConfig"
 import SalaryInfo from "./SalaryInfo"
 
-export interface SalaryInfoUI {
-    amount: number,
-    dayOfMonth: number
-}
-const NewUserChakra = () => {
 
+const NewUserChakra = (props: {
+    _username: string,
+    _token: string //change this
+}) => {
+
+    //Modal 
+    const { isOpen, onOpen, onClose } = useDisclosure({ id: 'mcModal' })
+
+    const [modalBody, setModalBody] = useState<ReactNode>(
+        <>
+            
+        </>
+    )
+
+    const showSuccess = () => {
+        setModalBody(
+            <div>
+                Success, Redirecting you in 3...
+            </div>
+        )
+        setTimeout(() => {
+            setModalBody(<div>
+                Success, Redirecting you in 2...
+            </div>)
+        }, 1500)
+        setTimeout(() => {
+            setModalBody(<div>
+                Success, Redirecting you in 1...
+            </div>)
+        }, 3000)
+    }
+    //Save AllInfos
+    const onSaveClicked = async () => {
+        onOpen()
+        try {
+            const response: AxiosResponse<any, any> = await axios({
+                method: 'POST',
+                url: 'http://localhost:8000/users/info/',
+                headers: {
+                    Authorization: props._token
+                },
+                data: {
+                    username: props._username,
+                    salary: {
+                        amount: 200,
+                        dayOfMonth: 4
+                    },
+                    bills: [],
+                    accounts: []
+                },
+            })
+            if (response.status === 201) {
+                showSuccess()
+            }
+            else {
+                setModalBody(
+                    <div>
+                        Some Error Happened!
+                    </div>
+                )
+            }
+        } catch (error) {
+            setModalBody(
+                <div>
+                    Some Error Happened! catch block
+                </div>
+            )
+        }
+    }
     //Bills
     const [uiBills, setUIBills] = useState<Array<{
         billName: string,
@@ -60,7 +126,6 @@ const NewUserChakra = () => {
     }
 
 
-    const { isOpen, onOpen, onClose } = useDisclosure({ id: 'mcModal' })
 
     return (
         <>
@@ -79,12 +144,9 @@ const NewUserChakra = () => {
                     // bg="red.100"
 
                     >
-                        <Button onClick={onOpen}>Open MModal</Button>
 
                         <MCModal _isOpen={isOpen} _onClose={onClose}
-                            _body={<div>
-                                        Hey Ahmed! u rock! 
-                            </div>} />
+                            _body={modalBody} />
                         <Accounts _handleChangeCallback={handleEditAccountsDataCallback} />
                     </VStack>
                     <Divider orientation="vertical" />
@@ -114,7 +176,8 @@ const NewUserChakra = () => {
                     <BillViewer _bills={uiBills} />
                 </VStack>
                 <Divider orientation="horizontal" />
-                <Button> Save</Button>
+                <Button onClick={onSaveClicked}>Save</Button>
+
             </Flex>
         </>
     )

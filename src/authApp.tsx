@@ -7,6 +7,7 @@ import { Switch, Route } from 'react-router'
 import { ReactQueryDevtools } from "react-query/devtools"
 import OnBoarding from 'features/onBoarding/onBoarding'
 import OldUser from 'oldUser'
+import NewUserChakra from 'features/onBoarding/newUserChakra'
 
 // export const queryClient = new QueryClient({
 //     queryCache: new QueryCache({
@@ -30,10 +31,10 @@ const AuthApp = () => {
                     <Route path="/sample" component={Sample} />
                     <Route path="/newuser" exact
                         render={() => (
-                            <OnBoarding _username={localStorage.getItem('username')!}/>
+                            <NewUserChakra _username={localStorage.getItem('username')!} _token={localStorage.getItem('token')!} />
                         )}
                     />
-                   
+
                     <Route path="/olduser" component={OldUser} />
 
                 </Switch>
