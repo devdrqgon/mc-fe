@@ -23,7 +23,7 @@ const Testpage = () => {
                     
                     <Route path="/test/newuserwizard" exact
                         render={(props) => (
-                            <NewUserWizard />
+                            <NewUserWizard _username={_TestUsername} _token={_TestToken} />
                         )}
                     />
                     <Route path="/test/bill" exact
