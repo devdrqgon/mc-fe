@@ -7,14 +7,8 @@ import { DatePickerProps } from '@orange_digital/chakra-datepicker/dist/props';
 
 interface BillCreatorProps {
     _username: string,
-    _uiBillsProp: Array<{
-        billName: string,
-        username: string
-        paid: boolean
-        cost: number,
-        when: number
-    }>,
-    handleBillCallback: (bill: {
+    
+    handleBillCallback?: (bill: {
         billName: string,
         username: string
         paid: boolean
@@ -24,23 +18,14 @@ interface BillCreatorProps {
 }
 
 
-const BillCreator: React.FC<BillCreatorProps> = ({ _username, handleBillCallback, _uiBillsProp }) => {
+const BillCreator: React.FC<BillCreatorProps> = ({ _username, handleBillCallback }) => {
     const billNameRef = useRef<HTMLInputElement>(null)
     const billWhenRef = useRef<HTMLInputElement>(null)
     const billCostRef = useRef<HTMLInputElement>(null)
 
     const [newBillFlag, setnewBillFlag] = useState(false)
 
-    const [uiBills, setUIBills] = useState<Array<{
-        billName: string,
-        username: string
-        paid: boolean
-        cost: number,
-        when: number
-    }>>(_uiBillsProp)
-    useEffect(() => {
-
-    }, [uiBills])
+   
     const addBillClicked = () => {
         const _bill: {
             billName: string,
@@ -55,10 +40,10 @@ const BillCreator: React.FC<BillCreatorProps> = ({ _username, handleBillCallback
             cost: billCostRef.current!.value as unknown as number,
             when: billWhenRef.current!.value as unknown as number,
         }
-        handleBillCallback(_bill)
+        if (handleBillCallback) { handleBillCallback(_bill) }
 
 
-        setUIBills(() => [...uiBills, _bill])
+        
 
     }
 
@@ -78,9 +63,7 @@ const BillCreator: React.FC<BillCreatorProps> = ({ _username, handleBillCallback
                 <VStack
 
                 >
-                    <Heading fontSize={'30px'}>
-                        Bills
-                    </Heading>
+                  
                     <Flex
                         p={5}
                     >

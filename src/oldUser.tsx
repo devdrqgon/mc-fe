@@ -8,7 +8,6 @@ import budgetCore from 'features/budget/budgetCalculator.core'
 import { axiosClient } from 'config/config';
 import billHooks from 'hooks/useBills';
 import userInfoHooks from 'hooks/useUserInfo'
-import { AccountType } from 'features/onBoarding/onBoarding';
 import axios from 'axios';
 import { InfosOfUser } from 'react-app-env';
 function OldUser() {

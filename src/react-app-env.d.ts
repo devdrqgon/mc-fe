@@ -1,6 +1,16 @@
 /// <reference types="react-scripts" />
 
 
+export enum AccountType {
+    main = "main",
+    saving = "saving"
+}
+
+export interface AccountsInfo {
+    accountType: AccountType,
+    balance: number,
+    active: boolean
+}
 export interface Bill {
     id: string,
     sum: number,
@@ -67,8 +77,8 @@ export interface IUserInfoResponse {
 }
 
 export interface BudgetConfigUI {
-    food: number,
-    others: number
+    food: string,
+    others: string
 }
 
 export interface SalaryInfoUI {

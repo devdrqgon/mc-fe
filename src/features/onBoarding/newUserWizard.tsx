@@ -1,7 +1,7 @@
 import { useDisclosure } from "@chakra-ui/hooks"
 import MCModal from "components/modal"
 import React, { useEffect, useState } from "react"
-import Accounts from "./accounts"
+import Accounts, { AccountsInfo } from "./accounts"
 import { Step, Steps, useSteps } from 'chakra-ui-steps';
 import SalaryInfo from "./SalaryInfo";
 import BudgetConfig from "./budgetConfig";
@@ -9,16 +9,10 @@ import { Box, VStack } from "@chakra-ui/layout";
 import { Modal } from "@chakra-ui/modal";
 import { Spinner } from "@chakra-ui/react";
 import axios, { AxiosResponse } from "axios";
+import BillCreator from "components/billCreator";
+import BillViewer from "components/billViewer";
+import { BudgetConfigUI, SalaryInfoUI } from "react-app-env";
 
-
-const steps: Array<{
-    label: string,
-    comp: JSX.Element
-}> = [
-        { label: 'Accounts', comp: < Accounts /> },
-        { label: 'Salary', comp: < SalaryInfo /> },
-        { label: 'Budget', comp: < BudgetConfig /> },
-    ]
 
 interface NewUserWizardProps {
     _token: string,
@@ -27,6 +21,71 @@ interface NewUserWizardProps {
 
 
 const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
+
+    //bills
+    const [uiBills, setUIBills] = useState<Array<{
+        billName: string,
+        username: string
+        paid: boolean
+        cost: number,
+        when: number
+    }>>([])
+
+    const handleNewBillCallback = (_bill: {
+        billName: string,
+        username: string
+        paid: boolean
+        cost: number,
+        when: number
+    }) => {
+        setUIBills(() => [...uiBills, _bill])
+    }
+    const calculateBudget = (food: string, others: string) =>{
+        return (parseFloat(food) + parseFloat(others))
+        }
+
+    //Accounts
+    //hooks
+    const [uiAccounts, setUIAccounts] = useState<AccountsInfo[]>([])
+    const handleEditAccountsDataCallback = (_a: AccountsInfo[]) => {
+        setUIAccounts(_a)
+    }
+
+    //Salary Info
+    //hooks
+    const [uiSalaryInfo, setUISalaryInfo] = useState<SalaryInfoUI>({
+        amount: 0,
+        dayOfMonth: 0
+    })
+    //handler 
+    const handleEditSalaryInfoCallback = (_salaryInfo: SalaryInfoUI) => {
+        setUISalaryInfo(_salaryInfo)
+    }
+ //BudgetConfig
+    //hooks
+    const [uiBudgetConfig, setUIBudgetConfig] = useState<BudgetConfigUI>({food: '0', others: '0'})
+    //handler 
+    const handleEditBudgetConfigCallback = (_c: BudgetConfigUI) => {
+        setUIBudgetConfig(_c)
+    }
+    //UI Behaviour
+    const steps: Array<{
+        label: string,
+        comp: JSX.Element
+    }> = [
+            { label: 'Accounts', comp: < Accounts _handleChangeCallback={handleEditAccountsDataCallback} /> },
+            { label: 'Salary', comp: < SalaryInfo  _handleChange={handleEditSalaryInfoCallback}/> },
+            { label: 'Budget', comp: < BudgetConfig _handleChange={handleEditBudgetConfigCallback} /> },
+            {
+                label: 'Bills', comp: <VStack>
+                    <BillCreator
+                        _username="tester"
+                        handleBillCallback={handleNewBillCallback} />
+                    <BillViewer _bills={uiBills} />
+                </VStack>
+            }
+        ]
+
     const { nextStep, prevStep, setStep, reset, activeStep } = useSteps({
         initialStep: 0,
     })
@@ -50,7 +109,7 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
         setsubmitClicked(true)
         setTimeout(() => {
             callBE()
-        }, 1000)
+        }, 500)
 
     }
     const generateWizardBody = () => {
@@ -77,11 +136,15 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
                 data: {
                     username: props._username,
                     salary: {
-                        amount: 200,
-                        dayOfMonth: 4
+                        amount: uiSalaryInfo.amount,
+                        dayOfMonth: uiSalaryInfo.dayOfMonth
                     },
-                    bills: [],
-                    accounts: []
+                    bills: uiBills,
+                    accounts: uiAccounts,
+                    weeklyBudget: {
+                        limit: calculateBudget(uiBudgetConfig!.food , uiBudgetConfig!.others),
+                        spent: 0
+                    }
                 },
             })
             if (response.status === 201) {

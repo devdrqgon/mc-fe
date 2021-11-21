@@ -4,7 +4,6 @@ import React, { useEffect } from 'react'
 import { Route, Switch } from 'react-router'
 import { QueryClientProvider } from 'react-query'
 import { queryClient } from 'authApp'
-import NewUserChakra from 'features/onBoarding/newUserChakra'
 import Dashboard from 'features/dashboard/dashboard'
 import NewUserWizard from 'features/onBoarding/newUserWizard'
 
@@ -28,13 +27,7 @@ const Testpage = () => {
                     />
                     <Route path="/test/bill" exact
                         render={() => (
-                            <BillCreator handleBillCallback={() => { }} _uiBillsProp={[{
-                                billName: "samir",
-                                username: " samir",
-                                paid: true,
-                                cost: 22,
-                                when: 2
-                            }]} _username={"samir"} />
+                            <BillCreator handleBillCallback={() => { }} _username={"samir"} />
                         )}
                     />
                     <Route path="/test/dash" exact
@@ -47,11 +40,7 @@ const Testpage = () => {
                             <DraggableList />
                         )}
                     />
-                    <Route exact path="/test/newuser"
-                        render={() => (
-                            <NewUserChakra _username={_TestUsername} _token={_TestToken} />
-                        )}
-                    />
+                
                 </Switch>
             </QueryClientProvider>
 
