@@ -11,7 +11,7 @@ export interface UserInfoResponse{
     salary: SalaryInfo,
     bills: Array<Bill>,
     accounts: Array<AccountsInfo>,
-    budget?: BudgetInfo
+    weeklyBudget?: BudgetInfo
 }
 
 export interface SalaryInfo {

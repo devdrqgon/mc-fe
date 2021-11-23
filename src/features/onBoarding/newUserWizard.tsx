@@ -12,6 +12,7 @@ import BillCreator from "components/billCreator";
 import BillViewer from "components/billViewer";
 import { BudgetConfigUI, SalaryInfo } from "react-app-env";
 import SalaryInfoCreator from "./SalaryInfo";
+import { useHistory } from "react-router";
 
 
 interface NewUserWizardProps {
@@ -105,6 +106,11 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
     )
     const [submitClicked, setsubmitClicked] = useState(false)
     const { isOpen, onClose, onOpen } = useDisclosure({ id: 'mcModal' })
+        const history = useHistory()
+    const terminateOnBoarding = () =>{
+        onClose()
+        history.push("/olduser")
+    }
     const submitInitUserInfo = () => {
         setsubmitClicked(true)
         setTimeout(() => {
@@ -150,7 +156,7 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
             if (response.status === 201) {
                 setAfterSubmitModalBody(
                     <Box>
-                        Success! <Button onClick={onClose}> Go to my Dashboard</Button>
+                        Success! <Button onClick={terminateOnBoarding}> Go to my Dashboard</Button>
                     </Box>
                 )
             }
