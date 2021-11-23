@@ -1,6 +1,4 @@
 import React from 'react'
-import Typography from '@mui/material/Typography';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 enum BillStatus {
     paid = "paid",
@@ -71,33 +69,27 @@ const Bill: React.FC<BillProps> = (props) => {
                     gridArea: 'text',
                     borderRight: '1px solid #A89B93',
                 }}>
-                    <Typography variant="body1" component="div">
-                        {props.text}
-                    </Typography>
+                  {props.text}
 
                 </div>
                 <div style={{
                     gridArea: 'sum',
                     borderRight: '1px solid #A89B93',
                 }}>
-                    <Typography variant="body1" component="div">
-                        {props.sum}€
-                    </Typography>
+                   {props.sum}€
                 </div>
                 <div style={{
                     gridArea: 'due',
                     borderRight: '1px solid #A89B93',
                 }}>
-                    <Typography variant="body1" component="div">
-                        {props.due}th
-                    </Typography>
+                     {props.due}th
 
                 </div>
                 <div style={{
                     gridArea: 'actions',
 
                 }}>
-                    <MoreVertIcon  fontSize={"medium"} />
+                    act
                 </div>
             </div>
             <div style={{

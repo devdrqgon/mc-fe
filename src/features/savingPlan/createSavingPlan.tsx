@@ -1,6 +1,4 @@
-import { FormControl, InputLabel, Input, FormHelperText, Typography, TextField } from "@mui/material"
 import { ChangeEvent, useState } from "react"
-import { BootstrapButton, ColorButton } from 'components/myButton';
 import axios from "axios";
 import logging from "config/logging";
 
@@ -50,15 +48,13 @@ const CreateSavingPlan: React.FC<CreateSavingPlanProps> = (props) => {
     }
     return (
         <>
-            <Typography style={{ marginTop: '20px', marginRight: '12px', color: '#fff' }} variant="subtitle2" gutterBottom component="div">
-                I want to save <input onChange={(e: ChangeEvent<HTMLInputElement>) => { setsavingGoal(e.target.value as unknown as number) }} />
-                <br />
-                My weekly budget for food per week is <input onChange={(e: ChangeEvent<HTMLInputElement>) => { setFoodBudget(e.target.value as unknown as number) }} />
-                <br />
-                My  weekly budget for other stuff (like a night out, a trip.. ) per week is <input onChange={(e: ChangeEvent<HTMLInputElement>) => { setOthersBudget(e.target.value as unknown as number) }} />
-                <br />
-                <BootstrapButton onClick={previewPlan}> Preview plan! </BootstrapButton>
-            </Typography>
+            I want to save <input onChange={(e: ChangeEvent<HTMLInputElement>) => { setsavingGoal(e.target.value as unknown as number) }} />
+            <br />
+            My weekly budget for food per week is <input onChange={(e: ChangeEvent<HTMLInputElement>) => { setFoodBudget(e.target.value as unknown as number) }} />
+            <br />
+            My  weekly budget for other stuff (like a night out, a trip.. ) per week is <input onChange={(e: ChangeEvent<HTMLInputElement>) => { setOthersBudget(e.target.value as unknown as number) }} />
+            <br />
+            <button onClick={previewPlan}> Preview plan!</button>
             {maxSavePerMonth ?
                 <div>
                     You need to save {maxSavePerMonth?.toFixed(2)} for {duration?.toFixed(2)} months

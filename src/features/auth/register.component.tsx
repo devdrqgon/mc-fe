@@ -2,13 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios'
 import logging from 'config/logging'
 import React, { ChangeEvent } from 'react'
 import { useHistory } from 'react-router'
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import { BootstrapButton } from 'components/myButton'
 import { Link } from 'react-router-dom';
-import background from "./bubble.png"
 export default function Register() {
     const [username, setUsername] = React.useState<string>('')
     const [password, setPassword] = React.useState<string>('')
@@ -16,7 +10,6 @@ export default function Register() {
 
     const history = useHistory()
     const registerClicked = async () => {
-
         try {
             const response = await axios({
                 method: 'POST',
@@ -34,6 +27,8 @@ export default function Register() {
                 setUIErr('Register failed!')
             }
         } catch (error) {
+            alert((error as Error).message)
+
             logging.error("Regsiter", (error as Error).message, error)
         }
     }
@@ -49,8 +44,6 @@ export default function Register() {
             `,
                 height: '95vh',
                 width: '100wh',
-                backgroundImage: `url(${background})` 
-
 
             }}
         >
@@ -63,84 +56,62 @@ export default function Register() {
 
 
                 }}>
-                <Card style={{
-                    marginTop: "200px",
-                    width: '400px',
-                    height: '300px',
-
-                }}>
-                    <CardContent>
-                        <div
-                            style={{
-                                display: 'grid',
-                                // backgroundColor: 'yellow',
-                                gridAutoColumns: '1fr',
-                                gridTemplateColumns: '1fr',
-                                gridTemplateRows: '0.5fr 2.2fr 0.3fr',
-                                gap: '0px 0px',
-                                gridTemplateAreas: `
+                <div
+                    style={{
+                        display: 'grid',
+                        // backgroundColor: 'yellow',
+                        gridAutoColumns: '1fr',
+                        gridTemplateColumns: '1fr',
+                        gridTemplateRows: '0.5fr 2.2fr 0.3fr',
+                        gap: '0px 0px',
+                        gridTemplateAreas: `
                                 'title'
                                 'main'
                                 'footer'
                             `
-                                ,
-                             
+                        ,
+
+                    }}>
+                    <div
+                        style={{
+                            gridArea: 'title',
+                            display: 'flex',
+                            justifyContent: 'center'
+                        }}>
+                        Register
+                    </div>
+                    <div
+                        style={{
+                            gridArea: 'main',
+                            display: 'flex',
+                            flexDirection: 'column',
+                        }}>
+                        <input type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => { setUsername(e.target.value as unknown as string) }} />
+
+
+                        <input type="password" onChange={(e: ChangeEvent<HTMLInputElement>) => { setPassword(e.target.value as unknown as string) }} />
+
+                        <button onClick={registerClicked}>
+                            Sign Up
+                        </button>
+                        <div
+                            style={{
+                                color: 'red',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                marginTop: '20px'
                             }}>
-                            <div
-                                style={{
-                                    gridArea: 'title',
-                                    display: 'flex',
-                                    justifyContent: 'center'
-                                }}>
-                                <Typography variant="h4" component="div">
-                                    Register
-                                </Typography>
+                            {uiErr}
 
-                            </div>
-                            <div
-                                style={{
-                                    gridArea: 'main',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                }}>
-                                <TextField style={{ marginBottom: '20px' }} onChange={(e: ChangeEvent<HTMLInputElement>) => { setUsername(e.target.value as unknown as string) }} id="outlined-basic" label="Username" variant="outlined" />
-
-                                <TextField
-                                    style={{ marginBottom: '20px' }}
-                                    id="outlined-password-input"
-                                    label="Password"
-                                    type="password"
-                                    autoComplete="current-password"
-                                    onChange={(e: ChangeEvent<HTMLInputElement>) => { setPassword(e.target.value as unknown as string) }}
-                                />
-
-
-                                <BootstrapButton onClick={registerClicked} variant="contained" disableRipple>
-                                    Sign Up
-                                </BootstrapButton>
-                                <div
-                                    style={{
-                                        color: 'red',
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                        marginTop: '20px'
-                                    }}>
-                                    <Typography variant="h6" component="div">
-                                        {uiErr}
-                                    </Typography>
-                                </div>
-                            </div>
-
-                            <div
-                                style={{ gridArea: 'footer' }}>
-                                <Link to={"/login"}>Already a member Account? Login here!</Link>
-
-                            </div>
                         </div>
-                    </CardContent>
+                    </div>
 
-                </Card>
+                    <div
+                        style={{ gridArea: 'footer' }}>
+                        <Link to={"/login"}>Already a member Account? Login here!</Link>
 
+                    </div>
+                </div>
             </div>
 
 

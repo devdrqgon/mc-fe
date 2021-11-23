@@ -1,12 +1,9 @@
 import { UserContext } from 'contexts/user.context';
 import React, { useContext } from 'react'
-import Typography from '@mui/material/Typography';
-import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
-import { ColorButton } from 'components/myButton';
 import { useHistory } from 'react-router';
 
 export const Header = () => {
-    const history = useHistory() 
+    const history = useHistory()
     const { user, token, tokenValid, login, logout, authenticated } = useContext(UserContext);
 
     const handleLogoutClick = () => {
@@ -33,21 +30,14 @@ export const Header = () => {
                         }
                     }>
                         <div style={{ gridArea: 'left', display: 'flex', justifyContent: 'center' }}>
-                            <Typography style={{ marginTop: '20px', marginRight: '12px' }} variant="subtitle2" gutterBottom component="div">
-                                welcome {localStorage.getItem('username')}!
-                            </Typography>
+                        welcome {localStorage.getItem('username')}!
+
                         </div>
                         <div style={{ gridArea: 'brand', display: 'flex', justifyContent: 'center' }}>
-                            <Typography style={{ marginTop: '15px' }} variant="subtitle1" gutterBottom component="div">
-                                MoneyCoach
-                            </Typography>
+                        MoneyCoach
                         </div>
                         <div style={{ gridArea: 'right', display: 'flex' }}>
-                            <ColorButton variant="contained" onClick={() => {alert("TODO!")}}> Connect your bank</ColorButton>
-
-                            <ColorButton style={{  marginLeft: '10px' }} variant="contained" onClick={handleLogoutClick}> Sign out</ColorButton>
-
-
+                            <button onClick={handleLogoutClick} > sign out </button>
                         </div>
                     </div>
                 </>
@@ -57,9 +47,8 @@ export const Header = () => {
                     <div
                         style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#071D24', color: '#fff' }}
                     >
-                        <Typography style={{ marginTop: '15px' }} variant="h4" gutterBottom component="div">
-                            MoneyCoach
-                        </Typography>
+                                                   MoneyCoach
+
                     </div>
                 </>}
         </>

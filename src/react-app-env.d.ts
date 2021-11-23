@@ -1,40 +1,55 @@
 /// <reference types="react-scripts" />
 
+
+export enum AccountType {
+    main = "main",
+    saving = "saving"
+}
+
+export interface UserInfoResponse{
+    username: string,
+    salary: SalaryInfo,
+    bills: Array<Bill>,
+    accounts: Array<AccountsInfo>,
+    weeklyBudget?: BudgetInfo
+}
+
+export interface SalaryInfo {
+    amount: number,
+    dayOfMonth: number,
+}
+
+
+export interface AccountsInfo {
+    accountType: AccountType,
+    balance: number,
+    active: boolean,
+}
 export interface Bill {
-    id: string,
-    sum: number,
-    text: string,
+    _id: string,
+    billName: number,
     username: string,
     paid: boolean,
+    cost: number,
     when: number,
 }
 
-export interface TimespanPlan {
-    startDate: Date,
-    endDate: Date,
-    moneyToBeSaved: number,
-    foodBudget: number,
-    othersBudget: number,
-    opsRef: Array<string> | undefined,
-    userId: string,
-}
+export interface BudgetInfo{
+    spent: number,
+    limit: number,
+} 
 
-export interface IGoal{
+export interface IGoal {
     text: string,
     cost: number,
     deadline?: Date
 }
 
 
-export interface BillResponse {
-    bills: any[],
-    sum: number
+
+
+export interface BudgetConfigUI {
+    food: string,
+    others: string
 }
 
-export interface IUserInfoResponse {
-    username:  string,
-    grossBalance: number,
-    daySalary: number,
-    foodBudget: number,
-    miscBudget: number
-}
