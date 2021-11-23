@@ -1,8 +1,6 @@
 import { Flex, Box, HStack, VStack, Input, Button, Heading, Divider } from "@chakra-ui/react"
 import axios, { AxiosResponse } from "axios"
-import { axiosClient } from "config/config"
 import { getSumPaidills, getSumUnpaidBills } from "features/timespanPlanner/lib"
-import userInfoHooks from "hooks/useUserInfo"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { Bill, UserInfoResponse } from "react-app-env"
 
@@ -46,14 +44,13 @@ const Dashboard = (props: { _username: string, _token: string }) => {
         }
         else {
             //the remaining days of the current month + the days of the next month 
-            const count = 0
             //count days till end of month
             //get last day of the current month 
             const todayAgain = new Date();
             const lastDayOfMonth = new Date(todayAgain.getFullYear(), todayAgain.getMonth() + 1, 0).getDate()
             let daysleft = lastDayOfMonth - today
             daysleft = daysleft + dayOfSalary
-            return dayOfSalary
+            return daysleft
         }
     }
     const [userInfo, setuserInfo] = useState<null | UserInfoResponse>(null)
@@ -76,7 +73,9 @@ const Dashboard = (props: { _username: string, _token: string }) => {
         }
     }
 
-
+    const calculateActualWeeklyBudget = (nettoBalance: number, daysLeft: number) => {
+        return ((nettoBalance / daysLeft) * 7)
+    }
     useEffect(() => {
         if (userInfo === null) {
             getUserInfo()
@@ -97,7 +96,7 @@ const Dashboard = (props: { _username: string, _token: string }) => {
                             <Box py={10}>
                                 <VStack>
                                     <Heading>
-                                        Netto Balance: {getNettoBalance(userInfo.accounts[0].balance,getSumBills(userInfo.bills))}
+                                        Netto Balance: €{getNettoBalance(userInfo.accounts[0].balance, getSumUnpaidBills(userInfo.bills)).toFixed(2)}
                                     </Heading>
                                 </VStack>
                             </Box>
@@ -111,7 +110,7 @@ const Dashboard = (props: { _username: string, _token: string }) => {
                                         <VStack>
                                             <Box>
                                                 <Heading pl={300} >
-                                                    Limit:  {userInfo.weeklyBudget?.limit}
+                                                    preferred:  €{userInfo.weeklyBudget?.limit}
                                                 </Heading>
                                             </Box>
 
@@ -119,7 +118,10 @@ const Dashboard = (props: { _username: string, _token: string }) => {
                                         <VStack>
                                             <Box>
                                                 <Heading pr={300}>
-                                                    Spent: {userInfo.weeklyBudget?.spent}
+                                                    actual: €{calculateActualWeeklyBudget(
+                                                        getNettoBalance(userInfo.accounts[0].balance, getSumUnpaidBills(userInfo.bills)),
+                                                        countDaysUntillNextSalary(userInfo.salary.dayOfMonth)).
+                                                        toFixed(2)}
                                                 </Heading>
                                             </Box>
                                         </VStack>
@@ -136,7 +138,7 @@ const Dashboard = (props: { _username: string, _token: string }) => {
                                         <VStack>
                                             <Box>
                                                 <Heading pl={300} >
-                                                    Paid:  {getSumPaidills(userInfo.bills)}
+                                                    Paid:  €{getSumPaidills(userInfo.bills)}
                                                 </Heading>
                                             </Box>
 
@@ -144,7 +146,7 @@ const Dashboard = (props: { _username: string, _token: string }) => {
                                         <VStack>
                                             <Box>
                                                 <Heading pr={300}>
-                                                    Not yet: {getSumUnpaidBills(userInfo.bills)}
+                                                    Not yet: €{getSumUnpaidBills(userInfo.bills)}
                                                 </Heading>
                                             </Box>
                                         </VStack>

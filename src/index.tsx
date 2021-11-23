@@ -2,7 +2,6 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import EntryComponent from 'entryComponent';
 import UserProvider from 'contexts/user.context';
-import './index.css'
 import { ChakraProvider, Container } from '@chakra-ui/react';
 import theme from 'theme';
 
