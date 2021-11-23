@@ -8,7 +8,7 @@ import { BudgetConfigUI } from "react-app-env"
 interface BudgetConfigProps {
     _handleChange?: (c: BudgetConfigUI) => void
 }
-const BudgetConfig: React.FC<BudgetConfigProps> = ({ _handleChange }) => {
+const BudgetConfigCreator: React.FC<BudgetConfigProps> = ({ _handleChange }) => {
 
     const format = (val: any) => `€` + val
     const parse = (val: any) => val.replace(/^\€/, "")
@@ -80,4 +80,4 @@ const BudgetConfig: React.FC<BudgetConfigProps> = ({ _handleChange }) => {
     )
 }
 
-export default BudgetConfig
+export default BudgetConfigCreator

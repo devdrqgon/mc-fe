@@ -6,29 +6,38 @@ export enum AccountType {
     saving = "saving"
 }
 
+export interface UserInfoResponse{
+    username: string,
+    salary: SalaryInfo,
+    bills: Array<Bill>,
+    accounts: Array<AccountsInfo>,
+    budget?: BudgetInfo
+}
+
+export interface SalaryInfo {
+    amount: number,
+    dayOfMonth: number,
+}
+
+
 export interface AccountsInfo {
     accountType: AccountType,
     balance: number,
-    active: boolean
+    active: boolean,
 }
 export interface Bill {
-    id: string,
-    sum: number,
-    text: string,
+    _id: string,
+    billName: number,
     username: string,
     paid: boolean,
+    cost: number,
     when: number,
 }
 
-export interface TimespanPlan {
-    startDate: Date,
-    endDate: Date,
-    moneyToBeSaved: number,
-    foodBudget: number,
-    othersBudget: number,
-    opsRef: Array<string> | undefined,
-    userId: string,
-}
+export interface BudgetInfo{
+    spent: number,
+    limit: number,
+} 
 
 export interface IGoal {
     text: string,
@@ -37,51 +46,10 @@ export interface IGoal {
 }
 
 
-export interface BillResponse {
-    bills: any[],
-    sum: number
-}
 
-export interface InfosOfUser {
-    username: string,
-    salary: {
-        amount: number,
-        dayOfMonth: number
-    },
-    bills: Array<{
-        billName: string,
-        username: string
-        paid: boolean,
-        cost: number,
-        when: number,
-    }>,
-    accounts: Array<{
-        accountType: AccountType,
-        balance: number
-        active: boolean
-    }>,
-    weeklybudget: {
-        limit: number,
-        spent: number
-    }
-
-}
-
-
-export interface IUserInfoResponse {
-    username: string,
-    grossBalance: number,
-    daySalary: number,
-    foodBudget: number,
-    miscBudget: number
-}
 
 export interface BudgetConfigUI {
     food: string,
     others: string
 }
 
-export interface SalaryInfoUI {
-    amount: number,
-    dayOfMonth: number
-}

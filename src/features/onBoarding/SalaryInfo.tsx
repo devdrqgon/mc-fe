@@ -3,12 +3,12 @@ import { SimpleGrid, GridItem, VStack, Heading } from "@chakra-ui/layout"
 import { NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper } from "@chakra-ui/number-input"
 import { Text } from "@chakra-ui/react"
 import { useRef, useState } from "react"
-import { SalaryInfoUI } from "react-app-env"
+import { SalaryInfo } from "react-app-env"
 
 interface SalaryInfoProps {
-    _handleChange?: (s: SalaryInfoUI) => void
+    _handleChange?: (s: SalaryInfo) => void
 }
-const SalaryInfo: React.FC<SalaryInfoProps> = ({ _handleChange }) => {
+const SalaryInfoCreator: React.FC<SalaryInfoProps> = ({ _handleChange }) => {
     //refs
 
     const format = (val: any) => `€` + val
@@ -88,4 +88,4 @@ const SalaryInfo: React.FC<SalaryInfoProps> = ({ _handleChange }) => {
     )
 }
 
-export default SalaryInfo
+export default SalaryInfoCreator

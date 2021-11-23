@@ -13,8 +13,8 @@ const Testpage = () => {
 
         }
     }, [])
-    const _TestToken = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZsYWQiLCJpYXQiOjE2Mzc0NDQzMjIsImV4cCI6MTYzNzcwMzUyMiwiaXNzIjoiQW1kZXYifQ.VIKg7HhHPX3Vl3MvxnqC2FCi9ZK06oJFiA39cNELUug`
-    const _TestUsername = 'vlad'
+    const _TestToken = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InhwIiwiaWF0IjoxNjM3NTk1MzEwLCJleHAiOjE2Mzc4NTQ1MTAsImlzcyI6IkFtZGV2In0.AXdJ6X6HsHvxlaskLg78a30o3aSC2_u7275VJ9zViDk`
+    const _TestUsername = 'mn4'
     return (
         <>
             <QueryClientProvider client={queryClient}>
@@ -27,12 +27,12 @@ const Testpage = () => {
                     />
                     <Route path="/test/bill" exact
                         render={() => (
-                            <BillCreator handleBillCallback={() => { }} _username={"samir"} />
+                            <BillCreator handleBillCallback={() => { }} _username={_TestUsername} />
                         )}
                     />
                     <Route path="/test/dash" exact
                         render={(props) => (
-                            <Dashboard />
+                            <Dashboard _username={_TestUsername} _token={_TestToken} />
                         )}
                     />
                     <Route path="/test/drag" exact
@@ -40,6 +40,7 @@ const Testpage = () => {
                             <DraggableList />
                         )}
                     />
+                    
                 
                 </Switch>
             </QueryClientProvider>

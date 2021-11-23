@@ -10,7 +10,6 @@ export default function Register() {
 
     const history = useHistory()
     const registerClicked = async () => {
-
         try {
             const response = await axios({
                 method: 'POST',
@@ -28,6 +27,8 @@ export default function Register() {
                 setUIErr('Register failed!')
             }
         } catch (error) {
+            alert((error as Error).message)
+
             logging.error("Regsiter", (error as Error).message, error)
         }
     }

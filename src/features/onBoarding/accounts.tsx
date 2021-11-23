@@ -19,7 +19,7 @@ interface AccountsProps {
     _handleChangeCallback?: (_a: AccountsInfo[]) => void
 }
 
-const Accounts: React.FC<AccountsProps> = ({ _handleChangeCallback }) => {
+const AccountsCreator: React.FC<AccountsProps> = ({ _handleChangeCallback }) => {
 
 
     const [mainBalance, setMainBalance] = useState('0')
@@ -111,4 +111,4 @@ const Accounts: React.FC<AccountsProps> = ({ _handleChangeCallback }) => {
     )
 }
 
-export default Accounts
+export default AccountsCreator

@@ -1,17 +1,17 @@
 import { useDisclosure } from "@chakra-ui/hooks"
 import MCModal from "components/modal"
 import React, { useEffect, useState } from "react"
-import Accounts, { AccountsInfo } from "./accounts"
+import AccountsCreator, { AccountsInfo } from "./accounts"
 import { Step, Steps, useSteps } from 'chakra-ui-steps';
-import SalaryInfo from "./SalaryInfo";
-import BudgetConfig from "./budgetConfig";
+import BudgetConfigCreator from "./budgetConfig";
 import { Box, VStack } from "@chakra-ui/layout";
 import { Modal } from "@chakra-ui/modal";
 import { Button, Spinner } from "@chakra-ui/react";
 import axios, { AxiosResponse } from "axios";
 import BillCreator from "components/billCreator";
 import BillViewer from "components/billViewer";
-import { BudgetConfigUI, SalaryInfoUI } from "react-app-env";
+import { BudgetConfigUI, SalaryInfo } from "react-app-env";
+import SalaryInfoCreator from "./SalaryInfo";
 
 
 interface NewUserWizardProps {
@@ -53,12 +53,12 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
 
     //Salary Info
     //hooks
-    const [uiSalaryInfo, setUISalaryInfo] = useState<SalaryInfoUI>({
+    const [uiSalaryInfo, setUISalaryInfo] = useState<SalaryInfo>({
         amount: 0,
         dayOfMonth: 0
     })
     //handler 
-    const handleEditSalaryInfoCallback = (_salaryInfo: SalaryInfoUI) => {
+    const handleEditSalaryInfoCallback = (_salaryInfo: SalaryInfo) => {
         setUISalaryInfo(_salaryInfo)
     }
  //BudgetConfig
@@ -73,9 +73,9 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
         label: string,
         comp: JSX.Element
     }> = [
-            { label: 'Accounts', comp: < Accounts _handleChangeCallback={handleEditAccountsDataCallback} /> },
-            { label: 'Salary', comp: < SalaryInfo  _handleChange={handleEditSalaryInfoCallback}/> },
-            { label: 'Budget', comp: < BudgetConfig _handleChange={handleEditBudgetConfigCallback} /> },
+            { label: 'Accounts', comp: <AccountsCreator _handleChangeCallback={handleEditAccountsDataCallback} /> },
+            { label: 'Salary', comp: <SalaryInfoCreator _handleChange={handleEditSalaryInfoCallback}/> },
+            { label: 'Budget', comp: <BudgetConfigCreator _handleChange={handleEditBudgetConfigCallback} /> },
             {
                 label: 'Bills', comp: <VStack>
                     <BillCreator

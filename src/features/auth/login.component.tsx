@@ -5,7 +5,6 @@ import { useHistory } from 'react-router'
 import { UserContext } from "contexts/user.context"
 import { Link } from 'react-router-dom'
 import toast from 'react-hot-toast'
-import { InfosOfUser } from 'react-app-env'
 
 export default function LoginPage() {
     const [username, setUsername] = React.useState<string>('')

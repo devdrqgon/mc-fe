@@ -5,7 +5,6 @@ import Sample from 'features/planOverview/sample'
 import { QueryClient, QueryCache, QueryClientProvider } from 'react-query'
 import { Switch, Route } from 'react-router'
 import { ReactQueryDevtools } from "react-query/devtools"
-import OldUser from 'oldUser'
 import NewUserWizard from 'features/onBoarding/newUserWizard'
 
 // export const queryClient = new QueryClient({
@@ -36,7 +35,6 @@ const AuthApp = () => {
                             />
                         )}
                     />
-                    <Route path="/olduser" component={OldUser} />
 
                 </Switch>
                 <ReactQueryDevtools />
