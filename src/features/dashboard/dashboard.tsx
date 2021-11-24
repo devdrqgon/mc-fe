@@ -9,6 +9,9 @@ const Dashboard = (props: { _username: string, _token: string }) => {
 
     // const {data: infos} = userInfoHooks.useGetUserInfos(props._username, props._token)
     // console.log(infos)
+    const [showImpulseController, setshowImpulseController] = useState(false)
+    const [weeklyIC, setWeeklyIC] = useState(0)
+    const [dailyIC, setDailyIC] = useState(0)
 
     const desireRef = useRef<HTMLInputElement>(null)
     const getSumBills = (_bills: Array<Bill>) => {
@@ -22,15 +25,17 @@ const Dashboard = (props: { _username: string, _token: string }) => {
     }
     const caluclate = () => {
 
-
+        setshowImpulseController(true)
 
         const desire = parseFloat(desireRef.current!.value)
+    
         // get netto Balance 
-        const netto = getNettoBalance(userInfo?.accounts[0].balance!, getSumBills(userInfo?.bills!))
+        const netto = getNettoBalance(userInfo?.accounts[0].balance!, getSumUnpaidBills(userInfo?.bills!))
         // get how many days left till next salary 
-        let daysLeft = countDaysUntillNextSalary(16)
-
-
+        let daysLeft = countDaysUntillNextSalary(userInfo?.salary.dayOfMonth!)
+        const res = netto - desire
+        setWeeklyIC(calculateActualWeeklyBudget(res, daysLeft))
+        setDailyIC(calculateDailyBudget(res, daysLeft))
 
     }
     const getNettoBalance = (grossBalance: number, sumBills: number) => {
@@ -77,6 +82,10 @@ const Dashboard = (props: { _username: string, _token: string }) => {
     const calculateActualWeeklyBudget = (nettoBalance: number, daysLeft: number) => {
         return ((nettoBalance / daysLeft) * 7)
     }
+
+    const calculateDailyBudget = (nettoBalance: number, daysLeft: number) => {
+        return ((nettoBalance / daysLeft))
+    }
     useEffect(() => {
         if (userInfo === null) {
             getUserInfo()
@@ -94,24 +103,38 @@ const Dashboard = (props: { _username: string, _token: string }) => {
                 <>
                     <Box>
                         <VStack >
-                            <Box py={10}>
+                            <HStack w="full" justifyContent="space-around">
                                 <VStack>
-                                    <Heading>
-                                        Netto Balance: €{getNettoBalance(userInfo.accounts[0].balance, getSumUnpaidBills(userInfo.bills)).toFixed(2)}
-                                    </Heading>
+                                    <Box>
+                                        <Heading>
+                                            Netto Balance: €{getNettoBalance(userInfo.accounts[0].balance, getSumUnpaidBills(userInfo.bills)).toFixed(2)}
+                                        </Heading>
+                                    </Box>
+
                                 </VStack>
-                            </Box>
+                                <VStack>
+                                    <Box>
+                                        <Heading>
+                                            Days left : {countDaysUntillNextSalary(userInfo.salary.dayOfMonth)}
+                                        </Heading>
+                                    </Box>
+                                </VStack>
+                            </HStack>
                             <Divider ></Divider>
+
                             <Box py={10} w="full" >
                                 <VStack>
                                     <Heading>
-                                        Weekly Budget
+                                        Budget
                                     </Heading>
                                     <HStack w="full" justifyContent="space-between">
                                         <VStack>
                                             <Box>
                                                 <Heading pl={300} >
-                                                    preferred:  €{userInfo.weeklyBudget?.limit}
+                                                    weekly: €{calculateActualWeeklyBudget(
+                                                        getNettoBalance(userInfo.accounts[0].balance, getSumUnpaidBills(userInfo.bills)),
+                                                        countDaysUntillNextSalary(userInfo.salary.dayOfMonth)).
+                                                        toFixed(2)}
                                                 </Heading>
                                             </Box>
 
@@ -119,7 +142,7 @@ const Dashboard = (props: { _username: string, _token: string }) => {
                                         <VStack>
                                             <Box>
                                                 <Heading pr={300}>
-                                                    actual: €{calculateActualWeeklyBudget(
+                                                    daily: €{calculateDailyBudget(
                                                         getNettoBalance(userInfo.accounts[0].balance, getSumUnpaidBills(userInfo.bills)),
                                                         countDaysUntillNextSalary(userInfo.salary.dayOfMonth)).
                                                         toFixed(2)}
@@ -130,6 +153,38 @@ const Dashboard = (props: { _username: string, _token: string }) => {
                                 </VStack>
                             </Box>
                             <Divider ></Divider>
+                            <Box py={10}>
+                                <VStack>
+                                    <Heading>
+                                        Impulse Controller
+                                    </Heading>
+                                    <Input onChange={(e)=>{
+                                        if(e.target.value==""){setshowImpulseController(false)}
+                                    }} ref={desireRef} placeholder="How much u wanna spend" />
+                                    <Button onClick={caluclate}> calculate!</Button>
+                                </VStack>
+                            </Box>
+                            {showImpulseController === true ?
+
+                                <Box py={10}>
+                                    <HStack>
+
+                                        <VStack>
+                                            <div> Daily </div>
+                                            <Input value={dailyIC} />
+                                        </VStack>
+                                        <VStack>
+                                            <div> Weekly </div>
+                                            <Input value={weeklyIC} />
+                                        </VStack>
+
+                                    </HStack>
+                                </Box>
+                                :
+                                <> </>
+                            }
+                            <Divider ></Divider>
+
                             <Box py={10} w="full" >
                                 <VStack>
                                     <Heading>
@@ -151,17 +206,7 @@ const Dashboard = (props: { _username: string, _token: string }) => {
                                     </HStack>
                                 </VStack>
                             </Box>
-                            <Divider ></Divider>
 
-                            <Box py={10}>
-                                <VStack>
-                                    <Heading>
-                                        Impulse Controller
-                                    </Heading>
-                                    <Input ref={desireRef} placeholder="How much u wanna spend" />
-                                    <Button onClick={caluclate}> calculate!</Button>
-                                </VStack>
-                            </Box>
 
 
                         </VStack>
