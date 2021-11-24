@@ -26,8 +26,8 @@ export interface AccountsInfo {
     active: boolean,
 }
 export interface Bill {
-    _id: string,
-    billName: number,
+    _id?: string,
+    billName: string,
     username: string,
     paid: boolean,
     cost: number,

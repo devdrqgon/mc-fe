@@ -1,5 +1,6 @@
 import { Flex, Box, HStack, VStack, Input, Button, Heading, Divider } from "@chakra-ui/react"
 import axios, { AxiosResponse } from "axios"
+import BillViewer from "components/billViewer"
 import { getSumPaidills, getSumUnpaidBills } from "features/timespanPlanner/lib"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { Bill, UserInfoResponse } from "react-app-env"
@@ -136,19 +137,16 @@ const Dashboard = (props: { _username: string, _token: string }) => {
                                     </Heading>
                                     <HStack w="full" justifyContent="space-between">
                                         <VStack>
-                                            <Box>
-                                                <Heading pl={300} >
-                                                    Paid:  €{getSumPaidills(userInfo.bills)}
-                                                </Heading>
-                                            </Box>
-
+                                            <Heading pl={300} >
+                                                Paid:  €{getSumPaidills(userInfo.bills)}
+                                            </Heading>
+                                            <BillViewer _bills={userInfo.bills.filter((b) => { return b.paid === true })} />
                                         </VStack>
                                         <VStack>
-                                            <Box>
-                                                <Heading pr={300}>
-                                                    Not yet: €{getSumUnpaidBills(userInfo.bills)}
-                                                </Heading>
-                                            </Box>
+                                            <Heading pr={300}>
+                                                Not yet: €{getSumUnpaidBills(userInfo.bills)}
+                                            </Heading>
+                                            <BillViewer _bills={userInfo.bills.filter((b) => { return b.paid === false })} />
                                         </VStack>
                                     </HStack>
                                 </VStack>

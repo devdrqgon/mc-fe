@@ -1,14 +1,10 @@
 import { Box, Flex, VStack } from "@chakra-ui/layout"
 import { v4 as uuidv4 } from 'uuid';
 import { Table, TableCaption, Tbody, Td, Text, Tfoot, Th, Thead, Tr } from "@chakra-ui/react"
+import { Bill } from "react-app-env"
+
 interface BillsViewerProps {
-    _bills: Array<{
-        billName: string,
-        username: string
-        paid: boolean
-        cost: number,
-        when: number
-    }>
+    _bills: Array<Bill>
 }
 
 const BillViewer: React.FC<BillsViewerProps> = ({ _bills }) => {
@@ -28,7 +24,7 @@ const BillViewer: React.FC<BillsViewerProps> = ({ _bills }) => {
                     {_bills.map((b) => (
                         <Tr key={uuidv4()}>
                             <Td> {b.billName}</Td>
-                            <Td isNumeric>  {b.cost}</Td>
+                            <Td isNumeric>  €{b.cost}</Td>
                             <Td isNumeric> {b.when}</Td>
                             <Td isNumeric>
                                 {b.paid === true ?

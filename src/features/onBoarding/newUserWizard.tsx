@@ -10,7 +10,7 @@ import { Button, Spinner } from "@chakra-ui/react";
 import axios, { AxiosResponse } from "axios";
 import BillCreator from "components/billCreator";
 import BillViewer from "components/billViewer";
-import { BudgetConfigUI, SalaryInfo } from "react-app-env";
+import { Bill, BudgetConfigUI, SalaryInfo } from "react-app-env";
 import SalaryInfoCreator from "./SalaryInfo";
 import { useHistory } from "react-router";
 
@@ -24,21 +24,9 @@ interface NewUserWizardProps {
 const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
 
     //bills
-    const [uiBills, setUIBills] = useState<Array<{
-        billName: string,
-        username: string
-        paid: boolean
-        cost: number,
-        when: number
-    }>>([])
+    const [uiBills, setUIBills] = useState<Array<Bill>>([])
 
-    const handleNewBillCallback = (_bill: {
-        billName: string,
-        username: string
-        paid: boolean
-        cost: number,
-        when: number
-    }) => {
+    const handleNewBillCallback = (_bill: Bill) => {
         setUIBills(() => [...uiBills, _bill])
     }
     const calculateBudget = (food: string, others: string) =>{

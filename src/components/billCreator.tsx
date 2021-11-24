@@ -4,17 +4,12 @@ import { css } from '@emotion/react'
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { DatePickerProps } from '@orange_digital/chakra-datepicker/dist/props';
+import { Bill } from 'react-app-env';
 
 interface BillCreatorProps {
     _username: string,
     
-    handleBillCallback?: (bill: {
-        billName: string,
-        username: string
-        paid: boolean
-        cost: number,
-        when: number
-    }) => void
+    handleBillCallback?: (bill: Bill) => void
 }
 
 
@@ -27,13 +22,7 @@ const BillCreator: React.FC<BillCreatorProps> = ({ _username, handleBillCallback
 
    
     const addBillClicked = () => {
-        const _bill: {
-            billName: string,
-            username: string
-            paid: boolean
-            cost: number,
-            when: number
-        } = {
+        const _bill: Bill = {
             billName: billNameRef.current!.value! as string,
             username: _username,
             paid: newBillFlag,
