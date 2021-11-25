@@ -22,13 +22,13 @@ const AmountDisplayer = (props: { _nett: number, _unpaidBills: number }) => {
     return (
         <>
             <Flex width={"100%"}>
-                <Tooltip label={<> <Flex minW="100px" justifyContent="space-between"> <div> Nett </div>  <div>  {props._nett} </div> </Flex> </>}>
+                <Tooltip label={<> <Flex minW="100px" justifyContent="space-between"> <div> Nett </div>  <div>  €{props._nett} </div> </Flex> </>}>
                     <Box width={nettPercentage!}>
-                        <Divider mr={3} p={0} borderColor={"#B4E782"} borderWidth={3}></Divider>
+                        <Divider mr={3} p={0} borderColor={"#7FCA34"} borderWidth={3}></Divider>
                     </Box>
                 </Tooltip>
 
-                <Tooltip label={<> <Flex minW="150px" justifyContent="space-between"> <div> Unpaid bills </div>  <div> {props._unpaidBills}</div> </Flex> </>}>
+                <Tooltip label={<> <Flex minW="150px" justifyContent="space-between"> <div> Unpaid bills </div>  <div> €{props._unpaidBills}</div> </Flex> </>}>
                     <Box width={unpaidBillsPercentage!} >
                         <Divider m={0} p={0} borderColor={"#E78282"} borderWidth={3}></Divider>
                     </Box>
@@ -47,8 +47,8 @@ const HInfoDisplayer = (props: { _input: number }) => {
                     <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
                         Main
                     </Text>
-                    <Text color={'gray.500'} fontSize={'m'} textTransform={'uppercase'}>
-                        {props._input}
+                    <Text color={'#7FCA34'} fontSize={'m'} fontWeight="bold"  textTransform={'uppercase'}>
+                    €{props._input}
                     </Text>
                 </Flex>
             </Flex>
