@@ -14,11 +14,11 @@ const AmountDisplayer = (props: { _nett: number, _unpaidBills: number }) => {
 
         // Caluclate Percentage of nett 
         const nettPercentage = (props._nett / whole) * 100
-        const unpaidBillsPercentage  = (props._unpaidBills / whole) * 100
+        const unpaidBillsPercentage = (props._unpaidBills / whole) * 100
         setNettPercentage(`${nettPercentage.toString()}%`)
         setUnpaidBillsPercentage(`${unpaidBillsPercentage.toString()}%`)
 
-    }, [nettPercentage,unpaidBillsPercentage])
+    }, [nettPercentage, unpaidBillsPercentage])
     return (
         <>
             <Flex width={"100%"}>
@@ -43,12 +43,12 @@ const HInfoDisplayer = (props: { _input: number }) => {
         <>
             <Flex w={"100%"} direction="column">
 
-                <Flex mb={4} width={"100%"} justifyContent="space-between">
+                <Flex width={"100%"} justifyContent="space-between">
                     <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
                         Main
                     </Text>
-                    <Text color={'#7FCA34'} fontSize={'m'} fontWeight="bold"  textTransform={'uppercase'}>
-                    €{props._input}
+                    <Text color={'#7FCA34'} fontSize={'m'} fontWeight="bold" textTransform={'uppercase'}>
+                        €{props._input}
                     </Text>
                 </Flex>
             </Flex>
@@ -74,20 +74,22 @@ const BalanceCard: React.FC<BalanceCardProps> = (props) => {
                 pos={'relative'}
                 zIndex={1}>
                 <HStack justifyContent={'space-between'}>
-                    <Box>
-                        <HStack>
-                            <FaBalanceScaleLeft />
-                            <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
-                                Balance
-                            </Text>
-                        </HStack>
-
-                    </Box>
+                    <HStack>
+                        <FaBalanceScaleLeft />
+                        <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
+                            Balance
+                        </Text>
+                    </HStack>
                     <HiDotsVertical style={{ 'cursor': 'pointer' }} />
                 </HStack>
-                <VStack alignItems="flex-start">
-                    <Divider mt={7} orientation={'horizontal'}></Divider>
-                    <VStack w={"full"} alignItems="flex-start">
+                <VStack
+                    alignItems="flex-start">
+                    <Divider mt={2} orientation={'horizontal'}></Divider>
+                    <VStack
+                        rounded={'lg'}
+                        boxShadow="xs"
+                        w={"full"}
+                        alignItems="flex-start">
                         <HInfoDisplayer _input={props._mainAccountTotalBalance} />
                         <AmountDisplayer _nett={props._nett} _unpaidBills={props._unpaidBills} />
 
