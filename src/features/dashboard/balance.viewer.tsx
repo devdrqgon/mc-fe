@@ -1,21 +1,35 @@
 import { useColorModeValue } from "@chakra-ui/color-mode"
 import { Box, Center, Divider, Flex, Heading, Stack, VStack } from "@chakra-ui/layout"
 import { HStack, Input, InputGroup, InputLeftAddon, InputRightAddon, Text, Tooltip } from "@chakra-ui/react"
+import { useEffect, useState } from "react"
 import { FaBalanceScaleLeft } from 'react-icons/fa'
 import { HiDotsVertical } from 'react-icons/hi'
 
 const AmountDisplayer = (props: { _nett: number, _unpaidBills: number }) => {
+    const [nettPercentage, setNettPercentage] = useState<string | null>(null)
+    const [unpaidBillsPercentage, setUnpaidBillsPercentage] = useState<string | null>(null)
+
+    useEffect(() => {
+        const whole = props._nett + props._unpaidBills
+
+        // Caluclate Percentage of nett 
+        const nettPercentage = (props._nett / whole) * 100
+        const unpaidBillsPercentage  = (props._unpaidBills / whole) * 100
+        setNettPercentage(`${nettPercentage.toString()}%`)
+        setUnpaidBillsPercentage(`${unpaidBillsPercentage.toString()}%`)
+
+    }, [nettPercentage,unpaidBillsPercentage])
     return (
         <>
             <Flex width={"100%"}>
                 <Tooltip label={<> <Flex minW="100px" justifyContent="space-between"> <div> Nett </div>  <div>  {props._nett} </div> </Flex> </>}>
-                    <Box width={"70%"}>
+                    <Box width={nettPercentage!}>
                         <Divider mr={3} p={0} borderColor={"#B4E782"} borderWidth={3}></Divider>
                     </Box>
                 </Tooltip>
 
                 <Tooltip label={<> <Flex minW="150px" justifyContent="space-between"> <div> Unpaid bills </div>  <div> {props._unpaidBills}</div> </Flex> </>}>
-                    <Box width={"30%"} >
+                    <Box width={unpaidBillsPercentage!} >
                         <Divider m={0} p={0} borderColor={"#E78282"} borderWidth={3}></Divider>
                     </Box>
                 </Tooltip>
