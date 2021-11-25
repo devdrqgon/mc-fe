@@ -7,7 +7,7 @@ import { queryClient } from 'authApp'
 import Dashboard from 'features/dashboard/dashboard'
 import NewUserWizard from 'features/onBoarding/newUserWizard'
 import DashboardDesign from 'pg/dashboardDesign'
-import DashboardCard from 'features/dashboard/balance.viewer'
+import BalanceCard from 'features/dashboard/balance.viewer'
 
 const Testpage = () => {
     useEffect(() => {
@@ -21,7 +21,7 @@ const Testpage = () => {
         <>
             <QueryClientProvider client={queryClient}>
                 <Switch>
-                    
+
                     <Route path="/test/newuserwizard" exact
                         render={(props) => (
                             <NewUserWizard _username={_TestUsername} _token={_TestToken} />
@@ -37,9 +37,9 @@ const Testpage = () => {
                             <Dashboard _username={_TestUsername} _token={_TestToken} />
                         )}
                     /> */}
-                     <Route path="/test/dash" exact
+                    <Route path="/test/dash" exact
                         render={(props) => (
-                            <DashboardDesign/>
+                            <DashboardDesign />
                         )}
                     />
                     <Route path="/test/drag" exact
@@ -47,13 +47,13 @@ const Testpage = () => {
                             <DraggableList />
                         )}
                     />
-                    
+
                     <Route path="/test/BalanceViewer" exact
                         render={(props) => (
-                            <DashboardCard />
+                            <BalanceCard _nett={900} _unpaidBills={100} _mainAccountTotalBalance={1000} />
                         )}
                     />
-                
+
                 </Switch>
             </QueryClientProvider>
 
