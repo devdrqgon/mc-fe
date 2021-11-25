@@ -7,7 +7,7 @@ import { queryClient } from 'authApp'
 import Dashboard from 'features/dashboard/dashboard'
 import NewUserWizard from 'features/onBoarding/newUserWizard'
 import DashboardDesign from 'pg/dashboardDesign'
-import BalanceViewer from 'features/dashboard/balance.viewer'
+import DashboardCard from 'features/dashboard/balance.viewer'
 
 const Testpage = () => {
     useEffect(() => {
@@ -50,7 +50,7 @@ const Testpage = () => {
                     
                     <Route path="/test/BalanceViewer" exact
                         render={(props) => (
-                            <BalanceViewer />
+                            <DashboardCard />
                         )}
                     />
                 
