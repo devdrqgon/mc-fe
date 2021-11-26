@@ -1,14 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import { Button, Checkbox, Flex, FormControl, FormLabel, Heading, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, VStack } from '@chakra-ui/react';
+import { Button, Text,Checkbox, Flex, FormControl, FormLabel, Heading, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Stack, VStack } from '@chakra-ui/react';
 import { css } from '@emotion/react'
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
-import { DatePickerProps } from '@orange_digital/chakra-datepicker/dist/props';
 import { Bill } from 'react-app-env';
 
 interface BillCreatorProps {
     _username: string,
-    
+
     handleBillCallback?: (bill: Bill) => void
 }
 
@@ -20,7 +19,7 @@ const BillCreator: React.FC<BillCreatorProps> = ({ _username, handleBillCallback
 
     const [newBillFlag, setnewBillFlag] = useState(false)
 
-   
+
     const addBillClicked = () => {
         const _bill: Bill = {
             billName: billNameRef.current!.value! as string,
@@ -32,7 +31,7 @@ const BillCreator: React.FC<BillCreatorProps> = ({ _username, handleBillCallback
         if (handleBillCallback) { handleBillCallback(_bill) }
 
 
-        
+
 
     }
 
@@ -52,7 +51,7 @@ const BillCreator: React.FC<BillCreatorProps> = ({ _username, handleBillCallback
                 <VStack
 
                 >
-                  
+
                     <Flex
                         p={5}
                     >
@@ -82,10 +81,20 @@ const BillCreator: React.FC<BillCreatorProps> = ({ _username, handleBillCallback
                                 </NumberInputStepper>
                             </NumberInput>
                         </FormControl>
-                        <FormControl mt={10}>
+                        <Stack mt={42} 
+                            ml={2}
+                            w="full"
+                            direction={{ base: 'column', sm: 'row' }}
+                            align={'start'}
+                            justify={'space-between'}>
+                            <Checkbox colorScheme={"green"} onChange={() => setnewBillFlag(!newBillFlag)} >
+                                <Text minW={100}>
+                                    Already paid
+                                </Text>
+                            </Checkbox>
 
-                            <Checkbox onChange={() => setnewBillFlag(!newBillFlag)} >Already paid</Checkbox>
-                        </FormControl>
+                        </Stack>
+
                         <FormControl mt={7}>
 
                             <Button

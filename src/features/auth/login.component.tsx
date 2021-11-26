@@ -109,7 +109,7 @@ export default function LoginPage() {
                             </Button>
                             <Link to={"/register"}>
                                 <Text fontSize={'lg'} color={'#2ad'}>
-                                    New to MoneyCoacht? Register here!
+                                    New to MoneyCoach? Register here!
                                 </Text>
                             </Link>
 
@@ -118,7 +118,7 @@ export default function LoginPage() {
                 </Box>
             </Stack>
         </Flex>
-    );
+    )
 }
 
 

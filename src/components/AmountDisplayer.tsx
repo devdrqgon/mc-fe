@@ -25,14 +25,16 @@ const AmountDisplayer = (props: { _nett: number, _unpaidBills: number }) => {
                     </Box>
                 </Tooltip>
 
-                <Tooltip label={<> <Flex minW="150px" justifyContent="space-between"> <div> Unpaid bills </div>  <div> €{props._unpaidBills}</div> </Flex> </>}>
-                    <Box width={unpaidBillsPercentage!} >
-                        <Divider m={0} p={0} borderColor={"#E78282"} borderWidth={3}></Divider>
-                    </Box>
-                </Tooltip>
-
+                {props._unpaidBills !== 0 ?
+                    <Tooltip label={<> <Flex minW="150px" justifyContent="space-between"> <div> Unpaid bills </div>  <div> €{props._unpaidBills}</div> </Flex> </>}>
+                        <Box width={unpaidBillsPercentage!} >
+                            <Divider m={0} p={0} borderColor={"#E78282"} borderWidth={3}></Divider>
+                        </Box>
+                    </Tooltip>
+                    :
+                    <></>}
             </Flex>
         </>
     )
 }
-export default  AmountDisplayer
+export default AmountDisplayer
