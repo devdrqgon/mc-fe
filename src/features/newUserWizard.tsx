@@ -3,12 +3,12 @@ import MCModal from "components/modal"
 import React, { useEffect, useState } from "react"
 import AccountsCreator, { AccountsInfo } from "../components/accountsCreator"
 import { Step, Steps, useSteps } from 'chakra-ui-steps';
-import BudgetConfigCreator from "../components/budgetConfigCreator";
+import BudgetConfigCreator from "../components/budget/budgetConfigCreator";
 import { Box, VStack } from "@chakra-ui/layout";
 import { Button, Spinner } from "@chakra-ui/react";
 import axios, { AxiosResponse } from "axios";
 import { Bill, BudgetConfigUI, SalaryInfo } from "react-app-env";
-import SalaryInfoCreator from "../components/salaryInfoCreator";
+import SalaryInfoCreator from "../components/salaryInfo/salaryInfoCreator";
 import { useHistory } from "react-router";
 import BillCreator from "components/bills/billCreator";
 

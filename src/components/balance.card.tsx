@@ -44,7 +44,7 @@ const BalanceCard: React.FC<BalanceCardProps> = (props) => {
                         boxShadow="xs"
                         w={"full"}
                         alignItems="flex-start">
-                        <HInfoDisplayer _text={"Main"} _input={props._mainAccountTotalBalance} />
+                        <HInfoDisplayer _field={"Main"} _value={`€${props._mainAccountTotalBalance.toFixed(2)}`} />
                         <AmountDisplayer _nett={props._nett} _unpaidBills={props._unpaidBills} />
 
                     </VStack>

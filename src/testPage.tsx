@@ -2,7 +2,7 @@ import DraggableList from 'components/draggableList'
 import { useEffect } from 'react'
 import { Route, Switch } from 'react-router'
 import NewUserWizard from 'features/newUserWizard'
-import BalanceCard from 'features/dashboard/balance.card'
+import BalanceCard from 'components/balance.card'
 
 const Testpage = () => {
     useEffect(() => {

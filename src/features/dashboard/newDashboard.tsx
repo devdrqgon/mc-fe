@@ -1,10 +1,11 @@
 import { Flex, Box, HStack, VStack, Input, Button, Heading, Divider, Center } from "@chakra-ui/react"
 import axios, { AxiosResponse } from "axios"
 import BudgetCard from "components/budget/budgetCard"
+import SalaryCard from "components/salaryInfo/salaryInfoCard"
 import { getSumPaidills, getSumUnpaidBills } from "features/lib"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { Bill, UserInfoResponse } from "react-app-env"
-import BalanceCard, { GenericCard } from "./balance.card"
+import BalanceCard, { GenericCard } from "../../components/balance.card"
 
 const NewDashboard = (props: { _username: string, _token: string }) => {
 
@@ -111,10 +112,17 @@ const NewDashboard = (props: { _username: string, _token: string }) => {
                                     _unpaidBills={getSumUnpaidBills(userInfo.bills)} />
                                 <Divider orientation="vertical" />
                                 <BudgetCard
-                                    _limit={userInfo.weeklyBudget?.limit!}
-                                    _spent={userInfo.weeklyBudget?.spent!} />
+                                    _weekly={calculateActualWeeklyBudget(
+                                        getNettoBalance(userInfo.accounts[0].balance, getSumUnpaidBills(userInfo.bills)),
+                                        countDaysUntillNextSalary(userInfo.salary.dayOfMonth))}
+                                    _daily={calculateDailyBudget(
+                                        getNettoBalance(userInfo.accounts[0].balance, getSumUnpaidBills(userInfo.bills)),
+                                        countDaysUntillNextSalary(userInfo.salary.dayOfMonth))} />
                                 <Divider orientation="vertical" />
-                                <GenericCard />
+                                <SalaryCard
+                                    _amount={userInfo.salary.amount}
+                                    _daysLeft={countDaysUntillNextSalary(userInfo.salary.dayOfMonth)}
+                                />
                             </Flex>
                         </Center>
                         <Center>

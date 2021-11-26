@@ -16,7 +16,7 @@ const Dashboard = (props: { _username: string, _token: string }) => {
 
     const desireRef = useRef<HTMLInputElement>(null)
 
-    const caluclate = () => {
+    const caluclateImpulse = () => {
 
         setshowImpulseController(true)
 
@@ -58,7 +58,6 @@ const Dashboard = (props: { _username: string, _token: string }) => {
                                             Netto Balance: €{getNettoBalance(userInfo.accounts[0].balance, getSumUnpaidBills(userInfo.bills)).toFixed(2)}
                                         </Heading>
                                     </Box>
-
                                 </VStack>
                                 <VStack>
                                     <Box>
@@ -109,7 +108,7 @@ const Dashboard = (props: { _username: string, _token: string }) => {
                                     <Input onChange={(e) => {
                                         if (e.target.value == "") { setshowImpulseController(false) }
                                     }} ref={desireRef} placeholder="How much u wanna spend" />
-                                    <Button onClick={caluclate}> calculate!</Button>
+                                    <Button onClick={caluclateImpulse}> calculate!</Button>
                                 </VStack>
                             </Box>
                             {showImpulseController === true ?

@@ -49,3 +49,4 @@ export const countDaysUntillNextSalary = (dayOfSalary: number) => {
         return daysleft
     }
 }
+

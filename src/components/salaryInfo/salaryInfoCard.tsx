@@ -3,14 +3,14 @@ import AmountDisplayer from "components/AmountDisplayer"
 import HInfoDisplayer from "components/hInfoDisplayer"
 import React from "react"
 import { HiDotsVertical } from "react-icons/hi"
-import { CgCalculator } from "react-icons/cg"
+import { GrMoney } from "react-icons/gr"
 
 
-interface BudgetCardProps {
-    _weekly: number,
-    _daily: number
+interface SalaryCardProps {
+    _amount: number,
+    _daysLeft: number
 }
-const BudgetCard: React.FC<BudgetCardProps> = (props) => {
+const SalaryCard: React.FC<SalaryCardProps> = (props) => {
     return (
         <>
             <Box
@@ -24,9 +24,9 @@ const BudgetCard: React.FC<BudgetCardProps> = (props) => {
                 zIndex={1}>
                 <HStack justifyContent={'space-between'}>
                     <HStack>
-                        <CgCalculator />
+                        <GrMoney />
                         <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
-                            Budget
+                            Salary
                         </Text>
                     </HStack>
                     <HiDotsVertical style={{ 'cursor': 'pointer' }} />
@@ -42,8 +42,8 @@ const BudgetCard: React.FC<BudgetCardProps> = (props) => {
                         boxShadow="xs"
                         w={"full"}
                         alignItems="flex-start">
-                        <HInfoDisplayer _field={"Weekly Budget"} _value={`€${props._weekly.toFixed(2)}`} />
-                        <HInfoDisplayer _field={"Daily Budget"} _value={`€${props._daily.toFixed(2)}`} />
+                        <HInfoDisplayer _field={"amount"} _value={`€${props._amount}`} />
+                        <HInfoDisplayer _field={"next salary in"} _value={props._daysLeft.toString()} />
 
                     </VStack>
                 </VStack>
@@ -52,4 +52,4 @@ const BudgetCard: React.FC<BudgetCardProps> = (props) => {
     )
 }
 
-export default BudgetCard
+export default SalaryCard
