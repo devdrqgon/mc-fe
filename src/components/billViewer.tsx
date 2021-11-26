@@ -10,36 +10,41 @@ interface BillsViewerProps {
 const BillViewer: React.FC<BillsViewerProps> = ({ _bills }) => {
     return (
         <>
-            <Table variant="simple">
-                <Thead>
-                    <Tr>
-                        <Th>Name</Th>
-                        <Th isNumeric>cost</Th>
-                        <Th isNumeric>when</Th>
-                        <Th isNumeric>paid</Th>
+            {_bills.length > 0 ?
+                <Table 
+                variant="simple">
+                    <Thead>
+                        <Tr>
+                            <Th>Name</Th>
+                            <Th isNumeric>cost</Th>
+                            <Th isNumeric>when</Th>
+                            <Th isNumeric>paid</Th>
 
-                    </Tr>
-                </Thead>
-                <Tbody>
-                    {_bills.map((b) => (
-                        <Tr key={uuidv4()}>
-                            <Td> {b.billName}</Td>
-                            <Td isNumeric>  €{b.cost}</Td>
-                            <Td isNumeric> {b.when}</Td>
-                            <Td isNumeric>
-                                {b.paid === true ?
-                                    <>
-                                        1
-                                    </> :
-                                    <>
-                                        0
-                                    </>
-                                }
-                            </Td>
                         </Tr>
-                    ))}
-                </Tbody>
-            </Table>
+                    </Thead>
+                    <Tbody>
+                        {_bills.map((b) => (
+                            <Tr key={uuidv4()}>
+                                <Td> {b.billName}</Td>
+                                <Td isNumeric>  €{b.cost}</Td>
+                                <Td isNumeric> {b.when}</Td>
+                                <Td isNumeric>
+                                    {b.paid === true ?
+                                        <>
+                                            1
+                                        </> :
+                                        <>
+                                            0
+                                        </>
+                                    }
+                                </Td>
+                            </Tr>
+                        ))}
+                    </Tbody>
+                </Table>
+                :
+                <></>
+            }
         </>
     )
 }

@@ -8,8 +8,12 @@ import {
     ModalBody,
     ModalCloseButton,
     Button,
-    Box,
+    Text,
     HStack,
+    Center,
+    Stack,
+    Flex,
+    Heading,
 } from "@chakra-ui/react"
 import { ReactNode } from "react"
 interface MCModalProps {
@@ -33,14 +37,16 @@ const MCModal: React.FC<MCModalProps> = (props) => {
                 id={"mcModal"}
                 isOpen={props._isOpen}
                 onClose={props._onClose}
-                closeOnOverlayClick={props._closeOnOverlayClick? false : true}>
+                closeOnOverlayClick={props._closeOnOverlayClick ? false : true}>
                 <ModalOverlay />
 
                 <ModalContent>
 
-                    <ModalHeader fontSize={23}>
-                        {props._title}
-                    </ModalHeader>
+                    <Flex  mt={3}mb={6} justifyContent="center">
+                        <Text fontSize="30px">
+                            {props._title}
+                        </Text>
+                    </Flex>
                     {props._disableCloseBtn === true ?
                         <> </>
                         :

@@ -8,11 +8,12 @@ import { Box, VStack } from "@chakra-ui/layout";
 import { Modal } from "@chakra-ui/modal";
 import { Button, Spinner } from "@chakra-ui/react";
 import axios, { AxiosResponse } from "axios";
-import BillCreator from "components/billCreator";
+import BillInput from "components/billIInput";
 import BillViewer from "components/billViewer";
 import { Bill, BudgetConfigUI, SalaryInfo } from "react-app-env";
 import SalaryInfoCreator from "./SalaryInfo";
 import { useHistory } from "react-router";
+import BillCreator from "components/BillCreator";
 
 
 interface NewUserWizardProps {
@@ -29,9 +30,9 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
     const handleNewBillCallback = (_bill: Bill) => {
         setUIBills(() => [...uiBills, _bill])
     }
-    const calculateBudget = (food: string, others: string) =>{
+    const calculateBudget = (food: string, others: string) => {
         return (parseFloat(food) + parseFloat(others))
-        }
+    }
 
     //Accounts
     //hooks
@@ -50,9 +51,9 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
     const handleEditSalaryInfoCallback = (_salaryInfo: SalaryInfo) => {
         setUISalaryInfo(_salaryInfo)
     }
- //BudgetConfig
+    //BudgetConfig
     //hooks
-    const [uiBudgetConfig, setUIBudgetConfig] = useState<BudgetConfigUI>({food: '0', others: '0'})
+    const [uiBudgetConfig, setUIBudgetConfig] = useState<BudgetConfigUI>({ food: '0', others: '0' })
     //handler 
     const handleEditBudgetConfigCallback = (_c: BudgetConfigUI) => {
         setUIBudgetConfig(_c)
@@ -63,16 +64,9 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
         comp: JSX.Element
     }> = [
             { label: 'Accounts', comp: <AccountsCreator _handleChangeCallback={handleEditAccountsDataCallback} /> },
-            { label: 'Salary', comp: <SalaryInfoCreator _handleChange={handleEditSalaryInfoCallback}/> },
+            { label: 'Salary', comp: <SalaryInfoCreator _handleChange={handleEditSalaryInfoCallback} /> },
             { label: 'Budget', comp: <BudgetConfigCreator _handleChange={handleEditBudgetConfigCallback} /> },
-            {
-                label: 'Bills', comp: <VStack>
-                    <BillCreator
-                        _username="tester"
-                        handleBillCallback={handleNewBillCallback} />
-                    <BillViewer _bills={uiBills} />
-                </VStack>
-            }
+            { label: 'Bills', comp: <BillCreator _uiBills={uiBills} _handleNewBillCallback={handleNewBillCallback} /> }
         ]
 
     const { nextStep, prevStep, setStep, reset, activeStep } = useSteps({
@@ -94,8 +88,8 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
     )
     const [submitClicked, setsubmitClicked] = useState(false)
     const { isOpen, onClose, onOpen } = useDisclosure({ id: 'mcModal' })
-        const history = useHistory()
-    const terminateOnBoarding = () =>{
+    const history = useHistory()
+    const terminateOnBoarding = () => {
         onClose()
         history.push("/olduser")
     }
@@ -111,7 +105,9 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
             <Steps activeStep={activeStep}>
                 {steps.map(({ label, comp }) => (
                     <Step label={label} key={label}>
-                        {comp}
+                        <Box mt={6} boxShadow="base">
+                            {comp}
+                        </Box>
                     </Step>
                 ))}
             </Steps>
@@ -136,7 +132,7 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
                     bills: uiBills,
                     accounts: uiAccounts,
                     weeklyBudget: {
-                        limit: calculateBudget(uiBudgetConfig!.food , uiBudgetConfig!.others),
+                        limit: calculateBudget(uiBudgetConfig!.food, uiBudgetConfig!.others),
                         spent: 0
                     }
                 },
@@ -172,7 +168,7 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
     return (
         <>
             <MCModal
-                _title={submitClicked === false ?"Let's get you quickly started, Ahmed!" : ""}
+                _title={submitClicked === false ? "Let's get you quickly started, Ahmed!" : ""}
                 _body={submitClicked === false ? generateWizardBody() : afterSubmitModalBody}
                 _isOpen={isOpen}
                 _onClose={onClose}

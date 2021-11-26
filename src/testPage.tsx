@@ -1,5 +1,5 @@
 import DraggableList from 'components/draggableList'
-import BillCreator from 'components/billCreator'
+import BillInput from 'components/billIInput'
 import React, { useEffect } from 'react'
 import { Route, Switch } from 'react-router'
 import { QueryClientProvider } from 'react-query'
@@ -7,7 +7,7 @@ import { queryClient } from 'authApp'
 import Dashboard from 'features/dashboard/dashboard'
 import NewUserWizard from 'features/onBoarding/newUserWizard'
 import DashboardDesign from 'pg/dashboardDesign'
-import BalanceViewer from 'features/dashboard/balance.viewer'
+import BalanceCard from 'features/dashboard/balance.card'
 
 const Testpage = () => {
     useEffect(() => {
@@ -21,7 +21,7 @@ const Testpage = () => {
         <>
             <QueryClientProvider client={queryClient}>
                 <Switch>
-                    
+
                     <Route path="/test/newuserwizard" exact
                         render={(props) => (
                             <NewUserWizard _username={_TestUsername} _token={_TestToken} />
@@ -29,7 +29,7 @@ const Testpage = () => {
                     />
                     <Route path="/test/bill" exact
                         render={() => (
-                            <BillCreator handleBillCallback={() => { }} _username={_TestUsername} />
+                            <BillInput handleBillCallback={() => { }} _username={_TestUsername} />
                         )}
                     />
                     {/* <Route path="/test/dash" exact
@@ -37,9 +37,9 @@ const Testpage = () => {
                             <Dashboard _username={_TestUsername} _token={_TestToken} />
                         )}
                     /> */}
-                     <Route path="/test/dash" exact
+                    <Route path="/test/dash" exact
                         render={(props) => (
-                            <DashboardDesign/>
+                            <DashboardDesign />
                         )}
                     />
                     <Route path="/test/drag" exact
@@ -47,13 +47,13 @@ const Testpage = () => {
                             <DraggableList />
                         )}
                     />
-                    
+
                     <Route path="/test/BalanceViewer" exact
                         render={(props) => (
-                            <BalanceViewer />
+                            <BalanceCard _nett={900} _unpaidBills={100} _mainAccountTotalBalance={1000} />
                         )}
                     />
-                
+
                 </Switch>
             </QueryClientProvider>
 
