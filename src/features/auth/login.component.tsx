@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
+import axios, {  AxiosResponse } from 'axios'
 import logging from 'config/logging'
 import React, { ChangeEvent, useContext } from 'react'
 import { useHistory } from 'react-router'
@@ -96,7 +96,6 @@ export default function LoginPage() {
                                 align={'start'}
                                 justify={'space-between'}>
                                 <Checkbox>Remember me</Checkbox>
-
                             </Stack>
                             <Button
                                 onClick={loginClicked}

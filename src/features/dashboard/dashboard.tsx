@@ -1,6 +1,6 @@
 import { Flex, Box, HStack, VStack, Input, Button, Heading, Divider } from "@chakra-ui/react"
 import axios, { AxiosResponse } from "axios"
-import BillViewer from "components/billViewer"
+import BillViewer from "components/bills/billViewer"
 import { getSumPaidills, getSumUnpaidBills } from "features/lib"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { Bill, UserInfoResponse } from "react-app-env"
@@ -206,9 +206,6 @@ const Dashboard = (props: { _username: string, _token: string }) => {
                                     </HStack>
                                 </VStack>
                             </Box>
-
-
-
                         </VStack>
                     </Box>
                 </>

@@ -1,9 +1,7 @@
 
 
 import { Header } from 'features/appHeader/header'
-import { QueryClient, QueryCache, QueryClientProvider } from 'react-query'
 import { Switch, Route } from 'react-router'
-import { ReactQueryDevtools } from "react-query/devtools"
 import NewUserWizard from 'features/newUserWizard'
 import Dashboard from 'features/dashboard/dashboard'
 import NewDashboard from 'features/dashboard/newDashboard'

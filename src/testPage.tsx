@@ -1,9 +1,6 @@
 import DraggableList from 'components/draggableList'
-import BillInput from 'components/billIInput'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { Route, Switch } from 'react-router'
-import { QueryClientProvider } from 'react-query'
-import Dashboard from 'features/dashboard/dashboard'
 import NewUserWizard from 'features/newUserWizard'
 import BalanceCard from 'features/dashboard/balance.card'
 
@@ -22,11 +19,6 @@ const Testpage = () => {
                 <Route path="/test/newuserwizard" exact
                     render={(props) => (
                         <NewUserWizard _username={_TestUsername} _token={_TestToken} />
-                    )}
-                />
-                <Route path="/test/bill" exact
-                    render={() => (
-                        <BillInput handleBillCallback={() => { }} _username={_TestUsername} />
                     )}
                 />
                 <Route path="/test/drag" exact
