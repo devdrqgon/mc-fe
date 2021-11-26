@@ -1,5 +1,5 @@
 import { Box, Center, Container, Heading, HStack, Input, InputGroup, InputLeftAddon, Stack, useColorModeValue, VStack, Text, Divider, Flex } from "@chakra-ui/react"
-import BalanceCard, { GenericCard } from "features/dashboard/balance.viewer"
+import BalanceCard, { GenericCard } from "features/dashboard/balance.card"
 import { FaBalanceScaleLeft } from 'react-icons/fa'
 import { HiDotsVertical } from 'react-icons/hi'
 const DashboardDesign = () => {

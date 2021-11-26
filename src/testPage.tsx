@@ -7,7 +7,7 @@ import { queryClient } from 'authApp'
 import Dashboard from 'features/dashboard/dashboard'
 import NewUserWizard from 'features/onBoarding/newUserWizard'
 import DashboardDesign from 'pg/dashboardDesign'
-import BalanceCard from 'features/dashboard/balance.viewer'
+import BalanceCard from 'features/dashboard/balance.card'
 
 const Testpage = () => {
     useEffect(() => {

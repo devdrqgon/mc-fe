@@ -1,43 +1,11 @@
 import { useColorModeValue } from "@chakra-ui/color-mode"
 import { Box, Center, Divider, Flex, Heading, Stack, VStack } from "@chakra-ui/layout"
 import { HStack, Input, InputGroup, InputLeftAddon, InputRightAddon, Text, Tooltip } from "@chakra-ui/react"
+import AmountDisplayer from "components/AmountDisplayer"
 import { useEffect, useState } from "react"
 import { FaBalanceScaleLeft } from 'react-icons/fa'
 import { HiDotsVertical } from 'react-icons/hi'
 
-const AmountDisplayer = (props: { _nett: number, _unpaidBills: number }) => {
-    const [nettPercentage, setNettPercentage] = useState<string | null>(null)
-    const [unpaidBillsPercentage, setUnpaidBillsPercentage] = useState<string | null>(null)
-
-    useEffect(() => {
-        const whole = props._nett + props._unpaidBills
-
-        // Caluclate Percentage of nett 
-        const nettPercentage = (props._nett / whole) * 100
-        const unpaidBillsPercentage = (props._unpaidBills / whole) * 100
-        setNettPercentage(`${nettPercentage.toString()}%`)
-        setUnpaidBillsPercentage(`${unpaidBillsPercentage.toString()}%`)
-
-    }, [nettPercentage, unpaidBillsPercentage])
-    return (
-        <>
-            <Flex width={"100%"}>
-                <Tooltip label={<> <Flex minW="100px" justifyContent="space-between"> <div> Nett </div>  <div>  €{props._nett} </div> </Flex> </>}>
-                    <Box width={nettPercentage!}>
-                        <Divider mr={3} p={0} borderColor={"#7FCA34"} borderWidth={3}></Divider>
-                    </Box>
-                </Tooltip>
-
-                <Tooltip label={<> <Flex minW="150px" justifyContent="space-between"> <div> Unpaid bills </div>  <div> €{props._unpaidBills}</div> </Flex> </>}>
-                    <Box width={unpaidBillsPercentage!} >
-                        <Divider m={0} p={0} borderColor={"#E78282"} borderWidth={3}></Divider>
-                    </Box>
-                </Tooltip>
-
-            </Flex>
-        </>
-    )
-}
 const HInfoDisplayer = (props: { _input: number }) => {
     return (
         <>
@@ -86,6 +54,9 @@ const BalanceCard: React.FC<BalanceCardProps> = (props) => {
                     alignItems="flex-start">
                     <Divider mt={2} orientation={'horizontal'}></Divider>
                     <VStack
+                        pr={3}
+                        pl={3}
+                        pb={1}
                         rounded={'lg'}
                         boxShadow="xs"
                         w={"full"}

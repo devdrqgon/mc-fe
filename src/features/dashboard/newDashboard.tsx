@@ -4,7 +4,7 @@ import BillViewer from "components/billViewer"
 import { getSumPaidills, getSumUnpaidBills } from "features/timespanPlanner/lib"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { Bill, UserInfoResponse } from "react-app-env"
-import BalanceCard, { GenericCard } from "./balance.viewer"
+import BalanceCard, { GenericCard } from "./balance.card"
 
 const NewDashboard = (props: { _username: string, _token: string }) => {
 
