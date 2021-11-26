@@ -111,7 +111,9 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
             <Steps activeStep={activeStep}>
                 {steps.map(({ label, comp }) => (
                     <Step label={label} key={label}>
+                        <Box mt={6} boxShadow="base">
                         {comp}
+                        </Box>
                     </Step>
                 ))}
             </Steps>

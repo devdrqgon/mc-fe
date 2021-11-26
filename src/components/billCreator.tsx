@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Button, Text,Checkbox, Flex, FormControl, FormLabel, Heading, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Stack, VStack } from '@chakra-ui/react';
+import { Button, Text, Checkbox, Flex, FormControl, FormLabel, Heading, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Stack, VStack, HStack } from '@chakra-ui/react';
 import { css } from '@emotion/react'
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
@@ -47,30 +47,28 @@ const BillCreator: React.FC<BillCreatorProps> = ({ _username, handleBillCallback
 
     return (
         <>
-            <Flex>
-                <VStack
-
-                >
-
-                    <Flex
-                        p={5}
-                    >
-                        <FormControl>
-                            <FormLabel>
-                                Name
-                            </FormLabel>
-                            <Input
-                                ref={billNameRef}
-                            />
-                        </FormControl>
-                        <FormControl>
+            <Flex
+                p={5}
+                
+            >
+                <VStack>
+                    <FormControl isRequired>
+                        <FormLabel>
+                            Name
+                        </FormLabel>
+                        <Input
+                            ref={billNameRef}
+                        />
+                    </FormControl>
+                    <HStack>
+                        <FormControl isRequired>
                             <FormLabel>
                                 Cost
                             </FormLabel>
                             <Input ref={billCostRef} />
                         </FormControl>
                         <FormControl>
-                            <FormLabel>
+                            <FormLabel isRequired>
                                 When
                             </FormLabel>
                             <NumberInput defaultValue={1} min={1} max={31}>
@@ -81,26 +79,22 @@ const BillCreator: React.FC<BillCreatorProps> = ({ _username, handleBillCallback
                                 </NumberInputStepper>
                             </NumberInput>
                         </FormControl>
-                        <Stack mt={42} 
+                        <VStack
+
+                            mt={42}
                             ml={2}
                             w="full"
                             direction={{ base: 'column', sm: 'row' }}
-                            align={'start'}
+                            align={'center'}
                             justify={'space-between'}>
-                            <Checkbox colorScheme={"green"} onChange={() => setnewBillFlag(!newBillFlag)} >
-                                <Text minW={100}>
-                                    Already paid
-                                </Text>
+                            <Text minW={100}>
+                                Already paid
+                            </Text>
+                            <Checkbox size="lg" colorScheme={"green"} onChange={() => setnewBillFlag(!newBillFlag)} >
+
                             </Checkbox>
-
-                        </Stack>
-
-                        <FormControl mt={7}>
-
-                            <Button
-                                onClick={addBillClicked}> + </Button>
-                        </FormControl>
-                    </Flex>
+                        </VStack>
+                    </HStack>
                 </VStack>
             </Flex>
         </>
@@ -109,6 +103,50 @@ const BillCreator: React.FC<BillCreatorProps> = ({ _username, handleBillCallback
 
 
 export default BillCreator
+
+    // < Flex >
+
+    //                 </FormControl >
+    //                 <FormControl isRequired>
+    //                     <FormLabel>
+    //                         Cost
+    //                     </FormLabel>
+    //                     <Input ref={billCostRef} />
+    //                 </FormControl>
+    //                 <FormControl>
+    //                     <FormLabel isRequired>
+    //                         When
+    //                     </FormLabel>
+    //                     <NumberInput defaultValue={1} min={1} max={31}>
+    //                         <NumberInputField ref={billWhenRef} />
+    //                         <NumberInputStepper>
+    //                             <NumberIncrementStepper />
+    //                             <NumberDecrementStepper />
+    //                         </NumberInputStepper>
+    //                     </NumberInput>
+    //                 </FormControl>
+    //                 <Stack mt={42}
+    //                     ml={2}
+    //                     w="full"
+    //                     direction={{ base: 'column', sm: 'row' }}
+    //                     align={'start'}
+    //                     justify={'space-between'}>
+    //                     <Checkbox colorScheme={"green"} onChange={() => setnewBillFlag(!newBillFlag)} >
+    //                         <Text minW={100}>
+    //                             Already paid
+    //                         </Text>
+    //                     </Checkbox>
+
+    //                 </Stack>
+    //             </Flex >
+
+    // <div>
+    //     <FormControl mt={7}>
+
+    //         <Button
+    //             onClick={addBillClicked}> + </Button>
+    //     </FormControl>
+    // </div>
 
 
 // Bills
