@@ -1,5 +1,5 @@
 import DraggableList from 'components/draggableList'
-import BillCreator from 'components/billCreator'
+import BillInput from 'components/billIInput'
 import React, { useEffect } from 'react'
 import { Route, Switch } from 'react-router'
 import { QueryClientProvider } from 'react-query'
@@ -29,7 +29,7 @@ const Testpage = () => {
                     />
                     <Route path="/test/bill" exact
                         render={() => (
-                            <BillCreator handleBillCallback={() => { }} _username={_TestUsername} />
+                            <BillInput handleBillCallback={() => { }} _username={_TestUsername} />
                         )}
                     />
                     {/* <Route path="/test/dash" exact

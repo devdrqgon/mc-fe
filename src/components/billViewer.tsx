@@ -11,7 +11,8 @@ const BillViewer: React.FC<BillsViewerProps> = ({ _bills }) => {
     return (
         <>
             {_bills.length > 0 ?
-                <Table variant="simple">
+                <Table 
+                variant="simple">
                     <Thead>
                         <Tr>
                             <Th>Name</Th>
