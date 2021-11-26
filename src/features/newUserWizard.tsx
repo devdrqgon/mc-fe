@@ -1,9 +1,9 @@
 import { useDisclosure } from "@chakra-ui/hooks"
 import MCModal from "components/modal"
 import React, { useEffect, useState } from "react"
-import AccountsCreator, { AccountsInfo } from "./accounts"
+import AccountsCreator, { AccountsInfo } from "../components/accountsCreator"
 import { Step, Steps, useSteps } from 'chakra-ui-steps';
-import BudgetConfigCreator from "./budgetConfig";
+import BudgetConfigCreator from "../components/budgetConfigCreator";
 import { Box, VStack } from "@chakra-ui/layout";
 import { Modal } from "@chakra-ui/modal";
 import { Button, Spinner } from "@chakra-ui/react";
@@ -11,9 +11,10 @@ import axios, { AxiosResponse } from "axios";
 import BillInput from "components/billIInput";
 import BillViewer from "components/billViewer";
 import { Bill, BudgetConfigUI, SalaryInfo } from "react-app-env";
-import SalaryInfoCreator from "./SalaryInfo";
+import SalaryInfoCreator from "../components/salaryInfoCreator";
 import { useHistory } from "react-router";
-import BillCreator from "components/BillCreator";
+import BillCreator from "components/billCreator";
+// import BillCreator from "components/BillCreator";
 
 
 interface NewUserWizardProps {
