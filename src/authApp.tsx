@@ -1,6 +1,6 @@
 
 
-import { Header } from 'features/appHeader/header'
+import { Header } from 'components/header'
 import { Switch, Route } from 'react-router'
 import NewUserWizard from 'features/newUserWizard'
 import Dashboard from 'features/dashboard/dashboard'

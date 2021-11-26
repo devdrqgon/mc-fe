@@ -1,5 +1,5 @@
 import { UserContext } from "contexts/user.context"
-import { Header } from "features/appHeader/header"
+import { Header } from "components/header"
 import { useContext } from "react"
 import UnAuthApp from "unAuthApp"
 import AuthApp from "authApp"

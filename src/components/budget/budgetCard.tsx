@@ -1,18 +1,16 @@
-import { Box, Divider, VStack } from "@chakra-ui/layout"
-import { HStack, Text } from "@chakra-ui/react"
+import { Box, Divider, Text, HStack, VStack } from "@chakra-ui/layout"
 import AmountDisplayer from "components/AmountDisplayer"
 import HInfoDisplayer from "components/hInfoDisplayer"
-import { FaBalanceScaleLeft } from 'react-icons/fa'
-import { HiDotsVertical } from 'react-icons/hi'
+import React from "react"
+import { HiDotsVertical } from "react-icons/hi"
+import { CgCalculator } from "react-icons/cg"
 
 
-
-interface BalanceCardProps {
-    _mainAccountTotalBalance: number
-    _nett: number
-    _unpaidBills: number
+interface BudgetCardProps {
+    _limit: number,
+    _spent: number
 }
-const BalanceCard: React.FC<BalanceCardProps> = (props) => {
+const BudgetCard: React.FC<BudgetCardProps> = (props) => {
     return (
         <>
             <Box
@@ -26,9 +24,9 @@ const BalanceCard: React.FC<BalanceCardProps> = (props) => {
                 zIndex={1}>
                 <HStack justifyContent={'space-between'}>
                     <HStack>
-                        <FaBalanceScaleLeft />
+                        <CgCalculator />
                         <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
-                            Balance
+                            Budget
                         </Text>
                     </HStack>
                     <HiDotsVertical style={{ 'cursor': 'pointer' }} />
@@ -44,8 +42,7 @@ const BalanceCard: React.FC<BalanceCardProps> = (props) => {
                         boxShadow="xs"
                         w={"full"}
                         alignItems="flex-start">
-                        <HInfoDisplayer _text={"Main"} _input={props._mainAccountTotalBalance} />
-                        <AmountDisplayer _nett={props._nett} _unpaidBills={props._unpaidBills} />
+                        <HInfoDisplayer _text={"Weekly Budget"} _input={props._limit} />
 
                     </VStack>
                 </VStack>
@@ -54,23 +51,4 @@ const BalanceCard: React.FC<BalanceCardProps> = (props) => {
     )
 }
 
-
-
-export const GenericCard = () => {
-    return (
-        <>
-            <Box
-                minW={300}
-                p={6}
-                m={3}
-                w={'full'}
-                boxShadow="base"
-                rounded={'lg'}
-                pos={'relative'}
-                zIndex={1}>
-                EMpty
-            </Box>
-        </>
-    )
-}
-export default BalanceCard
+export default BudgetCard

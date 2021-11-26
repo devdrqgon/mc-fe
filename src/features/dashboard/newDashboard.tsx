@@ -1,5 +1,6 @@
 import { Flex, Box, HStack, VStack, Input, Button, Heading, Divider, Center } from "@chakra-ui/react"
 import axios, { AxiosResponse } from "axios"
+import BudgetCard from "components/budget/budgetCard"
 import { getSumPaidills, getSumUnpaidBills } from "features/lib"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { Bill, UserInfoResponse } from "react-app-env"
@@ -109,7 +110,9 @@ const NewDashboard = (props: { _username: string, _token: string }) => {
                                     _nett={getNettoBalance(userInfo.accounts[0].balance!, getSumUnpaidBills(userInfo.bills))}
                                     _unpaidBills={getSumUnpaidBills(userInfo.bills)} />
                                 <Divider orientation="vertical" />
-                                <GenericCard />
+                                <BudgetCard
+                                    _limit={userInfo.weeklyBudget?.limit!}
+                                    _spent={userInfo.weeklyBudget?.spent!} />
                                 <Divider orientation="vertical" />
                                 <GenericCard />
                             </Flex>
