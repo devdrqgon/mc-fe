@@ -41,7 +41,7 @@ const SalaryCard: React.FC<SalaryCardProps> = (props) => {
                         w={"full"}
                         alignItems="flex-start">
                         <HInfoDisplayer _field={"amount"} _value={`€${props._amount}`} />
-                        <HInfoDisplayer _field={"next salary in"} _value={props._daysLeft.toString()} />
+                        <HInfoDisplayer _field={"next salary in"} _value={`${props._daysLeft.toString()} days`} />
                     </VStack>
                 </VStack>
             </Box>

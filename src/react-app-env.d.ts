@@ -6,6 +6,8 @@ export enum AccountType {
     saving = "saving"
 }
 
+
+
 export interface UserInfoResponse{
     username: string,
     salary: SalaryInfo,

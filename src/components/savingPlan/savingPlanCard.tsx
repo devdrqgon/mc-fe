@@ -3,7 +3,7 @@ import { Button } from '@chakra-ui/react'
 import { HiDotsVertical } from 'react-icons/hi'
 import { FaReact } from 'react-icons/fa'
 
-const SavingPlan = () => {
+const SavingPlan = (props: {_handleCreatePlanClick: ()=>void}) => {
     return (
         <Box
             p={6}
@@ -30,7 +30,7 @@ const SavingPlan = () => {
                 rounded={'lg'}
                 w={"full"}
                 alignItems="center">
-                <Button> Create a plan</Button>
+                <Button onClick={props._handleCreatePlanClick}> Create a plan</Button>
             </VStack>
         </Box>
     )
