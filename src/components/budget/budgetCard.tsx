@@ -39,7 +39,6 @@ const BudgetCard: React.FC<BudgetCardProps> = (props) => {
                         pl={3}
                         pb={1}
                         rounded={'lg'}
-                        boxShadow="xs"
                         w={"full"}
                         alignItems="flex-start">
                         <HInfoDisplayer _field={"Weekly Budget"} _value={`€${props._weekly.toFixed(2)}`} />

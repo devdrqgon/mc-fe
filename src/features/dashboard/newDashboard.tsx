@@ -1,7 +1,10 @@
 import { Flex, Box, HStack, VStack, Input, Button, Heading, Divider, Center } from "@chakra-ui/react"
 import axios, { AxiosResponse } from "axios"
+import BillCard from "components/bills/billCard"
 import BudgetCard from "components/budget/budgetCard"
+import ImpulseController from "components/impulseControl/impulseController"
 import SalaryCard from "components/salaryInfo/salaryInfoCard"
+import SavingPlan from "components/savingPlan/savingPlanCard"
 import { getSumPaidills, getSumUnpaidBills } from "features/lib"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { Bill, UserInfoResponse } from "react-app-env"
@@ -127,11 +130,15 @@ const NewDashboard = (props: { _username: string, _token: string }) => {
                         </Center>
                         <Center>
                             <Flex direction={{ base: 'column', md: 'row' }}>
-                                <GenericCard />
+                                <BillCard
+                                    _bills={userInfo.bills}
+                                    _total={getSumBills(userInfo.bills)}
+                                    _unpaid={getSumUnpaidBills(userInfo.bills)}
+                                    _paid={getSumPaidills(userInfo.bills)} />
                                 <Divider orientation="vertical" />
-                                <GenericCard />
+                                <ImpulseController />
                                 <Divider orientation="vertical" />
-                                <GenericCard />
+                                <SavingPlan />
                             </Flex>
                         </Center>
                     </Flex>

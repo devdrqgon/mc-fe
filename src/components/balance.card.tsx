@@ -16,7 +16,6 @@ const BalanceCard: React.FC<BalanceCardProps> = (props) => {
     return (
         <>
             <Box
-                minW={300}
                 p={6}
                 m={3}
                 w={'full'}
@@ -27,7 +26,7 @@ const BalanceCard: React.FC<BalanceCardProps> = (props) => {
                 <HStack justifyContent={'space-between'}>
                     <HStack>
                         <FaBalanceScaleLeft />
-                        <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
+                        <Text minW={"200px"} color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
                             Balance
                         </Text>
                     </HStack>
@@ -41,7 +40,6 @@ const BalanceCard: React.FC<BalanceCardProps> = (props) => {
                         pl={3}
                         pb={1}
                         rounded={'lg'}
-                        boxShadow="xs"
                         w={"full"}
                         alignItems="flex-start">
                         <HInfoDisplayer _field={"Main"} _value={`€${props._mainAccountTotalBalance.toFixed(2)}`} />

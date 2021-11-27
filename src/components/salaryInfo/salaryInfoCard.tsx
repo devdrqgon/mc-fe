@@ -1,5 +1,4 @@
 import { Box, Divider, Text, HStack, VStack } from "@chakra-ui/layout"
-import AmountDisplayer from "components/AmountDisplayer"
 import HInfoDisplayer from "components/hInfoDisplayer"
 import React from "react"
 import { HiDotsVertical } from "react-icons/hi"
@@ -39,12 +38,10 @@ const SalaryCard: React.FC<SalaryCardProps> = (props) => {
                         pl={3}
                         pb={1}
                         rounded={'lg'}
-                        boxShadow="xs"
                         w={"full"}
                         alignItems="flex-start">
                         <HInfoDisplayer _field={"amount"} _value={`€${props._amount}`} />
                         <HInfoDisplayer _field={"next salary in"} _value={props._daysLeft.toString()} />
-
                     </VStack>
                 </VStack>
             </Box>
