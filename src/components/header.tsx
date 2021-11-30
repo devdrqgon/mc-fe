@@ -1,3 +1,5 @@
+import { Button } from '@chakra-ui/button';
+import { Flex, Heading } from '@chakra-ui/layout';
 import { UserContext } from 'contexts/user.context';
 import React, { useContext } from 'react'
 import { useHistory } from 'react-router';
@@ -15,6 +17,27 @@ export const Header = () => {
         <>
             {user ?
                 <>
+                    <Flex
+                        bg='#1D232A'
+                        color='#fff'
+                        w="full"
+                        justifyContent="space-around"
+                    >
+                        <div style={{ gridArea: 'left', display: 'flex', justifyContent: 'center' }}>
+                            <Heading mt={2} as='h3' size='sm'>
+                                welcome {localStorage.getItem('username')}!
+                            </Heading>
+                        </div>
+                        <div style={{ gridArea: 'brand', display: 'flex', justifyContent: 'center' }}>
+                            <Heading as='h3' size='lg'>
+                                MoneyCoach
+                            </Heading>
+                        </div>
+
+                        <div style={{ gridArea: 'right', display: 'flex' }}>
+                            <Button colorScheme={'#1D232A'} onClick={handleLogoutClick} > sign out </Button>
+                        </div>
+                    </Flex>
                     <div style={
                         {
 
@@ -25,20 +48,10 @@ export const Header = () => {
                             gridTemplateAreas: `
                             'left brand right'
                             `,
-                            backgroundColor: '#1D232A',
-                            color: '#fff',
+
                         }
                     }>
-                        <div style={{ gridArea: 'left', display: 'flex', justifyContent: 'center' }}>
-                        welcome {localStorage.getItem('username')}!
 
-                        </div>
-                        <div style={{ gridArea: 'brand', display: 'flex', justifyContent: 'center' }}>
-                        MoneyCoach
-                        </div>
-                        <div style={{ gridArea: 'right', display: 'flex' }}>
-                            <button onClick={handleLogoutClick} > sign out </button>
-                        </div>
                     </div>
                 </>
                 :
@@ -47,7 +60,7 @@ export const Header = () => {
                     <div
                         style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#071D24', color: '#fff' }}
                     >
-                                                   MoneyCoach
+                        MoneyCoach
 
                     </div>
                 </>}
@@ -55,54 +68,3 @@ export const Header = () => {
     )
 
 }
-
-
-
-// <div style={{
-//             backgroundColor: '#1495CE',
-//             display: 'grid',
-//             gridTemplateColumns: '2.6fr 0.4fr',
-//             gridTemplateRows: '1fr',
-//             gap: '0px 0px',
-//             gridTemplateAreas: `
-//                     'brand profileIcon'
-//                 `
-//         }}>
-//             <div
-//                 style={{
-//                     gridArea: 'brand',
-//                 }}>
-//                 <div
-//                     style={{
-//                         color: 'white',
-//                         display: 'flex',
-//                         justifyContent: 'center',
-//                         backgroundColor: '#1495CE'
-//                     }}>
-//                     <Typography variant="h4" gutterBottom component="div">
-//                         MoneyCoach! beta
-//                     </Typography>
-
-//                 </div>
-//             </div>
-//             <div style={{
-//                 fontSize: 'large',
-//                 gridArea: 'profileIcon',
-//                 color: 'white'
-//             }}
-//             >
-//                 {user ?
-//                     <div style={{ display: 'flex' }}>
-//                         <div>
-//                             welcome {localStorage.getItem('username')}!
-//                         </div>
-//                         <div>
-//                             <LogoutRoundedIcon onClick={logout} />
-//                         </div>
-//                     </div>
-//                     :
-//                     <>
-//                     </>}
-//             </div>
-//         </div >
-

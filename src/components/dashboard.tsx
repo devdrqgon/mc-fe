@@ -8,8 +8,6 @@ import { Bill, UserInfoResponse } from "react-app-env"
 
 const Dashboard = (props: { _username: string, _token: string }) => {
 
-    // const {data: infos} = userInfoHooks.useGetUserInfos(props._username, props._token)
-    // console.log(infos)
     const [showImpulseController, setshowImpulseController] = useState(false)
     const [weeklyIC, setWeeklyIC] = useState(0)
     const [dailyIC, setDailyIC] = useState(0)
@@ -68,7 +66,6 @@ const Dashboard = (props: { _username: string, _token: string }) => {
                                 </VStack>
                             </HStack>
                             <Divider ></Divider>
-
                             <Box py={10} w="full" >
                                 <VStack>
                                     <Heading>
@@ -84,7 +81,6 @@ const Dashboard = (props: { _username: string, _token: string }) => {
                                                         toFixed(2)}
                                                 </Heading>
                                             </Box>
-
                                         </VStack>
                                         <VStack>
                                             <Box>
@@ -112,10 +108,8 @@ const Dashboard = (props: { _username: string, _token: string }) => {
                                 </VStack>
                             </Box>
                             {showImpulseController === true ?
-
                                 <Box py={10}>
                                     <HStack>
-
                                         <VStack>
                                             <div> Daily </div>
                                             <Input value={dailyIC} />

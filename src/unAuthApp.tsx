@@ -8,6 +8,8 @@ const UnAuthApp=() => {
             <Route exact path={'/'} component={LoginPage}></Route>
             <Route path={'/login'} component={LoginPage}></Route>
             <Route path={'/register'} component={Register}></Route>
+            <Route render={() => <> PageNotFound </>} />
+
         </Switch>
     ) 
 }

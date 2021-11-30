@@ -2,7 +2,7 @@ import { Box, HStack, VStack, Divider, Text } from '@chakra-ui/layout'
 import HInfoDisplayer from 'components/hInfoDisplayer'
 import { Bill } from 'react-app-env'
 import { RiBillLine } from 'react-icons/ri'
-import { HiDotsVertical } from 'react-icons/hi'
+import { BsArrowsAngleExpand } from 'react-icons/bs'
 
 interface BillCardProps{
     _total: number,
@@ -27,7 +27,7 @@ const BillCard: React.FC<BillCardProps> = (props) => {
                         Bills
                     </Text>
                 </HStack>
-                <HiDotsVertical style={{ 'cursor': 'pointer' }} />
+                <BsArrowsAngleExpand style={{ 'cursor': 'pointer' }} />
             </HStack>
             <VStack
                 alignItems="flex-start">
