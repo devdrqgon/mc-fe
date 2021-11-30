@@ -1,4 +1,4 @@
-import { Flex, Box, Text, VStack, Input, Button, Heading, Divider, Center, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react"
+import { Flex, Box, Text, VStack, Input, Button, Heading, Divider, Center, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, Spinner } from "@chakra-ui/react"
 import axios, { AxiosResponse } from "axios"
 import BillCard from "components/bills/billCard"
 import BudgetCard from "components/budget/budgetCard"
@@ -100,14 +100,25 @@ const NewDashboard = (props: { _username: string, _token: string }) => {
 
     //Modal
     const { isOpen, onOpen, onClose } = useDisclosure({ id: 'dashboardModal' })
-
+    const [loading, setLoading] = useState<React.ReactNode>(
+        <VStack>
+            <Spinner
+                thickness="4px"
+                speed="0.65s"
+                emptyColor="gray.200"
+                color="blue.500"
+                size="xl"
+            />
+            <Box>
+                loading your Data..
+            </Box>
+        </VStack>
+    )
     return (
         <>
             {userInfo === null ?
                 <>
-                    <Button onClick={getUserInfo}> get user info!</Button>
-
-                    userInfo is null  ..
+                   {loading}
                 </>
                 :
                 <>
