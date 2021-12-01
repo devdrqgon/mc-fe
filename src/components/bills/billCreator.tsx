@@ -1,54 +1,104 @@
 import { Box, Flex, Heading, VStack } from "@chakra-ui/layout"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Bill } from "react-app-env"
 import BillInput from "./billIInput"
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
+import { popperCSSVars } from "@chakra-ui/popper"
 interface BillCreatorProps {
-    _handleNewBillCallback: (_bill: Bill) => void,
-    _uiBills: Bill[]
+    _handleNewBillCallback?: (_bill: Bill) => void,
+    _uiBills?: Bill[]
 
 }
 const BillCreator: React.FC<BillCreatorProps> = (props) => {
+    const [_internalBills, set_internalBills] = useState<Array<Bill>>([])
+    const addAtStart = () => set_internalBills([
+        {
+            billName: "billanme",
+            cost: 45,
+            when: 2,
+            username: "username",
+            paid: true
+        },
+        ..._internalBills])
+    const addAtStart2 = () => set_internalBills([
+        {
+            billName: "samir",
+            cost: 4,
+            when: 2,
+            username: "username",
+            paid: true
+        },
+        ..._internalBills])
+    const addAtStart3 = () => set_internalBills([
+        {
+            billName: "med",
+            cost: 4,
+            when: 2,
+            username: "username",
+            paid: true
+        },
+        ..._internalBills])
+
     return (
         <>
+            <button className="add" onClick={addAtStart}>
+                Add
+            </button>
+            <button className="add" onClick={addAtStart2}>
+                Add2
+            </button>
+            <button className="add" onClick={addAtStart3}>
+                Add3
+            </button>
             <Flex
                 alignItems="center"
                 direction="column">
                 <BillInput
                     _username="tester"
                     handleBillCallback={props._handleNewBillCallback} />
-                <Flex
-                    alignItems="center"
-                    direction="column"
-                    overflowY="scroll"
-                    maxH={"400px"}>
+                {_internalBills ?
+                    <>
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                            }}
+                        >
+                            {[..._internalBills].map((b, i) => (
+                                <AnimatePresence>
+                                    {/* <ListItem */}
 
-                    {[...props._uiBills].map((b) => (
-                        <Item key={b._id}>
-                            {/* <Flex bg="tomato" mt={1} mb={1} w="full" justify="space-around"
-                            >
-                                <Box>
-                                    {b.billName}
-                                </Box>
-                                <Box>
-                                   $ {b.cost}
-                                </Box>
-                                <Box>
-                                    {b.when}
-                                </Box>
-                            </Flex> */}
-                            {b.billName}
-                        </Item>
-                    ))}
-                </Flex>
+                                        {/* key={i}> */}
+{/* <div
+    style={{
+        display: 'flex',
+        justifyContent: 'space-around'
+    }}>
+    <div>
+        {b.billName}
+    </div>
+    <div>
+        {b.cost}
+    </div>
+</div> */}
+                                        {/* {b.billName} */}
+                                    {/* </ListItem> */}
+                                </AnimatePresence>
+
+
+                            ))}
+                        </div>
+                    </>
+                    :
+                    <></>}
             </Flex>
         </>
     )
 }
 
 // https://fettblog.eu/react-types-for-children-are-broken/
-const Item = (props: { children?: React.ReactNode }) => {
-    return <motion.h1 layout> {props.children}</motion.h1 >
+// const Item = (props: { children?: React.ReactNode }) => {
+//     return <motion.div layout> {props.children}</motion.div >
 
-}
+// }
 export default BillCreator

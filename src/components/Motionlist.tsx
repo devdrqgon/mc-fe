@@ -1,41 +1,38 @@
 import { Flex } from '@chakra-ui/layout'
 import faker from 'faker'
 import { motion, usePresence, AnimatePresence, AnimationControls, Transition, Variants } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { v4 as uuidv4, v4 } from 'uuid'
 
-const MotionList = () => {
-    const name = () => `${faker.name.firstName()} ${faker.name.lastName()}`
-    const initialState = [...Array(4)].map(name)
-    const addAtStart = () => setItems([name(), ...items])
 
-    const [items, setItems] = useState(initialState)
-    useEffect(() => {
-        setTimeout(() => {
-            addAtStart()
-        }, 2000);
-        
-    }, [items])
+const MotionList = (props: { items: Array<JSX.Element> }) => {
     return (
         <>
-           
+
             <Flex
                 direction="column"
             >
-                <AnimatePresence>
-                    {[...items].map((name, i) => (
-                        <ListItem
-                            key={name}>
-                            {name}
-                        </ListItem>
-                    ))}
-                </AnimatePresence>
+                {[...props.items].map((item, i) => (
+                    <>
+                        {i === 0 ?
+                            <ListItem
+                                key={uuidv4()}>
+                                {item}
+                            </ListItem> :
+                            <UnanimatedListItem
+                                key={uuidv4()}>
+                                {item}
+                            </UnanimatedListItem>
+                        }
+                    </>
+                ))}
             </Flex>
         </>
     )
 }
+
+
 const transition = { type: 'spring', stiffness: 500, damping: 50, mass: 1 }
-
-
 function ListItem(props: { children: any }) {
     const variants: Variants = {
         in: { scaleY: 1, opacity: 1 },
@@ -44,8 +41,8 @@ function ListItem(props: { children: any }) {
     }
 
     return (
-        <motion.h2
-           
+        <motion.div
+
             layout={true}
             initial={'out'}
             animate={'in'}
@@ -53,7 +50,18 @@ function ListItem(props: { children: any }) {
             variants={variants}
             transition={transition}>
             {props.children}
-        </motion.h2>
+        </motion.div>
+    )
+}
+
+
+function UnanimatedListItem(props: { children: any }) {
+
+    return (
+        <motion.div
+        >
+            {props.children}
+        </motion.div>
     )
 }
 
