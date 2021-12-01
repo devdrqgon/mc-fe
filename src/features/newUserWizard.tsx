@@ -4,13 +4,15 @@ import React, { useEffect, useState } from "react"
 import AccountsCreator, { AccountsInfo } from "../components/accountsCreator"
 import { Step, Steps, useSteps } from 'chakra-ui-steps';
 import BudgetConfigCreator from "../components/budget/budgetConfigCreator";
-import { Box, VStack } from "@chakra-ui/layout";
+import { Box, Flex, VStack } from "@chakra-ui/layout";
 import { Button, Spinner } from "@chakra-ui/react";
 import axios, { AxiosResponse } from "axios";
 import { Bill, BudgetConfigUI, SalaryInfo } from "react-app-env";
 import SalaryInfoCreator from "../components/salaryInfo/salaryInfoCreator";
 import { useHistory } from "react-router";
 import BillCreator from "components/bills/billCreator";
+import BillInput from "components/bills/billIInput";
+import Motionlist from "components/Motionlist";
 
 
 interface NewUserWizardProps {
@@ -21,15 +23,6 @@ interface NewUserWizardProps {
 
 const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
 
-    //bills
-    const [uiBills, setUIBills] = useState<Array<Bill>>([])
-
-    const handleNewBillCallback = (_bill: Bill) => {
-        setUIBills(() => [_bill, ...uiBills])
-    }
-    const calculateBudget = (food: string, others: string) => {
-        return (parseFloat(food) + parseFloat(others))
-    }
 
     //Accounts
     //hooks
@@ -55,6 +48,38 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
     const handleEditBudgetConfigCallback = (_c: BudgetConfigUI) => {
         setUIBudgetConfig(_c)
     }
+
+    //bills
+    const [uiBills, setUIBills] = useState<Array<Bill>>([])
+    const [_billsJSX, set_billsJSX] = useState<JSX.Element[]>([])
+
+    const handleNewBillCallback = (_bill: Bill) => {
+        setUIBills(() => [_bill, ...uiBills])
+        set_billsJSX(
+            [
+                <>
+                    <div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'space-around'
+                        }}>
+                        <div>
+                            {_bill.billName}
+                        </div>
+                        <div>
+                            {_bill.cost}
+                        </div>
+                    </div>
+                </>,
+                ..._billsJSX
+            ]
+        )
+    }
+    const calculateBudget = (food: string, others: string) => {
+        return (parseFloat(food) + parseFloat(others))
+    }
+
+
     //UI Behaviour
     const steps: Array<{
         label: string,
@@ -63,7 +88,20 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
             { label: 'Accounts', comp: <AccountsCreator _handleChangeCallback={handleEditAccountsDataCallback} /> },
             { label: 'Salary', comp: <SalaryInfoCreator _handleChange={handleEditSalaryInfoCallback} /> },
             { label: 'Budget', comp: <BudgetConfigCreator _handleChange={handleEditBudgetConfigCallback} /> },
-            { label: 'Bills', comp: <BillCreator _uiBills={uiBills} _handleNewBillCallback={handleNewBillCallback} /> }
+            {
+                label: 'Bills', comp:
+                    <>
+                        <Flex
+                            direction="column">
+                            <div>
+                                <BillInput _username={"tester"} handleBillCallback={handleNewBillCallback} />
+                            </div>
+                            <div>
+                                <Motionlist items={_billsJSX}></Motionlist>
+                            </div>
+                        </Flex>
+                    </>
+            }
         ]
 
     const { nextStep, prevStep, setStep, reset, activeStep } = useSteps({

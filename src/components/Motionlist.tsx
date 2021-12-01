@@ -11,6 +11,8 @@ const MotionList = (props: { items: Array<JSX.Element> }) => {
 
             <Flex
                 direction="column"
+                maxH={400}
+                overflowY="scroll"
             >
                 {[...props.items].map((item, i) => (
                     <>
