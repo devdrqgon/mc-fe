@@ -51,7 +51,7 @@ const TestPageRouter = () => {
                 <Route path="/test/list" exact
                     render={(props) => (
                         <>
-                            <MotionList items={[]} />
+                            <MotionList _items={[]} />
                         </>)}
                 />
                 <Route path="/test/clonedlist" exact

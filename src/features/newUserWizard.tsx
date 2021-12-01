@@ -97,7 +97,7 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
                                 <BillInput _username={"tester"} handleBillCallback={handleNewBillCallback} />
                             </div>
                             <div>
-                                <Motionlist items={_billsJSX}></Motionlist>
+                                <Motionlist _items={_billsJSX}></Motionlist>
                             </div>
                         </Flex>
                     </>

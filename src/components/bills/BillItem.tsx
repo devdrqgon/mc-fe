@@ -1,18 +1,26 @@
 import { Button, Flex, Text } from '@chakra-ui/react'
 import { Bill } from 'react-app-env'
 
-const BillItem = (props: {_bill : Bill}) => {
+const BillItem = (props: {
+    _bill: Bill,
+    _handleMarkAspaid?: (b: Bill) => void
+}) => {
+    const onClickedMarkAsPaid = () => {
+        if (props._handleMarkAspaid) {
+            props._handleMarkAspaid(props._bill)
+        }
+    }
     return (
         <Flex
-        boxShadow={'xs'}
-        justify="space-between"
-        p={3}>
+            boxShadow={'xs'}
+            justify="space-between"
+            p={3}>
             <div
                 style={{
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-around',
-                    
+
                 }}
             >
                 <div>
@@ -59,11 +67,16 @@ const BillItem = (props: {_bill : Bill}) => {
 
                 </div>
             </div>
-            <div>
-                <Button>
-                    mark as Paid
-                </Button>
-            </div>
+            {props._bill.paid === false ?
+                <div>
+                    <Button onClick={props._handleMarkAspaid ? () => onClickedMarkAsPaid() : undefined}>
+                        mark as Paid
+                    </Button>
+                </div>
+                :
+                <>
+                </>
+            }
         </Flex>
     )
 }

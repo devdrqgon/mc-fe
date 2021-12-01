@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { v4 as uuidv4, v4 } from 'uuid'
 
 
-const MotionList = (props: { items: Array<JSX.Element> }) => {
+const MotionList = (props: { _items: Array<JSX.Element> }) => {
     return (
         <>
 
@@ -14,8 +14,8 @@ const MotionList = (props: { items: Array<JSX.Element> }) => {
                 maxH={400}
                 overflowY="scroll"
             >
-                {[...props.items].map((item, i) => (
-                    <>
+                {[...props._items].map((item, i) => (
+                    <div key={uuidv4()}>
                         {i === 0 ?
                             <ListItem
                                 key={uuidv4()}>
@@ -26,7 +26,7 @@ const MotionList = (props: { items: Array<JSX.Element> }) => {
                                 {item}
                             </UnanimatedListItem>
                         }
-                    </>
+                    </div>
                 ))}
             </Flex>
         </>

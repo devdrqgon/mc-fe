@@ -133,7 +133,7 @@ const BillCreator: React.FC<BillCreatorProps> = (props) => {
                     handleBillCallback={props._handleNewBillCallback} />
                 {_billsJSX.length > 0 ?
                     <>
-                        <MotionList items={_billsJSX} />
+                        <MotionList _items={_billsJSX} />
 
                     </>
                     :

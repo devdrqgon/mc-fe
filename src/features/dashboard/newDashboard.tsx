@@ -30,7 +30,7 @@ const NewDashboard = (props: { _username: string, _token: string }) => {
         return sum
 
     }
-    const caluclate = () => {
+    const caluclateConsequenceIC = () => {
 
         setshowImpulseController(true)
 
@@ -127,10 +127,37 @@ const NewDashboard = (props: { _username: string, _token: string }) => {
         />)
         onOpen()
     }
+
+
+    const handleMarkBillAsPaid = (b: Bill) => {
+
+        console.info("bill", b)
+        let copyUserInfo = { ...userInfo! }
+        let IndexBill = userInfo!.bills.findIndex(_b => _b._id === b._id)
+
+        console.info("IndexBill", IndexBill)
+        // copyUserInfo.bills[IndexBill].paid = true
+        console.info("REAL.bills[IndexBill].paid ", userInfo!.bills[IndexBill].paid)
+
+        console.info("copyUserInfo.bills[IndexBill].paid ", copyUserInfo.bills[IndexBill].paid)
+
+
+
+        // b.paid = true
+        // let copyBills = [...userInfo!.bills]
+
+        // copyBills[IndexBill].paid = true
+        // let copyUserInfo = userInfo!
+        // copyUserInfo.bills = copyBills
+        // setuserInfo(copyUserInfo)
+
+    }
     const OnBillsModalExpand = () => {
 
         setmodalBody(
-            <ExpandedBillCard _bills={userInfo!.bills}/>
+            <ExpandedBillCard
+                _handleMarkBillAsPaid={handleMarkBillAsPaid}
+                _bills={userInfo!.bills} />
         )
         onOpen()
     }
