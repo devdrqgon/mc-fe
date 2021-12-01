@@ -19,9 +19,8 @@ const TestPageHome = () => {
         }}>
             <div>
                 <Box
-                    width="150px"
-                    height="150px"
-
+                 width="50px"
+                 height="50px"
                 >
                     <Button onClick={() => { history.push('test/newuserwizard') }}>
                         newuserwizard
@@ -30,8 +29,8 @@ const TestPageHome = () => {
             </div>
             <div>
                 <Box
-                    width="150px"
-                    height="150px"
+                width="50px"
+                height="50px"
 
                 >
                     <Button onClick={() => { history.push('test/loading') }}>
@@ -41,8 +40,19 @@ const TestPageHome = () => {
             </div>
             <div>
                 <Box
-                    width="150px"
-                    height="150px"
+                    width="50px"
+                    height="50px"
+
+                >
+                    <Button onClick={() => { history.push('test/bill') }}>
+                        BillItem
+                    </Button>
+                </Box>
+            </div>
+            <div>
+                <Box
+                    width="50px"
+                    height="50px"
 
                 >
                     <Button onClick={() => { history.push('test/list') }}>
@@ -52,8 +62,8 @@ const TestPageHome = () => {
             </div>
             <div>
                 <Box
-                    width="150px"
-                    height="150px"
+                width="50px"
+                height="50px"
 
                 >
                     <Button onClick={() => { history.push('test/clonedlist') }}>
@@ -61,17 +71,7 @@ const TestPageHome = () => {
                     </Button>
                 </Box>
             </div>
-            <div>
-                <Box
-                    width="150px"
-                    height="150px"
-
-                >
-                    <Button onClick={() => { history.push('test/bill') }}>
-                        BillCreator
-                    </Button>
-                </Box>
-            </div>
+          
         </div>
     )
 }
