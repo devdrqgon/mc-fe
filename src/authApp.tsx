@@ -16,6 +16,14 @@ const AuthApp = () => {
             <Header />
             <Box mt={10}>
                 <Switch>
+                    <Route path="/" exact
+                        render={(props) => (
+                            <NewDashboard
+                                _username={localStorage.getItem('username')!}
+                                _token={`Bearer ${localStorage.getItem('token')!}`}
+                            />
+                        )}
+                    />
                     <Route path="/newuser" exact
                         render={(props) => (
                             <NewUserWizard

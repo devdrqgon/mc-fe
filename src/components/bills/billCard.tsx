@@ -8,7 +8,8 @@ interface BillCardProps{
     _total: number,
     _paid: number,
     _unpaid: number,
-    _bills: Bill[]
+    _bills: Bill[],
+    _hanldeExpandCard: () => void
 }
 const BillCard: React.FC<BillCardProps> = (props) => {
     return (
@@ -27,7 +28,7 @@ const BillCard: React.FC<BillCardProps> = (props) => {
                         Bills
                     </Text>
                 </HStack>
-                <BsArrowsAngleExpand style={{ 'cursor': 'pointer' }} />
+                <BsArrowsAngleExpand onClick={props._hanldeExpandCard} style={{ 'cursor': 'pointer' }} />
             </HStack>
             <VStack
                 alignItems="flex-start">

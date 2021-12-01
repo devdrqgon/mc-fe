@@ -25,7 +25,7 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
     const [uiBills, setUIBills] = useState<Array<Bill>>([])
 
     const handleNewBillCallback = (_bill: Bill) => {
-        setUIBills(() => [...uiBills, _bill])
+        setUIBills(() => [_bill, ...uiBills])
     }
     const calculateBudget = (food: string, others: string) => {
         return (parseFloat(food) + parseFloat(others))

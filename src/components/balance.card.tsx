@@ -1,6 +1,6 @@
 import { Box, Divider, VStack } from "@chakra-ui/layout"
 import { HStack, Text } from "@chakra-ui/react"
-import AmountDisplayer from "components/AmountDisplayer"
+import PercentageDisplayer from "components/AmountDisplayer"
 import HInfoDisplayer from "components/hInfoDisplayer"
 import { FaBalanceScaleLeft } from 'react-icons/fa'
 import { HiDotsVertical } from 'react-icons/hi'
@@ -43,7 +43,7 @@ const BalanceCard: React.FC<BalanceCardProps> = (props) => {
                         w={"full"}
                         alignItems="flex-start">
                         <HInfoDisplayer _field={"Main"} _value={`€${props._mainAccountTotalBalance.toFixed(2)}`} />
-                        <AmountDisplayer _nett={props._nett} _unpaidBills={props._unpaidBills} />
+                        <PercentageDisplayer _nett={props._nett} _unpaidBills={props._unpaidBills} />
 
                     </VStack>
                 </VStack>

@@ -5,7 +5,7 @@ import UnAuthApp from "unAuthApp"
 import AuthApp from "authApp"
 import { Toaster } from "react-hot-toast"
 import { useHistory } from "react-router"
-import TestPage from './testPage'
+import TestPageRouter from "features/testLab/TestPageRouter"
 
 
 const EntryComponent = () => {
@@ -16,7 +16,7 @@ const EntryComponent = () => {
     if (history.location.pathname.includes("/test")) {
 
         return (
-            <TestPage />
+            <TestPageRouter />
         )
     }
     if (tokenValid && authenticated)

@@ -1,10 +1,18 @@
 import DraggableList from 'components/draggableList'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Route, Switch } from 'react-router'
 import NewUserWizard from 'features/newUserWizard'
 import BalanceCard from 'components/balance.card'
+import BillCreator from 'components/bills/billCreator'
+import { Bill } from 'react-app-env'
+import LoadingMotion from 'components/loadingMotion'
 
 const Testpage = () => {
+    const [uiBills, setUIBills] = useState<Array<Bill>>([])
+
+    const handleNewBillCallback = (_bill: Bill) => {
+        setUIBills(() => [_bill, ...uiBills])
+    }
     useEffect(() => {
         return () => {
 
@@ -16,6 +24,11 @@ const Testpage = () => {
         <>
             <Switch>
 
+                <Route path="/test/loading" exact
+                    render={(props) => (
+                        <LoadingMotion />
+                    )}
+                />
                 <Route path="/test/newuserwizard" exact
                     render={(props) => (
                         <NewUserWizard _username={_TestUsername} _token={_TestToken} />
@@ -30,6 +43,11 @@ const Testpage = () => {
                 <Route path="/test/BalanceViewer" exact
                     render={(props) => (
                         <BalanceCard _nett={900} _unpaidBills={100} _mainAccountTotalBalance={1000} />
+                    )}
+                />
+                <Route path="/test/bill" exact
+                    render={(props) => (
+                        <BillCreator _uiBills={uiBills} _handleNewBillCallback={handleNewBillCallback} />
                     )}
                 />
 
