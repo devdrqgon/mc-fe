@@ -33,6 +33,28 @@ const TestPageHome = () => {
                     </Button>
                 </Box>
             </div>
+            <div>
+                <Box
+                    width="150px"
+                    height="150px"
+
+                >
+                    <Button onClick={() => { history.push('test/list') }}>
+                    MotionList
+                    </Button>
+                </Box>
+            </div>
+            <div>
+                <Box
+                    width="150px"
+                    height="150px"
+
+                >
+                    <Button onClick={() => { history.push('test/clonedlist') }}>
+                    ClonedMotionList
+                    </Button>
+                </Box>
+            </div>
         </div>
     )
 }
