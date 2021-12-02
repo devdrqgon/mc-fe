@@ -1,14 +1,55 @@
-import { Button, Flex, Text } from '@chakra-ui/react'
+import { Button, Flex, Spinner, Text } from '@chakra-ui/react'
+import axios, { AxiosResponse } from 'axios'
+import { useEffect, useState } from 'react'
 import { Bill } from 'react-app-env'
 
-const BillItem = (props: {
-    _bill: Bill,
-    _handleMarkAspaid?: (b: Bill) => void
-}) => {
+const BillItem = (props: { _bill: Bill, _handleMarkAspaid?: () => void }) => {
     const onClickedMarkAsPaid = () => {
-        if (props._handleMarkAspaid) {
-            props._handleMarkAspaid(props._bill)
+        setshowLoadingBtn(true)
+        setTimeout(() => {
+            putBill({
+                ...props._bill,
+                paid: true,
+            })
+        }, 1000);
+
+
+        // if (props._handleMarkAspaid) {
+        //     setshowLoadingBtn(true)
+        //     props._handleMarkAspaid(props._bill)
+        // }
+    }
+    const putBill = async (b: Bill) => {
+        try {
+            const response: AxiosResponse<any, any> = await axios({
+                method: 'PUT',
+                url: `http://localhost:8000/bills/${b._id}`,
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                },
+                data: {
+                    billName: b.billName,
+                    username: b.username,
+                    paid: b.paid,
+                    cost: b.cost,
+                    when: b.when
+                },
+            })
+            console.info("bill update response", response)
+            if (response.status === 200) {
+                props._handleMarkAspaid!()
+            }
+            else {
+
+            }
+        } catch (error) {
+
         }
+    }
+
+    const [showLoadingBtn, setshowLoadingBtn] = useState(false)
+    const renderpayBtn = () => {
+        // update bill in be 
     }
     return (
         <Flex
@@ -68,13 +109,27 @@ const BillItem = (props: {
                 </div>
             </div>
             {props._bill.paid === false ?
-                <div>
-                    <Button onClick={props._handleMarkAspaid ? () => onClickedMarkAsPaid() : undefined}>
-                        mark as Paid
-                    </Button>
-                </div>
+                <>
+                    {showLoadingBtn === false ?
+                        <Button w={110} onClick={onClickedMarkAsPaid}>
+                            mark as Paid
+                        </Button>
+                        :
+                        <Button w={110} >
+                            <Spinner
+                                thickness="4px"
+                                speed="0.65s"
+                                emptyColor="gray.200"
+                                color="blue.500"
+                                size="sm"
+                            />
+                        </Button>
+
+                    }
+                </>
                 :
                 <>
+
                 </>
             }
         </Flex>

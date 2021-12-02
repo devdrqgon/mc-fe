@@ -20,6 +20,14 @@ export const getSumPaidills = (bills: Array<Bill>) => {
     return sum
 }
 
+export const getSumAllBills = (bills: Array<Bill>) => {
+    let sum = 0
+    bills.forEach(element => {
+        sum = sum + element.cost
+    })
+    return sum
+}
+
 export const calculateActualWeeklyBudget = (nettoBalance: number, daysLeft: number) => {
     return ((nettoBalance / daysLeft) * 7)
 }
