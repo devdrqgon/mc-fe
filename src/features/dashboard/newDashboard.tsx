@@ -21,15 +21,7 @@ const NewDashboard = (props: { _username: string, _token: string }) => {
     const [dailyIC, setDailyIC] = useState(0)
 
     const desireRef = useRef<HTMLInputElement>(null)
-    const getSumBills = (_bills: Array<Bill>) => {
-        let sum = 0
-
-        _bills.forEach((b) => {
-            sum = sum + b.cost
-        })
-        return sum
-
-    }
+    
     const caluclateConsequenceIC = () => {
 
         setshowImpulseController(true)
@@ -129,38 +121,7 @@ const NewDashboard = (props: { _username: string, _token: string }) => {
     }
 
 
-    const handleMarkBillAsPaid = (b: Bill) => {
-
-        console.info("bill", b)
-        let copyUserInfo = { ...userInfo! }
-        let IndexBill = userInfo!.bills.findIndex(_b => _b._id === b._id)
-
-        console.info("IndexBill", IndexBill)
-        // copyUserInfo.bills[IndexBill].paid = true
-        console.info("REAL.bills[IndexBill].paid ", userInfo!.bills[IndexBill].paid)
-
-        console.info("copyUserInfo.bills[IndexBill].paid ", copyUserInfo.bills[IndexBill].paid)
-
-
-
-        // b.paid = true
-        // let copyBills = [...userInfo!.bills]
-
-        // copyBills[IndexBill].paid = true
-        // let copyUserInfo = userInfo!
-        // copyUserInfo.bills = copyBills
-        // setuserInfo(copyUserInfo)
-
-    }
-    const OnBillsModalExpand = () => {
-
-        setmodalBody(
-            <ExpandedBillCard
-                _handleMarkBillAsPaid={handleMarkBillAsPaid}
-                _bills={userInfo!.bills} />
-        )
-        onOpen()
-    }
+   
     return (
         <>
             {userInfo === null ?
@@ -194,11 +155,7 @@ const NewDashboard = (props: { _username: string, _token: string }) => {
                         <Center>
                             <Flex direction={{ base: 'column', md: 'row' }}>
                                 <BillCard
-                                    _bills={userInfo.bills}
-                                    _total={getSumBills(userInfo.bills)}
-                                    _unpaid={getSumUnpaidBills(userInfo.bills)}
-                                    _paid={getSumPaidills(userInfo.bills)}
-                                    _hanldeExpandCard={OnBillsModalExpand} />
+                                />
                                 <Divider orientation="vertical" />
                                 <ImpulseController />
                                 <Divider orientation="vertical" />
