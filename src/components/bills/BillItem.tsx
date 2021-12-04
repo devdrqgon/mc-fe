@@ -11,7 +11,7 @@ const BillItem = (props: { _bill: Bill, _handleMarkAspaid?: () => void }) => {
                 ...props._bill,
                 paid: true,
             })
-        }, 1000);
+        }, 0);
 
 
         // if (props._handleMarkAspaid) {
@@ -87,8 +87,6 @@ const BillItem = (props: { _bill: Bill, _handleMarkAspaid?: () => void }) => {
                 </div>
                 <div>
                     <Text fontSize='xs' color='gray.500'>cost</Text>
-
-
                 </div>
             </div>
             <div
@@ -100,8 +98,6 @@ const BillItem = (props: { _bill: Bill, _handleMarkAspaid?: () => void }) => {
             >
                 <div>
                     <Text fontSize='xl'> {props._bill.when}</Text>
-
-
                 </div>
                 <div>
                     <Text fontSize='xs' color='gray.500'>  Day of month</Text>

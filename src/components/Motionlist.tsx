@@ -16,7 +16,11 @@ const MotionList = (props: { _items: Array<JSX.Element> }) => {
             >
                 {[...props._items].map((item, i) => (
                     <div key={uuidv4()}>
-                        {i === 0 ?
+                        <ListItem
+                            key={uuidv4()}>
+                            {item}
+                        </ListItem>
+                        {/* {i === 0 ?
                             <ListItem
                                 key={uuidv4()}>
                                 {item}
@@ -25,7 +29,7 @@ const MotionList = (props: { _items: Array<JSX.Element> }) => {
                                 key={uuidv4()}>
                                 {item}
                             </UnanimatedListItem>
-                        }
+                        } */}
                     </div>
                 ))}
             </Flex>
