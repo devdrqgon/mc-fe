@@ -1,16 +1,15 @@
-import axios, {  AxiosResponse } from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import logging from 'config/logging'
 import React, { ChangeEvent, useContext } from 'react'
 import { useHistory } from 'react-router'
 import { UserContext } from "contexts/user.context"
 import { Link } from 'react-router-dom'
 import toast from 'react-hot-toast'
-import { Button } from '@chakra-ui/button'
-import { useColorModeValue } from '@chakra-ui/color-mode'
-import { FormControl, FormLabel } from '@chakra-ui/form-control'
-import { Input } from '@chakra-ui/input'
-import { Flex, Stack, Heading, Box, Text } from '@chakra-ui/layout'
-import { Checkbox } from '@chakra-ui/react'
+import HContainer from 'components/ui/Layout/HContainer'
+import { AlignmentOptions } from 'components/ui/Layout'
+import VContainer from 'components/ui/Layout/VContainer'
+import Card from 'components/ui/Layout/Card'
+import CardButton from 'components/ui/Controls/Buttons/CardButtons'
 
 export default function LoginPage() {
     const [username, setUsername] = React.useState<string>('')
@@ -64,58 +63,42 @@ export default function LoginPage() {
         }
     }
     return (
-        <Flex
-            minH={'100vh'}
-            justify={'center'}
-            bg={useColorModeValue('gray.50', 'gray.800')}>
-            <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-                <Stack align={'center'}>
-                    <Heading fontSize={'4xl'}>Sign in to your account</Heading>
-                    <Text fontSize={'lg'} color={'gray.600'}>
-                        {/* to enjoy all of our cool <Link color={'blue.400'}>features</Link> ✌️ */}
-                    </Text>
-                </Stack>
-                <Box
-                    rounded={'lg'}
-                    bg={useColorModeValue('white', 'gray.700')}
-                    boxShadow={'lg'}
-                    p={8}>
-                    <Stack spacing={4}>
-                        <FormControl id="email">
-                            <FormLabel>Username</FormLabel>
-                            <Input onChange={(e: ChangeEvent<HTMLInputElement>) => { setUsername(e.target.value as unknown as string) }} type="text" />
-                        </FormControl>
-                        <FormControl id="password">
-                            <FormLabel>Password</FormLabel>
-                            <Input onChange={(e: ChangeEvent<HTMLInputElement>) => { setPassword(e.target.value as unknown as string) }} type="password" />
-                        </FormControl>
-                        <Stack spacing={10}>
-                            <Stack
-                                direction={{ base: 'column', sm: 'row' }}
-                                align={'start'}
-                                justify={'space-between'}>
-                                <Checkbox>Remember me</Checkbox>
-                            </Stack>
-                            <Button
-                                onClick={loginClicked}
-                                bg={'blue.400'}
-                                color={'white'}
-                                _hover={{
-                                    bg: 'blue.500',
-                                }}>
-                                Sign in
-                            </Button>
-                            <Link to={"/register"}>
-                                <Text fontSize={'lg'} color={'#2ad'}>
-                                    New to MoneyCoach? Register here!
-                                </Text>
-                            </Link>
+        <>
+            <VContainer
+                justifyContent={AlignmentOptions.center}
+                alignItems={AlignmentOptions.center}
+            >
+                <HContainer alignItems={AlignmentOptions.center}>
+                    <h1>Sign in to your account</h1>
+                </HContainer>
+                <Card
+                >
+                    <VContainer
+                        justifyContent={AlignmentOptions.center}
+                        alignItems={AlignmentOptions.center}
 
-                        </Stack>
-                    </Stack>
-                </Box>
-            </Stack>
-        </Flex>
+                    >
+                        <VContainer id="email">
+                            <h6>Username</h6>
+                            <input type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => { setUsername(e.target.value as unknown as string) }} />
+                        </VContainer>
+                        <VContainer id="password">
+                            <h6>Password</h6>
+                            <input onChange={(e: ChangeEvent<HTMLInputElement>) => { setPassword(e.target.value as unknown as string) }} type="password" />
+                        </VContainer>
+
+                        <CardButton
+                        onClick={loginClicked}
+                        >
+                            Sign in
+                        </CardButton>
+                        <Link to={"/register"}>
+                            <h6>  New to MoneyCoach? Register here!</h6>
+                        </Link>
+                    </VContainer>
+                </Card>
+            </VContainer>
+        </>
     )
 }
 

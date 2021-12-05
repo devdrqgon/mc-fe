@@ -1,7 +1,3 @@
-import { FormControl, FormLabel } from "@chakra-ui/form-control"
-import { Input } from "@chakra-ui/input"
-import { SimpleGrid, GridItem, Heading } from "@chakra-ui/layout"
-import { NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import VContainer from "./ui/Layout/VContainer"
 
@@ -63,46 +59,27 @@ const AccountsCreator: React.FC<AccountsProps> = ({ _handleChangeCallback }) => 
     }, [mainBalance, savingBalance])
     return (
         <>
-            <SimpleGrid columns={8}>
-                <GridItem colSpan={8}>
-                    <VContainer
-                    >
-                      
+            <VContainer>
+                <VContainer>
+                    <h6>
+                        Main Account
+                    </h6>
+                    <input type="number"
+                        onChange={(valueString) => onMainChanged(parse(valueString))}
+                        value={format(mainBalance)}
+                    />
 
-                        <FormControl>
-                            <FormLabel>
-                                Main Account
-                            </FormLabel>
-                            <NumberInput
-                                onChange={(valueString) => onMainChanged(parse(valueString))}
-                                value={format(mainBalance)}
-                            >
-                                <NumberInputField />
-                                <NumberInputStepper>
-                                    <NumberIncrementStepper />
-                                    <NumberDecrementStepper />
-                                </NumberInputStepper>
-                            </NumberInput>
-                        </FormControl>
-                        <FormControl>
-                            <FormLabel>
-                                Saving Account
-                            </FormLabel>
-                            <NumberInput
-                                onChange={(valueString) => onSavingChanged(parse(valueString))}
-                                value={format(savingBalance)}
-                            >
-                                <NumberInputField />
-                                <NumberInputStepper>
-                                    <NumberIncrementStepper />
-                                    <NumberDecrementStepper />
-                                </NumberInputStepper>
-                            </NumberInput>
-                        </FormControl>
-
-                    </VContainer>
-                </GridItem>
-            </SimpleGrid>
+                </VContainer>
+                <VContainer>
+                    <h6>
+                        Saving Account
+                    </h6>
+                    <input type="number"
+                        onChange={(valueString) => onSavingChanged(parse(valueString))}
+                        value={format(savingBalance)}
+                    />
+                </VContainer>
+            </VContainer>
         </>
     )
 }

@@ -1,9 +1,9 @@
 
 
 import { Switch, Route } from 'react-router'
-import NewUserWizard from 'features/newUserWizard'
+// import NewUserWizard from 'features/newUserWizard'
 import NewDashboard from 'features/dashboard/newDashboard'
-import { Box } from '@chakra-ui/react'
+import Card from 'components/ui/Layout/Card'
 
 
 
@@ -11,7 +11,7 @@ import { Box } from '@chakra-ui/react'
 const AuthApp = () => {
     return (
         <>
-            <Box mt={10}>
+            <Card>
                 <Switch>
                     <Route path="/" exact
                         render={(props) => (
@@ -21,14 +21,14 @@ const AuthApp = () => {
                             />
                         )}
                     />
-                    <Route path="/newuser" exact
+                    {/* <Route path="/newuser" exact
                         render={(props) => (
                             <NewUserWizard
                                 _username={localStorage.getItem('username')!}
                                 _token={`Bearer ${localStorage.getItem('token')!}`}
                             />
                         )}
-                    />
+                    /> */}
                     <Route path="/olduser" exact
                         render={(props) => (
                             <NewDashboard
@@ -39,7 +39,7 @@ const AuthApp = () => {
                     />
                     <Route render={() => <> PageNotFound </>} />
                 </Switch>
-            </Box>
+            </Card>
         </>
     )
 }

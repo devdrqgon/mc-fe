@@ -13,4 +13,5 @@ export interface ContainerProps {
     justifyContent?: AlignmentOptions
     alignItems?: AlignmentOptions
     bg?: string
+    fullWidth?: boolean
 }

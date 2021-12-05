@@ -1,6 +1,6 @@
-import DraggableList from 'components/draggableList'
-import LoadingMotion from 'components/loadingMotion'
-import NewUserWizard from 'features/newUserWizard'
+// import DraggableList from 'components/draggableList'
+// import LoadingMotion from 'components/loadingMotion'
+// import NewUserWizard from 'features/newUserWizard'
 import { Router, Route, Switch } from 'react-router'
 import TestPageHome from './TestPageHome'
 import ClonedMotionList from 'components/ClonedMotionList'
@@ -34,26 +34,26 @@ const TestPageRouter = () => {
                         <BillItem _bill={_dummyBill} />
                     )}
                 />
-                <Route path="/test/loading" exact
+                {/* <Route path="/test/loading" exact
                     render={(props) => (
                         <LoadingMotion />
                     )}
-                />
+                /> */}
                 <Route path="/test/modal" exact
                     render={(props) => (
                         <ModalTester />
                     )}
                 />
-                <Route path="/test/newuserwizard" exact
+                {/* <Route path="/test/newuserwizard" exact
                     render={(props) => (
                         <NewUserWizard _username={_TestUsername} _token={_TestToken} />
                     )}
-                />
-                <Route path="/test/drag" exact
+                /> */}
+                {/* <Route path="/test/drag" exact
                     render={(props) => (
                         <DraggableList />
                     )}
-                />
+                /> */}
                 <Route path="/test/list" exact
                     render={(props) => (
                         <>

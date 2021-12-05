@@ -3,7 +3,6 @@ import { Bill } from 'react-app-env'
 import { RiBillLine } from 'react-icons/ri'
 import { BsArrowsAngleExpand } from 'react-icons/bs'
 import { useEffect, useState } from 'react'
-import LoadingMotion from 'components/loadingMotion'
 import axios, { AxiosResponse } from 'axios'
 import { getSumAllBills, getSumPaidills, getSumUnpaidBills } from 'features/lib'
 import ExpandedBillCard from './expandedBillCard'
@@ -78,7 +77,7 @@ const BillCard: React.FC = () => {
                             <HContainer
                                 justifyContent={AlignmentOptions.center}
                                 alignItems={AlignmentOptions.center}>
-                                <LoadingMotion />
+                                {/* <LoadingMotion /> */}
                             </HContainer>
                         </>
                     }

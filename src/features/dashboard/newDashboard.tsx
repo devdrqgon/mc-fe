@@ -1,14 +1,17 @@
-import { Flex, Box, Text, VContainer, Input, Button, Heading, Divider, Center, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, Spinner } from "@chakra-ui/react"
 import axios, { AxiosResponse } from "axios"
 import BillCard from "components/bills/billCard"
 import BudgetCard from "components/budget/budgetCard"
 import ImpulseController from "components/impulseControl/impulseController"
 import SalaryCard from "components/salaryInfo/salaryInfoCard"
 import SavingPlanCard from "components/savingPlan/savingPlanCard"
+import { AlignmentOptions } from "components/ui/Layout"
+import Card from "components/ui/Layout/Card"
+import HContainer from "components/ui/Layout/HContainer"
+import VContainer from "components/ui/Layout/VContainer"
 import { getSumPaidills, getSumUnpaidBills } from "features/lib"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { Bill, UserInfoResponse } from "react-app-env"
-import BalanceCard, { GenericCard } from "../../components/balance.card"
+import BalanceCard from "../../components/balance.card"
 
 const NewDashboard = (props: { _username: string, _token: string }) => {
 
@@ -92,16 +95,9 @@ const NewDashboard = (props: { _username: string, _token: string }) => {
     //Modal
     const [loading, setLoading] = useState<React.ReactNode>(
         <VContainer>
-            <Spinner
-                thickness="4px"
-                speed="0.65s"
-                emptyColor="gray.200"
-                color="blue.500"
-                size="xl"
-            />
-            <Box>
+            <Card>
                 loading your Data..
-            </Box>
+            </Card>
         </VContainer>
     )
 
@@ -116,45 +112,40 @@ const NewDashboard = (props: { _username: string, _token: string }) => {
                 </>
                 :
                 <>
-                    <Flex direction="column">
-                        <Center>
-                            <Flex direction={{ base: 'column', md: 'row' }}>
-                                <BalanceCard
-                                    _mainAccountTotalBalance={userInfo.accounts[0].balance!}
-                                    _nett={getNettoBalance(userInfo.accounts[0].balance!, getSumUnpaidBills(userInfo.bills))}
-                                    _unpaidBills={getSumUnpaidBills(userInfo.bills)} />
-                                <Divider orientation="vertical" />
-                                <BudgetCard
-                                    _weekly={calculateActualWeeklyBudget(
-                                        getNettoBalance(userInfo.accounts[0].balance, getSumUnpaidBills(userInfo.bills)),
-                                        countDaysUntillNextSalary(userInfo.salary.dayOfMonth))}
-                                    _daily={calculateDailyBudget(
-                                        getNettoBalance(userInfo.accounts[0].balance, getSumUnpaidBills(userInfo.bills)),
-                                        countDaysUntillNextSalary(userInfo.salary.dayOfMonth))} />
-                                <Divider orientation="vertical" />
-                                <SalaryCard
-                                    _amount={userInfo.salary.amount}
-                                    _daysLeft={countDaysUntillNextSalary(userInfo.salary.dayOfMonth)}
-                                />
-                            </Flex>
-                        </Center>
-                        <Center>
-                            <Flex direction={{ base: 'column', md: 'row' }}>
-                                <BillCard
-                                />
-                                <Divider orientation="vertical" />
-                                <ImpulseController />
-                                <Divider orientation="vertical" />
-                                <SavingPlanCard
-                                    _userMinBudget={userInfo!.weeklyBudget?.limit! / 7}
-                                    _currentDailyBudget={calculateDailyBudget(
-                                        getNettoBalance(userInfo!.accounts[0].balance, getSumUnpaidBills(userInfo!.bills)),
-                                        countDaysUntillNextSalary(userInfo!.salary.dayOfMonth))}
-                                    _daysTillNxtSalary={countDaysUntillNextSalary(userInfo!.salary.dayOfMonth)}
-                                />
-                            </Flex>
-                        </Center>
-                    </Flex>
+                    <VContainer
+                        justifyContent={AlignmentOptions.center}
+                        alignItems={AlignmentOptions.center}>
+                        <HContainer>
+                            <BalanceCard
+                                _mainAccountTotalBalance={userInfo.accounts[0].balance!}
+                                _nett={getNettoBalance(userInfo.accounts[0].balance!, getSumUnpaidBills(userInfo.bills))}
+                                _unpaidBills={getSumUnpaidBills(userInfo.bills)} />
+                            <BudgetCard
+                                _weekly={calculateActualWeeklyBudget(
+                                    getNettoBalance(userInfo.accounts[0].balance, getSumUnpaidBills(userInfo.bills)),
+                                    countDaysUntillNextSalary(userInfo.salary.dayOfMonth))}
+                                _daily={calculateDailyBudget(
+                                    getNettoBalance(userInfo.accounts[0].balance, getSumUnpaidBills(userInfo.bills)),
+                                    countDaysUntillNextSalary(userInfo.salary.dayOfMonth))} />
+                            <SalaryCard
+                                _amount={userInfo.salary.amount}
+                                _daysLeft={countDaysUntillNextSalary(userInfo.salary.dayOfMonth)}
+                            />
+                        </HContainer>
+                        <HContainer
+                        >
+                            <BillCard
+                            />
+                            <ImpulseController />
+                            <SavingPlanCard
+                                _userMinBudget={userInfo!.weeklyBudget?.limit! / 7}
+                                _currentDailyBudget={calculateDailyBudget(
+                                    getNettoBalance(userInfo!.accounts[0].balance, getSumUnpaidBills(userInfo!.bills)),
+                                    countDaysUntillNextSalary(userInfo!.salary.dayOfMonth))}
+                                _daysTillNxtSalary={countDaysUntillNextSalary(userInfo!.salary.dayOfMonth)}
+                            />
+                        </HContainer>
+                    </VContainer>
                 </>
             }
         </>

@@ -1,5 +1,7 @@
-import { Button, Flex, Spinner, Text } from '@chakra-ui/react'
 import axios, { AxiosResponse } from 'axios'
+import CardButton from 'components/ui/Controls/Buttons/CardButtons'
+import { AlignmentOptions } from 'components/ui/Layout'
+import HContainer from 'components/ui/Layout/HContainer'
 import { useEffect, useState } from 'react'
 import { Bill } from 'react-app-env'
 
@@ -52,10 +54,8 @@ const BillItem = (props: { _bill: Bill, _handleMarkAspaid?: () => void }) => {
         // update bill in be 
     }
     return (
-        <Flex
-            boxShadow={'xs'}
-            justify="space-between"
-            p={3}>
+        <HContainer justifyContent={AlignmentOptions.spaceBetween}
+        >
             <div
                 style={{
                     display: 'flex',
@@ -65,13 +65,15 @@ const BillItem = (props: { _bill: Bill, _handleMarkAspaid?: () => void }) => {
                 }}
             >
                 <div>
-                    <Text fontSize='xl'> {props._bill.billName}</Text>
-
+                    <h1>
+                        {props._bill.billName}
+                    </h1>
 
                 </div>
                 <div>
-                    <Text fontSize='xs' color='gray.500'>bill</Text>
-
+                    <h1>
+                        bill
+                    </h1>
                 </div>
             </div>
             <div
@@ -82,11 +84,13 @@ const BillItem = (props: { _bill: Bill, _handleMarkAspaid?: () => void }) => {
                 }}
             >
                 <div>
-                    <Text fontSize='xl'> {props._bill.cost}</Text>
+                    <h6>
+                        {props._bill.cost}
+                    </h6>
 
                 </div>
                 <div>
-                    <Text fontSize='xs' color='gray.500'>cost</Text>
+                    cost
                 </div>
             </div>
             <div
@@ -97,29 +101,22 @@ const BillItem = (props: { _bill: Bill, _handleMarkAspaid?: () => void }) => {
                 }}
             >
                 <div>
-                    <Text fontSize='xl'> {props._bill.when}</Text>
+                    <h6>{props._bill.when}</h6>
                 </div>
                 <div>
-                    <Text fontSize='xs' color='gray.500'>  Day of month</Text>
-
+                    <h6> Day of month</h6>
                 </div>
             </div>
             {props._bill.paid === false ?
                 <>
                     {showLoadingBtn === false ?
-                        <Button w={110} onClick={onClickedMarkAsPaid}>
+                        <CardButton onClick={onClickedMarkAsPaid}>
                             mark as Paid
-                        </Button>
+                        </CardButton>
                         :
-                        <Button w={110} >
-                            <Spinner
-                                thickness="4px"
-                                speed="0.65s"
-                                emptyColor="gray.200"
-                                color="blue.500"
-                                size="sm"
-                            />
-                        </Button>
+                        <CardButton  >
+
+                        </CardButton>
 
                     }
                 </>
@@ -128,7 +125,7 @@ const BillItem = (props: { _bill: Bill, _handleMarkAspaid?: () => void }) => {
 
                 </>
             }
-        </Flex>
+        </HContainer>
     )
 }
 

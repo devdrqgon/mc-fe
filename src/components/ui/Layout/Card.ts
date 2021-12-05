@@ -6,13 +6,13 @@ import styled from 'styled-components'
  */
 const Card = styled.div`
     display: flex;
-    flex-direction: column;
-    justify-content: center; 
+    justify-content: flex-start; 
+    align-items: flex-start;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    padding: 15px;
-    background-color: #FFFFFF;
+    padding: 0px;
     min-height: 200px;
-    min-width: 400px;
+    max-width: 80%;
     border-radius: 5px;
+    width: 100%;
 `
 export default Card

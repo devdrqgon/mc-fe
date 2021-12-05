@@ -1,7 +1,3 @@
-import { FormControl, FormLabel } from "@chakra-ui/form-control"
-import { SimpleGrid, GridItem, Heading } from "@chakra-ui/layout"
-import { NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper } from "@chakra-ui/number-input"
-import { Text } from "@chakra-ui/react"
 import VContainer from "components/ui/Layout/VContainer"
 import { useRef, useState } from "react"
 import { SalaryInfo } from "react-app-env"
@@ -40,47 +36,29 @@ const SalaryInfoCreator: React.FC<SalaryInfoProps> = ({ _handleChange }) => {
 
     return (
         <>
-            <SimpleGrid columns={8}>
-                <GridItem colSpan={8}>
-                    <VContainer
+            <VContainer>
+                <VContainer>
+                    <h6>
+                        Amount
+                    </h6>
+                    <input type="number"
+                        onChange={(valueString) => setAmountSalary(parse(valueString))}
 
-                    >
-                        
+                        value={format(amountSalary)}
+                    />
 
-                        <FormControl>
-                            <FormLabel>
-                                Amount
-                            </FormLabel>
-                            <NumberInput
-                                onChange={(newValue) => onChangeAmount(newValue)}
-                                value={format(amountSalary)}
-                            >
-                                <NumberInputField />
-                                <NumberInputStepper>
-                                    <NumberIncrementStepper />
-                                    <NumberDecrementStepper />
-                                </NumberInputStepper>
-                            </NumberInput>
-                        </FormControl>
-                        <FormControl>
-                            <FormLabel>
-                                When
-                            </FormLabel>
-                            <NumberInput
-                                defaultValue={dayOfMonthOfSalary}
-                                min={1} max={31}
-                                onChange={(newValue) => onChangeDay(newValue)}
-                            >
-                                <NumberInputField />
-                                <NumberInputStepper>
-                                    <NumberIncrementStepper />
-                                    <NumberDecrementStepper />
-                                </NumberInputStepper>
-                            </NumberInput>
-                        </FormControl>
-                    </VContainer>
-                </GridItem>
-            </SimpleGrid>
+                </VContainer>
+                <VContainer>
+                    <h6>
+                        Day
+                    </h6>
+                    <input type="number"
+                        onChange={(valueString) => setDayOfMonthOfSalary(parse(valueString))}
+
+                        value={format(dayOfMonthOfSalary)}
+                    />
+                </VContainer>
+            </VContainer>
         </>
     )
 }

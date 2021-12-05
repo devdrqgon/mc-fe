@@ -1,19 +1,15 @@
-import { Flex } from '@chakra-ui/layout'
 import faker from 'faker'
 import { motion, usePresence, AnimatePresence, AnimationControls, Transition, Variants } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
 import { v4 as uuidv4, v4 } from 'uuid'
+import VContainer from './ui/Layout/VContainer'
 
 
 const MotionList = (props: { _items: Array<JSX.Element> }) => {
     return (
         <>
 
-            <Flex
-                direction="column"
-                maxH={400}
-                overflowY="scroll"
-            >
+            <VContainer> 
                 {[...props._items].map((item, i) => (
                     <div key={uuidv4()}>
                         <ListItem
@@ -32,7 +28,7 @@ const MotionList = (props: { _items: Array<JSX.Element> }) => {
                         } */}
                     </div>
                 ))}
-            </Flex>
+            </VContainer>
         </>
     )
 }

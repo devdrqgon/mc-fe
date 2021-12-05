@@ -22,8 +22,8 @@ const SavingPlanCard: React.FC<Props> = (props) => {
     return (
         <>
             <Card>
-                <HContainer  justify={AlignmentOptions.spaceBetween}>
-                    <HContainer justify={AlignmentOptions.flexStart}>
+                <HContainer  justifyContent={AlignmentOptions.spaceBetween}>
+                    <HContainer justifyContent={AlignmentOptions.flexStart}>
                         <FaReact />
                         <h1>
                             Saving Plan

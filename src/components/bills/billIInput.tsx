@@ -5,6 +5,7 @@ import { Bill } from 'react-app-env';
 import HContainer from "components/ui/Layout/HContainer";
 import VContainer from "components/ui/Layout/VContainer";
 import { AlignmentOptions } from "components/ui/Layout";
+import CardButton from "components/ui/Controls/Buttons/CardButtons";
 
 interface BillCreatorProps {
     _username: string,
@@ -50,43 +51,34 @@ const BillInput: React.FC<BillCreatorProps> = ({ _username, handleBillCallback }
                     <HContainer justifyContent={AlignmentOptions.spaceBetween}>
                         <HContainer>
                             <VContainer>
-                                <FormLabel>
+                                <h6>
                                     Cost
-                                </FormLabel>
-                                <Input ref={billCostRef} />
+                                </h6>
+                                <input type="number" ref={billCostRef} />
                             </VContainer>
                             <VContainer>
-                                <FormLabel isRequired>
+                                <h6 >
                                     When
-                                </FormLabel>
-                                <NumberInput defaultValue={1} min={1} max={31}>
-                                    <NumberInputField ref={billWhenRef} />
-                                    <NumberInputStepper>
-                                        <NumberIncrementStepper />
-                                        <NumberDecrementStepper />
-                                    </NumberInputStepper>
-                                </NumberInput>
+                                </h6>
+                                <input type="number" defaultValue={1} min={1} max={31} />
+
                             </VContainer>
                             <VContainer
 
-                                mt={42}
-                                ml={2}
-                                w="full"
-                                direction={{ base: 'column', sm: 'row' }}
-                                align={'center'}
-                                justify={'space-between'}>
-                                <Text minW={100}>
+                                alignItems={AlignmentOptions.center}
+                                justifyContent={AlignmentOptions.spaceBetween}>
+                                <h1>
                                     Already paid
-                                </Text>
-                                <Checkbox size="lg" colorScheme={"green"} onChange={() => setnewBillFlag(!newBillFlag)} >
 
-                                </Checkbox>
+                                </h1>
+                                <input type="checkbox" onChange={() => setnewBillFlag(!newBillFlag)} />
+
                             </VContainer>
                         </HContainer>
                         <HContainer>
                             <VContainer>
-                                <Button
-                                    onClick={addBillClicked}> + </Button>
+                                <CardButton
+                                    onClick={addBillClicked}> + </CardButton>
                             </VContainer>
                         </HContainer>
                     </HContainer>

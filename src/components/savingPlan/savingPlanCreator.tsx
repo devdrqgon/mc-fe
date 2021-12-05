@@ -1,6 +1,8 @@
-import { Button } from '@chakra-ui/button'
-import { Box, VContainer, Divider } from '@chakra-ui/layout'
-import { Center, Flex } from '@chakra-ui/react'
+
+import CardButton from 'components/ui/Controls/Buttons/CardButtons'
+import { AlignmentOptions } from 'components/ui/Layout'
+import Card from 'components/ui/Layout/Card'
+import HContainer from 'components/ui/Layout/HContainer'
 import React, { useEffect, useState } from 'react'
 
 interface SavingPlanCreatorProps {
@@ -16,14 +18,9 @@ const SavingPlanCreator: React.FC<SavingPlanCreatorProps> = (props) => {
 
 
     return (
-        <Box
-            p={1}
-            w={'full'}
-            boxShadow="base"
-            rounded={'lg'}
-            pos={'relative'}
-            zIndex={1}>
-            <Box
+        <Card
+            >
+            <Card
             >
                 <h1>You told us that you your minimum budget per day is  €{props._userMinBudget.toFixed(2)}.....
                     If you reduce your daily budget to match your minimum  budget</h1> <br />
@@ -45,11 +42,11 @@ const SavingPlanCreator: React.FC<SavingPlanCreatorProps> = (props) => {
                         before it was €{(props._currentDailyBudget).toFixed(2)}
                     </li>
                 </ul>
-                <Center mt={4}>
-                    <Button> Set Saving Budget</Button>
-                </Center>
-            </Box>
-        </Box>
+                <HContainer justifyContent={AlignmentOptions.center} alignItems={AlignmentOptions.center}>
+                    <CardButton> Set Saving Budget</CardButton>
+                </HContainer>
+            </Card>
+        </Card>
     )
 }
 

@@ -1,4 +1,3 @@
-import { ChakraProvider } from '@chakra-ui/react'
 import AuthApp from 'authApp'
 import { Header } from 'components/header/Header'
 import { UserContext } from 'contexts/user.context'
@@ -13,7 +12,7 @@ import usePersistedState from 'utils/usePersistedState'
 import GlobalStyle from './styles/global'
 
 export const App = () => {
-    const [theme, setTheme] = usePersistedState<DefaultTheme>('theme', light)
+    const [theme, setTheme] = usePersistedState<DefaultTheme>('theme', dark)
     const history = useHistory()
     const { tokenValid, authenticated } = useContext(UserContext);
 
@@ -31,17 +30,15 @@ export const App = () => {
             <div className="App">
                 <GlobalStyle />
                 <Header _toggletheme={toggleTheme} />
-                <ChakraProvider>
-                    {tokenValid && authenticated ?
-                        <>
-                            <AuthApp />
-                        </>
-                        :
-                        <>
-                            <UnAuthApp />
-                        </>
-                    }
-                </ChakraProvider>
+                {tokenValid && authenticated ?
+                    <>
+                        <AuthApp />
+                    </>
+                    :
+                    <>
+                        <UnAuthApp />
+                    </>
+                }
             </div>
         </ThemeProvider>
     )

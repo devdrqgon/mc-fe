@@ -1,9 +1,7 @@
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import UserProvider from 'contexts/user.context';
-import { ChakraProvider } from '@chakra-ui/react';
 import { App } from 'App';
-import ClonedModal from 'components/ui/clonedModal/clonedModal';
 import CardButton from 'components/ui/Controls/Buttons/CardButtons';
 import { ThemeProvider } from 'styled-components';
 import dark from 'styles/themes/dark';
@@ -33,13 +31,11 @@ export const ModalTester = () => {
 }
 
 ReactDOM.render(
-  <ChakraProvider>
-    <BrowserRouter>
-      <UserProvider>
-        <App />
-      </UserProvider>
-    </BrowserRouter>
-  </ChakraProvider>
+  <BrowserRouter>
+    <UserProvider>
+      <App />
+    </UserProvider>
+  </BrowserRouter>
   ,
   document.getElementById('root')
 );

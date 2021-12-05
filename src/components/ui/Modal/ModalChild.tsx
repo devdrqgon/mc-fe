@@ -13,7 +13,7 @@ type Props = {
 
 const ModalChild: React.FC<Props> = ({ setModalOpen, children }) => (
     <>
-        <HContainer justify={AlignmentOptions.flexEnd}>
+        <HContainer justifyContent={AlignmentOptions.flexEnd}>
             <IconContainer>
                 <AiOutlineClose
                     onClick={() => setModalOpen(false)} />
