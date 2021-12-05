@@ -12,6 +12,5 @@ const NewCard = styled.div`
     padding: 0px;
     max-width: 250px;
     border-radius: 5px;
-    background-color: tomato;
 `
 export default NewCard

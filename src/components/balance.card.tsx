@@ -33,7 +33,6 @@ const BalanceCard: React.FC<BalanceCardProps> = (props) => {
                     <div
                         style={{
                             width: '100%',
-                            backgroundColor: 'tomato',
 
                             display: 'flex',
                             justifyContent: 'space-between',
