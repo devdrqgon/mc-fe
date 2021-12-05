@@ -29,6 +29,16 @@ const TestPageHome = () => {
             </div>
             <div>
                 <Box
+                 width="50px"
+                 height="50px"
+                >
+                    <Button onClick={() => { history.push('test/modal') }}>
+                        Modal
+                    </Button>
+                </Box>
+            </div>
+            <div>
+                <Box
                 width="50px"
                 height="50px"
 

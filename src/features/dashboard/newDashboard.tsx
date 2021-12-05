@@ -1,12 +1,10 @@
 import { Flex, Box, Text, VStack, Input, Button, Heading, Divider, Center, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, Spinner } from "@chakra-ui/react"
 import axios, { AxiosResponse } from "axios"
 import BillCard from "components/bills/billCard"
-import ExpandedBillCard from "components/bills/expandedBillCard"
 import BudgetCard from "components/budget/budgetCard"
 import ImpulseController from "components/impulseControl/impulseController"
 import SalaryCard from "components/salaryInfo/salaryInfoCard"
-import SavingPlan from "components/savingPlan/savingPlanCard"
-import SavingPlanCreator from "components/savingPlan/savingPlanCreator"
+import SavingPlanCard from "components/savingPlan/savingPlanCard"
 import { getSumPaidills, getSumUnpaidBills } from "features/lib"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { Bill, UserInfoResponse } from "react-app-env"
@@ -21,7 +19,7 @@ const NewDashboard = (props: { _username: string, _token: string }) => {
     const [dailyIC, setDailyIC] = useState(0)
 
     const desireRef = useRef<HTMLInputElement>(null)
-    
+
     const caluclateConsequenceIC = () => {
 
         setshowImpulseController(true)
@@ -92,7 +90,6 @@ const NewDashboard = (props: { _username: string, _token: string }) => {
     }, [userInfo])
 
     //Modal
-    const { isOpen, onOpen, onClose } = useDisclosure({ id: 'dashboardModal' })
     const [loading, setLoading] = useState<React.ReactNode>(
         <VStack>
             <Spinner
@@ -107,21 +104,10 @@ const NewDashboard = (props: { _username: string, _token: string }) => {
             </Box>
         </VStack>
     )
-    const [modalBody, setmodalBody] = useState<any>()
-    const OnsavingPlanModalExpand = () => {
-
-        setmodalBody(<SavingPlanCreator
-            _userMinBudget={userInfo!.weeklyBudget?.limit! / 7}
-            _currentDailyBudget={calculateDailyBudget(
-                getNettoBalance(userInfo!.accounts[0].balance, getSumUnpaidBills(userInfo!.bills)),
-                countDaysUntillNextSalary(userInfo!.salary.dayOfMonth))}
-            _daysTillNxtSalary={countDaysUntillNextSalary(userInfo!.salary.dayOfMonth)}
-        />)
-        onOpen()
-    }
 
 
-   
+
+
     return (
         <>
             {userInfo === null ?
@@ -159,29 +145,16 @@ const NewDashboard = (props: { _username: string, _token: string }) => {
                                 <Divider orientation="vertical" />
                                 <ImpulseController />
                                 <Divider orientation="vertical" />
-                                <SavingPlan _handleCreatePlanClick={OnsavingPlanModalExpand} />
+                                <SavingPlanCard
+                                    _userMinBudget={userInfo!.weeklyBudget?.limit! / 7}
+                                    _currentDailyBudget={calculateDailyBudget(
+                                        getNettoBalance(userInfo!.accounts[0].balance, getSumUnpaidBills(userInfo!.bills)),
+                                        countDaysUntillNextSalary(userInfo!.salary.dayOfMonth))}
+                                    _daysTillNxtSalary={countDaysUntillNextSalary(userInfo!.salary.dayOfMonth)}
+                                />
                             </Flex>
                         </Center>
                     </Flex>
-                    <Modal
-                        closeOnOverlayClick={false}
-                        onClose={onClose}
-                        size="xl"
-                        id={"dashboardModal"}
-                        isOpen={isOpen}>
-                        <ModalOverlay />
-                        <ModalContent maxW="70rem">
-                            <Flex mt={3} mb={6} justifyContent="center">
-                                <Text fontSize="30px">
-                                    Create a saving plan
-                                </Text>
-                            </Flex>
-                            <ModalCloseButton />
-                            <ModalBody>
-                                {modalBody}
-                            </ModalBody>
-                        </ModalContent>
-                    </Modal>
                 </>
             }
         </>

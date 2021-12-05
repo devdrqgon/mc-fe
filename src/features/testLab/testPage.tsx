@@ -34,6 +34,7 @@ const Testpage = () => {
                         <NewUserWizard _username={_TestUsername} _token={_TestToken} />
                     )}
                 />
+              
                 <Route path="/test/drag" exact
                     render={(props) => (
                         <DraggableList />

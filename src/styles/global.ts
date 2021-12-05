@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components"
 
 export default createGlobalStyle`
+    
     * {
         margin: 0;
         padding: 0;
@@ -8,9 +9,13 @@ export default createGlobalStyle`
     }
 
     body {
-        background: ${ props => props.theme.colors.background};
+        background: ${props => props.theme.colors.background};
         font-size: 14px;
-        color: ${ props => props.theme.colors.text};
-        font-family: sans-serif;
+        color: ${props => props.theme.colors.text};
+        font-family: 'Tangerine', sans-serif;
+    }
+
+    h1 {
+        color: #f2a
     }
 `

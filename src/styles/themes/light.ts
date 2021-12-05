@@ -5,7 +5,7 @@ export default {
         primary: '#C62E65',
         secondary: '#D63AF9',
 
-        background: '#C62E65',
+        background: '#FDFFFC',
         text: '#333'
     },
 } 

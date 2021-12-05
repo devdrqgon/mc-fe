@@ -1,3 +1,4 @@
+import { ChakraProvider } from '@chakra-ui/react'
 import AuthApp from 'authApp'
 import { Header } from 'components/header/Header'
 import { UserContext } from 'contexts/user.context'
@@ -30,15 +31,17 @@ export const App = () => {
             <div className="App">
                 <GlobalStyle />
                 <Header _toggletheme={toggleTheme} />
-                {tokenValid && authenticated ?
-                    <>
-                        <AuthApp />
-                    </>
-                    :
-                    <>
-                        <UnAuthApp />
-                    </>
-                }
+                <ChakraProvider>
+                    {tokenValid && authenticated ?
+                        <>
+                            <AuthApp />
+                        </>
+                        :
+                        <>
+                            <UnAuthApp />
+                        </>
+                    }
+                </ChakraProvider>
             </div>
         </ThemeProvider>
     )

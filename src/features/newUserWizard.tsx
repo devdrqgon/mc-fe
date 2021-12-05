@@ -13,6 +13,8 @@ import { useHistory } from "react-router";
 import BillCreator from "components/bills/billCreator";
 import BillInput from "components/bills/billIInput";
 import Motionlist from "components/Motionlist";
+import ModalPortal from "components/ui/portalModal/PortalModal";
+import ModalChild from "components/ui/portalModal/ModalChild";
 
 
 interface NewUserWizardProps {
@@ -22,6 +24,7 @@ interface NewUserWizardProps {
 
 
 const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
+    const [modalOpen, setModalOpen] = useState(false);
 
 
     //Accounts
@@ -198,22 +201,15 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
 
 
     useEffect(() => {
-        onOpen()
+        setModalOpen(true)
     }, [afterSubmitModalBody])
     return (
         <>
-            <MCModal
-                _title={submitClicked === false ? "Let's get you quickly started, Ahmed!" : ""}
-                _body={submitClicked === false ? generateWizardBody() : afterSubmitModalBody}
-                _isOpen={isOpen}
-                _onClose={onClose}
-                _nextStep={nextStep}
-                _disableCloseBtn={true}
-                _backBtn={activeStep === 0 ? undefined : prevStep}
-                _submitBtn={activeStep !== steps.length - 1 ? undefined : submitInitUserInfo}
-                _hideFooter={submitClicked}
-                _closeOnOverlayClick
-            />
+            <ModalPortal modalOpen={modalOpen}>
+                <ModalChild setModalOpen={setModalOpen} >
+                    {submitClicked === false ? generateWizardBody() : afterSubmitModalBody}
+                </ModalChild>
+            </ModalPortal>
         </>
     )
 }

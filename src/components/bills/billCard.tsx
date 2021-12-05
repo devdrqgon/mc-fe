@@ -7,16 +7,20 @@ import { useEffect, useState } from 'react'
 import LoadingMotion from 'components/loadingMotion'
 import axios, { AxiosResponse } from 'axios'
 import { getSumAllBills, getSumPaidills, getSumUnpaidBills } from 'features/lib'
-import { Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalBody } from '@chakra-ui/modal'
 import { useDisclosure } from '@chakra-ui/hooks'
 import ExpandedBillCard from './expandedBillCard'
+import ModalPortal from 'components/ui/portalModal/PortalModal'
+import ModalChild from 'components/ui/portalModal/ModalChild'
 
 
 const BillCard: React.FC = () => {
+    const [modalOpen, setModalOpen] = useState(false);
+
+
     const { isOpen, onOpen, onClose } = useDisclosure({ id: 'billsModal' })
     const [_bills, set_bills] = useState<Bill[] | null>(null)
 
-    const refreshbills  = () =>{
+    const refreshbills = () => {
         getBills()
     }
     const getBills = async () => {
@@ -62,7 +66,7 @@ const BillCard: React.FC = () => {
                             Bills
                         </Text>
                     </HStack>
-                    <BsArrowsAngleExpand onClick={onOpen} style={{ 'cursor': 'pointer' }} />
+                    <BsArrowsAngleExpand onClick={() => { setModalOpen(true) }} style={{ 'cursor': 'pointer' }} />
                 </HStack>
                 <>
                     {_bills !== null ?
@@ -95,30 +99,13 @@ const BillCard: React.FC = () => {
                 </>
 
             </Flex >
-            {_bills !== null ?
-                <Modal
-                    closeOnOverlayClick={false}
-                    onClose={onClose}
-                    size="xl"
-                    id={"billsModal"}
-                    isOpen={isOpen}>
-                    <ModalOverlay />
-                    <ModalContent maxW="70rem">
-                        <Flex mt={3} mb={6} justifyContent="center">
-                            <Text fontSize="30px">
-                                Your bills
-                            </Text>
-                        </Flex>
-                        <ModalCloseButton />
-                        <ModalBody>
-                            <ExpandedBillCard 
-                            _handleOnClickPayBill={refreshbills}
-                            _bills={_bills}/>
-                        </ModalBody>
-                    </ModalContent>
-                </Modal> :
-                <> </>
-            }
+            <ModalPortal modalOpen={modalOpen}>
+                <ModalChild setModalOpen={setModalOpen} >
+                    <ExpandedBillCard
+                        _handleOnClickPayBill={refreshbills}
+                        _bills={_bills!} />
+                </ModalChild>
+            </ModalPortal>
         </>
     )
 }

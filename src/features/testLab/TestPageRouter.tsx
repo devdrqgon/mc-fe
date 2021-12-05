@@ -10,6 +10,7 @@ import { useState } from 'react'
 import { Bill } from 'react-app-env'
 import faker from 'faker'
 import BillItem from 'components/bills/BillItem'
+import { ModalTester } from 'index'
 
 const TestPageRouter = () => {
 
@@ -27,7 +28,7 @@ const TestPageRouter = () => {
         <>
             <Switch>
                 <Route exact path="/test" component={TestPageHome} />
-
+                
                 <Route path="/test/bill" exact
                     render={(props) => (
                         <BillItem _bill={_dummyBill} />
@@ -36,6 +37,11 @@ const TestPageRouter = () => {
                 <Route path="/test/loading" exact
                     render={(props) => (
                         <LoadingMotion />
+                    )}
+                />
+                <Route path="/test/modal" exact
+                    render={(props) => (
+                        <ModalTester />
                     )}
                 />
                 <Route path="/test/newuserwizard" exact
