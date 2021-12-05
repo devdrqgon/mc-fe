@@ -1,9 +1,10 @@
-/** @jsxImportSource @emotion/react */
-import { Button, Text, Checkbox, Flex, FormControl, FormLabel, Heading, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Stack, VContainer, HStack } from '@chakra-ui/react';
-import { css } from '@emotion/react'
+
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { Bill } from 'react-app-env';
+import HContainer from "components/ui/Layout/HContainer";
+import VContainer from "components/ui/Layout/VContainer";
+import { AlignmentOptions } from "components/ui/Layout";
 
 interface BillCreatorProps {
     _username: string,
@@ -35,28 +36,26 @@ const BillInput: React.FC<BillCreatorProps> = ({ _username, handleBillCallback }
 
     return (
         <>
-            <Flex
-                p={5}
-
+            <HContainer
             >
                 <VContainer>
-                    <FormControl isRequired>
-                        <FormLabel>
+                    <VContainer>
+                        <h6>
                             Name
-                        </FormLabel>
-                        <Input
+                        </h6>
+                        <input type="text"
                             ref={billNameRef}
                         />
-                    </FormControl>
-                    <HStack justify="space-between">
-                        <HStack>
-                            <FormControl isRequired>
+                    </VContainer>
+                    <HContainer justifyContent={AlignmentOptions.spaceBetween}>
+                        <HContainer>
+                            <VContainer>
                                 <FormLabel>
                                     Cost
                                 </FormLabel>
                                 <Input ref={billCostRef} />
-                            </FormControl>
-                            <FormControl>
+                            </VContainer>
+                            <VContainer>
                                 <FormLabel isRequired>
                                     When
                                 </FormLabel>
@@ -67,7 +66,7 @@ const BillInput: React.FC<BillCreatorProps> = ({ _username, handleBillCallback }
                                         <NumberDecrementStepper />
                                     </NumberInputStepper>
                                 </NumberInput>
-                            </FormControl>
+                            </VContainer>
                             <VContainer
 
                                 mt={42}
@@ -83,17 +82,17 @@ const BillInput: React.FC<BillCreatorProps> = ({ _username, handleBillCallback }
 
                                 </Checkbox>
                             </VContainer>
-                        </HStack>
-                        <HStack>
-                            <FormControl>
+                        </HContainer>
+                        <HContainer>
+                            <VContainer>
                                 <Button
                                     onClick={addBillClicked}> + </Button>
-                            </FormControl>
-                        </HStack>
-                    </HStack>
+                            </VContainer>
+                        </HContainer>
+                    </HContainer>
 
                 </VContainer>
-            </Flex>
+            </HContainer>
         </>
     )
 }
@@ -101,4 +100,3 @@ const BillInput: React.FC<BillCreatorProps> = ({ _username, handleBillCallback }
 
 export default BillInput
 
-   
