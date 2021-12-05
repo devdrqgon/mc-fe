@@ -6,7 +6,10 @@ import SalaryCard from "components/salaryInfo/salaryInfoCard"
 import SavingPlanCard from "components/savingPlan/savingPlanCard"
 import { AlignmentOptions } from "components/ui/Layout"
 import Card from "components/ui/Layout/Card"
+import Grid from "components/ui/Layout/Grid"
+import { GridItem } from "components/ui/Layout/GridItem"
 import HContainer from "components/ui/Layout/HContainer"
+import NewCard from "components/ui/Layout/NewCard"
 import VContainer from "components/ui/Layout/VContainer"
 import { getSumPaidills, getSumUnpaidBills } from "features/lib"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
@@ -112,40 +115,66 @@ const NewDashboard = (props: { _username: string, _token: string }) => {
                 </>
                 :
                 <>
-                    <VContainer
-                        justifyContent={AlignmentOptions.center}
-                        alignItems={AlignmentOptions.center}>
-                        <HContainer>
-                            <BalanceCard
+                    <Grid>
+                        <GridItem>
+                            <NewCard>
+                                <BalanceCard
                                 _mainAccountTotalBalance={userInfo.accounts[0].balance!}
                                 _nett={getNettoBalance(userInfo.accounts[0].balance!, getSumUnpaidBills(userInfo.bills))}
                                 _unpaidBills={getSumUnpaidBills(userInfo.bills)} />
-                            <BudgetCard
+                           
+                            </NewCard>
+
+                        </GridItem>
+
+                        <GridItem>
+                            <h1>hi</h1>
+                            {/* <BudgetCard
                                 _weekly={calculateActualWeeklyBudget(
                                     getNettoBalance(userInfo.accounts[0].balance, getSumUnpaidBills(userInfo.bills)),
                                     countDaysUntillNextSalary(userInfo.salary.dayOfMonth))}
                                 _daily={calculateDailyBudget(
                                     getNettoBalance(userInfo.accounts[0].balance, getSumUnpaidBills(userInfo.bills)),
                                     countDaysUntillNextSalary(userInfo.salary.dayOfMonth))} />
-                            <SalaryCard
+                            */}
+
+                        </GridItem>
+
+                        <GridItem>
+                            <h1>hi</h1>
+                            {/* <SalaryCard
                                 _amount={userInfo.salary.amount}
                                 _daysLeft={countDaysUntillNextSalary(userInfo.salary.dayOfMonth)}
+                            /> */}
+
+                        </GridItem>
+
+                        <GridItem>
+                            <h1>hi</h1>
+                            {/* <BillCard
                             />
-                        </HContainer>
-                        <HContainer
-                        >
-                            <BillCard
-                            />
-                            <ImpulseController />
-                            <SavingPlanCard
+                             */}
+
+                        </GridItem>
+
+                        <GridItem>
+                            <h1>hi</h1>
+                            {/* <ImpulseController /> */}
+
+
+                        </GridItem>
+                        <GridItem>
+                            {/* <SavingPlanCard
                                 _userMinBudget={userInfo!.weeklyBudget?.limit! / 7}
                                 _currentDailyBudget={calculateDailyBudget(
                                     getNettoBalance(userInfo!.accounts[0].balance, getSumUnpaidBills(userInfo!.bills)),
                                     countDaysUntillNextSalary(userInfo!.salary.dayOfMonth))}
                                 _daysTillNxtSalary={countDaysUntillNextSalary(userInfo!.salary.dayOfMonth)}
-                            />
-                        </HContainer>
-                    </VContainer>
+                            /> */}
+                            <h1>hi</h1>
+
+                        </GridItem>
+                    </Grid>
                 </>
             }
         </>

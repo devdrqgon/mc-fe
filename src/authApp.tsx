@@ -11,17 +11,16 @@ import Card from 'components/ui/Layout/Card'
 const AuthApp = () => {
     return (
         <>
-            <Card>
-                <Switch>
-                    <Route path="/" exact
-                        render={(props) => (
-                            <NewDashboard
-                                _username={localStorage.getItem('username')!}
-                                _token={`Bearer ${localStorage.getItem('token')!}`}
-                            />
-                        )}
-                    />
-                    {/* <Route path="/newuser" exact
+            <Switch>
+                <Route path="/" exact
+                    render={(props) => (
+                        <NewDashboard
+                            _username={localStorage.getItem('username')!}
+                            _token={`Bearer ${localStorage.getItem('token')!}`}
+                        />
+                    )}
+                />
+                {/* <Route path="/newuser" exact
                         render={(props) => (
                             <NewUserWizard
                                 _username={localStorage.getItem('username')!}
@@ -29,17 +28,16 @@ const AuthApp = () => {
                             />
                         )}
                     /> */}
-                    <Route path="/olduser" exact
-                        render={(props) => (
-                            <NewDashboard
-                                _username={localStorage.getItem('username')!}
-                                _token={`Bearer ${localStorage.getItem('token')!}`}
-                            />
-                        )}
-                    />
-                    <Route render={() => <> PageNotFound </>} />
-                </Switch>
-            </Card>
+                <Route path="/olduser" exact
+                    render={(props) => (
+                        <NewDashboard
+                            _username={localStorage.getItem('username')!}
+                            _token={`Bearer ${localStorage.getItem('token')!}`}
+                        />
+                    )}
+                />
+                <Route render={() => <> PageNotFound </>} />
+            </Switch>
         </>
     )
 }

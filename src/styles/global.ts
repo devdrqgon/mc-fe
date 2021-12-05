@@ -15,7 +15,5 @@ export default createGlobalStyle`
         font-family: 'Roboto', sans-serif;
     }
 
-    h1 {
-        color:  ${props => props.theme.colors.primary};
-    }
+  
 `

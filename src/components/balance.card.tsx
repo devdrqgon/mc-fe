@@ -20,19 +20,41 @@ const BalanceCard: React.FC<BalanceCardProps> = (props) => {
         <>
             <Card
             >
-                <VContainer
-                    bg="yellow"
-                    alignItems={AlignmentOptions.center} >
-                    <HContainer bg="tomato" justifyContent={AlignmentOptions.spaceBetween}>
-                        <HContainer fullWidth>
+                <div
+                    style={{
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'flex-start',
+                        alignContent: 'center',
+                        flexDirection: 'column'
+                    }}
+                >
+                    <div
+                        style={{
+                            width: '100%',
+                            backgroundColor: 'tomato',
+
+                            display: 'flex',
+                            justifyContent: 'space-between',
+
+                        }}
+                    >
+                        <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'flex-start',
+
+                            }}>
                             <FaBalanceScaleLeft />
                             <h1>
                                 Balance
 
                             </h1>
-                        </HContainer>
+                        </div>
+
                         <HiDotsVertical style={{ 'cursor': 'pointer' }} />
-                    </HContainer>
+                    </div>
                     <VContainer>
                         <VContainer>
                             <HInfoDisplayer _field={"Main"} _value={`€${props._mainAccountTotalBalance.toFixed(2)}`} />
@@ -40,7 +62,7 @@ const BalanceCard: React.FC<BalanceCardProps> = (props) => {
 
                         </VContainer>
                     </VContainer>
-                </VContainer>
+                </div>
             </Card>
         </>
     )

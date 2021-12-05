@@ -4,15 +4,14 @@ import styled from 'styled-components'
  *  @description
  *  a flex vertical div 
  */
-const Card = styled.div`
+const NewCard = styled.div`
     display: flex;
     justify-content: center; 
     align-items: center;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    flex-wrap: wrap;
     padding: 0px;
-    min-height: 200px;
-    max-width: 80%;
+    max-width: 250px;
     border-radius: 5px;
-    width: 100%;
+    background-color: tomato;
 `
-export default Card
+export default NewCard

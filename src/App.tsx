@@ -27,19 +27,17 @@ export const App = () => {
     }
     return (
         <ThemeProvider theme={theme}>
-            <div className="App">
-                <GlobalStyle />
-                <Header _toggletheme={toggleTheme} />
-                {tokenValid && authenticated ?
-                    <>
-                        <AuthApp />
-                    </>
-                    :
-                    <>
-                        <UnAuthApp />
-                    </>
-                }
-            </div>
+            <GlobalStyle />
+            <Header _toggletheme={toggleTheme} />
+            {tokenValid && authenticated ?
+                <>
+                    <AuthApp />
+                </>
+                :
+                <>
+                    <UnAuthApp />
+                </>
+            }
         </ThemeProvider>
     )
 }
