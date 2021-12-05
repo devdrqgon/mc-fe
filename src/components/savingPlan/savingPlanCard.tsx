@@ -1,14 +1,15 @@
 
 import { HiDotsVertical } from 'react-icons/hi'
 import { FaReact } from 'react-icons/fa'
-import Card from 'components/ui/Card'
-import HContainer, { JustifyContentVariants } from 'components/ui/containers/HContainer'
-import CardButton from 'components/ui/CardButtons'
+import Card from 'components/ui/Layout/Card'
+import CardButton from 'components/ui/Controls/Buttons/CardButtons'
 import ExpandedBillCard from 'components/bills/expandedBillCard'
-import ModalChild from 'components/ui/portalModal/ModalChild'
-import ModalPortal from 'components/ui/portalModal/PortalModal'
+import ModalChild from 'components/ui/Modal/ModalChild'
+import ModalPortal from 'components/ui/Modal/PortalModal'
 import { useState } from 'react'
 import SavingPlanCreator from './savingPlanCreator'
+import HContainer from 'components/ui/Layout/HContainer'
+import { AlignmentOptions } from 'components/ui/Layout'
 
 interface Props {
     _userMinBudget: number,
@@ -21,17 +22,14 @@ const SavingPlanCard: React.FC<Props> = (props) => {
     return (
         <>
             <Card>
-                <HContainer  justify={JustifyContentVariants.spaceBetween}>
-                    <HContainer justify={JustifyContentVariants.flexStart}>
+                <HContainer  justify={AlignmentOptions.spaceBetween}>
+                    <HContainer justify={AlignmentOptions.flexStart}>
                         <FaReact />
                         <h1>
                             Saving Plan
                         </h1>
-
                     </HContainer>
-
                     <HiDotsVertical style={{ 'cursor': 'pointer' }} />
-
                 </HContainer>
                 <CardButton onClick={() => { setModalOpen(true) }}>
                     Create a Plan!

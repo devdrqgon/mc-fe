@@ -1,9 +1,10 @@
 import BillCreator from 'components/bills/billCreator';
 import React from 'react';
 import styled from 'styled-components';
-import HContainer, { JustifyContentVariants } from '../containers/HContainer';
 import { AiOutlineClose } from 'react-icons/ai'
-import IconContainer from '../containers/IconContainer';
+import IconContainer from '../Layout/IconContainer';
+import HContainer from '../Layout/HContainer';
+import { AlignmentOptions } from '../Layout';
 
 
 type Props = {
@@ -12,7 +13,7 @@ type Props = {
 
 const ModalChild: React.FC<Props> = ({ setModalOpen, children }) => (
     <>
-        <HContainer justify={JustifyContentVariants.flexEnd}>
+        <HContainer justify={AlignmentOptions.flexEnd}>
             <IconContainer>
                 <AiOutlineClose
                     onClick={() => setModalOpen(false)} />

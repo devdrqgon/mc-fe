@@ -1,43 +1,31 @@
-import { Box, HStack, Text, VStack, Divider } from '@chakra-ui/layout'
-import { Button, Input } from '@chakra-ui/react'
+import CardButton from 'components/ui/Controls/Buttons/CardButtons'
+import { AlignmentOptions } from 'components/ui/Layout'
+import Card from 'components/ui/Layout/Card'
+import HContainer from 'components/ui/Layout/HContainer'
+import VContainer from 'components/ui/Layout/VContainer'
 import { HiDotsVertical } from 'react-icons/hi'
 import { MdOutlineDisabledVisible } from 'react-icons/md'
 
 const ImpulseController = () => {
     return (
-        <Box
-            p={6}
-            m={3}
-            w={'full'}
-            boxShadow="base"
-            rounded={'lg'}
-            pos={'relative'}
-            zIndex={1}>
-            <HStack justifyContent={'space-between'}>
-                <HStack>
+        <Card
+        >
+            <HContainer justifyContent={AlignmentOptions.spaceBetween}>
+                <HContainer>
                     <MdOutlineDisabledVisible />
-                    <Text minW={"200px"} color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
-                        Impulse Control
-                    </Text>
-                </HStack>
+                    <h1> Impulse Control</h1>
+                </HContainer>
                 <HiDotsVertical style={{ 'cursor': 'pointer' }} />
-            </HStack>
-            <VStack
-                alignItems="flex-start">
-                <Divider mt={2} orientation={'horizontal'}></Divider>
-                <VStack
-                    pr={3}
-                    pl={3}
-                    pb={1}
-                    rounded={'lg'}
-                    w={"full"}
-                    alignItems="center">
-                        <Input placeholder="Type the amount"></Input>
-                        <Button> preview consequence</Button>
+            </HContainer>
+            <VContainer
+            >
+                <VContainer>
+                    <input type="text" placeholder="Type the amount"></input>
+                    <CardButton> preview consequence</CardButton>
 
-                </VStack>
-            </VStack>
-        </Box>
+                </VContainer>
+            </VContainer>
+        </Card>
     )
 }
 

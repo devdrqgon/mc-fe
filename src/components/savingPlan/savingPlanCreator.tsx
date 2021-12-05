@@ -1,5 +1,5 @@
 import { Button } from '@chakra-ui/button'
-import { Box, VStack, Divider } from '@chakra-ui/layout'
+import { Box, VContainer, Divider } from '@chakra-ui/layout'
 import { Center, Flex } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 

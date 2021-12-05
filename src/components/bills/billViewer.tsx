@@ -1,4 +1,4 @@
-import { Box, Flex, VStack } from "@chakra-ui/layout"
+import { Box, Flex, VContainer } from "@chakra-ui/layout"
 import { v4 as uuidv4 } from 'uuid';
 import { Table, TableCaption, Tbody, Td, Text, Tfoot, Th, Thead, Tr } from "@chakra-ui/react"
 import { Bill } from "react-app-env"
@@ -10,7 +10,7 @@ interface BillsViewerProps {
 const BillViewer: React.FC<BillsViewerProps> = ({ _bills }) => {
     return (
         <>
-            <VStack
+            <VContainer
             overflowY="scroll"
             maxH="250px">
                 {_bills.length > 0 ?
@@ -48,7 +48,7 @@ const BillViewer: React.FC<BillsViewerProps> = ({ _bills }) => {
                     :
                     <></>
                 }
-            </VStack>
+            </VContainer>
         </>
     )
 }

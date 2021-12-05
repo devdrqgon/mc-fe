@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Button, Text, Checkbox, Flex, FormControl, FormLabel, Heading, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Stack, VStack, HStack } from '@chakra-ui/react';
+import { Button, Text, Checkbox, Flex, FormControl, FormLabel, Heading, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Stack, VContainer, HStack } from '@chakra-ui/react';
 import { css } from '@emotion/react'
 import { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
@@ -39,7 +39,7 @@ const BillInput: React.FC<BillCreatorProps> = ({ _username, handleBillCallback }
                 p={5}
 
             >
-                <VStack>
+                <VContainer>
                     <FormControl isRequired>
                         <FormLabel>
                             Name
@@ -68,7 +68,7 @@ const BillInput: React.FC<BillCreatorProps> = ({ _username, handleBillCallback }
                                     </NumberInputStepper>
                                 </NumberInput>
                             </FormControl>
-                            <VStack
+                            <VContainer
 
                                 mt={42}
                                 ml={2}
@@ -82,7 +82,7 @@ const BillInput: React.FC<BillCreatorProps> = ({ _username, handleBillCallback }
                                 <Checkbox size="lg" colorScheme={"green"} onChange={() => setnewBillFlag(!newBillFlag)} >
 
                                 </Checkbox>
-                            </VStack>
+                            </VContainer>
                         </HStack>
                         <HStack>
                             <FormControl>
@@ -92,7 +92,7 @@ const BillInput: React.FC<BillCreatorProps> = ({ _username, handleBillCallback }
                         </HStack>
                     </HStack>
 
-                </VStack>
+                </VContainer>
             </Flex>
         </>
     )

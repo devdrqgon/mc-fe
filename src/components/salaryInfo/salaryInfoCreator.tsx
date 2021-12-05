@@ -1,7 +1,8 @@
 import { FormControl, FormLabel } from "@chakra-ui/form-control"
-import { SimpleGrid, GridItem, VStack, Heading } from "@chakra-ui/layout"
+import { SimpleGrid, GridItem, Heading } from "@chakra-ui/layout"
 import { NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper } from "@chakra-ui/number-input"
 import { Text } from "@chakra-ui/react"
+import VContainer from "components/ui/Layout/VContainer"
 import { useRef, useState } from "react"
 import { SalaryInfo } from "react-app-env"
 
@@ -41,12 +42,8 @@ const SalaryInfoCreator: React.FC<SalaryInfoProps> = ({ _handleChange }) => {
         <>
             <SimpleGrid columns={8}>
                 <GridItem colSpan={8}>
-                    <VStack
-                        w="full"
-                        h="full"
-                        alignItems="flex-start"
-                        spacing={10}
-                        p={10}
+                    <VContainer
+
                     >
                         
 
@@ -81,7 +78,7 @@ const SalaryInfoCreator: React.FC<SalaryInfoProps> = ({ _handleChange }) => {
                                 </NumberInputStepper>
                             </NumberInput>
                         </FormControl>
-                    </VStack>
+                    </VContainer>
                 </GridItem>
             </SimpleGrid>
         </>

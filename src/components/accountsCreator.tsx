@@ -1,8 +1,9 @@
 import { FormControl, FormLabel } from "@chakra-ui/form-control"
 import { Input } from "@chakra-ui/input"
-import { SimpleGrid, GridItem, VStack, Heading } from "@chakra-ui/layout"
+import { SimpleGrid, GridItem, Heading } from "@chakra-ui/layout"
 import { NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
+import VContainer from "./ui/Layout/VContainer"
 
 
 export enum AccountType {
@@ -64,12 +65,7 @@ const AccountsCreator: React.FC<AccountsProps> = ({ _handleChangeCallback }) => 
         <>
             <SimpleGrid columns={8}>
                 <GridItem colSpan={8}>
-                    <VStack
-                        w="full"
-                        h="full"
-                        alignItems="flex-start"
-                        spacing={10}
-                        p={10}
+                    <VContainer
                     >
                       
 
@@ -104,7 +100,7 @@ const AccountsCreator: React.FC<AccountsProps> = ({ _handleChangeCallback }) => 
                             </NumberInput>
                         </FormControl>
 
-                    </VStack>
+                    </VContainer>
                 </GridItem>
             </SimpleGrid>
         </>

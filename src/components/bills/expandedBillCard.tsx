@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, VStack } from '@chakra-ui/layout'
+import { Box, Flex, Heading, VContainer } from '@chakra-ui/layout'
 import HInfoDisplayer from 'components/hInfoDisplayer'
 import MotionList from 'components/Motionlist'
 import React, { useEffect, useState } from 'react'
@@ -68,7 +68,7 @@ const ExpandedBillCard: React.FC<ExpandedBillCardProps> = (props) => {
             <Box
                 boxShadow="base"
             >
-                <VStack
+                <VContainer
                     align="center"
                     justify="center"
                 >
@@ -87,24 +87,24 @@ const ExpandedBillCard: React.FC<ExpandedBillCardProps> = (props) => {
                     <Flex w="full" justifyContent="space-around">
                         <Box boxShadow="base"
                         >
-                            <VStack>
+                            <VContainer>
                                 <Heading size="md">
                                     Paid
                                 </Heading>
                                 <MotionList _items={convertBillItemToMotionJSXItems(paidBills)} />
-                            </VStack>
+                            </VContainer>
                         </Box>
                         <Box boxShadow="base"
                         >
-                            <VStack>
+                            <VContainer>
                                 <Heading size="md">
                                     Not yet
                                 </Heading>
                                 <MotionList _items={convertBillItemToMotionJSXItems(unPaidBills)} />
-                            </VStack>
+                            </VContainer>
                         </Box>
                     </Flex>
-                </VStack>
+                </VContainer>
             </Box>
         </>
     )

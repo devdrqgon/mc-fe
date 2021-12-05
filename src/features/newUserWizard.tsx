@@ -1,20 +1,20 @@
-import { useDisclosure } from "@chakra-ui/hooks"
-import MCModal from "components/modal"
 import React, { useEffect, useState } from "react"
 import AccountsCreator, { AccountsInfo } from "../components/accountsCreator"
 import { Step, Steps, useSteps } from 'chakra-ui-steps';
 import BudgetConfigCreator from "../components/budget/budgetConfigCreator";
-import { Box, Flex, VStack } from "@chakra-ui/layout";
-import { Button, Spinner } from "@chakra-ui/react";
+
 import axios, { AxiosResponse } from "axios";
 import { Bill, BudgetConfigUI, SalaryInfo } from "react-app-env";
 import SalaryInfoCreator from "../components/salaryInfo/salaryInfoCreator";
 import { useHistory } from "react-router";
-import BillCreator from "components/bills/billCreator";
 import BillInput from "components/bills/billIInput";
 import Motionlist from "components/Motionlist";
-import ModalPortal from "components/ui/portalModal/PortalModal";
-import ModalChild from "components/ui/portalModal/ModalChild";
+import ModalPortal from "components/ui/Modal/PortalModal";
+import ModalChild from "components/ui/Modal/ModalChild";
+import VContainer from "components/ui/Layout/VContainer";
+import { Spinner } from "@chakra-ui/react";
+import Card from "components/ui/Layout/Card";
+import CardButton from "components/ui/Controls/Buttons/CardButtons";
 
 
 interface NewUserWizardProps {
@@ -24,7 +24,6 @@ interface NewUserWizardProps {
 
 
 const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
-    const [modalOpen, setModalOpen] = useState(false);
 
 
     //Accounts
@@ -94,15 +93,14 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
             {
                 label: 'Bills', comp:
                     <>
-                        <Flex
-                            direction="column">
+                        <VContainer>
                             <div>
                                 <BillInput _username={localStorage.getItem('username')!} handleBillCallback={handleNewBillCallback} />
                             </div>
                             <div>
                                 <Motionlist _items={_billsJSX}></Motionlist>
                             </div>
-                        </Flex>
+                        </VContainer>
                     </>
             }
         ]
@@ -111,7 +109,7 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
         initialStep: 0,
     })
     const [afterSubmitModalBody, setAfterSubmitModalBody] = useState<React.ReactNode>(
-        <VStack>
+        <VContainer>
             <Spinner
                 thickness="4px"
                 speed="0.65s"
@@ -119,16 +117,17 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
                 color="blue.500"
                 size="xl"
             />
-            <Box>
+            <Card>
                 Saving your Data..
-            </Box>
-        </VStack>
+            </Card>
+        </VContainer>
     )
+    const [modalOpen, setModalOpen] = useState(false);
+
     const [submitClicked, setsubmitClicked] = useState(false)
-    const { isOpen, onClose, onOpen } = useDisclosure({ id: 'mcModal' })
     const history = useHistory()
     const terminateOnBoarding = () => {
-        onClose()
+        setModalOpen(false)
         history.push("/olduser")
     }
     const submitInitUserInfo = () => {
@@ -143,9 +142,9 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
             <Steps activeStep={activeStep}>
                 {steps.map(({ label, comp }) => (
                     <Step label={label} key={label}>
-                        <Box mt={6} boxShadow="base">
+                        <Card >
                             {comp}
-                        </Box>
+                        </Card>
                     </Step>
                 ))}
             </Steps>
@@ -177,23 +176,23 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
             })
             if (response.status === 201) {
                 setAfterSubmitModalBody(
-                    <Box>
-                        Success! <Button onClick={terminateOnBoarding}> Go to my Dashboard</Button>
-                    </Box>
+                    <Card>
+                        <CardButton onClick={terminateOnBoarding}> Go to my Dashboard</CardButton>
+                    </Card>
                 )
             }
             else {
                 setAfterSubmitModalBody(
-                    <Box>
+                    <Card>
                         Failure!
-                    </Box>
+                    </Card>
                 )
             }
         } catch (error) {
             setAfterSubmitModalBody(
-                <Box>
+                <Card>
                     Failure!
-                </Box>
+                </Card>
             )
         }
     }

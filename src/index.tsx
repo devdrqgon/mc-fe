@@ -4,12 +4,12 @@ import UserProvider from 'contexts/user.context';
 import { ChakraProvider } from '@chakra-ui/react';
 import { App } from 'App';
 import ClonedModal from 'components/ui/clonedModal/clonedModal';
-import CardButton from 'components/ui/CardButtons';
+import CardButton from 'components/ui/Controls/Buttons/CardButtons';
 import { ThemeProvider } from 'styled-components';
 import dark from 'styles/themes/dark';
 import GlobalStyle from './styles/global'
-import ModalPortal from 'components/ui/portalModal/PortalModal';
-import ModalChild from 'components/ui/portalModal/ModalChild';
+import ModalPortal from 'components/ui/Modal/PortalModal';
+import ModalChild from 'components/ui/Modal/ModalChild';
 import { useState } from 'react';
 import BillCreator from 'components/bills/billCreator';
 

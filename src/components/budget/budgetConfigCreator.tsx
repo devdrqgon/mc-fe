@@ -1,6 +1,7 @@
 import { FormControl, FormLabel } from "@chakra-ui/form-control"
-import { SimpleGrid, GridItem, VStack, Heading } from "@chakra-ui/layout"
+import { SimpleGrid, GridItem, Heading } from "@chakra-ui/layout"
 import { NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper } from "@chakra-ui/number-input"
+import VContainer from "components/ui/Layout/VContainer"
 import { parse, format } from "path"
 import { useEffect, useState } from "react"
 import { BudgetConfigUI } from "react-app-env"
@@ -34,12 +35,7 @@ const BudgetConfigCreator: React.FC<BudgetConfigProps> = ({ _handleChange }) => 
         <>
             <SimpleGrid columns={8}>
                 <GridItem colSpan={8}>
-                    <VStack
-                        w="full"
-                        h="full"
-                        alignItems="flex-start"
-                        spacing={10}
-                        p={10}
+                    <VContainer
                     >
                       
 
@@ -73,7 +69,7 @@ const BudgetConfigCreator: React.FC<BudgetConfigProps> = ({ _handleChange }) => 
                                 </NumberInputStepper>
                             </NumberInput>
                         </FormControl>
-                    </VStack>
+                    </VContainer>
                 </GridItem>
             </SimpleGrid>
         </>

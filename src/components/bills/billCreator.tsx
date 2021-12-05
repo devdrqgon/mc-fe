@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, VStack } from "@chakra-ui/layout"
+import { Box, Flex, Heading, VContainer } from "@chakra-ui/layout"
 import { useEffect, useState } from "react"
 import { Bill } from "react-app-env"
 import BillInput from "./billIInput"

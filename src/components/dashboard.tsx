@@ -1,4 +1,4 @@
-import { Box, HStack, VStack, Input, Button, Heading, Divider } from "@chakra-ui/react"
+import { Box, HStack, VContainer, Input, Button, Heading, Divider } from "@chakra-ui/react"
 import { getUserInfo } from "apiAdapter"
 import axios, { AxiosResponse } from "axios"
 import BillViewer from "components/bills/billViewer"
@@ -48,31 +48,31 @@ const Dashboard = (props: { _username: string, _token: string }) => {
                 :
                 <>
                     <Box>
-                        <VStack >
+                        <VContainer >
                             <HStack w="full" justifyContent="space-around">
-                                <VStack>
+                                <VContainer>
                                     <Box>
                                         <Heading>
                                             Netto Balance: €{getNettoBalance(userInfo.accounts[0].balance, getSumUnpaidBills(userInfo.bills)).toFixed(2)}
                                         </Heading>
                                     </Box>
-                                </VStack>
-                                <VStack>
+                                </VContainer>
+                                <VContainer>
                                     <Box>
                                         <Heading>
                                             Days left : {countDaysUntillNextSalary(userInfo.salary.dayOfMonth)}
                                         </Heading>
                                     </Box>
-                                </VStack>
+                                </VContainer>
                             </HStack>
                             <Divider ></Divider>
                             <Box py={10} w="full" >
-                                <VStack>
+                                <VContainer>
                                     <Heading>
                                         Budget
                                     </Heading>
                                     <HStack w="full" justifyContent="space-between">
-                                        <VStack>
+                                        <VContainer>
                                             <Box>
                                                 <Heading pl={300} >
                                                     weekly: €{calculateActualWeeklyBudget(
@@ -81,8 +81,8 @@ const Dashboard = (props: { _username: string, _token: string }) => {
                                                         toFixed(2)}
                                                 </Heading>
                                             </Box>
-                                        </VStack>
-                                        <VStack>
+                                        </VContainer>
+                                        <VContainer>
                                             <Box>
                                                 <Heading pr={300}>
                                                     daily: €{calculateDailyBudget(
@@ -91,13 +91,13 @@ const Dashboard = (props: { _username: string, _token: string }) => {
                                                         toFixed(2)}
                                                 </Heading>
                                             </Box>
-                                        </VStack>
+                                        </VContainer>
                                     </HStack>
-                                </VStack>
+                                </VContainer>
                             </Box>
                             <Divider ></Divider>
                             <Box py={10}>
-                                <VStack>
+                                <VContainer>
                                     <Heading>
                                         Impulse Controller
                                     </Heading>
@@ -105,19 +105,19 @@ const Dashboard = (props: { _username: string, _token: string }) => {
                                         if (e.target.value == "") { setshowImpulseController(false) }
                                     }} ref={desireRef} placeholder="How much u wanna spend" />
                                     <Button onClick={caluclateImpulse}> calculate!</Button>
-                                </VStack>
+                                </VContainer>
                             </Box>
                             {showImpulseController === true ?
                                 <Box py={10}>
                                     <HStack>
-                                        <VStack>
+                                        <VContainer>
                                             <div> Daily </div>
                                             <Input value={dailyIC} />
-                                        </VStack>
-                                        <VStack>
+                                        </VContainer>
+                                        <VContainer>
                                             <div> Weekly </div>
                                             <Input value={weeklyIC} />
-                                        </VStack>
+                                        </VContainer>
 
                                     </HStack>
                                 </Box>
@@ -127,27 +127,27 @@ const Dashboard = (props: { _username: string, _token: string }) => {
                             <Divider ></Divider>
 
                             <Box py={10} w="full" >
-                                <VStack>
+                                <VContainer>
                                     <Heading>
                                         Bills
                                     </Heading>
                                     <HStack w="full" justifyContent="space-between">
-                                        <VStack>
+                                        <VContainer>
                                             <Heading pl={300} >
                                                 Paid:  €{getSumPaidills(userInfo.bills)}
                                             </Heading>
                                             <BillViewer _bills={userInfo.bills.filter((b) => { return b.paid === true })} />
-                                        </VStack>
-                                        <VStack>
+                                        </VContainer>
+                                        <VContainer>
                                             <Heading pr={300}>
                                                 Not yet: €{getSumUnpaidBills(userInfo.bills)}
                                             </Heading>
                                             <BillViewer _bills={userInfo.bills.filter((b) => { return b.paid === false })} />
-                                        </VStack>
+                                        </VContainer>
                                     </HStack>
-                                </VStack>
+                                </VContainer>
                             </Box>
-                        </VStack>
+                        </VContainer>
                     </Box>
                 </>
             }
