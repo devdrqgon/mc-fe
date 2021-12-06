@@ -6,7 +6,6 @@ import { HiDotsVertical } from 'react-icons/hi'
 import { AlignmentOptions } from "./ui/Layout"
 import Card from "./ui/Layout/Card/Card"
 import HContainer from "./ui/Layout/HContainer"
-import VContainer from "./ui/Layout/VContainer"
 import Text from 'components/ui/typography/Text'
 
 
@@ -26,7 +25,7 @@ const BalanceCard: React.FC<BalanceCardProps> = (props) => {
                     <HContainer
                     >
                         <FaBalanceScaleLeft size={25} />
-                       <Text>balance</Text>
+                        <Text>balance</Text>
                     </HContainer>
                     <HiDotsVertical size={25} style={{ 'cursor': 'pointer' }} />
                 </HContainer>
@@ -34,7 +33,5 @@ const BalanceCard: React.FC<BalanceCardProps> = (props) => {
         </>
     )
 }
-
-
 
 export default BalanceCard

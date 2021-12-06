@@ -15,5 +15,10 @@ const Card = styled.div`
     min-width: 300px;
     min-height: 300px;
 
+    
+ &:hover {
+    box-shadow: 0 12px 23px rgba(0, 0, 0, 0.23), 0 10px 10px rgba(0, 0, 0, 0.19);
+  }
+
 `
 export default Card
