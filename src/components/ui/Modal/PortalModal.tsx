@@ -1,6 +1,7 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
 import styled from 'styled-components';
+import PageContainer from '../Layout/PageContainer';
 
 const Wrapper = styled.div`
  position: fixed;
@@ -34,9 +35,11 @@ const ModalPortal: React.FC<Props> = ({ modalOpen, children }) => {
     <>
       <Overlay></Overlay>
 
-      <Wrapper>
-        <div>{children}</div>
-      </Wrapper>
+      <PageContainer>
+        <Wrapper>
+          <div>{children}</div>
+        </Wrapper>
+      </PageContainer>
     </>,
     document.body
   );

@@ -16,8 +16,7 @@ interface BudgetCardProps {
 const BudgetCard: React.FC<BudgetCardProps> = (props) => {
     return (
         <>
-            <Card
-               >
+            <Card>
             <HContainer justifyContent={AlignmentOptions.spaceBetween}>
                 <HContainer>
                     <CgCalculator />

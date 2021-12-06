@@ -8,7 +8,8 @@ export const HContainer = styled.div<ContainerProps>`
   justify-content: ${p => p.justifyContent ? p.justifyContent : AlignmentOptions.flexStart};
   align-items: ${p => p.alignItems ? p.alignItems : AlignmentOptions.flexStart};
   background-color: ${p => p.bg ? p.bg : 'transparent'};
-  padding: 20px 0px;
+  padding: 2px 0px;
+  width: 100%;
 
 `
 export default HContainer

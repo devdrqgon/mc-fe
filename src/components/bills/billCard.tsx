@@ -11,6 +11,7 @@ import ModalChild from 'components/ui/Modal/ModalChild'
 import VContainer from 'components/ui/Layout/VContainer'
 import HContainer from 'components/ui/Layout/HContainer'
 import { AlignmentOptions } from 'components/ui/Layout'
+import Card from 'components/ui/Layout/Card/Card'
 
 
 const BillCard: React.FC = () => {
@@ -49,40 +50,42 @@ const BillCard: React.FC = () => {
 
     return (
         <>
-            <VContainer
+            <Card>
+                <VContainer
 
-            >
-                <HContainer justifyContent={AlignmentOptions.spaceBetween}>
-                    <HContainer>
-                        <RiBillLine />
-                        <h1>
-                            Bills
-                        </h1>
+                >
+                    <HContainer justifyContent={AlignmentOptions.spaceBetween}>
+                        <HContainer>
+                            <RiBillLine />
+                            <h1>
+                                Bills
+                            </h1>
+                        </HContainer>
+                        <BsArrowsAngleExpand onClick={() => { setModalOpen(true) }} style={{ 'cursor': 'pointer' }} />
                     </HContainer>
-                    <BsArrowsAngleExpand onClick={() => { setModalOpen(true) }} style={{ 'cursor': 'pointer' }} />
-                </HContainer>
-                <>
-                    {_bills !== null ?
-                        <VContainer
-                        >
+                    <>
+                        {_bills !== null ?
                             <VContainer
                             >
-                                <HInfoDisplayer _field={"total"} _value={`€${getSumAllBills(_bills).toFixed(1)}`} />
-                                <HInfoDisplayer _field={"paid"} _value={`€${getSumPaidills(_bills).toFixed(1)}`} />
-                                <HInfoDisplayer _field={"not yet"} _value={`€${getSumUnpaidBills(_bills).toFixed(1)}`} />
+                                <VContainer
+                                >
+                                    <HInfoDisplayer _field={"total"} _value={`€${getSumAllBills(_bills).toFixed(1)}`} />
+                                    <HInfoDisplayer _field={"paid"} _value={`€${getSumPaidills(_bills).toFixed(1)}`} />
+                                    <HInfoDisplayer _field={"not yet"} _value={`€${getSumUnpaidBills(_bills).toFixed(1)}`} />
+                                </VContainer>
                             </VContainer>
-                        </VContainer>
-                        :
-                        <>
-                            <HContainer
-                                justifyContent={AlignmentOptions.center}
-                                alignItems={AlignmentOptions.center}>
-                                {/* <LoadingMotion /> */}
-                            </HContainer>
-                        </>
-                    }
-                </>
-            </VContainer >
+                            :
+                            <>
+                                <HContainer
+                                    justifyContent={AlignmentOptions.center}
+                                    alignItems={AlignmentOptions.center}>
+                                    {/* <LoadingMotion /> */}
+                                </HContainer>
+                            </>
+                        }
+                    </>
+                </VContainer >
+            </Card>
             <ModalPortal modalOpen={modalOpen}>
                 <ModalChild setModalOpen={setModalOpen} >
                     <ExpandedBillCard

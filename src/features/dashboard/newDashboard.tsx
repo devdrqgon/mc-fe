@@ -10,6 +10,7 @@ import Grid from "components/ui/Layout/Grid"
 import { GridItem } from "components/ui/Layout/GridItem"
 import HContainer from "components/ui/Layout/HContainer"
 import NewCard from "components/ui/Layout/NewCard"
+import PageContainer from "components/ui/Layout/PageContainer"
 import VContainer from "components/ui/Layout/VContainer"
 import { getSumPaidills, getSumUnpaidBills } from "features/lib"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
@@ -109,74 +110,75 @@ const NewDashboard = (props: { _username: string, _token: string }) => {
 
     return (
         <>
-            {userInfo === null ?
-                <>
-                    {loading}
-                </>
-                :
-                <>
-                    <Grid>
-                        <GridItem>
-                            <NewCard>
-                                <BalanceCard
-                                _mainAccountTotalBalance={userInfo.accounts[0].balance!}
-                                _nett={getNettoBalance(userInfo.accounts[0].balance!, getSumUnpaidBills(userInfo.bills))}
-                                _unpaidBills={getSumUnpaidBills(userInfo.bills)} />
-                           
-                            </NewCard>
+            <>
+                {userInfo === null ?
+                    <>
+                        {loading}
+                    </>
+                    :
+                    <>
+                        <Grid>
+                            <GridItem>
+                                <NewCard>
+                                    <BalanceCard
+                                        _mainAccountTotalBalance={userInfo.accounts[0].balance!}
+                                        _nett={getNettoBalance(userInfo.accounts[0].balance!, getSumUnpaidBills(userInfo.bills))}
+                                        _unpaidBills={getSumUnpaidBills(userInfo.bills)} />
 
-                        </GridItem>
+                                </NewCard>
 
-                        <GridItem>
-                            <h1>hi</h1>
-                            {/* <BudgetCard
+                            </GridItem>
+
+                            <GridItem>
+                                {/* <h1>hi</h1> */}
+                                <BudgetCard
                                 _weekly={calculateActualWeeklyBudget(
                                     getNettoBalance(userInfo.accounts[0].balance, getSumUnpaidBills(userInfo.bills)),
                                     countDaysUntillNextSalary(userInfo.salary.dayOfMonth))}
                                 _daily={calculateDailyBudget(
                                     getNettoBalance(userInfo.accounts[0].balance, getSumUnpaidBills(userInfo.bills)),
                                     countDaysUntillNextSalary(userInfo.salary.dayOfMonth))} />
-                            */}
+                           
 
-                        </GridItem>
+                            </GridItem>
 
-                        <GridItem>
-                            <h1>hi</h1>
-                            {/* <SalaryCard
+                            <GridItem>
+                                {/* <h1>hi</h1> */}
+                                <SalaryCard
                                 _amount={userInfo.salary.amount}
                                 _daysLeft={countDaysUntillNextSalary(userInfo.salary.dayOfMonth)}
-                            /> */}
-
-                        </GridItem>
-
-                        <GridItem>
-                            <h1>hi</h1>
-                            {/* <BillCard
                             />
-                             */}
 
-                        </GridItem>
+                            </GridItem>
 
-                        <GridItem>
-                            <h1>hi</h1>
-                            {/* <ImpulseController /> */}
+                            <GridItem>
+                                {/* <h1>hi</h1> */}
+                                <BillCard  />
+                            
+
+                            </GridItem>
+
+                            <GridItem>
+                                {/* <h1>hi</h1> */}
+                                <ImpulseController />
 
 
-                        </GridItem>
-                        <GridItem>
-                            {/* <SavingPlanCard
+                            </GridItem>
+                            <GridItem>
+                                <SavingPlanCard
                                 _userMinBudget={userInfo!.weeklyBudget?.limit! / 7}
                                 _currentDailyBudget={calculateDailyBudget(
                                     getNettoBalance(userInfo!.accounts[0].balance, getSumUnpaidBills(userInfo!.bills)),
                                     countDaysUntillNextSalary(userInfo!.salary.dayOfMonth))}
                                 _daysTillNxtSalary={countDaysUntillNextSalary(userInfo!.salary.dayOfMonth)}
-                            /> */}
-                            <h1>hi</h1>
+                            />
+                                {/* <h1>hi</h1> */}
 
-                        </GridItem>
-                    </Grid>
-                </>
-            }
+                            </GridItem>
+                        </Grid>
+                    </>
+                }
+            </>
         </>
     )
 }

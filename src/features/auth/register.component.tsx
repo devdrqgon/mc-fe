@@ -8,7 +8,7 @@ import { AlignmentOptions } from 'components/ui/Layout';
 import Card from 'components/ui/Layout/Card/Card';
 import HContainer from 'components/ui/Layout/HContainer';
 import VContainer from 'components/ui/Layout/VContainer'
-import InputText from 'components/ui/Controls/Buttons/InputText'
+import InputText from 'components/ui/Controls/Inputs/InputText'
 import PageContainer from 'components/ui/Layout/PageContainer'
 export default function Register() {
     const [username, setUsername] = React.useState<string>('')

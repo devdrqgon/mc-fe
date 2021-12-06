@@ -9,7 +9,7 @@ import HContainer from 'components/ui/Layout/HContainer'
 import { AlignmentOptions } from 'components/ui/Layout'
 import VContainer from 'components/ui/Layout/VContainer'
 import CardButton from 'components/ui/Controls/Buttons/CardButtons'
-import InputText from 'components/ui/Controls/Buttons/InputText'
+import InputText from 'components/ui/Controls/Inputs/InputText'
 import PageContainer from 'components/ui/Layout/PageContainer'
 import Card from 'components/ui/Layout/Card/Card'
 

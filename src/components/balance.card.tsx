@@ -7,7 +7,7 @@ import { AlignmentOptions } from "./ui/Layout"
 import Card from "./ui/Layout/Card/Card"
 import HContainer from "./ui/Layout/HContainer"
 import VContainer from "./ui/Layout/VContainer"
-
+import Text from 'components/ui/typography/Text'
 
 
 interface BalanceCardProps {
@@ -20,48 +20,16 @@ const BalanceCard: React.FC<BalanceCardProps> = (props) => {
         <>
             <Card
             >
-                <div
-                    style={{
-                        width: '100%',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'flex-start',
-                        alignContent: 'center',
-                        flexDirection: 'column'
-                    }}
+                <HContainer
+                    justifyContent={AlignmentOptions.spaceBetween}
                 >
-                    <div
-                        style={{
-                            width: '100%',
-
-                            display: 'flex',
-                            justifyContent: 'space-between',
-
-                        }}
+                    <HContainer
                     >
-                        <div
-                            style={{
-                                display: 'flex',
-                                justifyContent: 'flex-start',
-
-                            }}>
-                            <FaBalanceScaleLeft />
-                            <h1>
-                                Balance
-
-                            </h1>
-                        </div>
-
-                        <HiDotsVertical style={{ 'cursor': 'pointer' }} />
-                    </div>
-                    <VContainer>
-                        <VContainer>
-                            <HInfoDisplayer _field={"Main"} _value={`€${props._mainAccountTotalBalance.toFixed(2)}`} />
-                            <PercentageDisplayer _nett={props._nett} _unpaidBills={props._unpaidBills} />
-
-                        </VContainer>
-                    </VContainer>
-                </div>
+                        <FaBalanceScaleLeft size={25} />
+                       <Text>balance</Text>
+                    </HContainer>
+                    <HiDotsVertical size={25} style={{ 'cursor': 'pointer' }} />
+                </HContainer>
             </Card>
         </>
     )

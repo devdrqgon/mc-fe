@@ -11,7 +11,6 @@ export const VContainer = styled.div<ContainerProps>`
   align-items: ${p => p.alignItems ?  p.alignItems :  AlignmentOptions.flexStart};
   flex-direction: column;
   background-color: ${p => p.bg ?  p.bg :  'transparent'};
-  padding: 20px 0px;
   margin: 2px 0px;
 
 `
