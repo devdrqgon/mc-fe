@@ -11,7 +11,6 @@ const CardButton = styled.a`
  padding: 15px;
  text-align: center;
  border-radius: 6px;
- margin: 40px auto;
  max-width: 200px;
  opacity: 1;
  color: #333;

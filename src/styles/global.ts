@@ -9,17 +9,17 @@ export default createGlobalStyle`
     }
 
     body {
-        background: yellow;
-        font-size: 14px;
+        font-size: 18px;
+        line-height: normal;
+        font-family: Rotunda;
+        font-weight: 400;
+        font-style: normal;
         color: ${props => props.theme.colors.text};
         font-family: 'Roboto', sans-serif;
         
     }
 
-    h6 {
-        font-size: 20px;
-       
-    }
+    
 
 
 

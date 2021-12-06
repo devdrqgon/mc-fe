@@ -1,13 +1,13 @@
 import { Route, Switch } from "react-router-dom"
-import LoginPage from "features/auth/login.component"
-import Register from "features/auth/register.component"
+import NewLogin from "features/auth/NewLogin"
+import NewRegister from "features/auth/NewRegister"
 
 const UnAuthApp=() => {
     return(
         <Switch>
-            <Route exact path={'/'} component={LoginPage}></Route>
-            <Route path={'/login'} component={LoginPage}></Route>
-            <Route path={'/register'} component={Register}></Route>
+            <Route exact path={'/'} component={NewLogin}></Route>
+            <Route path={'/login'} component={NewLogin}></Route>
+            <Route path={'/register'} component={NewRegister}></Route>
             <Route render={() => <> PageNotFound </>} />
 
         </Switch>

@@ -21,16 +21,14 @@ const TestPageHome = () => {
         }}>
             <div>
                 <Card
-               
                 >
-                    <CardButton onClick={() => { history.push('test/newuserwizard') }}>
+                    <CardButton onClick={() => { history.push('test/newuser') }}>
                         newuserwizard
                     </CardButton>
                 </Card>
             </div>
             <div>
                 <Card
-               
                 >
                     <CardButton onClick={() => { history.push('test/modal') }}>
                         Modal

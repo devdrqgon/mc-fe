@@ -4,6 +4,8 @@ import { useHistory } from 'react-router';
 import { ThemeContext } from 'styled-components';
 import { Container } from './Header.styles';
 import Switch from 'react-switch'
+import CardButton from 'components/ui/Controls/Buttons/CardButtons';
+import Text from 'components/ui/typography/Text';
 interface Props {
     _toggletheme(): void
 }
@@ -19,9 +21,9 @@ export const Header: React.FC<Props> = (props) => {
     const { colors, title } = useContext(ThemeContext)
     return (
         <Container>
-            <div>
+            <Text>
                 welcome {localStorage.getItem('username')}!
-            </div>
+            </Text>
             <div>
                 <h1>
                     MoneyCoach
@@ -40,7 +42,7 @@ export const Header: React.FC<Props> = (props) => {
             />
             {authenticated === true ? 
                 <>
-                    <button onClick={handleLogoutClick}>Logout</button>
+                    <CardButton onClick={handleLogoutClick}>Logout</CardButton>
                 </>
                 :
                 <>

@@ -1,6 +1,6 @@
 // import DraggableList from 'components/draggableList'
 // import LoadingMotion from 'components/loadingMotion'
-// import NewUserWizard from 'features/newUserWizard'
+import NewUserWizard from 'features/newUserWizard'
 import { Router, Route, Switch } from 'react-router'
 import TestPageHome from './TestPageHome'
 import ClonedMotionList from 'components/ClonedMotionList'
@@ -44,11 +44,11 @@ const TestPageRouter = () => {
                         <ModalTester />
                     )}
                 />
-                {/* <Route path="/test/newuserwizard" exact
+                <Route path="/test/newuser" exact
                     render={(props) => (
                         <NewUserWizard _username={_TestUsername} _token={_TestToken} />
                     )}
-                /> */}
+                />
                 {/* <Route path="/test/drag" exact
                     render={(props) => (
                         <DraggableList />

@@ -2,6 +2,7 @@ import AuthApp from 'authApp'
 import { Header } from 'components/header/Header'
 import Main from 'components/ui/Layout/Main'
 import { UserContext } from 'contexts/user.context'
+import NewLogin from 'features/auth/NewLogin'
 import TestPageRouter from 'features/testLab/TestPageRouter'
 import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
@@ -17,9 +18,7 @@ export const App = () => {
     const history = useHistory()
     const { tokenValid, authenticated } = useContext(UserContext);
 
-    const toggleTheme = () => {
-        setTheme(theme.title === 'light' ? dark : light)
-    }
+  
     if (history.location.pathname.includes("/test")) {
 
         return (
@@ -29,7 +28,6 @@ export const App = () => {
     return (
         <ThemeProvider theme={theme}>
             <GlobalStyle />
-            <Header _toggletheme={toggleTheme} />
             {tokenValid && authenticated ?
                 <>
                     <AuthApp />
