@@ -3,7 +3,7 @@
 import { Switch, Route } from 'react-router'
 // import NewUserWizard from 'features/newUserWizard'
 import NewDashboard from 'features/dashboard/newDashboard'
-import Card from 'components/ui/Layout/Card'
+import Card from 'components/ui/Layout/Card/Card'
 
 
 

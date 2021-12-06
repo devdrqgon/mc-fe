@@ -6,7 +6,7 @@ import { CgCalculator } from "react-icons/cg"
 import HContainer from "components/ui/Layout/HContainer"
 import VContainer from "components/ui/Layout/VContainer"
 import { AlignmentOptions } from "components/ui/Layout"
-import Card from "components/ui/Layout/Card"
+import Card from "components/ui/Layout/Card/Card"
 
 
 interface BudgetCardProps {

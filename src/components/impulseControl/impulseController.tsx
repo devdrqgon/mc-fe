@@ -1,6 +1,6 @@
 import CardButton from 'components/ui/Controls/Buttons/CardButtons'
 import { AlignmentOptions } from 'components/ui/Layout'
-import Card from 'components/ui/Layout/Card'
+import Card from 'components/ui/Layout/Card/Card'
 import HContainer from 'components/ui/Layout/HContainer'
 import VContainer from 'components/ui/Layout/VContainer'
 import { HiDotsVertical } from 'react-icons/hi'

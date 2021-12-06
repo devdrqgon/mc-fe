@@ -1,7 +1,7 @@
 
 
 import CardButton from 'components/ui/Controls/Buttons/CardButtons'
-import Card from 'components/ui/Layout/Card'
+import Card from 'components/ui/Layout/Card/Card'
 import React, { useState } from 'react'
 import { Bill } from 'react-app-env'
 import { render } from 'react-dom'

@@ -4,7 +4,7 @@ import { HiDotsVertical } from "react-icons/hi"
 import { GrMoney } from "react-icons/gr"
 import HContainer from "components/ui/Layout/HContainer"
 import { AlignmentOptions } from "components/ui/Layout"
-import Card from "components/ui/Layout/Card"
+import Card from "components/ui/Layout/Card/Card"
 import VContainer from "components/ui/Layout/VContainer"
 
 

@@ -9,11 +9,19 @@ export default createGlobalStyle`
     }
 
     body {
-        background: ${props => props.theme.colors.background};
+        background: yellow;
         font-size: 14px;
         color: ${props => props.theme.colors.text};
         font-family: 'Roboto', sans-serif;
+        
     }
+
+    h6 {
+        font-size: 20px;
+       
+    }
+
+
 
   
 `

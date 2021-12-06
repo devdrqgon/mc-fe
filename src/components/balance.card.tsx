@@ -4,7 +4,7 @@ import HInfoDisplayer from "components/hInfoDisplayer"
 import { FaBalanceScaleLeft } from 'react-icons/fa'
 import { HiDotsVertical } from 'react-icons/hi'
 import { AlignmentOptions } from "./ui/Layout"
-import Card from "./ui/Layout/Card"
+import Card from "./ui/Layout/Card/Card"
 import HContainer from "./ui/Layout/HContainer"
 import VContainer from "./ui/Layout/VContainer"
 

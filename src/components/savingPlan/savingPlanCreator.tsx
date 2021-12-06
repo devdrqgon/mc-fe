@@ -1,7 +1,7 @@
 
 import CardButton from 'components/ui/Controls/Buttons/CardButtons'
 import { AlignmentOptions } from 'components/ui/Layout'
-import Card from 'components/ui/Layout/Card'
+import Card from 'components/ui/Layout/Card/Card'
 import HContainer from 'components/ui/Layout/HContainer'
 import React, { useEffect, useState } from 'react'
 

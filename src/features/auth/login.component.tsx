@@ -8,8 +8,10 @@ import toast from 'react-hot-toast'
 import HContainer from 'components/ui/Layout/HContainer'
 import { AlignmentOptions } from 'components/ui/Layout'
 import VContainer from 'components/ui/Layout/VContainer'
-import Card from 'components/ui/Layout/Card'
 import CardButton from 'components/ui/Controls/Buttons/CardButtons'
+import InputText from 'components/ui/Controls/Buttons/InputText'
+import PageContainer from 'components/ui/Layout/PageContainer'
+import Card from 'components/ui/Layout/Card/Card'
 
 export default function LoginPage() {
     const [username, setUsername] = React.useState<string>('')
@@ -64,31 +66,32 @@ export default function LoginPage() {
     }
     return (
         <>
-            <VContainer
-                justifyContent={AlignmentOptions.center}
-                alignItems={AlignmentOptions.center}
-            >
-                <HContainer alignItems={AlignmentOptions.center}>
-                    <h1>Sign in to your account</h1>
-                </HContainer>
-                <Card
-                >
+            <PageContainer>
+                <Card>
+                    <HContainer alignItems={AlignmentOptions.center}>
+                        <h1>Sign in to your account</h1>
+                    </HContainer>
                     <VContainer
                         justifyContent={AlignmentOptions.center}
                         alignItems={AlignmentOptions.center}
-
                     >
                         <VContainer id="email">
                             <h6>Username</h6>
-                            <input type="text" onChange={(e: ChangeEvent<HTMLInputElement>) => { setUsername(e.target.value as unknown as string) }} />
+                            <InputText
+                                type="text"
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => { setUsername(e.target.value as unknown as string) }}
+                            />
                         </VContainer>
                         <VContainer id="password">
                             <h6>Password</h6>
-                            <input onChange={(e: ChangeEvent<HTMLInputElement>) => { setPassword(e.target.value as unknown as string) }} type="password" />
+                            <InputText
+                                type="password"
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => { setPassword(e.target.value as unknown as string) }}
+                            />
                         </VContainer>
 
                         <CardButton
-                        onClick={loginClicked}
+                            onClick={loginClicked}
                         >
                             Sign in
                         </CardButton>
@@ -97,7 +100,7 @@ export default function LoginPage() {
                         </Link>
                     </VContainer>
                 </Card>
-            </VContainer>
+            </PageContainer>
         </>
     )
 }

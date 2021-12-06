@@ -1,5 +1,6 @@
 import AuthApp from 'authApp'
 import { Header } from 'components/header/Header'
+import Main from 'components/ui/Layout/Main'
 import { UserContext } from 'contexts/user.context'
 import TestPageRouter from 'features/testLab/TestPageRouter'
 import React, { useContext } from 'react'
