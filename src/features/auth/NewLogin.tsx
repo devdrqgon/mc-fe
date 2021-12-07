@@ -10,7 +10,10 @@ import axios, { AxiosResponse } from 'axios'
 import logging from 'config/logging'
 import { UserContext } from 'contexts/user.context'
 import toast from 'react-hot-toast'
-const NewLogin = () => {
+interface Props{
+    _onLoginSuccess: (value: React.SetStateAction<boolean>) => void
+}
+const NewLogin: React.FC<Props> = (props) => {
     const [username, setUsername] = React.useState<string>('')
     const [password, setPassword] = React.useState<string>('')
 
@@ -56,6 +59,7 @@ const NewLogin = () => {
             })
 
             if (response.status === 200) {
+                props._onLoginSuccess(false)
                 login(response.data.user.username, response.data.token)
 
                 checkIfNewUser()
@@ -70,34 +74,27 @@ const NewLogin = () => {
     }
 
     return (
-        <NewLoginPageContainer>
-            <Left>
-                <ArtisticTitle>
-                    MoneyCoach
-                </ArtisticTitle>
-            </Left>
-            <Right>
-                <HSpacer />
-                <h1>Sign In</h1>
-                <HSpacer />
-                <InputTextForm _onChangeCallback={onChangeUsername} _label={'username'} />
-                <HSpacer _space={5} />
+        <>
+            <HSpacer />
+            <h1>Sign In</h1>
+            <HSpacer />
+            <InputTextForm _onChangeCallback={onChangeUsername} _label={'username'} />
+            <HSpacer _space={5} />
 
-                <InputTextForm
-                    _onChangeCallback={onChangePassword}
-                    _type={InputTypes.password}
-                    _label={'password'} />
-                <HSpacer _space={10} ></HSpacer>
-                <CardButton
-                    onClick={loginClicked}>
-                    Sign In
-                </CardButton>
-                <HSpacer _space={15} />
-                <Link to={"/register"}>
-                    <h3>  New to MoneyCoach? Register here!</h3>
-                </Link>
-            </Right>
-        </NewLoginPageContainer>
+            <InputTextForm
+                _onChangeCallback={onChangePassword}
+                _type={InputTypes.password}
+                _label={'password'} />
+            <HSpacer _space={10} ></HSpacer>
+            <CardButton
+                onClick={loginClicked}>
+                Sign In
+            </CardButton>
+            <HSpacer _space={15} />
+            <Link to={"/register"}>
+                <h3>  New to MoneyCoach? Register here!</h3>
+            </Link>
+        </>
     )
 }
 

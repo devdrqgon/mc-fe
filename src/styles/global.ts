@@ -14,14 +14,11 @@ export default createGlobalStyle`
         font-family: Rotunda;
         font-weight: 400;
         font-style: normal;
-        color: ${props => props.theme.colors.text};
+        color: #000;
         font-family: 'Roboto', sans-serif;
         
     }
 
-    
-
-
-
-  
 `
+
+// ${props => props.theme.colors.text}

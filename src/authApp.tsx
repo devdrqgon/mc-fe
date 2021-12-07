@@ -3,24 +3,14 @@
 import { Switch, Route } from 'react-router'
 import NewUserWizard from 'features/newUserWizard'
 import NewDashboard from 'features/dashboard/newDashboard'
-import Card from 'components/ui/Layout/Card/Card'
-import { Header } from 'components/header/Header'
-import usePersistedState from 'utils/usePersistedState'
-import { DefaultTheme } from 'styled-components'
-import dark from 'styles/themes/dark'
-import light from 'styles/themes/light'
-
+import NewRegister from 'features/auth/NewRegister'
 
 
 
 const AuthApp = () => {
-    const [theme, setTheme] = usePersistedState<DefaultTheme>('theme', dark)
-    const toggleTheme = () => {
-        setTheme(theme.title === 'light' ? dark : light)
-    }
+  
     return (
         <>
-            <Header _toggletheme={toggleTheme} />
 
             <Switch>
                 <Route path="/" exact
@@ -46,6 +36,9 @@ const AuthApp = () => {
                             _token={`Bearer ${localStorage.getItem('token')!}`}
                         />
                     )}
+                />
+                 <Route path="/register" exact
+                    component={NewRegister}
                 />
                 <Route render={() => <> PageNotFound </>} />
             </Switch>

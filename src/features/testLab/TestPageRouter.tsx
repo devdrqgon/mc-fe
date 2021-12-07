@@ -10,7 +10,9 @@ import { useState } from 'react'
 import { Bill } from 'react-app-env'
 import faker from 'faker'
 import BillItem from 'components/bills/BillItem'
-import { ModalTester } from 'index'
+import CardButton from 'components/ui/Controls/Buttons/CardButtons'
+import ModalChild from 'components/ui/Modal/ModalChild'
+import ModalPortal from 'components/ui/Modal/PortalModal'
 
 const TestPageRouter = () => {
 
@@ -73,3 +75,23 @@ const TestPageRouter = () => {
 
 
 export default TestPageRouter
+
+
+export const ModalTester = () => {
+    const [modalOpen, setModalOpen] = useState(false);
+  
+    return (
+      <>
+        <ModalPortal modalOpen={modalOpen}>
+          <ModalChild setModalOpen={setModalOpen} >
+            <BillCreator></BillCreator>
+          </ModalChild>
+        </ModalPortal>
+        <CardButton
+          onClick={() => setModalOpen(true)}
+        >
+          Open Modal
+        </CardButton>
+      </>
+    )
+  }

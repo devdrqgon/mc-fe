@@ -44,28 +44,21 @@ const NewRegister = () => {
         setPassword(_newVal)
     }
     return (
-        <NewLoginPageContainer>
-            <Left>
-                <ArtisticTitle>
-                    MoneyCoach
-                </ArtisticTitle>
-            </Left>
-            <Right>
-                <HSpacer />
-                <h1>Sign Up</h1>
-                <HSpacer />
-                <InputTextForm _onChangeCallback={onChangeUsername} _label={'username'} />
-                <HSpacer _space={5} />
-                <InputTextForm _type={InputTypes.password} _onChangeCallback={onChangePassword} _label={'password'} />
-                <HSpacer _space={10} ></HSpacer>
-                <CardButton onClick={registerClicked}>
-                    Sign Up
-                </CardButton>
-                <Link to={"/login"}>
-                    <h6>  Already a member? Sign in here!</h6>
-                </Link>
-            </Right>
-        </NewLoginPageContainer>
+        <>
+            <HSpacer />
+            <h1>Sign Up</h1>
+            <HSpacer />
+            <InputTextForm _onChangeCallback={onChangeUsername} _label={'username'} />
+            <HSpacer _space={5} />
+            <InputTextForm _type={InputTypes.password} _onChangeCallback={onChangePassword} _label={'password'} />
+            <HSpacer _space={10} ></HSpacer>
+            <CardButton onClick={registerClicked}>
+                Sign Up
+            </CardButton>
+            <Link to={"/login"}>
+                <h6>  Already a member? Sign in here!</h6>
+            </Link>
+        </>
     )
 }
 

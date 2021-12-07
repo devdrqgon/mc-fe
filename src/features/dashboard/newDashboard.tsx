@@ -129,50 +129,48 @@ const NewDashboard = (props: { _username: string, _token: string }) => {
                             </GridItem>
 
                             <GridItem>
-                                {/* <h1>hi</h1> */}
-                                <BudgetCard
-                                _weekly={calculateActualWeeklyBudget(
-                                    getNettoBalance(userInfo.accounts[0].balance, getSumUnpaidBills(userInfo.bills)),
-                                    countDaysUntillNextSalary(userInfo.salary.dayOfMonth))}
-                                _daily={calculateDailyBudget(
-                                    getNettoBalance(userInfo.accounts[0].balance, getSumUnpaidBills(userInfo.bills)),
-                                    countDaysUntillNextSalary(userInfo.salary.dayOfMonth))} />
-                           
-
+                                <NewCard>
+                                    <BudgetCard
+                                        _weekly={calculateActualWeeklyBudget(
+                                            getNettoBalance(userInfo.accounts[0].balance, getSumUnpaidBills(userInfo.bills)),
+                                            countDaysUntillNextSalary(userInfo.salary.dayOfMonth))}
+                                        _daily={calculateDailyBudget(
+                                            getNettoBalance(userInfo.accounts[0].balance, getSumUnpaidBills(userInfo.bills)),
+                                            countDaysUntillNextSalary(userInfo.salary.dayOfMonth))} />
+                                </NewCard>
                             </GridItem>
 
                             <GridItem>
-                                {/* <h1>hi</h1> */}
-                                <SalaryCard
-                                _amount={userInfo.salary.amount}
-                                _daysLeft={countDaysUntillNextSalary(userInfo.salary.dayOfMonth)}
-                            />
-
+                                <NewCard>
+                                    <SalaryCard
+                                        _amount={userInfo.salary.amount}
+                                        _daysLeft={countDaysUntillNextSalary(userInfo.salary.dayOfMonth)}
+                                    />
+                                </NewCard>
                             </GridItem>
 
                             <GridItem>
-                                {/* <h1>hi</h1> */}
-                                <BillCard  />
-                            
-
+                                <NewCard>
+                                    <BillCard />
+                                </NewCard>
                             </GridItem>
 
                             <GridItem>
-                                {/* <h1>hi</h1> */}
-                                <ImpulseController />
-
-
+                                <NewCard>
+                                    <ImpulseController />
+                                </NewCard>
                             </GridItem>
-                            <GridItem>
-                                <SavingPlanCard
-                                _userMinBudget={userInfo!.weeklyBudget?.limit! / 7}
-                                _currentDailyBudget={calculateDailyBudget(
-                                    getNettoBalance(userInfo!.accounts[0].balance, getSumUnpaidBills(userInfo!.bills)),
-                                    countDaysUntillNextSalary(userInfo!.salary.dayOfMonth))}
-                                _daysTillNxtSalary={countDaysUntillNextSalary(userInfo!.salary.dayOfMonth)}
-                            />
-                                {/* <h1>hi</h1> */}
 
+                            <GridItem>
+                                <NewCard>
+                                    <SavingPlanCard
+                                        _userMinBudget={userInfo!.weeklyBudget?.limit! / 7}
+                                        _currentDailyBudget={calculateDailyBudget(
+                                            getNettoBalance(userInfo!.accounts[0].balance, getSumUnpaidBills(userInfo!.bills)),
+                                            countDaysUntillNextSalary(userInfo!.salary.dayOfMonth))}
+                                        _daysTillNxtSalary={countDaysUntillNextSalary(userInfo!.salary.dayOfMonth)}
+                                    />
+                                </NewCard>
                             </GridItem>
                         </Grid>
                     </>

@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #f5eaea;
+  background-color: #FFF;
   min-height: 200px;
   min-width: 400px;
   z-index: 1000;

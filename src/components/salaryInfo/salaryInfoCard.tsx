@@ -7,6 +7,7 @@ import { AlignmentOptions } from "components/ui/Layout"
 import Card from "components/ui/Layout/Card/Card"
 import VContainer from "components/ui/Layout/VContainer"
 import Text from 'components/ui/typography/Text'
+import HSpacer from "components/ui/Layout/HSpacer"
 
 
 interface SalaryCardProps {
@@ -17,7 +18,7 @@ const SalaryCard: React.FC<SalaryCardProps> = (props) => {
     return (
         <>
             <Card>
-            <HContainer
+                <HContainer
                     justifyContent={AlignmentOptions.spaceBetween}
                 >
                     <HContainer
@@ -27,14 +28,26 @@ const SalaryCard: React.FC<SalaryCardProps> = (props) => {
                     </HContainer>
                     <HiDotsVertical size={25} style={{ 'cursor': 'pointer' }} />
                 </HContainer>
-                {/* <VContainer
-                >
-                    <VContainer
-                    >
-                        <HInfoDisplayer _field={"amount"} _value={`€${props._amount}`} />
-                        <HInfoDisplayer _field={"next salary in"} _value={`${props._daysLeft.toString()} days`} />
-                    </VContainer>
-                </VContainer> */}
+                <HSpacer />
+                <HContainer
+                    justifyContent={AlignmentOptions.spaceBetween}>
+                    <Text>
+                        amount
+                    </Text>
+                    <Text>
+                        €{props._amount.toFixed(1)}
+                    </Text>
+                </HContainer>
+                <HSpacer _space={6} />
+                <HContainer
+                    justifyContent={AlignmentOptions.spaceBetween}>
+                    <Text>
+                        days Left
+                    </Text>
+                    <Text>
+                        {props._daysLeft.toFixed(1)}
+                    </Text>
+                </HContainer>
             </Card>
         </>
     )
