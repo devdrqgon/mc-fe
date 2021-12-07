@@ -1,6 +1,5 @@
-import ArtisticTitle from 'components/ui/typography/ArtisticTitle'
-import React, { useContext } from 'react'
-import NewLoginPageContainer, { Left, Right } from './NewLogin.styled'
+    import ArtisticTitle from 'components/ui/typography/ArtisticTitle'
+import React, { useContext, useEffect } from 'react'
 import Text from 'components/ui/typography/Text'
 import InputTextForm, { InputTypes } from 'components/ui/Controls/Inputs/InputTextForm'
 import HSpacer from 'components/ui/Layout/HSpacer'
@@ -10,20 +9,12 @@ import axios, { AxiosResponse } from 'axios'
 import logging from 'config/logging'
 import { UserContext } from 'contexts/user.context'
 import toast from 'react-hot-toast'
-interface Props{
-    _onLoginSuccess: (value: React.SetStateAction<boolean>) => void
-}
-const NewLogin: React.FC<Props> = (props) => {
-    const [username, setUsername] = React.useState<string>('')
-    const [password, setPassword] = React.useState<string>('')
+import ModalPortal from 'components/ui/Modal/PortalModal'
+import ModalChild from 'components/ui/Modal/ModalChild'
+import VContainer from 'components/ui/Layout/VContainer'
 
-    const onChangeUsername = (_newVal: string) => {
-        setUsername(_newVal)
-    }
+const SignInModal = () => {
 
-    const onChangePassword = (_newVal: string) => {
-        setPassword(_newVal)
-    }
 
     const { login } = useContext(UserContext);
 
@@ -59,9 +50,8 @@ const NewLogin: React.FC<Props> = (props) => {
             })
 
             if (response.status === 200) {
-                props._onLoginSuccess(false)
                 login(response.data.user.username, response.data.token)
-
+                setModalOpen(false)
                 checkIfNewUser()
 
                 //save user & Token
@@ -73,29 +63,53 @@ const NewLogin: React.FC<Props> = (props) => {
         }
     }
 
+    const [modalOpen, setModalOpen] = React.useState(true);
+    const [username, setUsername] = React.useState<string>('')
+    const [password, setPassword] = React.useState<string>('')
+
+    const onChangeUsername = (_newVal: string) => {
+        setUsername(_newVal)
+    }
+
+    const onChangePassword = (_newVal: string) => {
+        setPassword(_newVal)
+    }
+
+    const onClosedClicked = () => {
+        setModalOpen(false)
+
+    }
+
+    useEffect(() => {
+      
+
+    }, [modalOpen])
     return (
         <>
-            <HSpacer />
-            <h1>Sign In</h1>
-            <HSpacer />
-            <InputTextForm _onChangeCallback={onChangeUsername} _label={'username'} />
-            <HSpacer _space={5} />
+            <ModalPortal modalOpen={modalOpen}>
+                <ModalChild _onCloseClickCallback={onClosedClicked}>
+                    <VContainer>
+                        <HSpacer />
+                        <h1>Sign In</h1>
+                        <HSpacer />
+                        <InputTextForm _onChangeCallback={onChangeUsername} _label={'username'} />
+                        <HSpacer _space={5} />
 
-            <InputTextForm
-                _onChangeCallback={onChangePassword}
-                _type={InputTypes.password}
-                _label={'password'} />
-            <HSpacer _space={10} ></HSpacer>
-            <CardButton
-                onClick={loginClicked}>
-                Sign In
-            </CardButton>
-            <HSpacer _space={15} />
-            <Link to={"/register"}>
-                <h3>  New to MoneyCoach? Register here!</h3>
-            </Link>
+                        <InputTextForm
+                            _onChangeCallback={onChangePassword}
+                            _type={InputTypes.password}
+                            _label={'password'} />
+                        <HSpacer _space={10} ></HSpacer>
+                        <CardButton
+                            onClick={loginClicked}>
+                            Sign In
+                        </CardButton>
+                    </VContainer>
+                </ModalChild>
+            </ModalPortal>
+
         </>
     )
 }
 
-export default NewLogin
+export default SignInModal

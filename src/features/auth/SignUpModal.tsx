@@ -1,6 +1,5 @@
 import ArtisticTitle from 'components/ui/typography/ArtisticTitle'
-import React from 'react'
-import NewLoginPageContainer, { Left, Right } from './NewLogin.styled'
+import React, { useEffect } from 'react'
 import Text from 'components/ui/typography/Text'
 import InputTextForm, { InputTypes } from 'components/ui/Controls/Inputs/InputTextForm'
 import HSpacer from 'components/ui/Layout/HSpacer'
@@ -8,9 +7,16 @@ import CardButton from 'components/ui/Controls/Buttons/CardButtons'
 import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios'
 import logging from 'config/logging'
-const NewRegister = () => {
+import VContainer from 'components/ui/Layout/VContainer'
+import ModalChild from 'components/ui/Modal/ModalChild'
+import ModalPortal from 'components/ui/Modal/PortalModal'
+
+
+
+const SignUpModal = () => {
     const [username, setUsername] = React.useState<string>('')
     const [password, setPassword] = React.useState<string>('')
+    const [modalOpen, setModalOpen] = React.useState(true);
 
     const history = useHistory()
     const registerClicked = async () => {
@@ -43,23 +49,35 @@ const NewRegister = () => {
     const onChangePassword = (_newVal: string) => {
         setPassword(_newVal)
     }
+
+    const onClosedClicked = () => {
+        setModalOpen(false)
+
+    }
+    useEffect(() => {
+
+    }, [modalOpen])
     return (
         <>
-            <HSpacer />
-            <h1>Sign Up</h1>
-            <HSpacer />
-            <InputTextForm _onChangeCallback={onChangeUsername} _label={'username'} />
-            <HSpacer _space={5} />
-            <InputTextForm _type={InputTypes.password} _onChangeCallback={onChangePassword} _label={'password'} />
-            <HSpacer _space={10} ></HSpacer>
-            <CardButton onClick={registerClicked}>
-                Sign Up
-            </CardButton>
-            <Link to={"/login"}>
-                <h6>  Already a member? Sign in here!</h6>
-            </Link>
+            <ModalPortal modalOpen={modalOpen}>
+                <ModalChild _onCloseClickCallback={onClosedClicked} >
+                    <VContainer>
+                        <HSpacer />
+                        <h1>Sign Up</h1>
+                        <HSpacer />
+                        <InputTextForm _onChangeCallback={onChangeUsername} _label={'username'} />
+                        <HSpacer _space={5} />
+                        <InputTextForm _type={InputTypes.password} _onChangeCallback={onChangePassword} _label={'password'} />
+                        <HSpacer _space={10} ></HSpacer>
+                        <CardButton onClick={registerClicked}>
+                            Sign Up
+                        </CardButton>
+                    </VContainer>
+                </ModalChild>
+            </ModalPortal>
+
         </>
     )
 }
 
-export default NewRegister
+export default SignUpModal

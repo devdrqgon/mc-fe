@@ -87,7 +87,7 @@ const BillCard: React.FC = () => {
                 </VContainer >
             </Card>
             <ModalPortal modalOpen={modalOpen}>
-                <ModalChild setModalOpen={setModalOpen} >
+                <ModalChild _onCloseClickCallback={setModalOpen} >
                     <ExpandedBillCard
                         _handleOnClickPayBill={refreshbills}
                         _bills={_bills!} />

@@ -9,7 +9,8 @@ const MotionList = (props: { _items: Array<JSX.Element> }) => {
     return (
         <>
 
-            <VContainer> 
+            <VContainer
+            style={{overflowY: 'scroll', maxHeight: '600px'}}> 
                 {[...props._items].map((item, i) => (
                     <div key={uuidv4()}>
                         <ListItem

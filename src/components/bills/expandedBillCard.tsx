@@ -4,6 +4,8 @@ import { AlignmentOptions } from 'components/ui/Layout'
 import Card from 'components/ui/Layout/Card/Card'
 import HContainer from 'components/ui/Layout/HContainer'
 import VContainer from 'components/ui/Layout/VContainer'
+import VSpacer from 'components/ui/Layout/VSpacer'
+import { getSumAllBills } from 'features/lib'
 import React, { useEffect, useState } from 'react'
 import { Bill } from 'react-app-env'
 import { emitKeypressEvents } from 'readline'
@@ -68,26 +70,20 @@ const ExpandedBillCard: React.FC<ExpandedBillCardProps> = (props) => {
     }, [props._bills])
     return (
         <>
-            <Card
-
+            <HContainer
+              
             >
-                <HContainer
-                    justifyContent={AlignmentOptions.center}
-                    alignItems={AlignmentOptions.center}
-                >
-                    <VContainer>
-                        <h6> Paid</h6>
-                        <MotionList _items={convertBillItemToMotionJSXItems(paidBills)} />
-                    </VContainer>
+                <VContainer>
+                    <h2> Paid: €{getSumAllBills(paidBills).toFixed(1)}</h2>
+                    <MotionList _items={convertBillItemToMotionJSXItems(paidBills)} />
+                </VContainer>
+                <VSpacer _space={100}></VSpacer>
+                <VContainer>
+                <h2> not yet: €{getSumAllBills(unPaidBills).toFixed(1)}</h2>
 
-                    <VContainer>
-                        <h6>
-                            Not yet
-                        </h6>
-                        <MotionList _items={convertBillItemToMotionJSXItems(unPaidBills)} />
-                    </VContainer>
-                </HContainer>
-            </Card>
+                    <MotionList _items={convertBillItemToMotionJSXItems(unPaidBills)} />
+                </VContainer>
+            </HContainer>
         </>
     )
 }

@@ -194,7 +194,7 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
     return (
         <>
            <ModalPortal modalOpen={modalOpen}>
-                <ModalChild setModalOpen={setModalOpen} >
+                <ModalChild _onCloseClickCallback={setModalOpen} >
                     <Steps _submitCallback={submitInitUserInfo} _steps={steps}/>
                 </ModalChild>
             </ModalPortal>

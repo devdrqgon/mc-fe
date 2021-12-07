@@ -36,7 +36,7 @@ const SavingPlanCard: React.FC<Props> = (props) => {
                 </CardButton>
             </Card>
             <ModalPortal modalOpen={modalOpen}>
-                <ModalChild setModalOpen={setModalOpen} >
+                <ModalChild _onCloseClickCallback={setModalOpen} >
                     <SavingPlanCreator
                         _userMinBudget={props._userMinBudget}
                         _currentDailyBudget={props._currentDailyBudget}

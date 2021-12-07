@@ -8,10 +8,10 @@ import { AlignmentOptions } from '../Layout';
 
 
 type Props = {
-    setModalOpen: any;
+    _onCloseClickCallback: any;
 };
 
-const ModalChild: React.FC<Props> = ({ setModalOpen, children }) => (
+const ModalChild: React.FC<Props> = ({ _onCloseClickCallback: setModalOpen, children }) => (
     <>
         <HContainer justifyContent={AlignmentOptions.flexEnd}>
             <IconContainer>

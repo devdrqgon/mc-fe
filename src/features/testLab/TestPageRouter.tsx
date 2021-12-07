@@ -83,7 +83,7 @@ export const ModalTester = () => {
     return (
       <>
         <ModalPortal modalOpen={modalOpen}>
-          <ModalChild setModalOpen={setModalOpen} >
+          <ModalChild _onCloseClickCallback={setModalOpen} >
             <BillCreator></BillCreator>
           </ModalChild>
         </ModalPortal>

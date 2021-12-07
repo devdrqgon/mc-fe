@@ -4,7 +4,10 @@ import { AlignmentOptions } from 'components/ui/Layout'
 import HContainer from 'components/ui/Layout/HContainer'
 import { useEffect, useState } from 'react'
 import { Bill } from 'react-app-env'
-
+import Text from 'components/ui/typography/Text'
+import VContainer from 'components/ui/Layout/VContainer'
+import HSpacer from 'components/ui/Layout/HSpacer'
+import VSpacer from 'components/ui/Layout/VSpacer'
 const BillItem = (props: { _bill: Bill, _handleMarkAspaid?: () => void }) => {
     const onClickedMarkAsPaid = () => {
         setshowLoadingBtn(true)
@@ -54,59 +57,38 @@ const BillItem = (props: { _bill: Bill, _handleMarkAspaid?: () => void }) => {
         // update bill in be 
     }
     return (
-        <HContainer justifyContent={AlignmentOptions.spaceBetween}
+        <HContainer style={{
+            boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);'
+        }} justifyContent={AlignmentOptions.spaceBetween}
         >
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-around',
-
-                }}
+            <VContainer
+                justifyContent={AlignmentOptions.flexStart}
             >
                 <div>
-                    <h1>
-                        {props._bill.billName}
-                    </h1>
+                    {props._bill.billName}
+                </div>
+                <div>
+                €{props._bill.cost.toFixed(1)}
+                </div>
 
-                </div>
-                <div>
-                    <h1>
-                        bill
-                    </h1>
-                </div>
-            </div>
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-around',
-                }}
-            >
-                <div>
-                    <h6>
-                        {props._bill.cost}
-                    </h6>
+            </VContainer>
+            <VSpacer _space={15}>
 
-                </div>
-                <div>
-                    cost
-                </div>
-            </div>
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-around',
-                }}
+            </VSpacer>
+            <VContainer
+                justifyContent={AlignmentOptions.center}
+                alignItems={AlignmentOptions.center}
+
             >
+                <HSpacer _space={1}></HSpacer>
                 <div>
-                    <h6>{props._bill.when}</h6>
+                    {props._bill.when}
                 </div>
-                <div>
-                    <h6> Day of month</h6>
-                </div>
-            </div>
+
+            </VContainer>
+
+
+
             {props._bill.paid === false ?
                 <>
                     {showLoadingBtn === false ?

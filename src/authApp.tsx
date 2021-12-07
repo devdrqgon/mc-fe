@@ -3,7 +3,7 @@
 import { Switch, Route } from 'react-router'
 import NewUserWizard from 'features/newUserWizard'
 import NewDashboard from 'features/dashboard/newDashboard'
-import NewRegister from 'features/auth/NewRegister'
+import SignUpModal from 'features/auth/SignUpModal'
 
 
 
@@ -38,7 +38,7 @@ const AuthApp = () => {
                     )}
                 />
                  <Route path="/register" exact
-                    component={NewRegister}
+                    component={SignUpModal}
                 />
                 <Route render={() => <> PageNotFound </>} />
             </Switch>

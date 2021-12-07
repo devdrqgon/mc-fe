@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import styled from 'styled-components';
 import PageContainer from '../Layout/PageContainer';
@@ -10,6 +10,7 @@ const Wrapper = styled.div`
   transform: translate(-50%, -50%);
   background-color: #FFF;
   min-height: 200px;
+  max-height: 700px;
   min-width: 400px;
   z-index: 1000;
   padding: 15px;
@@ -29,7 +30,10 @@ type Props = {
 };
 
 const ModalPortal: React.FC<Props> = ({ modalOpen, children }) => {
-  if (!modalOpen) return null;
+  useEffect(() => {
+   
+  }, [modalOpen])
+  if (modalOpen === false) return null;
 
   return createPortal(
     <>
