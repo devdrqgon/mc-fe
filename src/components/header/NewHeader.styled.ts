@@ -4,7 +4,7 @@ const HeaderContainer = styled.div`
     height: 7vh;
     width: 100vw;
     display: flex;
-    border-bottom: 1px solid #84C318;
+    border-bottom: 1px solid ${p=> p.theme.colors.cardBackground};
     background-color: ${p => p.theme.colors.background}
 `
 

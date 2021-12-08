@@ -14,10 +14,7 @@ const ImpulseController = () => {
         <Card
         >
             <HContainer justifyContent={AlignmentOptions.spaceBetween}>
-                <HContainer>
-                    <MdOutlineDisabledVisible />
-                    <Text> Impulse Control</Text>
-                </HContainer>
+            <Text> Impulse Control</Text>
                 <HiDotsVertical style={{ 'cursor': 'pointer' }} />
             </HContainer>
             <VContainer>

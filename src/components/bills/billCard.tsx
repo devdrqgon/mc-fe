@@ -53,16 +53,12 @@ const BillCard: React.FC = () => {
         <>
             <Card>
                 <HContainer justifyContent={AlignmentOptions.spaceBetween}>
-                    <HContainer>
-                        <RiBillLine />
-                        <Text>
-                            Bills
-                        </Text>
-                    </HContainer>
+                    <Text>
+                        Bills
+                    </Text>
                     <BsArrowsAngleExpand onClick={() => { setModalOpen(true) }} style={{ 'cursor': 'pointer' }} />
                 </HContainer>
-                <HSpacer _space={50}/>
-
+                <HSpacer _space={50} />
                 <>
                     {_bills !== null ?
                         <>

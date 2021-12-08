@@ -21,11 +21,8 @@ const SalaryCard: React.FC<SalaryCardProps> = (props) => {
                 <HContainer
                     justifyContent={AlignmentOptions.spaceBetween}
                 >
-                    <HContainer
-                    >
-                        <GrMoney size={25} />
-                        <Text>Salray</Text>
-                    </HContainer>
+                    <Text>Salary</Text>
+
                     <HiDotsVertical size={25} style={{ 'cursor': 'pointer' }} />
                 </HContainer>
                 <HSpacer />
@@ -35,7 +32,7 @@ const SalaryCard: React.FC<SalaryCardProps> = (props) => {
                         amount
                     </Text>
                     <Text>
-                        €{props._amount.toFixed(1)}
+                        €{props._amount}
                     </Text>
                 </HContainer>
                 <HSpacer _space={6} />
@@ -45,7 +42,7 @@ const SalaryCard: React.FC<SalaryCardProps> = (props) => {
                         days Left
                     </Text>
                     <Text>
-                        {props._daysLeft.toFixed(1)}
+                        {props._daysLeft}
                     </Text>
                 </HContainer>
             </Card>

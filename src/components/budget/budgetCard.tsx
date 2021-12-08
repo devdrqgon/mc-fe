@@ -22,11 +22,7 @@ const BudgetCard: React.FC<BudgetCardProps> = (props) => {
                 <HContainer
                     justifyContent={AlignmentOptions.spaceBetween}
                 >
-                    <HContainer
-                    >
-                        <CgCalculator size={25} />
-                        <Text>Budget</Text>
-                    </HContainer>
+                    <Text>Budget</Text>
                     <HiDotsVertical size={25} style={{ 'cursor': 'pointer' }} />
                 </HContainer>
                 <HSpacer />
