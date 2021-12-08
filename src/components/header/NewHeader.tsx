@@ -1,12 +1,10 @@
-import SavingPlanCreator from 'components/savingPlan/savingPlanCreator';
-import VContainer from 'components/ui/Layout/VContainer';
-import ModalChild from 'components/ui/Modal/ModalChild';
-import ModalPortal from 'components/ui/Modal/PortalModal';
 import { UserContext } from 'contexts/user.context';
 import SignInModal from 'features/auth/SignInModal';
 import SignUpModal from 'features/auth/SignUpModal';
 import React, { useContext, useEffect, useState } from 'react'
 import HeaderContainer, { Btn, BtnGray, Left, Right } from './NewHeader.styled'
+import Switch from 'react-switch'
+import { ThemeContext } from 'styled-components';
 
 
 
@@ -22,11 +20,15 @@ import HeaderContainer, { Btn, BtnGray, Left, Right } from './NewHeader.styled'
  * Call The Primitive Portal Modal Component
  *  Givt it a Child AND A CLOSECALLBACK, and control the visibility of the modal from parent 
  */
-const NewHeader = () => {
+
+interface Props {
+    _toggletheme(): void
+}
+const NewHeader: React.FC<Props> = (props) => {
     const { user, token, tokenValid, login, logout, authenticated } = useContext(UserContext);
-    const [signUpModalIsVisible, setSignUpModalIsVisible] = useState(false)
-    const [signInModalIsVisible, setSignInModalIsVisible] = useState(false)
     const [modalContent, setmodelContent] = useState<JSX.Element>()
+    const { colors, title } = useContext(ThemeContext)
+
     useEffect(() => {
         return
     }, [authenticated, modalContent])
@@ -45,10 +47,7 @@ const NewHeader = () => {
             </>
         )
     }
-    const onModalClose = () => {
-        setSignUpModalIsVisible(false)
-
-    }
+    
 
     useEffect(() => {
 
@@ -60,6 +59,17 @@ const NewHeader = () => {
 
                 </Left>
                 <Right>
+                    <Switch
+                        onChange={props._toggletheme}
+                        checked={title === 'dark'}
+                        checkedIcon={false}
+                        uncheckedIcon={false}
+                        height={10}
+                        width={40}
+                        handleDiameter={20}
+                        offColor={'#e6dddd'}
+                        onColor={'#264653'}
+                    />
                     {!authenticated ?
                         <>
                             <BtnGray

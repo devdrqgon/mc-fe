@@ -8,12 +8,13 @@ const Wrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #FFF;
   min-height: 200px;
   max-height: 700px;
   min-width: 400px;
   z-index: 1000;
   padding: 15px;
+  background: ${p => p.theme.colors.background};
+
 `;
 
 
@@ -23,7 +24,7 @@ position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, .7);
+  background-color: #c3c0c0b0;
   `
 type Props = {
   modalOpen: boolean;

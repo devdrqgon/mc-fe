@@ -5,12 +5,12 @@ const HeaderContainer = styled.div`
     width: 100vw;
     display: flex;
     border-bottom: 1px solid #84C318;
+    background-color: ${p => p.theme.colors.background}
 `
 
 
 export const Left = styled.div`
     width: 89%;
-    /* background-color: #FFCCC9; */
     display: flex;
     justify-content: center;
     align-items: center
@@ -32,7 +32,8 @@ export const Btn = styled.a`
     height: 34px;
     line-height: 34px;
     background: #84C318;
-    color: #000;
+    color:   ${p => p.theme.colors.primary};
+
     cursor: pointer;
     font-weight: 600;
     text-align: center;
@@ -47,8 +48,6 @@ export const BtnGray = styled.a`
     padding: 0 12px;
     height: 34px;
     line-height: 34px;
-    background: transparent;
-    color: #645959;
     cursor: pointer;
     font-weight: 300;
     text-align: center;

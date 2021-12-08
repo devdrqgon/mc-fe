@@ -9,15 +9,18 @@ export default createGlobalStyle`
     }
 
     body {
+        background: ${p => p.theme.colors.background};
         font-size: 18px;
         line-height: normal;
         font-family: Rotunda;
         font-weight: 400;
         font-style: normal;
-        color: #000;
+        color: ${p => p.theme.colors.primary};
         font-family: 'Roboto', sans-serif;
         
     }
+
+  
 
 `
 

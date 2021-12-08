@@ -23,14 +23,10 @@ const BalanceCard: React.FC<BalanceCardProps> = (props) => {
                 <HContainer
                     justifyContent={AlignmentOptions.spaceBetween}
                 >
-                    <HContainer
-                    >
-                        <FaBalanceScaleLeft size={25} />
-                        <Text>balance</Text>
-                    </HContainer>
+                    <Text>balance</Text>
                     <HiDotsVertical size={25} style={{ 'cursor': 'pointer' }} />
                 </HContainer>
-                <HSpacer/>
+                <HSpacer />
                 <HContainer
                     justifyContent={AlignmentOptions.spaceBetween}>
                     <Text>
@@ -40,7 +36,7 @@ const BalanceCard: React.FC<BalanceCardProps> = (props) => {
                         €{props._mainAccountTotalBalance.toFixed(1)}
                     </Text>
                 </HContainer>
-                <HSpacer _space={6}/>
+                <HSpacer _space={6} />
 
                 <HContainer
                     justifyContent={AlignmentOptions.spaceBetween}>

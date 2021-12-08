@@ -10,7 +10,7 @@ const Card = styled.div`
     justify-content: flex-start;
     align-items: center;
     border-radius: 15px;
-    background: #FFF;
+    background: ${p => p.theme.colors.cardBackground};
     padding: 15px 15px 5px 17px;
     min-width: 300px;
     min-height: 300px;

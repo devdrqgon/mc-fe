@@ -13,7 +13,10 @@ import usePersistedState from 'utils/usePersistedState'
 import GlobalStyle from './styles/global'
 
 export const App = () => {
-    const [theme, setTheme] = usePersistedState<DefaultTheme>('theme', dark)
+    const [theme, setTheme] = usePersistedState<DefaultTheme>('theme', light)
+    const toggleTheme = () => {
+        setTheme(theme.title === 'light' ? dark : light)
+    }
     const history = useHistory()
     const { tokenValid, authenticated } = useContext(UserContext);
 
@@ -26,7 +29,7 @@ export const App = () => {
     return (
         <ThemeProvider theme={theme}>
             <GlobalStyle />
-            <NewHeader />
+            <NewHeader _toggletheme={toggleTheme} />
             {tokenValid && authenticated ?
                 <>
                     <Switch>
@@ -59,7 +62,7 @@ export const App = () => {
                 </>
                 :
                 <>
-                    
+
                 </>
             }
         </ThemeProvider>
