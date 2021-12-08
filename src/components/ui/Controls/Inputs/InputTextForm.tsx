@@ -3,8 +3,6 @@ import React, { useRef } from 'react'
 import InputTextField from './InputTextForm/InputTextField'
 import Text from 'components/ui/typography/Text'
 import HSpacer from 'components/ui/Layout/HSpacer'
-import CardButton from '../Buttons/CardButtons'
-import { type } from 'os'
 
 export enum InputTypes {
     text = "text",
@@ -30,7 +28,6 @@ const InputTextForm: React.FC<Props> = (props) => {
                 onChange={hanleValChange}
                 ref={ref}
                 type={props._type ? props._type : InputTypes.text} />
-           
         </VContainer>
     )
 }

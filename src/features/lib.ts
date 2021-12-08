@@ -30,9 +30,20 @@ export const BillsHelpers = {
 
 }
 
+export const MoneyHelpers = {
+    calculateActualWeeklyBudget: (nettoBalance: number, daysLeft: number) => {
+        return ((nettoBalance / daysLeft) * 7)
+    },
+    calculateDailyBudget: (nettoBalance: number, daysLeft: number) => {
+        return ((nettoBalance / daysLeft))
+    },
+    getNettoBalance: (grossBalance: number, sumBills: number) => {
+        return grossBalance - sumBills
+    }
+}
 
-export const dateHelpers = {
-    countDaysUntillNextSalary :(dayOfSalary: number) => {
+export const DateHelpers = {
+    countDaysUntillNextSalary: (dayOfSalary: number) => {
         const today = new Date().getDate()
         if (today === dayOfSalary) { return 0 }
         if (today < dayOfSalary) {
@@ -51,17 +62,6 @@ export const dateHelpers = {
     }
 }
 
-export const calculateActualWeeklyBudget = (nettoBalance: number, daysLeft: number) => {
-    return ((nettoBalance / daysLeft) * 7)
-}
-
-export const calculateDailyBudget = (nettoBalance: number, daysLeft: number) => {
-    return ((nettoBalance / daysLeft))
-}
-
-export const getNettoBalance = (grossBalance: number, sumBills: number) => {
-    return grossBalance - sumBills
-}
 
 
 

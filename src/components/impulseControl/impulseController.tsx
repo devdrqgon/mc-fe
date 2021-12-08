@@ -7,8 +7,38 @@ import { HiDotsVertical } from 'react-icons/hi'
 import { MdOutlineDisabledVisible } from 'react-icons/md'
 import Text from 'components/ui/typography/Text'
 import { useState } from 'react'
+import InputTextForm from 'components/ui/Controls/Inputs/InputTextForm'
 const ImpulseController = () => {
-    // const [showImpulseController, setshowImpulseController] = useState(false)
+   
+    return (
+        <Card
+        >
+            <HContainer justifyContent={AlignmentOptions.spaceBetween}>
+                <HContainer>
+                    <MdOutlineDisabledVisible />
+                    <Text> Impulse Control</Text>
+                </HContainer>
+                <HiDotsVertical style={{ 'cursor': 'pointer' }} />
+            </HContainer>
+            <VContainer>
+                <VContainer>
+                    <InputTextForm
+                    _onChangeCallback={()=>{}}
+                    _label={"How much you want to spend?"}/>
+                    <CardButton> preview consequence</CardButton>
+                </VContainer>
+            </VContainer>
+        </Card>
+    )
+}
+
+export default ImpulseController
+
+
+
+/** Leftovers */
+
+ // const [showImpulseController, setshowImpulseController] = useState(false)
     // const [weeklyIC, setWeeklyIC] = useState(0)
     // const [dailyIC, setDailyIC] = useState(0)
     // const caluclateConsequenceIC = () => {
@@ -28,26 +58,3 @@ const ImpulseController = () => {
     //     setDailyIC(calculateDailyBudget(res, daysLeft))
 
     // }
-    return (
-        <Card
-        >
-            <HContainer justifyContent={AlignmentOptions.spaceBetween}>
-                <HContainer>
-                    <MdOutlineDisabledVisible />
-                    <Text> Impulse Control</Text>
-                </HContainer>
-                <HiDotsVertical style={{ 'cursor': 'pointer' }} />
-            </HContainer>
-            <VContainer
-            >
-                <VContainer>
-                    <input type="text" placeholder="Type the amount"></input>
-                    <CardButton> preview consequence</CardButton>
-
-                </VContainer>
-            </VContainer>
-        </Card>
-    )
-}
-
-export default ImpulseController

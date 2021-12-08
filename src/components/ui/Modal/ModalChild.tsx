@@ -1,6 +1,4 @@
-import BillCreator from 'components/bills/billCreator';
 import React from 'react';
-import styled from 'styled-components';
 import { AiOutlineClose } from 'react-icons/ai'
 import IconContainer from '../Layout/IconContainer';
 import HContainer from '../Layout/HContainer';

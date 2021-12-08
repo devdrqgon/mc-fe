@@ -5,7 +5,6 @@ import { Router, Route, Switch } from 'react-router'
 import TestPageHome from './TestPageHome'
 import ClonedMotionList from 'components/ClonedMotionList'
 import MotionList from 'components/Motionlist'
-import BillCreator from 'components/bills/billCreator'
 import { useState } from 'react'
 import { Bill } from 'react-app-env'
 import faker from 'faker'
@@ -41,11 +40,6 @@ const TestPageRouter = () => {
                         <LoadingMotion />
                     )}
                 /> */}
-                <Route path="/test/modal" exact
-                    render={(props) => (
-                        <ModalTester />
-                    )}
-                />
                 <Route path="/test/newuser" exact
                     render={(props) => (
                         <NewUserWizard _username={_TestUsername} _token={_TestToken} />
@@ -76,22 +70,3 @@ const TestPageRouter = () => {
 
 export default TestPageRouter
 
-
-export const ModalTester = () => {
-    const [modalOpen, setModalOpen] = useState(false);
-  
-    return (
-      <>
-        <ModalPortal modalOpen={modalOpen}>
-          <ModalChild _onCloseClickCallback={setModalOpen} >
-            <BillCreator></BillCreator>
-          </ModalChild>
-        </ModalPortal>
-        <CardButton
-          onClick={() => setModalOpen(true)}
-        >
-          Open Modal
-        </CardButton>
-      </>
-    )
-  }

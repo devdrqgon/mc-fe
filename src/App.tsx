@@ -1,7 +1,7 @@
 
 import NewHeader from 'components/header/NewHeader'
 import { UserContext } from 'contexts/user.context'
-import NewDashboard from 'features/Dashboard'
+import Dashboard from 'features/Dashboard'
 import NewUserWizard from 'features/newUserWizard'
 import TestPageRouter from 'features/testLab/TestPageRouter'
 import { useContext } from 'react'
@@ -32,7 +32,7 @@ export const App = () => {
                     <Switch>
                         <Route path="/" exact
                             render={(props) => (
-                                <NewDashboard
+                                <Dashboard
                                     _username={localStorage.getItem('username')!}
                                     _token={`Bearer ${localStorage.getItem('token')!}`}
                                 />
@@ -48,7 +48,7 @@ export const App = () => {
                         />
                         <Route path="/olduser" exact
                             render={(props) => (
-                                <NewDashboard
+                                <Dashboard
                                     _username={localStorage.getItem('username')!}
                                     _token={`Bearer ${localStorage.getItem('token')!}`}
                                 />
