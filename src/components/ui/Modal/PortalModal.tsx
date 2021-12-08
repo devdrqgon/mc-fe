@@ -15,6 +15,7 @@ const Wrapper = styled.div`
   padding: 15px;
   background: ${p => p.theme.colors.background};
 
+
 `;
 
 
@@ -25,6 +26,7 @@ position: fixed;
   right: 0;
   bottom: 0;
   background-color: #c3c0c0b0;
+  
   `
 type Props = {
   modalOpen: boolean;
