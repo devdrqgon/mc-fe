@@ -5,23 +5,26 @@ const HeaderContainer = styled.div`
     width: 100vw;
     display: flex;
     border-bottom: 1px solid ${p=> p.theme.colors.cardBackground};
-    background-color: ${p => p.theme.colors.background}
+    background-color: ${p=> p.theme.colors.background};
 `
 
 
 export const Left = styled.div`
-    width: 89%;
+    width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center
+    align-items: center;
+    /* background-color: yellow; */
+
     `
 
 export const Right = styled.div`
-    width: 11%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    padding: 0 100px;
+    padding-right: 25px;
+    /* background-color: red; */
+
 
 `
 

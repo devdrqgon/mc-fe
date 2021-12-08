@@ -5,6 +5,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import HeaderContainer, { Btn, BtnGray, Left, Right } from './NewHeader.styled'
 import Switch from 'react-switch'
 import { ThemeContext } from 'styled-components';
+import ArtisticTitle from 'components/ui/typography/ArtisticTitle';
 
 
 
@@ -47,7 +48,7 @@ const NewHeader: React.FC<Props> = (props) => {
             </>
         )
     }
-    
+
 
     useEffect(() => {
 
@@ -56,7 +57,9 @@ const NewHeader: React.FC<Props> = (props) => {
         <>
             <HeaderContainer>
                 <Left>
-
+                    <ArtisticTitle>
+                        MoneyCoach
+                    </ArtisticTitle>
                 </Left>
                 <Right>
                     <Switch
