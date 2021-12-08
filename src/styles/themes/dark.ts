@@ -5,8 +5,8 @@ export default {
         primary: '#FFFFFF',
         secondary: '#D63AF9',
 
-        background: '#5F6367',
-        cardBackground: '#2A2D34',
+        background: '#0F1218',
+        cardBackground: '#1D1F25',
         text: '#fff'
     },
 } 

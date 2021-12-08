@@ -1,53 +1,102 @@
 import { UserContext } from 'contexts/user.context';
-import { useContext } from 'react'
-import { useHistory } from 'react-router';
-import { ThemeContext } from 'styled-components';
-import { Container } from './Header.styles';
+import SignInModal from 'features/auth/SignInModal';
+import SignUpModal from 'features/auth/SignUpModal';
+import React, { useContext, useEffect, useState } from 'react'
+import HeaderContainer, { Btn, BtnGray, Left, Right } from './Header.styled'
 import Switch from 'react-switch'
-import CardButton from 'components/ui/Controls/Buttons/CardButtons';
-import Text from 'components/ui/typography/Text';
+import { ThemeContext } from 'styled-components';
+import ArtisticTitle from 'components/ui/typography/ArtisticTitle';
+
+
+
+/**
+ * 
+ * How u render a modal perfectly  
+ * 
+ * Call The Primitive Portal Modal Component
+ * Give it a child
+ * When clicked on close the Portal must unmount  
+ * 
+ * How i render a modal now 
+ * Call The Primitive Portal Modal Component
+ *  Givt it a Child AND A CLOSECALLBACK, and control the visibility of the modal from parent 
+ */
+
 interface Props {
     _toggletheme(): void
 }
-export const Header: React.FC<Props> = (props) => {
-    const history = useHistory()
+const NewHeader: React.FC<Props> = (props) => {
     const { user, token, tokenValid, login, logout, authenticated } = useContext(UserContext);
+    const [modalContent, setmodelContent] = useState<JSX.Element>()
+    const { colors, title } = useContext(ThemeContext)
 
-    const handleLogoutClick = () => {
-        history.push('/login')
-        logout()
+    useEffect(() => {
+        return
+    }, [authenticated, modalContent])
+    const onSignUpClick = () => {
+        setmodelContent(
+            <>
+                <SignUpModal />
+            </>
+        )
     }
 
-    const { colors, title } = useContext(ThemeContext)
-    return (
-        <Container>
-            <Text>
-                welcome {localStorage.getItem('username')}!
-            </Text>
-            <div>
-                <h1>
-                    MoneyCoach
-                </h1>
-            </div>
-            <Switch
-                onChange={props._toggletheme}
-                checked={title === 'dark'}
-                checkedIcon={false}
-                uncheckedIcon={false}
-                height={10}
-                width={40}
-                handleDiameter={20}
-                offColor={'#FFF'}
-                onColor={'#264653'}
-            />
-            {authenticated === true ? 
-                <>
-                    <CardButton onClick={handleLogoutClick}>Logout</CardButton>
-                </>
-                :
-                <>
-                </>}
-        </Container>
-    )
+    const onSignInClick = () => {
+        setmodelContent(
+            <>
+                <SignInModal />
+            </>
+        )
+    }
 
+
+    useEffect(() => {
+
+    }, [modalContent])
+    return (
+        <>
+            <HeaderContainer>
+                <Left>
+                    <ArtisticTitle>
+                        MoneyCoach
+                    </ArtisticTitle>
+                </Left>
+                <Right>
+                    <Switch
+                        onChange={props._toggletheme}
+                        checked={title === 'dark'}
+                        checkedIcon={false}
+                        uncheckedIcon={false}
+                        height={10}
+                        width={40}
+                        handleDiameter={20}
+                        offColor={'#e6dddd'}
+                        onColor={'#264653'}
+                    />
+                    {!authenticated ?
+                        <>
+                            <BtnGray
+                                onClick={onSignInClick}
+                            > Sign In
+                            </BtnGray>
+
+                            <Btn
+                                onClick={onSignUpClick}
+                            > Sign Up</Btn>
+                        </>
+                        :
+                        <>
+                            <BtnGray
+                                onClick={() => { logout() }}
+                            > Sign Out
+                            </BtnGray>
+                        </>
+                    }
+                </Right>
+            </HeaderContainer>
+            {modalContent}
+        </>
+    )
 }
+
+export default NewHeader

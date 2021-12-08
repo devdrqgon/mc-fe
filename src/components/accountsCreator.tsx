@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import MoneyInput from "./ui/Controls/Inputs/MoneyInput/MoneyInput";
 import VContainer from "./ui/Layout/VContainer"
 
 
@@ -17,6 +18,13 @@ interface AccountsProps {
 }
 
 const AccountsCreator: React.FC<AccountsProps> = ({ _handleChangeCallback }) => {
+    //RegEx  only numbers and a point
+    const regExValidator = (_Candidate: string) => {
+        const reg = new RegExp('^\d+(\.\d+)*$');
+        return reg.test(_Candidate)
+    }
+
+    const mainInputRef = useRef<HTMLInputElement>(null)
 
 
     const [mainBalance, setMainBalance] = useState('0')
@@ -45,6 +53,7 @@ const AccountsCreator: React.FC<AccountsProps> = ({ _handleChangeCallback }) => 
     }
 
     const onMainChanged = (_newMain: string) => {
+        regExValidator(_newMain)
         setMainBalance(_newMain)
     }
 
@@ -64,7 +73,9 @@ const AccountsCreator: React.FC<AccountsProps> = ({ _handleChangeCallback }) => 
                     <h6>
                         Main Account
                     </h6>
-                    <input type="number"
+                    <MoneyInput/>
+                    <input
+                        ref={mainInputRef}
                         onChange={(valueString) => onMainChanged(parse(valueString))}
                         value={format(mainBalance)}
                     />

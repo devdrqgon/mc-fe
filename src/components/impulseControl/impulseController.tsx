@@ -8,6 +8,7 @@ import { MdOutlineDisabledVisible } from 'react-icons/md'
 import Text from 'components/ui/typography/Text'
 import { useState } from 'react'
 import InputTextForm from 'components/ui/Controls/Inputs/InputTextForm'
+import MoneyInput from 'components/ui/Controls/Inputs/MoneyInput/MoneyInput'
 const ImpulseController = () => {
    
     return (
@@ -17,14 +18,16 @@ const ImpulseController = () => {
             <Text> Impulse Control</Text>
                 <HiDotsVertical style={{ 'cursor': 'pointer' }} />
             </HContainer>
-            <VContainer>
+            <MoneyInput/>
+
+            {/* <VContainer>
                 <VContainer>
                     <InputTextForm
                     _onChangeCallback={()=>{}}
                     _label={"How much you want to spend?"}/>
                     <CardButton> preview consequence</CardButton>
                 </VContainer>
-            </VContainer>
+            </VContainer> */}
         </Card>
     )
 }

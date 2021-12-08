@@ -6,7 +6,7 @@ export default {
         secondary: 'green',
 
         background: '#FDFFFC',
-        cardBackground: '#ECEBE4',
+        cardBackground: '#FDFFFC',
 
         text: '#333'
     },

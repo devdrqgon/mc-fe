@@ -1,5 +1,5 @@
 
-import NewHeader from 'components/header/NewHeader'
+import NewHeader from 'components/header/Header'
 import { UserContext } from 'contexts/user.context'
 import Dashboard from 'features/Dashboard'
 import NewUserWizard from 'features/newUserWizard'
