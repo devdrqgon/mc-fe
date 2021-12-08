@@ -8,6 +8,9 @@ import Text from 'components/ui/typography/Text'
 import VContainer from 'components/ui/Layout/VContainer'
 import HSpacer from 'components/ui/Layout/HSpacer'
 import VSpacer from 'components/ui/Layout/VSpacer'
+import styled from 'styled-components'
+
+
 const BillItem = (props: { _bill: Bill, _handleMarkAspaid?: () => void }) => {
     const onClickedMarkAsPaid = () => {
         setshowLoadingBtn(true)
@@ -56,10 +59,9 @@ const BillItem = (props: { _bill: Bill, _handleMarkAspaid?: () => void }) => {
     const renderpayBtn = () => {
         // update bill in be 
     }
+
     return (
-        <HContainer style={{
-            boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);'
-        }} justifyContent={AlignmentOptions.spaceBetween}
+        <BilLItemContainer
         >
             <VContainer
                 justifyContent={AlignmentOptions.flexStart}
@@ -68,7 +70,7 @@ const BillItem = (props: { _bill: Bill, _handleMarkAspaid?: () => void }) => {
                     {props._bill.billName}
                 </div>
                 <div>
-                €{props._bill.cost.toFixed(1)}
+                    €{props._bill.cost.toFixed(1)}
                 </div>
 
             </VContainer>
@@ -107,8 +109,24 @@ const BillItem = (props: { _bill: Bill, _handleMarkAspaid?: () => void }) => {
 
                 </>
             }
-        </HContainer>
+        </BilLItemContainer>
     )
 }
 
 export default BillItem
+
+const BilLItemContainer = styled.div`
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        padding: 2px 2px;
+        border-radius: 8px;
+        background: #FFF;
+        display: flex;
+        justify-content: space-between;
+        min-width: 350px;
+        margin: 10px 0;
+        cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 12px 23px rgba(0, 0, 0, 0.23), 0 10px 10px rgba(0, 0, 0, 0.19);
+  }
+`;

@@ -5,15 +5,36 @@ import HContainer from 'components/ui/Layout/HContainer'
 import VContainer from 'components/ui/Layout/VContainer'
 import { HiDotsVertical } from 'react-icons/hi'
 import { MdOutlineDisabledVisible } from 'react-icons/md'
-
+import Text from 'components/ui/typography/Text'
+import { useState } from 'react'
 const ImpulseController = () => {
+    // const [showImpulseController, setshowImpulseController] = useState(false)
+    // const [weeklyIC, setWeeklyIC] = useState(0)
+    // const [dailyIC, setDailyIC] = useState(0)
+    // const caluclateConsequenceIC = () => {
+
+       
+
+    //     const desireRef = useRef<HTMLInputElement>(null)
+
+    //     const desire = parseFloat(desireRef.current!.value)
+
+    //     get netto Balance 
+    //     const netto = getNettoBalance(userInfo?.accounts[0].balance!, getSumUnpaidBills(userInfo?.bills!))
+    //     get how many days left till next salary 
+    //     let daysLeft = countDaysUntillNextSalary(userInfo?.salary.dayOfMonth!)
+    //     const res = netto - desire
+    //     setWeeklyIC(calculateActualWeeklyBudget(res, daysLeft))
+    //     setDailyIC(calculateDailyBudget(res, daysLeft))
+
+    // }
     return (
         <Card
         >
             <HContainer justifyContent={AlignmentOptions.spaceBetween}>
                 <HContainer>
                     <MdOutlineDisabledVisible />
-                    <h1> Impulse Control</h1>
+                    <Text> Impulse Control</Text>
                 </HContainer>
                 <HiDotsVertical style={{ 'cursor': 'pointer' }} />
             </HContainer>

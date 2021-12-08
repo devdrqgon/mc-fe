@@ -4,14 +4,15 @@ import { RiBillLine } from 'react-icons/ri'
 import { BsArrowsAngleExpand } from 'react-icons/bs'
 import { useEffect, useState } from 'react'
 import axios, { AxiosResponse } from 'axios'
-import { getSumAllBills, getSumPaidills, getSumUnpaidBills } from 'features/lib'
+import { BillsHelpers } from 'features/lib'
 import ExpandedBillCard from './expandedBillCard'
 import ModalPortal from 'components/ui/Modal/PortalModal'
 import ModalChild from 'components/ui/Modal/ModalChild'
-import VContainer from 'components/ui/Layout/VContainer'
 import HContainer from 'components/ui/Layout/HContainer'
 import { AlignmentOptions } from 'components/ui/Layout'
 import Card from 'components/ui/Layout/Card/Card'
+import Text from 'components/ui/typography/Text'
+import HSpacer from 'components/ui/Layout/VSpacer'
 
 
 const BillCard: React.FC = () => {
@@ -51,40 +52,56 @@ const BillCard: React.FC = () => {
     return (
         <>
             <Card>
-                <VContainer
-
-                >
-                    <HContainer justifyContent={AlignmentOptions.spaceBetween}>
-                        <HContainer>
-                            <RiBillLine />
-                            <h1>
-                                Bills
-                            </h1>
-                        </HContainer>
-                        <BsArrowsAngleExpand onClick={() => { setModalOpen(true) }} style={{ 'cursor': 'pointer' }} />
+                <HContainer justifyContent={AlignmentOptions.spaceBetween}>
+                    <HContainer>
+                        <RiBillLine />
+                        <Text>
+                            Bills
+                        </Text>
                     </HContainer>
-                    <>
-                        {_bills !== null ?
-                            <VContainer
-                            >
-                                <VContainer
-                                >
-                                    <HInfoDisplayer _field={"total"} _value={`€${getSumAllBills(_bills).toFixed(1)}`} />
-                                    <HInfoDisplayer _field={"paid"} _value={`€${getSumPaidills(_bills).toFixed(1)}`} />
-                                    <HInfoDisplayer _field={"not yet"} _value={`€${getSumUnpaidBills(_bills).toFixed(1)}`} />
-                                </VContainer>
-                            </VContainer>
-                            :
-                            <>
-                                <HContainer
-                                    justifyContent={AlignmentOptions.center}
-                                    alignItems={AlignmentOptions.center}>
-                                    {/* <LoadingMotion /> */}
-                                </HContainer>
-                            </>
-                        }
-                    </>
-                </VContainer >
+                    <BsArrowsAngleExpand onClick={() => { setModalOpen(true) }} style={{ 'cursor': 'pointer' }} />
+                </HContainer>
+                <HSpacer _space={50}/>
+
+                <>
+                    {_bills !== null ?
+                        <>
+                            <HContainer
+                                justifyContent={AlignmentOptions.spaceBetween}>
+                                <Text>
+                                    total
+                                </Text>
+                                <Text>
+                                    €{BillsHelpers.getSumAllBills(_bills).toFixed(1)}
+                                </Text>
+                            </HContainer>
+                            <HSpacer _space={6} />
+
+                            <HContainer
+                                justifyContent={AlignmentOptions.spaceBetween}>
+                                <Text>
+                                    paid
+                                </Text>
+                                <Text>
+                                    €{BillsHelpers.getSumPaidills(_bills).toFixed(1)}
+                                </Text>
+                            </HContainer>
+                            <HContainer
+                                justifyContent={AlignmentOptions.spaceBetween}>
+                                <Text>
+                                    not yet
+                                </Text>
+                                <Text>
+                                    €{BillsHelpers.getSumUnpaidBills(_bills).toFixed(1)}
+                                </Text>
+                            </HContainer>
+                        </>
+                        :
+                        <>
+
+                        </>
+                    }
+                </>
             </Card>
             <ModalPortal modalOpen={modalOpen}>
                 <ModalChild _onCloseClickCallback={setModalOpen} >

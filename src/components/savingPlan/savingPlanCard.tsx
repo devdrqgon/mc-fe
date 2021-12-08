@@ -10,6 +10,7 @@ import { useState } from 'react'
 import SavingPlanCreator from './savingPlanCreator'
 import HContainer from 'components/ui/Layout/HContainer'
 import { AlignmentOptions } from 'components/ui/Layout'
+import Text from 'components/ui/typography/Text'
 
 interface Props {
     _userMinBudget: number,
@@ -25,9 +26,9 @@ const SavingPlanCard: React.FC<Props> = (props) => {
                 <HContainer  justifyContent={AlignmentOptions.spaceBetween}>
                     <HContainer justifyContent={AlignmentOptions.flexStart}>
                         <FaReact />
-                        <h1>
+                        <Text>
                             Saving Plan
-                        </h1>
+                        </Text>
                     </HContainer>
                     <HiDotsVertical style={{ 'cursor': 'pointer' }} />
                 </HContainer>

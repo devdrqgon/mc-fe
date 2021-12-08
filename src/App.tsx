@@ -1,14 +1,10 @@
-import AuthApp from 'authApp'
-import { Header } from 'components/header/Header'
+
 import NewHeader from 'components/header/NewHeader'
-import Main from 'components/ui/Layout/Main'
 import { UserContext } from 'contexts/user.context'
-import SignInModal from 'features/auth/SignInModal'
-import SignUpModal from 'features/auth/SignUpModal'
-import NewDashboard from 'features/dashboard/newDashboard'
+import NewDashboard from 'features/Dashboard'
 import NewUserWizard from 'features/newUserWizard'
 import TestPageRouter from 'features/testLab/TestPageRouter'
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { Route, Switch, useHistory } from 'react-router-dom'
 import { DefaultTheme, ThemeProvider } from 'styled-components'
 import dark from 'styles/themes/dark'
@@ -33,7 +29,6 @@ export const App = () => {
             <NewHeader />
             {tokenValid && authenticated ?
                 <>
-
                     <Switch>
                         <Route path="/" exact
                             render={(props) => (
@@ -59,7 +54,6 @@ export const App = () => {
                                 />
                             )}
                         />
-                      
                         <Route render={() => <> PageNotFound </>} />
                     </Switch>
                 </>
