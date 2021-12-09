@@ -62,7 +62,6 @@ const Dashboard = (props: { _username: string, _token: string }) => {
                             <GridItem>
                                 <NewCard>
                                     <BalanceCard
-                                        _mainAccountTotalBalance={userInfo.accounts[0].balance!}
                                         _nett={MoneyHelpers.getNettoBalance(userInfo.accounts[0].balance!, BillsHelpers.getSumUnpaidBills(userInfo.bills))}
                                         _unpaidBills={BillsHelpers.getSumUnpaidBills(userInfo.bills)} />
 

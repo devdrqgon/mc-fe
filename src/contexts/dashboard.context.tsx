@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { UserInfoResponse } from 'react-app-env';
 
 
@@ -18,6 +18,9 @@ interface Props {
 const DashboardProvider: React.FC<Props> = ({ _userInfo ,  children }) => {
     const [userInfo, setuserInfo] = useState<null | UserInfoResponse>(_userInfo)
 
+    useEffect(() => {
+       setuserInfo(_userInfo)
+    }, [_userInfo])
     return (
         <DashboardContext.Provider value={{ userInfo }}>
             {children}
