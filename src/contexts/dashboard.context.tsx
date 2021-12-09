@@ -1,27 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { UserInfoResponse } from 'react-app-env';
 
 
 export interface IDashboardContext {
-    
-  }
+    userInfo: UserInfoResponse | null
+}
 
-  /** Initial State */
-export const UserContext = React.createContext<IDashboardContext>({
-    user: null,
-    token: null,
-    tokenValid: false,
-    authenticated: false,
-    login: (_username: string, _token: string) => { },
-    logout: () => { }
-  
-  });
+/** Initial State */
+export const DashboardContext = React.createContext<IDashboardContext>({
+    userInfo: null
+});
 
-const DashboardContextUserProvider = () => {
+interface Props {
+    _userInfo: UserInfoResponse | null
+}
+
+const DashboardProvider: React.FC<Props> = ({ _userInfo ,  children }) => {
+    const [userInfo, setuserInfo] = useState<null | UserInfoResponse>(_userInfo)
+
     return (
-        <div>
-            
-        </div>
+        <DashboardContext.Provider value={{ userInfo }}>
+            {children}
+        </DashboardContext.Provider>
     )
 }
 
-export default DashboardContextUserProvider
+export default DashboardProvider
