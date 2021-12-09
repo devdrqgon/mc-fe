@@ -12,17 +12,12 @@ import { useContext, useEffect } from "react"
 import { DashboardContext } from "contexts/dashboard.context"
 
 
-interface BalanceCardProps {
-    _nett: number
-    _unpaidBills: number
-}
-const BalanceCard: React.FC<BalanceCardProps> = (props) => {
+const BalanceCard: React.FC= () => {
     
-    const { userInfo } = useContext(DashboardContext);
+    const { userInfo , netto} = useContext(DashboardContext);
 
     useEffect(() => {
-       console.info("USERINFO FROM BALANCE CARD", userInfo)
-    }, [userInfo])
+    }, [userInfo,netto])
     return (
         <>
             <Card
@@ -51,7 +46,7 @@ const BalanceCard: React.FC<BalanceCardProps> = (props) => {
                         Nett
                     </Text>
                     <Text>
-                        € {props._nett.toFixed(1)}
+                        € {netto?.toFixed(1)}
                     </Text>
                 </HContainer>
             </Card>

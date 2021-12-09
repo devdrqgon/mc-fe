@@ -1,28 +1,46 @@
+import { BillsHelpers, MoneyHelpers } from 'features/lib';
 import React, { useEffect, useState } from 'react'
-import { UserInfoResponse } from 'react-app-env';
+import { AccountsInfo, UserInfoResponse } from 'react-app-env';
 
 
 export interface IDashboardContext {
-    userInfo: UserInfoResponse | null
+    userInfo: UserInfoResponse | null,
+    netto: number | null
 }
 
 /** Initial State */
 export const DashboardContext = React.createContext<IDashboardContext>({
-    userInfo: null
+    userInfo: null,
+    netto: null
 });
 
 interface Props {
-    _userInfo: UserInfoResponse | null
+    userInfoProp: UserInfoResponse | null
+
 }
 
-const DashboardProvider: React.FC<Props> = ({ _userInfo ,  children }) => {
-    const [userInfo, setuserInfo] = useState<null | UserInfoResponse>(_userInfo)
+
+const DashboardProvider: React.FC<Props> = ({ userInfoProp,children }) => {
+    const [userInfo, setuserInfo] = useState<null | UserInfoResponse>(null)
+    const [netto, setNetto] = useState<null | number>(null)
+
+    /** If u wanna change values here from consumers 
+     * declare functions here or hhoks that consumers can import and use 
+     */
+    const changeNetto = (_newNetto: number | null) => {
+        setNetto(_newNetto)
+    }
 
     useEffect(() => {
-       setuserInfo(_userInfo)
-    }, [_userInfo])
+        setuserInfo(userInfoProp)
+        
+        if (userInfoProp !== null) {
+            setNetto(MoneyHelpers.getNettoBalance(userInfoProp.accounts[0].balance, BillsHelpers.getSumUnpaidBills(userInfoProp.bills)))
+        }
+        else setNetto(null)
+    }, [userInfoProp])
     return (
-        <DashboardContext.Provider value={{ userInfo }}>
+        <DashboardContext.Provider value={{ userInfo, netto}}>
             {children}
         </DashboardContext.Provider>
     )

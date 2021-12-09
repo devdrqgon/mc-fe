@@ -47,7 +47,7 @@ const Dashboard = (props: { _username: string, _token: string }) => {
 
     return (
         <>
-            <DashboardProvider _userInfo={userInfo}>
+            <DashboardProvider  userInfoProp={userInfo}>
                 {userInfo === null ?
                     <>
                         <VContainer>
@@ -61,10 +61,7 @@ const Dashboard = (props: { _username: string, _token: string }) => {
                         <Grid>
                             <GridItem>
                                 <NewCard>
-                                    <BalanceCard
-                                        _nett={MoneyHelpers.getNettoBalance(userInfo.accounts[0].balance!, BillsHelpers.getSumUnpaidBills(userInfo.bills))}
-                                        _unpaidBills={BillsHelpers.getSumUnpaidBills(userInfo.bills)} />
-
+                                    <BalanceCard />
                                 </NewCard>
 
                             </GridItem>

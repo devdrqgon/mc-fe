@@ -7,7 +7,6 @@ export enum AccountType {
 }
 
 
-
 export interface UserInfoResponse{
     username: string,
     salary: SalaryInfo,
@@ -54,4 +53,8 @@ export interface BudgetConfigUI {
     food: string,
     others: string
 }
+
+
+
+/** maybe add TYPES FOR DASHBOARD CONTEXT */
 
