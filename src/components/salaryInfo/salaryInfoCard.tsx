@@ -1,5 +1,5 @@
 import HInfoDisplayer from "components/hInfoDisplayer"
-import React from "react"
+import React, { useContext } from "react"
 import { HiDotsVertical } from "react-icons/hi"
 import { GrMoney } from "react-icons/gr"
 import HContainer from "components/ui/Layout/HContainer"
@@ -8,13 +8,12 @@ import Card from "components/ui/Layout/Card/Card"
 import VContainer from "components/ui/Layout/VContainer"
 import Text from 'components/ui/typography/Text'
 import HSpacer from "components/ui/Layout/HSpacer"
+import { DashboardContext } from "contexts/dashboard.context"
 
 
-interface SalaryCardProps {
-    _amount: number,
-    _daysLeft: number
-}
-const SalaryCard: React.FC<SalaryCardProps> = (props) => {
+const SalaryCard: React.FC = () => {
+    const { SalaryInfoStateUI}  = useContext(DashboardContext)
+
     return (
         <>
             <Card>
@@ -32,7 +31,7 @@ const SalaryCard: React.FC<SalaryCardProps> = (props) => {
                         amount
                     </Text>
                     <Text>
-                        €{props._amount}
+                        €{SalaryInfoStateUI?.amount}
                     </Text>
                 </HContainer>
                 <HSpacer _space={6} />
@@ -42,7 +41,7 @@ const SalaryCard: React.FC<SalaryCardProps> = (props) => {
                         days Left
                     </Text>
                     <Text>
-                        {props._daysLeft}
+                        {SalaryInfoStateUI?.daysLeft}
                     </Text>
                 </HContainer>
             </Card>
