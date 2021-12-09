@@ -7,8 +7,7 @@ import { HiDotsVertical } from 'react-icons/hi'
 import { MdOutlineDisabledVisible } from 'react-icons/md'
 import Text from 'components/ui/typography/Text'
 import { useState } from 'react'
-import InputTextForm from 'components/ui/Controls/Inputs/InputTextForm'
-import MoneyInput from 'components/ui/Controls/Inputs/MoneyInput/MoneyInput'
+
 const ImpulseController = () => {
    
     return (
@@ -18,8 +17,7 @@ const ImpulseController = () => {
             <Text> Impulse Control</Text>
                 <HiDotsVertical style={{ 'cursor': 'pointer' }} />
             </HContainer>
-            <MoneyInput/>
-
+            {/* <MoneyInput></MoneyInput> */}
             {/* <VContainer>
                 <VContainer>
                     <InputTextForm
@@ -31,6 +29,8 @@ const ImpulseController = () => {
         </Card>
     )
 }
+
+
 
 export default ImpulseController
 

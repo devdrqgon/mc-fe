@@ -1,7 +1,6 @@
     import ArtisticTitle from 'components/ui/typography/ArtisticTitle'
 import React, { useContext, useEffect } from 'react'
 import Text from 'components/ui/typography/Text'
-import InputTextForm, { InputTypes } from 'components/ui/Controls/Inputs/InputTextForm'
 import HSpacer from 'components/ui/Layout/HSpacer'
 import CardButton from 'components/ui/Controls/Buttons/CardButtons'
 import { Link, useHistory } from 'react-router-dom'
@@ -12,6 +11,7 @@ import toast from 'react-hot-toast'
 import ModalPortal from 'components/ui/Modal/PortalModal'
 import ModalChild from 'components/ui/Modal/ModalChild'
 import VContainer from 'components/ui/Layout/VContainer'
+import InputTextForm, { InputTypes } from 'components/ui/Controls/Inputs/InputTextForm'
 
 const SignInModal = () => {
 
@@ -92,6 +92,7 @@ const SignInModal = () => {
                         <HSpacer />
                         <h1>Sign In</h1>
                         <HSpacer />
+                        
                         <InputTextForm _onChangeCallback={onChangeUsername} _label={'username'} />
                         <HSpacer _space={5} />
 

@@ -102,7 +102,7 @@ const Dashboard = (props: { _username: string, _token: string }) => {
                         </GridItem>
 
                         <GridItem>
-                            <NewCard>
+                            <NewCard> 
                                 <SavingPlanCard
                                     _userMinBudget={userInfo!.weeklyBudget?.limit! / 7}
                                     _currentDailyBudget={MoneyHelpers.calculateDailyBudget(

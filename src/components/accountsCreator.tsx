@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react"
-import MoneyInput from "./ui/Controls/Inputs/MoneyInput/MoneyInput";
 import VContainer from "./ui/Layout/VContainer"
 
 
@@ -73,7 +72,7 @@ const AccountsCreator: React.FC<AccountsProps> = ({ _handleChangeCallback }) => 
                     <h6>
                         Main Account
                     </h6>
-                    <MoneyInput/>
+                    {/* <MoneyInput/> */}
                     <input
                         ref={mainInputRef}
                         onChange={(valueString) => onMainChanged(parse(valueString))}
