@@ -1,13 +1,14 @@
 import { UserContext } from 'contextProviders/user.context';
-import SignInModal from 'features/auth/SignInModal';
-import SignUpModal from 'features/auth/SignUpModal';
+import SignInCard from 'features/auth/SignInCard';
+import SignUpCard from 'features/auth/SignUpCard';
 import React, { useContext, useEffect, useState } from 'react'
 import HeaderContainer, { Btn, BtnGray, Left, Right } from './Header.styled'
 import Switch from 'react-switch'
 import { ThemeContext } from 'styled-components';
 import ArtisticTitle from 'components/ui/typography/ArtisticTitle';
+import { ModalContext } from 'contextProviders/modal.provider';
 
-
+import Modal from 'components/ui/Modal/Modal'
 
 /**
  * 
@@ -30,23 +31,17 @@ const NewHeader: React.FC<Props> = (props) => {
     const [modalContent, setmodelContent] = useState<JSX.Element>()
     const { colors, title } = useContext(ThemeContext)
 
+    const { openModal } = useContext(ModalContext)
     useEffect(() => {
         return
     }, [authenticated, modalContent])
     const onSignUpClick = () => {
-        setmodelContent(
-            <>
-                <SignUpModal />
-            </>
-        )
+
+        openModal(<SignUpCard />)
     }
 
     const onSignInClick = () => {
-        setmodelContent(
-            <>
-                <SignInModal />
-            </>
-        )
+        openModal(<SignInCard />)
     }
 
 
@@ -91,7 +86,9 @@ const NewHeader: React.FC<Props> = (props) => {
                     }
                 </Right>
             </HeaderContainer>
-            {modalContent}
+            <Modal>
+                <h1> You fucking genius </h1>
+            </Modal>
         </>
     )
 }

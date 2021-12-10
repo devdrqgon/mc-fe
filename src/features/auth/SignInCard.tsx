@@ -1,4 +1,4 @@
-    import ArtisticTitle from 'components/ui/typography/ArtisticTitle'
+import ArtisticTitle from 'components/ui/typography/ArtisticTitle'
 import React, { useContext, useEffect } from 'react'
 import Text from 'components/ui/typography/Text'
 import HSpacer from 'components/ui/Layout/HSpacer'
@@ -13,7 +13,7 @@ import ModalChild from 'components/ui/Modal/ModalChild'
 import VContainer from 'components/ui/Layout/VContainer'
 import InputTextForm, { InputTypes } from 'components/ui/Controls/Inputs/InputTextForm'
 
-const SignInModal = () => {
+const SignInCard = () => {
 
 
     const { login } = useContext(UserContext);
@@ -81,36 +81,32 @@ const SignInModal = () => {
     }
 
     useEffect(() => {
-      
+
 
     }, [modalOpen])
     return (
         <>
-            <ModalPortal modalOpen={modalOpen}>
-                <ModalChild _onCloseClickCallback={onClosedClicked}>
-                    <VContainer>
-                        <HSpacer />
-                        <h1>Sign In</h1>
-                        <HSpacer />
-                        
-                        <InputTextForm _onChangeCallback={onChangeUsername} _label={'username'} />
-                        <HSpacer _space={5} />
+            <VContainer>
+                <HSpacer />
+                <h1>Sign In</h1>
+                <HSpacer />
 
-                        <InputTextForm
-                            _onChangeCallback={onChangePassword}
-                            _type={InputTypes.password}
-                            _label={'password'} />
-                        <HSpacer _space={10} ></HSpacer>
-                        <CardButton
-                            onClick={loginClicked}>
-                            Sign In
-                        </CardButton>
-                    </VContainer>
-                </ModalChild>
-            </ModalPortal>
+                <InputTextForm _onChangeCallback={onChangeUsername} _label={'username'} />
+                <HSpacer _space={5} />
+
+                <InputTextForm
+                    _onChangeCallback={onChangePassword}
+                    _type={InputTypes.password}
+                    _label={'password'} />
+                <HSpacer _space={10} ></HSpacer>
+                <CardButton
+                    onClick={loginClicked}>
+                    Sign In
+                </CardButton>
+            </VContainer>
 
         </>
     )
 }
 
-export default SignInModal
+export default SignInCard

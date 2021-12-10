@@ -1,5 +1,6 @@
 
 import NewHeader from 'components/header/Header'
+import ModalProvider from 'contextProviders/modal.provider'
 import { UserContext } from 'contextProviders/user.context'
 import Dashboard from 'features/Dashboard'
 import DashboardConnected from 'features/DashboardConnected'
@@ -31,28 +32,31 @@ export const App = () => {
     return (
         <ThemeProvider theme={theme}>
             <GlobalStyle />
-            <NewHeader _toggletheme={toggleTheme} />
-            {tokenValid && authenticated ?
-                <>
-                    <Switch>
-                        <Route path="/" exact component={DashboardConnected}/>
-                        <Route path="/newuser" exact
-                            render={(props) => (
-                                <NewUserWizard
-                                    _username={localStorage.getItem('username')!}
-                                    _token={`Bearer ${localStorage.getItem('token')!}`}
-                                />
-                            )}
-                        />
-                        <Route path="/olduser" exact component={DashboardConnected}/>
-                        <Route render={() => <> PageNotFound </>} />
-                    </Switch>
-                </>
-                :
-                <>
+            <ModalProvider>
+                <NewHeader _toggletheme={toggleTheme} />
+                {tokenValid && authenticated ?
+                    <>
+                        <Switch>
+                            <Route path="/" exact component={DashboardConnected} />
+                            <Route path="/newuser" exact
+                                render={(props) => (
+                                    <NewUserWizard
+                                        _username={localStorage.getItem('username')!}
+                                        _token={`Bearer ${localStorage.getItem('token')!}`}
+                                    />
+                                )}
+                            />
+                            <Route path="/olduser" exact component={DashboardConnected} />
+                            <Route render={() => <> PageNotFound </>} />
+                        </Switch>
+                    </>
+                    :
+                    <>
 
-                </>
-            }
+                    </>
+                }
+            </ModalProvider>
+
         </ThemeProvider>
     )
 }

@@ -13,7 +13,7 @@ import ModalPortal from 'components/ui/Modal/PortalModal'
 
 
 
-const SignUpModal = () => {
+const SignUpCard = () => {
     const [username, setUsername] = React.useState<string>('')
     const [password, setPassword] = React.useState<string>('')
     const [modalOpen, setModalOpen] = React.useState(true);
@@ -59,25 +59,21 @@ const SignUpModal = () => {
     }, [modalOpen])
     return (
         <>
-            <ModalPortal modalOpen={modalOpen}>
-                <ModalChild _onCloseClickCallback={onClosedClicked} >
-                    <VContainer>
-                        <HSpacer />
-                        <h1>Sign Up</h1>
-                        <HSpacer />
-                        <InputTextForm _onChangeCallback={onChangeUsername} _label={'username'} />
-                        <HSpacer _space={5} />
-                        <InputTextForm _type={InputTypes.password} _onChangeCallback={onChangePassword} _label={'password'} />
-                        <HSpacer _space={10} ></HSpacer>
-                        <CardButton onClick={registerClicked}>
-                            Sign Up
-                        </CardButton>
-                    </VContainer>
-                </ModalChild>
-            </ModalPortal>
+            <VContainer>
+                <HSpacer />
+                <h1>Sign Up</h1>
+                <HSpacer />
+                <InputTextForm _onChangeCallback={onChangeUsername} _label={'username'} />
+                <HSpacer _space={5} />
+                <InputTextForm _type={InputTypes.password} _onChangeCallback={onChangePassword} _label={'password'} />
+                <HSpacer _space={10} ></HSpacer>
+                <CardButton onClick={registerClicked}>
+                    Sign Up
+                </CardButton>
+            </VContainer>
 
         </>
     )
 }
 
-export default SignUpModal
+export default SignUpCard
