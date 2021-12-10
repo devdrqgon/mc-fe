@@ -1,17 +1,10 @@
 import axios, { AxiosResponse } from 'axios';
 import { BillsHelpers, DateHelpers, MoneyHelpers } from 'features/lib';
 import React, { useContext, useEffect, useState } from 'react'
-import { AccountsInfo, UserInfoResponse } from 'react-app-env';
+import {  UserInfoResponse } from 'react-app-env';
+import { IDashboardContext, BudgetStateUI, SalaryInfoStateUI , SavingPlanStateUI } from './types.dashboardContext';
 import { UserContext } from './user.context';
 
-
-export interface IDashboardContext {
-    userInfo: UserInfoResponse | null,
-    netto: number | null,
-    BudgetStateUI: BudgetStateUI | null,
-    SalaryInfoStateUI: SalaryInfoStateUI | null,
-    SavingPlanStateUI: SavingPlanStateUI | null
-}
 
 /** Initial State */
 export const DashboardContext = React.createContext<IDashboardContext>({
@@ -23,22 +16,6 @@ export const DashboardContext = React.createContext<IDashboardContext>({
 
 });
 
-
-interface BudgetStateUI {
-    weekly: number,
-    daily: number
-}
-
-interface SalaryInfoStateUI {
-    amount: number,
-    daysLeft: number
-}
-
-interface SavingPlanStateUI {
-    userMinBudget: number,
-    currentDailyBUdget: number,
-    daysTillNxtSalary: number
-}
 const DashboardProvider: React.FC = ({ children }) => {
     const { user, token } = useContext(UserContext);
 
