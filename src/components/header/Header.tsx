@@ -50,9 +50,6 @@ const NewHeader: React.FC<Props> = (props) => {
     }
 
 
-    useEffect(() => {
-
-    }, [modalContent])
     return (
         <>
             <HeaderContainer>
