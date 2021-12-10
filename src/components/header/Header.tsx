@@ -1,4 +1,4 @@
-import { UserContext } from 'contexts/user.context';
+import { UserContext } from 'contextProviders/user.context';
 import SignInModal from 'features/auth/SignInModal';
 import SignUpModal from 'features/auth/SignUpModal';
 import React, { useContext, useEffect, useState } from 'react'

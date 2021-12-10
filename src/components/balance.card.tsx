@@ -9,7 +9,7 @@ import HContainer from "./ui/Layout/HContainer"
 import Text from 'components/ui/typography/Text'
 import HSpacer from "./ui/Layout/HSpacer"
 import { useContext, useEffect } from "react"
-import { DashboardContext } from "contexts/dashboard.context"
+import { DashboardContext } from "contextProviders/dashboard.provider"
 
 
 const BalanceCard: React.FC= () => {

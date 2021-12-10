@@ -1,17 +1,10 @@
 import axios, { AxiosResponse } from 'axios';
 import { BillsHelpers, DateHelpers, MoneyHelpers } from 'features/lib';
 import React, { useContext, useEffect, useState } from 'react'
-import { AccountsInfo, UserInfoResponse } from 'react-app-env';
+import {  UserInfoResponse } from 'react-app-env';
+import { IDashboardContext, BudgetStateUI, SalaryInfoStateUI , SavingPlanStateUI } from './types.dashboardContext';
 import { UserContext } from './user.context';
 
-
-export interface IDashboardContext {
-    userInfo: UserInfoResponse | null,
-    netto: number | null,
-    BudgetStateUI: BudgetStateUI | null,
-    SalaryInfoStateUI: SalaryInfoStateUI | null,
-    SavingPlanStateUI: SavingPlanStateUI | null
-}
 
 /** Initial State */
 export const DashboardContext = React.createContext<IDashboardContext>({
@@ -23,38 +16,23 @@ export const DashboardContext = React.createContext<IDashboardContext>({
 
 });
 
-
-interface BudgetStateUI {
-    weekly: number,
-    daily: number
-}
-
-interface SalaryInfoStateUI {
-    amount: number,
-    daysLeft: number
-}
-
-interface SavingPlanStateUI {
-    userMinBudget: number,
-    currentDailyBUdget: number,
-    daysTillNxtSalary: number
-}
 const DashboardProvider: React.FC = ({ children }) => {
     const { user, token } = useContext(UserContext);
 
+    //State Context 
     const [BudgetStateUI, setBudgetStateUI] = useState<BudgetStateUI | null>(null)
     const [SalaryInfoStateUI, setSalaryInfoStateUI] = useState<SalaryInfoStateUI | null>(null)
     const [SavingPlanStateUI, setSavingPlanStateUI] = useState<SavingPlanStateUI | null>(null)
-
     const [userInfo, setuserInfo] = useState<null | UserInfoResponse>(null)
     const [netto, setNetto] = useState<null | number>(null)
+
     const getUserInfo = async () => {
         try {
             const response: AxiosResponse<any, any> = await axios({
                 method: 'GET',
-                url: `http://localhost:8000/users/info/${localStorage.getItem('username')}`,
+                url: `http://localhost:8000/users/info/${user}`,
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`!
+                    Authorization: `Bearer ${token}`!
                 },
             })
             if (response.status === 200) {
@@ -93,15 +71,18 @@ const DashboardProvider: React.FC = ({ children }) => {
         }
     }
     /** If u wanna change values here from consumers 
-     * declare functions here or hhoks that consumers can import and use 
+     * declare functions here or hhoks that consumers can import and in iclude them on value obj of Provider  
      */
     const changeNetto = (_newNetto: number | null) => {
         setNetto(_newNetto)
     }
 
     useEffect(() => {
-        getUserInfo()
-    }, [])
+        if(user !== null && token !== null){
+            getUserInfo()
+        }
+       
+    }, [user,token])
     return (
         <DashboardContext.Provider value={{ userInfo, netto, BudgetStateUI, SalaryInfoStateUI, SavingPlanStateUI }}>
             {children}

@@ -9,7 +9,7 @@ import SavingPlanCreator from './savingPlanCreator'
 import HContainer from 'components/ui/Layout/HContainer'
 import { AlignmentOptions } from 'components/ui/Layout'
 import Text from 'components/ui/typography/Text'
-import { DashboardContext } from 'contexts/dashboard.context'
+import { DashboardContext } from 'contextProviders/dashboard.provider'
 
 const SavingPlanCard: React.FC = () => {
     const [modalOpen, setModalOpen] = useState(false);

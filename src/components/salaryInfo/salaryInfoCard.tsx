@@ -8,7 +8,7 @@ import Card from "components/ui/Layout/Card/Card"
 import VContainer from "components/ui/Layout/VContainer"
 import Text from 'components/ui/typography/Text'
 import HSpacer from "components/ui/Layout/HSpacer"
-import { DashboardContext } from "contexts/dashboard.context"
+import { DashboardContext } from "contextProviders/dashboard.provider"
 
 
 const SalaryCard: React.FC = () => {

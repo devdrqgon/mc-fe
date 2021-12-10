@@ -1,7 +1,9 @@
 
 import NewHeader from 'components/header/Header'
-import { UserContext } from 'contexts/user.context'
+import { UserContext } from 'contextProviders/user.context'
 import Dashboard from 'features/Dashboard'
+import DashboardConnected from 'features/DashboardConnected'
+import DashboardShell from 'features/DashboardConnected'
 import NewUserWizard from 'features/newUserWizard'
 import TestPageRouter from 'features/testLab/TestPageRouter'
 import { useContext } from 'react'
@@ -33,14 +35,7 @@ export const App = () => {
             {tokenValid && authenticated ?
                 <>
                     <Switch>
-                        <Route path="/" exact
-                            render={(props) => (
-                                <Dashboard
-                                    _username={localStorage.getItem('username')!}
-                                    _token={`Bearer ${localStorage.getItem('token')!}`}
-                                />
-                            )}
-                        />
+                        <Route path="/" exact component={DashboardConnected}/>
                         <Route path="/newuser" exact
                             render={(props) => (
                                 <NewUserWizard
@@ -49,14 +44,7 @@ export const App = () => {
                                 />
                             )}
                         />
-                        <Route path="/olduser" exact
-                            render={(props) => (
-                                <Dashboard
-                                    _username={localStorage.getItem('username')!}
-                                    _token={`Bearer ${localStorage.getItem('token')!}`}
-                                />
-                            )}
-                        />
+                        <Route path="/olduser" exact component={DashboardConnected}/>
                         <Route render={() => <> PageNotFound </>} />
                     </Switch>
                 </>
