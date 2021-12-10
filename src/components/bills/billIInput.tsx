@@ -15,23 +15,46 @@ interface BillCreatorProps {
 
 
 const BillInput: React.FC<BillCreatorProps> = ({ _username, handleBillCallback }) => {
-    const billNameRef = useRef<HTMLInputElement>(null)
-    const billWhenRef = useRef<HTMLInputElement>(null)
-    const billCostRef = useRef<HTMLInputElement>(null)
-
-    const [newBillFlag, setnewBillFlag] = useState(false)
 
 
-    const addBillClicked = () => {
-        const _bill: Bill = {
-            billName: billNameRef.current!.value! as string,
-            username: _username,
-            paid: newBillFlag,
-            cost: billCostRef.current!.value as unknown as number,
-            when: billWhenRef.current!.value as unknown as number,
+    const [isPaidBill, setIsPaidBill] = useState(false)
+
+
+    const [cost, setCost] = useState<null | number>(null)
+    const [name, setName] = useState<null | string>(null)
+    const [when, setWhen] = useState<null | number>(null)
+
+
+
+    const onAddBillClicked = () => {
+        if (cost && name && when) {
+            handleBillCallback!({
+                billName: name,
+                username: _username,
+                paid: isPaidBill,
+                cost: cost,
+                when
+            })
         }
-        if (handleBillCallback) { handleBillCallback(_bill) }
     }
+
+
+
+    const onCostChanged = (_newCost: number) => {
+        setCost(_newCost)
+    }
+    const onNameChanged = (_newName: string) => {
+        setName(_newName)
+    }
+    const onWhenChanged = (_newName: number) => {
+        setWhen(_newName)
+    }
+
+    
+    useEffect(() => {
+       
+    }, [])
+
 
 
 
@@ -44,8 +67,9 @@ const BillInput: React.FC<BillCreatorProps> = ({ _username, handleBillCallback }
                         <h6>
                             Name
                         </h6>
-                        <input type="text"
-                            ref={billNameRef}
+                        <input
+                            onChange={(valueString: React.ChangeEvent<HTMLInputElement>) => onNameChanged(valueString.target.value)}
+                            value={name ? name : ''}
                         />
                     </VContainer>
                     <HContainer justifyContent={AlignmentOptions.spaceBetween}>
@@ -54,14 +78,21 @@ const BillInput: React.FC<BillCreatorProps> = ({ _username, handleBillCallback }
                                 <h6>
                                     Cost
                                 </h6>
-                                <input type="number" ref={billCostRef} />
+                                <input
+                                    type="number"
+                                    onChange={(valueString: React.ChangeEvent<HTMLInputElement>) => onCostChanged(parseFloat(valueString.target.value))}
+                                    value={cost ? cost : ''}
+                                />
                             </VContainer>
                             <VContainer>
                                 <h6 >
                                     When
                                 </h6>
-                                <input type="number" defaultValue={1} min={1} max={31} />
-
+                                <input
+                                    type="number"
+                                    onChange={(valueString: React.ChangeEvent<HTMLInputElement>) => onWhenChanged(parseFloat(valueString.target.value))}
+                                    value={when ? when : ''}
+                                />
                             </VContainer>
                             <VContainer
 
@@ -71,14 +102,14 @@ const BillInput: React.FC<BillCreatorProps> = ({ _username, handleBillCallback }
                                     Already paid
 
                                 </h1>
-                                <input type="checkbox" onChange={() => setnewBillFlag(!newBillFlag)} />
+                                <input type="checkbox" onChange={() => setIsPaidBill(!isPaidBill)} />
 
                             </VContainer>
                         </HContainer>
                         <HContainer>
                             <VContainer>
                                 <CardButton
-                                    onClick={addBillClicked}> + </CardButton>
+                                    onClick={handleBillCallback? () => onAddBillClicked() : () => {}}> + </CardButton>
                             </VContainer>
                         </HContainer>
                     </HContainer>

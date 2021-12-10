@@ -14,6 +14,8 @@ import VContainer from "components/ui/Layout/VContainer";
 import CardButton from "components/ui/Controls/Buttons/CardButtons";
 import Card from "components/ui/Layout/Card/Card";
 import Steps from "./Steps";
+import BillItem from "components/bills/BillItem";
+import HContainer from "components/ui/Layout/HContainer";
 
 
 interface NewUserWizardProps {
@@ -51,35 +53,25 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
     }
 
     //bills
-    const [uiBills, setUIBills] = useState<Array<Bill>>([])
-    const [_billsJSX, set_billsJSX] = useState<JSX.Element[]>([])
+    const [uiBills, setUIBills] = useState<Bill[]>([])
 
     const handleNewBillCallback = (_bill: Bill) => {
-        setUIBills(() => [_bill, ...uiBills])
-        set_billsJSX(
-            [
-                <>
-                    <div
-                        style={{
-                            display: 'flex',
-                            justifyContent: 'space-around'
-                        }}>
-                        <div>
-                            {_bill.billName}
-                        </div>
-                        <div>
-                            {_bill.cost}
-                        </div>
-                    </div>
-                </>,
-                ..._billsJSX
-            ]
-        )
+        setUIBills([...uiBills, _bill])
+
     }
     const calculateBudget = (food: number, others: number) => {
-        return ( food + others)
+        return (food + others)
     }
-
+    const convertBillItemToMotionJSXItems = (_objects: any[]) => {
+        let _output: JSX.Element[] = []
+        _objects.forEach(element => {
+            _output.push(
+                <BillItem
+                    _bill={element as Bill} />
+            )
+        })
+        return _output
+    }
 
     //UI Behaviour
     const steps: Array<{
@@ -97,14 +89,33 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
                                 <BillInput _username={localStorage.getItem('username')!} handleBillCallback={handleNewBillCallback} />
                             </div>
                             <div>
-                                <Motionlist _items={_billsJSX}></Motionlist>
+                                {/* <Motionlist _items={convertBillItemToMotionJSXItems(uiBills)}></Motionlist> */}
+                                {uiBills.length > 0 ?
+
+                                    <VContainer>
+                                        {uiBills.map((item, i) => (
+                                            <HContainer key={i}>
+                                                <div>
+                                                    {item.billName}
+                                                </div>
+                                                <div>
+                                                    {item.cost}
+                                                </div>
+                                                <div>
+                                                    {item.when}
+                                                </div>
+                                            </HContainer>
+                                        ))}
+                                    </VContainer> :
+                                    <h1> Empty</h1>
+                                }
                             </div>
                         </VContainer>
                     </>
             }
         ]
 
- 
+
     const [afterSubmitModalBody, setAfterSubmitModalBody] = useState<React.ReactNode>(
         <VContainer>
             <Card>
@@ -127,7 +138,7 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
         }, 500)
 
     }
-    
+
 
     const callBE = async () => {
         try {
@@ -178,12 +189,12 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
 
     useEffect(() => {
         setModalOpen(true)
-    }, [afterSubmitModalBody])
+    }, [])
     return (
         <>
-           <ModalPortal modalOpen={modalOpen}>
+            <ModalPortal modalOpen={modalOpen}>
                 <ModalChild _onCloseClickCallback={setModalOpen} >
-                    <Steps _submitCallback={submitInitUserInfo} _steps={steps}/>
+                    <Steps _submitCallback={submitInitUserInfo} _steps={steps} />
                 </ModalChild>
             </ModalPortal>
         </>
