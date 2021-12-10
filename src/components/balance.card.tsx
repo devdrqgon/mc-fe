@@ -8,14 +8,16 @@ import Card from "./ui/Layout/Card/Card"
 import HContainer from "./ui/Layout/HContainer"
 import Text from 'components/ui/typography/Text'
 import HSpacer from "./ui/Layout/HSpacer"
+import { useContext, useEffect } from "react"
+import { DashboardContext } from "contexts/dashboard.context"
 
 
-interface BalanceCardProps {
-    _mainAccountTotalBalance: number
-    _nett: number
-    _unpaidBills: number
-}
-const BalanceCard: React.FC<BalanceCardProps> = (props) => {
+const BalanceCard: React.FC= () => {
+    
+    const { userInfo , netto} = useContext(DashboardContext);
+
+    useEffect(() => {
+    }, [userInfo,netto])
     return (
         <>
             <Card
@@ -33,7 +35,7 @@ const BalanceCard: React.FC<BalanceCardProps> = (props) => {
                         Main
                     </Text>
                     <Text>
-                        €{props._mainAccountTotalBalance.toFixed(1)}
+                        €{userInfo?.accounts[0].balance.toFixed(1)}
                     </Text>
                 </HContainer>
                 <HSpacer _space={6} />
@@ -44,7 +46,7 @@ const BalanceCard: React.FC<BalanceCardProps> = (props) => {
                         Nett
                     </Text>
                     <Text>
-                        € {props._nett.toFixed(1)}
+                        € {netto?.toFixed(1)}
                     </Text>
                 </HContainer>
             </Card>

@@ -4,19 +4,16 @@ import Card from 'components/ui/Layout/Card/Card'
 import CardButton from 'components/ui/Controls/Buttons/CardButtons'
 import ModalChild from 'components/ui/Modal/ModalChild'
 import ModalPortal from 'components/ui/Modal/PortalModal'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import SavingPlanCreator from './savingPlanCreator'
 import HContainer from 'components/ui/Layout/HContainer'
 import { AlignmentOptions } from 'components/ui/Layout'
 import Text from 'components/ui/typography/Text'
+import { DashboardContext } from 'contexts/dashboard.context'
 
-interface Props {
-    _userMinBudget: number,
-    _currentDailyBudget: number,
-    _daysTillNxtSalary: number
-}
-const SavingPlanCard: React.FC<Props> = (props) => {
+const SavingPlanCard: React.FC = () => {
     const [modalOpen, setModalOpen] = useState(false);
+    const { SavingPlanStateUI } = useContext(DashboardContext)
 
     return (
         <>
@@ -33,11 +30,16 @@ const SavingPlanCard: React.FC<Props> = (props) => {
             </Card>
             <ModalPortal modalOpen={modalOpen}>
                 <ModalChild _onCloseClickCallback={setModalOpen} >
-                    <SavingPlanCreator
-                        _userMinBudget={props._userMinBudget}
-                        _currentDailyBudget={props._currentDailyBudget}
-                        _daysTillNxtSalary={props._daysTillNxtSalary}
-                    />
+                    <>
+                        {SavingPlanStateUI === null ?
+                            <> </>
+                            :
+                            <SavingPlanCreator
+                                _userMinBudget={SavingPlanStateUI?.userMinBudget}
+                                _currentDailyBudget={SavingPlanStateUI?.currentDailyBUdget}
+                                _daysTillNxtSalary={SavingPlanStateUI?.daysTillNxtSalary}
+                            />}
+                    </>
                 </ModalChild>
             </ModalPortal>
         </>
