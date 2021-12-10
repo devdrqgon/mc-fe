@@ -23,42 +23,35 @@ const AccountsCreator: React.FC<AccountsProps> = ({ _handleChangeCallback }) => 
         return reg.test(_Candidate)
     }
 
-    const mainInputRef = useRef<HTMLInputElement>(null)
+    const [mainBalance, setMainBalance] = useState<null | number>(null)
+    const [savingBalance, setSavingBalance] = useState<null | number>(null)
 
-
-    const [mainBalance, setMainBalance] = useState('0')
-    const [savingBalance, setSavingBalance] = useState('0')
-
-    const format = (val: any) => `€` + val
-    const parse = (val: any) => val.replace(/^\€/, "")
 
 
     const onDataChanged = () => {
-        // get main balance
-        const m = parse(mainBalance)
-        const s = parse(savingBalance)
-        _handleChangeCallback!([
-            {
-                accountType: AccountType.main,
-                balance: parseFloat(m),
-                active: true
-            },
-            {
-                accountType: AccountType.saving,
-                balance: parseFloat(s),
-                active: true
-            }
-        ])
+        if (mainBalance && savingBalance) {
+            _handleChangeCallback!([
+                {
+                    accountType: AccountType.main,
+                    balance: mainBalance,
+                    active: true
+                },
+                {
+                    accountType: AccountType.saving,
+                    balance: savingBalance,
+                    active: true
+                }
+            ])
+        }
     }
 
-    const onMainChanged = (_newMain: string) => {
-        regExValidator(_newMain)
+    const onMainChanged = (_newMain: number) => {
         setMainBalance(_newMain)
     }
 
-
-    const onSavingChanged = (_newSaving: string) => {
-        setSavingBalance(_newSaving)
+    
+    const onSavingChanged = (_newMain: number) => {
+        setSavingBalance(_newMain)
     }
 
     useEffect(() => {
@@ -74,9 +67,9 @@ const AccountsCreator: React.FC<AccountsProps> = ({ _handleChangeCallback }) => 
                     </h6>
                     {/* <MoneyInput/> */}
                     <input
-                        ref={mainInputRef}
-                        onChange={(valueString) => onMainChanged(parse(valueString))}
-                        value={format(mainBalance)}
+                        type="number"
+                        onChange={(valueString: React.ChangeEvent<HTMLInputElement>) => onMainChanged(parseFloat(valueString.target.value))}
+                        value={mainBalance ? mainBalance : ''}
                     />
 
                 </VContainer>
@@ -84,9 +77,10 @@ const AccountsCreator: React.FC<AccountsProps> = ({ _handleChangeCallback }) => 
                     <h6>
                         Saving Account
                     </h6>
-                    <input type="number"
-                        onChange={(valueString) => onSavingChanged(parse(valueString))}
-                        value={format(savingBalance)}
+                    <input
+                        type="number"
+                        onChange={(valueString: React.ChangeEvent<HTMLInputElement>) => onSavingChanged(parseFloat(valueString.target.value))}
+                        value={savingBalance ? savingBalance : ''}
                     />
                 </VContainer>
             </VContainer>
@@ -95,3 +89,10 @@ const AccountsCreator: React.FC<AccountsProps> = ({ _handleChangeCallback }) => 
 }
 
 export default AccountsCreator
+
+
+//backup
+
+
+// const format = (val: any) => `€` + val
+// const parse = (val: any) => val.replace(/^\€/, "")

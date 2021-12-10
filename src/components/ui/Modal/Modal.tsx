@@ -11,9 +11,9 @@ const Portal: React.FC = ({ children }) => {
     useEffect(() => {
         modalRoot!.appendChild(docElement)
     }, []);
-    useEffect(() => {
-        return () => { modalRoot!.removeChild(docElement) }
-    });
+    // useEffect(() => {
+    //     return () => { modalRoot!.removeChild(docElement) }
+    // });
     return createPortal(children, docElement)
 }
 

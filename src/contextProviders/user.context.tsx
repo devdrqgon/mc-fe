@@ -8,7 +8,6 @@ import { useHistory } from 'react-router';
 export interface IUserContext {
   user: string | null;
   token: string | null;
-  tokenValid: boolean,
   authenticated: boolean,
   login: (_username: string, _token: string) => void,
   logout: () => void
@@ -17,7 +16,6 @@ export interface IUserContext {
 export const UserContext = React.createContext<IUserContext>({
   user: null,
   token: null,
-  tokenValid: false,
   authenticated: false,
   login: (_username: string, _token: string) => { },
   logout: () => { }
@@ -27,22 +25,18 @@ export const UserContext = React.createContext<IUserContext>({
 const UserProvider: React.FC = ({ children }) => {
   const [user, setUser] = React.useState<string | null>(null)
   const [token, setToken] = React.useState<string | null>(null)
-  const [tokenValid, setTokenValid] = React.useState(false)
   const [authenticated, setAuthenticated] = React.useState(false)
-  const history = useHistory()
 
   useEffect(() => {
     async function validatetoken(token: string, username: string) {
       const result = await authUtils.StoredTokenIsValid(token)
       if (result) {
         logging.info("UserProvider", "Token verified by backend!");
-        setTokenValid(true)
         setAuthenticated(true)
         login(username, token)
       }
       else {
         logging.info("UserProvider", "Token Declined  by backend!");
-        setTokenValid(false)
         setAuthenticated(false)
         logout()
 
@@ -65,7 +59,6 @@ const UserProvider: React.FC = ({ children }) => {
   const login = (_username: string, _token: string) => {
     setUser(_username)
     setToken(_token)
-    setTokenValid(true)
     localStorage.setItem('token', _token)
     localStorage.setItem('username', _username)
     setAuthenticated(true)
@@ -75,7 +68,6 @@ const UserProvider: React.FC = ({ children }) => {
   const logout = () => {
     setUser(null)
     setToken(null)
-    setTokenValid(false)
     localStorage.removeItem('token')
     localStorage.removeItem('username')
     setAuthenticated(false)
@@ -83,7 +75,7 @@ const UserProvider: React.FC = ({ children }) => {
   }
 
   return (
-    <UserContext.Provider value={{ user, token, tokenValid, authenticated, login, logout }}>
+    <UserContext.Provider value={{ user, token, authenticated, login, logout }}>
       {children}
     </UserContext.Provider>
   );

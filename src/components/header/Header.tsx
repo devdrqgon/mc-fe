@@ -27,7 +27,7 @@ interface Props {
     _toggletheme(): void
 }
 const NewHeader: React.FC<Props> = (props) => {
-    const { user, token, tokenValid, login, logout, authenticated } = useContext(UserContext);
+    const {  logout, authenticated } = useContext(UserContext);
     const [modalContent, setmodelContent] = useState<JSX.Element>()
     const { colors, title } = useContext(ThemeContext)
 
@@ -86,9 +86,6 @@ const NewHeader: React.FC<Props> = (props) => {
                     }
                 </Right>
             </HeaderContainer>
-            <Modal>
-                <h1> You fucking genius </h1>
-            </Modal>
         </>
     )
 }

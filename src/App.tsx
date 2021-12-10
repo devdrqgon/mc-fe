@@ -1,5 +1,6 @@
 
 import NewHeader from 'components/header/Header'
+import Modal from 'components/ui/Modal/Modal'
 import ModalProvider from 'contextProviders/modal.provider'
 import { UserContext } from 'contextProviders/user.context'
 import Dashboard from 'features/Dashboard'
@@ -21,7 +22,7 @@ export const App = () => {
         setTheme(theme.title === 'light' ? dark : light)
     }
     const history = useHistory()
-    const { tokenValid, authenticated } = useContext(UserContext);
+    const {  authenticated } = useContext(UserContext);
 
 
     if (history.location.pathname.includes("/test")) {
@@ -33,8 +34,9 @@ export const App = () => {
         <ThemeProvider theme={theme}>
             <GlobalStyle />
             <ModalProvider>
+                <Modal />
                 <NewHeader _toggletheme={toggleTheme} />
-                {tokenValid && authenticated ?
+                {authenticated ?
                     <>
                         <Switch>
                             <Route path="/" exact component={DashboardConnected} />

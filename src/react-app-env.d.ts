@@ -50,8 +50,8 @@ export interface IGoal {
 
 
 export interface BudgetConfigUI {
-    food: string,
-    others: string
+    food: number,
+    others: number
 }
 
 

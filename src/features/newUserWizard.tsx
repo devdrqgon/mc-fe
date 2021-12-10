@@ -44,7 +44,7 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
     }
     //BudgetConfig
     //hooks
-    const [uiBudgetConfig, setUIBudgetConfig] = useState<BudgetConfigUI>({ food: '0', others: '0' })
+    const [uiBudgetConfig, setUIBudgetConfig] = useState<BudgetConfigUI>({ food: 0, others: 0 })
     //handler 
     const handleEditBudgetConfigCallback = (_c: BudgetConfigUI) => {
         setUIBudgetConfig(_c)
@@ -76,8 +76,8 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
             ]
         )
     }
-    const calculateBudget = (food: string, others: string) => {
-        return (parseFloat(food) + parseFloat(others))
+    const calculateBudget = (food: number, others: number) => {
+        return ( food + others)
     }
 
 
@@ -127,19 +127,7 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
         }, 500)
 
     }
-    // const generateWizardBody = () => {
-    //     return (
-    //         <Steps activeStep={activeStep}>
-    //             {steps.map(({ label, comp }) => (
-    //                 <Step label={label} key={label}>
-    //                     <Card >
-    //                         {comp}
-    //                     </Card>
-    //                 </Step>
-    //             ))}
-    //         </Steps>
-    //     )
-    // }
+    
 
     const callBE = async () => {
         try {
