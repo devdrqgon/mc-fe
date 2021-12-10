@@ -1,7 +1,5 @@
-import { FormControl, FormLabel } from "@chakra-ui/form-control"
-import { SimpleGrid, GridItem, VStack, Heading } from "@chakra-ui/layout"
-import { NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper } from "@chakra-ui/number-input"
-import { parse, format } from "path"
+
+import { VContainer } from "components/ui/Layout/VContainer"
 import { useEffect, useState } from "react"
 import { BudgetConfigUI } from "react-app-env"
 
@@ -32,50 +30,29 @@ const BudgetConfigCreator: React.FC<BudgetConfigProps> = ({ _handleChange }) => 
     }, [food, others])
     return (
         <>
-            <SimpleGrid columns={8}>
-                <GridItem colSpan={8}>
-                    <VStack
-                        w="full"
-                        h="full"
-                        alignItems="flex-start"
-                        spacing={10}
-                        p={10}
-                    >
-                      
+            <VContainer>
+                <VContainer>
+                    <h6>
+                        Food
+                    </h6>
+                    <input type="number"
+                        onChange={(valueString) => setFood(parse(valueString))}
 
-                        <FormControl>
-                            <FormLabel>
-                                Food
-                            </FormLabel>
-                            <NumberInput
-                                onChange={(valueString) => setFood(parse(valueString))}
-                                value={format(food)}
-                            >
-                                <NumberInputField />
-                                <NumberInputStepper>
-                                    <NumberIncrementStepper />
-                                    <NumberDecrementStepper />
-                                </NumberInputStepper>
-                            </NumberInput>
-                        </FormControl>
-                        <FormControl>
-                            <FormLabel>
-                                Other stuff
-                            </FormLabel>
-                            <NumberInput
-                                onChange={(valueString) => setOthers(parse(valueString))}
-                                value={format(others)}
-                            >
-                                <NumberInputField />
-                                <NumberInputStepper>
-                                    <NumberIncrementStepper />
-                                    <NumberDecrementStepper />
-                                </NumberInputStepper>
-                            </NumberInput>
-                        </FormControl>
-                    </VStack>
-                </GridItem>
-            </SimpleGrid>
+                        value={format(food)}
+                    />
+
+                </VContainer>
+                <VContainer>
+                    <h6>
+                       Others
+                    </h6>
+                    <input type="number"
+                        onChange={(valueString) => setOthers(parse(valueString))}
+
+                        value={format(others)}
+                    />
+                </VContainer>
+            </VContainer>
         </>
     )
 }

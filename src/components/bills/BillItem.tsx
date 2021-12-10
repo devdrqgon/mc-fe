@@ -1,7 +1,15 @@
-import { Button, Flex, Spinner, Text } from '@chakra-ui/react'
 import axios, { AxiosResponse } from 'axios'
+import CardButton from 'components/ui/Controls/Buttons/CardButtons'
+import { AlignmentOptions } from 'components/ui/Layout'
+import HContainer from 'components/ui/Layout/HContainer'
 import { useEffect, useState } from 'react'
 import { Bill } from 'react-app-env'
+import Text from 'components/ui/typography/Text'
+import VContainer from 'components/ui/Layout/VContainer'
+import HSpacer from 'components/ui/Layout/HSpacer'
+import VSpacer from 'components/ui/Layout/VSpacer'
+import styled from 'styled-components'
+
 
 const BillItem = (props: { _bill: Bill, _handleMarkAspaid?: () => void }) => {
     const onClickedMarkAsPaid = () => {
@@ -51,75 +59,48 @@ const BillItem = (props: { _bill: Bill, _handleMarkAspaid?: () => void }) => {
     const renderpayBtn = () => {
         // update bill in be 
     }
+
     return (
-        <Flex
-            boxShadow={'xs'}
-            justify="space-between"
-            p={3}>
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-around',
-
-                }}
+        <BilLItemContainer
+        >
+            <VContainer
+                justifyContent={AlignmentOptions.flexStart}
             >
                 <div>
-                    <Text fontSize='xl'> {props._bill.billName}</Text>
-
-
+                    {props._bill.billName}
                 </div>
                 <div>
-                    <Text fontSize='xs' color='gray.500'>bill</Text>
-
+                    €{props._bill.cost.toFixed(1)}
                 </div>
-            </div>
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-around',
-                }}
+
+            </VContainer>
+            <VSpacer _space={15}>
+
+            </VSpacer>
+            <VContainer
+                justifyContent={AlignmentOptions.center}
+                alignItems={AlignmentOptions.center}
+
             >
+                <HSpacer _space={1}></HSpacer>
                 <div>
-                    <Text fontSize='xl'> {props._bill.cost}</Text>
+                    {props._bill.when}
+                </div>
 
-                </div>
-                <div>
-                    <Text fontSize='xs' color='gray.500'>cost</Text>
-                </div>
-            </div>
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-around',
-                }}
-            >
-                <div>
-                    <Text fontSize='xl'> {props._bill.when}</Text>
-                </div>
-                <div>
-                    <Text fontSize='xs' color='gray.500'>  Day of month</Text>
+            </VContainer>
 
-                </div>
-            </div>
+
+
             {props._bill.paid === false ?
                 <>
                     {showLoadingBtn === false ?
-                        <Button w={110} onClick={onClickedMarkAsPaid}>
+                        <CardButton onClick={onClickedMarkAsPaid}>
                             mark as Paid
-                        </Button>
+                        </CardButton>
                         :
-                        <Button w={110} >
-                            <Spinner
-                                thickness="4px"
-                                speed="0.65s"
-                                emptyColor="gray.200"
-                                color="blue.500"
-                                size="sm"
-                            />
-                        </Button>
+                        <CardButton  >
+
+                        </CardButton>
 
                     }
                 </>
@@ -128,8 +109,23 @@ const BillItem = (props: { _bill: Bill, _handleMarkAspaid?: () => void }) => {
 
                 </>
             }
-        </Flex>
+        </BilLItemContainer>
     )
 }
 
 export default BillItem
+
+const BilLItemContainer = styled.div`
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        padding: 2px 2px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: space-between;
+        min-width: 350px;
+        margin: 10px 0;
+        cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 12px 23px rgba(0, 0, 0, 0.23), 0 10px 10px rgba(0, 0, 0, 0.19);
+  }
+`;

@@ -1,9 +1,11 @@
-import { Box, Flex, Heading, VStack } from '@chakra-ui/layout'
-import HInfoDisplayer from 'components/hInfoDisplayer'
 import MotionList from 'components/Motionlist'
+import { AlignmentOptions } from 'components/ui/Layout'
+import HContainer from 'components/ui/Layout/HContainer'
+import VContainer from 'components/ui/Layout/VContainer'
+import VSpacer from 'components/ui/Layout/VSpacer'
+import { BillsHelpers } from 'features/lib'
 import React, { useEffect, useState } from 'react'
 import { Bill } from 'react-app-env'
-import { emitKeypressEvents } from 'readline'
 import BillItem from './BillItem'
 
 
@@ -65,47 +67,23 @@ const ExpandedBillCard: React.FC<ExpandedBillCardProps> = (props) => {
     }, [props._bills])
     return (
         <>
-            <Box
-                boxShadow="base"
+            <HContainer
+
             >
-                <VStack
-                    align="center"
-                    justify="center"
-                >
-                    <Flex mt={10} mb={10} w="full" justify="space-around"
-                    >
-                        <Box>
-                            <HInfoDisplayer _field="Total" _value="320" />
-                        </Box>
-                        <Box>
-                            <HInfoDisplayer _field="Paid" _value="32" />
-                        </Box>
-                        <Box>
-                            <HInfoDisplayer _field="not yet" _value="122" />
-                        </Box>
-                    </Flex>
-                    <Flex w="full" justifyContent="space-around">
-                        <Box boxShadow="base"
-                        >
-                            <VStack>
-                                <Heading size="md">
-                                    Paid
-                                </Heading>
-                                <MotionList _items={convertBillItemToMotionJSXItems(paidBills)} />
-                            </VStack>
-                        </Box>
-                        <Box boxShadow="base"
-                        >
-                            <VStack>
-                                <Heading size="md">
-                                    Not yet
-                                </Heading>
-                                <MotionList _items={convertBillItemToMotionJSXItems(unPaidBills)} />
-                            </VStack>
-                        </Box>
-                    </Flex>
-                </VStack>
-            </Box>
+                <VContainer
+                    justifyContent={AlignmentOptions.center}
+                    alignItems={AlignmentOptions.center}>
+                    <h2> Paid: €{BillsHelpers.getSumAllBills(paidBills).toFixed(1)}</h2>
+                    <MotionList _items={convertBillItemToMotionJSXItems(paidBills)} />
+                </VContainer>
+                <VSpacer _space={10}></VSpacer>
+                <VContainer
+                    justifyContent={AlignmentOptions.center}
+                    alignItems={AlignmentOptions.center}>
+                    <h2> not yet: €{BillsHelpers.getSumAllBills(unPaidBills).toFixed(1)}</h2>
+                    <MotionList _items={convertBillItemToMotionJSXItems(unPaidBills)} />
+                </VContainer>
+            </HContainer>
         </>
     )
 }

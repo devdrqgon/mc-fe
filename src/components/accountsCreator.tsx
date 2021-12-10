@@ -1,8 +1,5 @@
-import { FormControl, FormLabel } from "@chakra-ui/form-control"
-import { Input } from "@chakra-ui/input"
-import { SimpleGrid, GridItem, VStack, Heading } from "@chakra-ui/layout"
-import { NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import VContainer from "./ui/Layout/VContainer"
 
 
 export enum AccountType {
@@ -20,6 +17,13 @@ interface AccountsProps {
 }
 
 const AccountsCreator: React.FC<AccountsProps> = ({ _handleChangeCallback }) => {
+    //RegEx  only numbers and a point
+    const regExValidator = (_Candidate: string) => {
+        const reg = new RegExp('^\d+(\.\d+)*$');
+        return reg.test(_Candidate)
+    }
+
+    const mainInputRef = useRef<HTMLInputElement>(null)
 
 
     const [mainBalance, setMainBalance] = useState('0')
@@ -48,6 +52,7 @@ const AccountsCreator: React.FC<AccountsProps> = ({ _handleChangeCallback }) => 
     }
 
     const onMainChanged = (_newMain: string) => {
+        regExValidator(_newMain)
         setMainBalance(_newMain)
     }
 
@@ -62,51 +67,29 @@ const AccountsCreator: React.FC<AccountsProps> = ({ _handleChangeCallback }) => 
     }, [mainBalance, savingBalance])
     return (
         <>
-            <SimpleGrid columns={8}>
-                <GridItem colSpan={8}>
-                    <VStack
-                        w="full"
-                        h="full"
-                        alignItems="flex-start"
-                        spacing={10}
-                        p={10}
-                    >
-                      
+            <VContainer>
+                <VContainer>
+                    <h6>
+                        Main Account
+                    </h6>
+                    {/* <MoneyInput/> */}
+                    <input
+                        ref={mainInputRef}
+                        onChange={(valueString) => onMainChanged(parse(valueString))}
+                        value={format(mainBalance)}
+                    />
 
-                        <FormControl>
-                            <FormLabel>
-                                Main Account
-                            </FormLabel>
-                            <NumberInput
-                                onChange={(valueString) => onMainChanged(parse(valueString))}
-                                value={format(mainBalance)}
-                            >
-                                <NumberInputField />
-                                <NumberInputStepper>
-                                    <NumberIncrementStepper />
-                                    <NumberDecrementStepper />
-                                </NumberInputStepper>
-                            </NumberInput>
-                        </FormControl>
-                        <FormControl>
-                            <FormLabel>
-                                Saving Account
-                            </FormLabel>
-                            <NumberInput
-                                onChange={(valueString) => onSavingChanged(parse(valueString))}
-                                value={format(savingBalance)}
-                            >
-                                <NumberInputField />
-                                <NumberInputStepper>
-                                    <NumberIncrementStepper />
-                                    <NumberDecrementStepper />
-                                </NumberInputStepper>
-                            </NumberInput>
-                        </FormControl>
-
-                    </VStack>
-                </GridItem>
-            </SimpleGrid>
+                </VContainer>
+                <VContainer>
+                    <h6>
+                        Saving Account
+                    </h6>
+                    <input type="number"
+                        onChange={(valueString) => onSavingChanged(parse(valueString))}
+                        value={format(savingBalance)}
+                    />
+                </VContainer>
+            </VContainer>
         </>
     )
 }

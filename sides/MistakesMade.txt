@@ -1,0 +1,2 @@
+Things I had to change 
+ Removing Chakra and building custom styling system with styled Componnents 

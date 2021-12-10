@@ -1,50 +1,50 @@
-import { Box, Divider, Text, HStack, VStack } from "@chakra-ui/layout"
 import HInfoDisplayer from "components/hInfoDisplayer"
-import React from "react"
+import React, { useContext } from "react"
 import { HiDotsVertical } from "react-icons/hi"
 import { GrMoney } from "react-icons/gr"
+import HContainer from "components/ui/Layout/HContainer"
+import { AlignmentOptions } from "components/ui/Layout"
+import Card from "components/ui/Layout/Card/Card"
+import VContainer from "components/ui/Layout/VContainer"
+import Text from 'components/ui/typography/Text'
+import HSpacer from "components/ui/Layout/HSpacer"
+import { DashboardContext } from "contexts/dashboard.context"
 
 
-interface SalaryCardProps {
-    _amount: number,
-    _daysLeft: number
-}
-const SalaryCard: React.FC<SalaryCardProps> = (props) => {
+const SalaryCard: React.FC = () => {
+    const { SalaryInfoStateUI}  = useContext(DashboardContext)
+
     return (
         <>
-            <Box
-                minW={300}
-                p={6}
-                m={3}
-                w={'full'}
-                boxShadow="base"
-                rounded={'lg'}
-                pos={'relative'}
-                zIndex={1}>
-                <HStack justifyContent={'space-between'}>
-                    <HStack>
-                        <GrMoney />
-                        <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
-                            Salary
-                        </Text>
-                    </HStack>
-                    <HiDotsVertical style={{ 'cursor': 'pointer' }} />
-                </HStack>
-                <VStack
-                    alignItems="flex-start">
-                    <Divider mt={2} orientation={'horizontal'}></Divider>
-                    <VStack
-                        pr={3}
-                        pl={3}
-                        pb={1}
-                        rounded={'lg'}
-                        w={"full"}
-                        alignItems="flex-start">
-                        <HInfoDisplayer _field={"amount"} _value={`€${props._amount}`} />
-                        <HInfoDisplayer _field={"next salary in"} _value={`${props._daysLeft.toString()} days`} />
-                    </VStack>
-                </VStack>
-            </Box>
+            <Card>
+                <HContainer
+                    justifyContent={AlignmentOptions.spaceBetween}
+                >
+                    <Text>Salary</Text>
+
+                    <HiDotsVertical size={25} style={{ 'cursor': 'pointer' }} />
+                </HContainer>
+                <HSpacer />
+                <HContainer
+                    justifyContent={AlignmentOptions.spaceBetween}>
+                    <Text>
+                        amount
+                    </Text>
+                    <Text>
+                        €{SalaryInfoStateUI?.amount}
+                    </Text>
+                </HContainer>
+                <HSpacer _space={6} />
+                <HContainer
+                    justifyContent={AlignmentOptions.spaceBetween}>
+                    <Text>
+                        days Left
+                    </Text>
+                    <Text>
+                        {SalaryInfoStateUI?.daysLeft}
+                    </Text>
+                </HContainer>
+            </Card>
         </>
     )
 }

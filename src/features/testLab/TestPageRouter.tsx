@@ -1,15 +1,17 @@
-import DraggableList from 'components/draggableList'
-import LoadingMotion from 'components/loadingMotion'
+// import DraggableList from 'components/draggableList'
+// import LoadingMotion from 'components/loadingMotion'
 import NewUserWizard from 'features/newUserWizard'
 import { Router, Route, Switch } from 'react-router'
 import TestPageHome from './TestPageHome'
 import ClonedMotionList from 'components/ClonedMotionList'
 import MotionList from 'components/Motionlist'
-import BillCreator from 'components/bills/billCreator'
 import { useState } from 'react'
 import { Bill } from 'react-app-env'
 import faker from 'faker'
 import BillItem from 'components/bills/BillItem'
+import CardButton from 'components/ui/Controls/Buttons/CardButtons'
+import ModalChild from 'components/ui/Modal/ModalChild'
+import ModalPortal from 'components/ui/Modal/PortalModal'
 
 const TestPageRouter = () => {
 
@@ -27,27 +29,27 @@ const TestPageRouter = () => {
         <>
             <Switch>
                 <Route exact path="/test" component={TestPageHome} />
-
+                
                 <Route path="/test/bill" exact
                     render={(props) => (
                         <BillItem _bill={_dummyBill} />
                     )}
                 />
-                <Route path="/test/loading" exact
+                {/* <Route path="/test/loading" exact
                     render={(props) => (
                         <LoadingMotion />
                     )}
-                />
-                <Route path="/test/newuserwizard" exact
+                /> */}
+                <Route path="/test/newuser" exact
                     render={(props) => (
                         <NewUserWizard _username={_TestUsername} _token={_TestToken} />
                     )}
                 />
-                <Route path="/test/drag" exact
+                {/* <Route path="/test/drag" exact
                     render={(props) => (
                         <DraggableList />
                     )}
-                />
+                /> */}
                 <Route path="/test/list" exact
                     render={(props) => (
                         <>
@@ -67,3 +69,4 @@ const TestPageRouter = () => {
 
 
 export default TestPageRouter
+

@@ -1,5 +1,7 @@
-import { Button } from '@chakra-ui/button'
-import { Box } from '@chakra-ui/layout'
+
+
+import CardButton from 'components/ui/Controls/Buttons/CardButtons'
+import Card from 'components/ui/Layout/Card/Card'
 import React, { useState } from 'react'
 import { Bill } from 'react-app-env'
 import { render } from 'react-dom'
@@ -18,58 +20,60 @@ const TestPageHome = () => {
             flexDirection: 'column'
         }}>
             <div>
-                <Box
-                 width="50px"
-                 height="50px"
+                <Card
                 >
-                    <Button onClick={() => { history.push('test/newuserwizard') }}>
+                    <CardButton onClick={() => { history.push('test/newuser') }}>
                         newuserwizard
-                    </Button>
-                </Box>
+                    </CardButton>
+                </Card>
             </div>
             <div>
-                <Box
-                width="50px"
-                height="50px"
+                <Card
+                >
+                    <CardButton onClick={() => { history.push('test/modal') }}>
+                        Modal
+                    </CardButton>
+                </Card>
+            </div>
+            <div>
+                <Card
 
                 >
-                    <Button onClick={() => { history.push('test/loading') }}>
+                    <CardButton onClick={() => { history.push('test/loading') }}>
                         LoadingMotion
-                    </Button>
-                </Box>
+                    </CardButton>
+                </Card>
             </div>
             <div>
-                <Box
-                    width="50px"
-                    height="50px"
+                <Card
+                 
 
                 >
-                    <Button onClick={() => { history.push('test/bill') }}>
+                    <CardButton onClick={() => { history.push('test/bill') }}>
                         BillItem
-                    </Button>
-                </Box>
+                    </CardButton>
+                </Card>
             </div>
             <div>
-                <Box
-                    width="50px"
-                    height="50px"
+                <Card
+                   
+                
 
                 >
-                    <Button onClick={() => { history.push('test/list') }}>
+                    <CardButton onClick={() => { history.push('test/list') }}>
                         MotionList
-                    </Button>
-                </Box>
+                    </CardButton>
+                </Card>
             </div>
             <div>
-                <Box
-                width="50px"
-                height="50px"
+                <Card
+             
 
                 >
-                    <Button onClick={() => { history.push('test/clonedlist') }}>
+                    <CardButton onClick={() => { history.push('test/clonedlist') }}>
                         ClonedMotionList
-                    </Button>
-                </Box>
+                    </CardButton>
+                </Card>
             </div>
           
         </div>

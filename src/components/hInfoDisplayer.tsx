@@ -1,19 +1,20 @@
-import { Flex ,Text} from "@chakra-ui/layout"
+import { AlignmentOptions } from "./ui/Layout"
+import HContainer from "./ui/Layout/HContainer"
+import VContainer from "./ui/Layout/VContainer"
+import Text from 'components/ui/typography/Text'
 
- const HInfoDisplayer = (props: { _field: string, _value: string }) => {
+const HInfoDisplayer = (props: { _field: string, _value: string }) => {
     return (
         <>
-            <Flex w={"100%"} direction="column">
-
-                <Flex width={"100%"} justifyContent="space-between">
-                    <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
-                        {props._field}
-                    </Text>
-                    <Text color={'gray.500'} fontSize={'m'} fontWeight="bold" textTransform={'uppercase'}>
-                        {props._value}
-                    </Text>
-                </Flex>
-            </Flex>
+            <HContainer
+                justifyContent={AlignmentOptions.spaceBetween}>
+                <Text>
+                    {props._field}
+                </Text>
+                <Text>
+                    {props._value}
+                </Text>
+            </HContainer>
         </>
     )
 }

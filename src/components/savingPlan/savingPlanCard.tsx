@@ -1,39 +1,49 @@
-import { Box, HStack, Text, VStack, Divider } from '@chakra-ui/layout'
-import { Button } from '@chakra-ui/react'
-import { HiDotsVertical } from 'react-icons/hi'
-import { FaReact } from 'react-icons/fa'
 
-const SavingPlan = (props: {_handleCreatePlanClick: ()=>void}) => {
+import { HiDotsVertical } from 'react-icons/hi'
+import Card from 'components/ui/Layout/Card/Card'
+import CardButton from 'components/ui/Controls/Buttons/CardButtons'
+import ModalChild from 'components/ui/Modal/ModalChild'
+import ModalPortal from 'components/ui/Modal/PortalModal'
+import { useContext, useState } from 'react'
+import SavingPlanCreator from './savingPlanCreator'
+import HContainer from 'components/ui/Layout/HContainer'
+import { AlignmentOptions } from 'components/ui/Layout'
+import Text from 'components/ui/typography/Text'
+import { DashboardContext } from 'contexts/dashboard.context'
+
+const SavingPlanCard: React.FC = () => {
+    const [modalOpen, setModalOpen] = useState(false);
+    const { SavingPlanStateUI } = useContext(DashboardContext)
+
     return (
-        <Box
-            p={6}
-            m={3}
-            w={'full'}
-            boxShadow="base"
-            rounded={'lg'}
-            pos={'relative'}
-            zIndex={1}>
-            <HStack justifyContent={'space-between'}>
-                <HStack>
-                    <FaReact />
-                    <Text minW={"200px"} color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
+        <>
+            <Card>
+                <HContainer justifyContent={AlignmentOptions.spaceBetween}>
+                    <Text>
                         Saving Plan
                     </Text>
-                </HStack>
-                <HiDotsVertical style={{ 'cursor': 'pointer' }} />
-            </HStack>
-            <VStack
-                mt={7}
-                pr={3}
-                pl={3}
-                pb={1}
-                rounded={'lg'}
-                w={"full"}
-                alignItems="center">
-                <Button onClick={props._handleCreatePlanClick}> Create a plan</Button>
-            </VStack>
-        </Box>
+                    <HiDotsVertical style={{ 'cursor': 'pointer' }} />
+                </HContainer>
+                <CardButton onClick={() => { setModalOpen(true) }}>
+                    Create a Plan!
+                </CardButton>
+            </Card>
+            <ModalPortal modalOpen={modalOpen}>
+                <ModalChild _onCloseClickCallback={setModalOpen} >
+                    <>
+                        {SavingPlanStateUI === null ?
+                            <> </>
+                            :
+                            <SavingPlanCreator
+                                _userMinBudget={SavingPlanStateUI?.userMinBudget}
+                                _currentDailyBudget={SavingPlanStateUI?.currentDailyBUdget}
+                                _daysTillNxtSalary={SavingPlanStateUI?.daysTillNxtSalary}
+                            />}
+                    </>
+                </ModalChild>
+            </ModalPortal>
+        </>
     )
 }
 
-export default SavingPlan
+export default SavingPlanCard

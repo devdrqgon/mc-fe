@@ -1,18 +1,19 @@
-import { useDisclosure } from "@chakra-ui/hooks"
-import MCModal from "components/modal"
 import React, { useEffect, useState } from "react"
 import AccountsCreator, { AccountsInfo } from "../components/accountsCreator"
-import { Step, Steps, useSteps } from 'chakra-ui-steps';
 import BudgetConfigCreator from "../components/budget/budgetConfigCreator";
-import { Box, Flex, VStack } from "@chakra-ui/layout";
-import { Button, Spinner } from "@chakra-ui/react";
+
 import axios, { AxiosResponse } from "axios";
 import { Bill, BudgetConfigUI, SalaryInfo } from "react-app-env";
 import SalaryInfoCreator from "../components/salaryInfo/salaryInfoCreator";
 import { useHistory } from "react-router";
-import BillCreator from "components/bills/billCreator";
 import BillInput from "components/bills/billIInput";
 import Motionlist from "components/Motionlist";
+import ModalPortal from "components/ui/Modal/PortalModal";
+import ModalChild from "components/ui/Modal/ModalChild";
+import VContainer from "components/ui/Layout/VContainer";
+import CardButton from "components/ui/Controls/Buttons/CardButtons";
+import Card from "components/ui/Layout/Card/Card";
+import Steps from "./Steps";
 
 
 interface NewUserWizardProps {
@@ -91,41 +92,32 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
             {
                 label: 'Bills', comp:
                     <>
-                        <Flex
-                            direction="column">
+                        <VContainer>
                             <div>
                                 <BillInput _username={localStorage.getItem('username')!} handleBillCallback={handleNewBillCallback} />
                             </div>
                             <div>
                                 <Motionlist _items={_billsJSX}></Motionlist>
                             </div>
-                        </Flex>
+                        </VContainer>
                     </>
             }
         ]
 
-    const { nextStep, prevStep, setStep, reset, activeStep } = useSteps({
-        initialStep: 0,
-    })
+ 
     const [afterSubmitModalBody, setAfterSubmitModalBody] = useState<React.ReactNode>(
-        <VStack>
-            <Spinner
-                thickness="4px"
-                speed="0.65s"
-                emptyColor="gray.200"
-                color="blue.500"
-                size="xl"
-            />
-            <Box>
+        <VContainer>
+            <Card>
                 Saving your Data..
-            </Box>
-        </VStack>
+            </Card>
+        </VContainer>
     )
+    const [modalOpen, setModalOpen] = useState(false);
+
     const [submitClicked, setsubmitClicked] = useState(false)
-    const { isOpen, onClose, onOpen } = useDisclosure({ id: 'mcModal' })
     const history = useHistory()
     const terminateOnBoarding = () => {
-        onClose()
+        setModalOpen(false)
         history.push("/olduser")
     }
     const submitInitUserInfo = () => {
@@ -135,20 +127,19 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
         }, 500)
 
     }
-    const generateWizardBody = () => {
-        return (
-            <Steps activeStep={activeStep}>
-                {steps.map(({ label, comp }) => (
-                    <Step label={label} key={label}>
-                        <Box mt={6} boxShadow="base">
-                            {comp}
-                        </Box>
-                    </Step>
-                ))}
-            </Steps>
-        )
-
-    }
+    // const generateWizardBody = () => {
+    //     return (
+    //         <Steps activeStep={activeStep}>
+    //             {steps.map(({ label, comp }) => (
+    //                 <Step label={label} key={label}>
+    //                     <Card >
+    //                         {comp}
+    //                     </Card>
+    //                 </Step>
+    //             ))}
+    //         </Steps>
+    //     )
+    // }
 
     const callBE = async () => {
         try {
@@ -174,23 +165,23 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
             })
             if (response.status === 201) {
                 setAfterSubmitModalBody(
-                    <Box>
-                        Success! <Button onClick={terminateOnBoarding}> Go to my Dashboard</Button>
-                    </Box>
+                    <Card>
+                        <CardButton onClick={terminateOnBoarding}> Go to my Dashboard</CardButton>
+                    </Card>
                 )
             }
             else {
                 setAfterSubmitModalBody(
-                    <Box>
+                    <Card>
                         Failure!
-                    </Box>
+                    </Card>
                 )
             }
         } catch (error) {
             setAfterSubmitModalBody(
-                <Box>
+                <Card>
                     Failure!
-                </Box>
+                </Card>
             )
         }
     }
@@ -198,24 +189,18 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
 
 
     useEffect(() => {
-        onOpen()
+        setModalOpen(true)
     }, [afterSubmitModalBody])
     return (
         <>
-            <MCModal
-                _title={submitClicked === false ? "Let's get you quickly started, Ahmed!" : ""}
-                _body={submitClicked === false ? generateWizardBody() : afterSubmitModalBody}
-                _isOpen={isOpen}
-                _onClose={onClose}
-                _nextStep={nextStep}
-                _disableCloseBtn={true}
-                _backBtn={activeStep === 0 ? undefined : prevStep}
-                _submitBtn={activeStep !== steps.length - 1 ? undefined : submitInitUserInfo}
-                _hideFooter={submitClicked}
-                _closeOnOverlayClick
-            />
+           <ModalPortal modalOpen={modalOpen}>
+                <ModalChild _onCloseClickCallback={setModalOpen} >
+                    <Steps _submitCallback={submitInitUserInfo} _steps={steps}/>
+                </ModalChild>
+            </ModalPortal>
         </>
     )
 }
 
 export default NewUserWizard
+
