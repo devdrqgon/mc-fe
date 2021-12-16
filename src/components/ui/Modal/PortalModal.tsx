@@ -25,7 +25,7 @@ position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #c3c0c0b0;
+  background-color: #7e8ba81a;
   
   `
 type Props = {

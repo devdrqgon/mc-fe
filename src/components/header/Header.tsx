@@ -8,7 +8,6 @@ import { ThemeContext } from 'styled-components';
 import ArtisticTitle from 'components/ui/typography/ArtisticTitle';
 import { ModalContext } from 'contextProviders/modal.provider';
 
-import Modal from 'components/ui/Modal/Modal'
 
 /**
  * 

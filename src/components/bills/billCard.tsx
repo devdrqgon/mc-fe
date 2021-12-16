@@ -2,7 +2,7 @@ import HInfoDisplayer from 'components/hInfoDisplayer'
 import { Bill } from 'react-app-env'
 import { RiBillLine } from 'react-icons/ri'
 import { BsArrowsAngleExpand } from 'react-icons/bs'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import axios, { AxiosResponse } from 'axios'
 import { BillsHelpers } from 'features/lib'
 import ExpandedBillCard from './expandedBillCard'
@@ -13,10 +13,20 @@ import { AlignmentOptions } from 'components/ui/Layout'
 import Card from 'components/ui/Layout/Card/Card'
 import Text from 'components/ui/typography/Text'
 import HSpacer from 'components/ui/Layout/VSpacer'
+import { ModalContext } from 'contextProviders/modal.provider'
 
 
 const BillCard: React.FC = () => {
-    const [modalOpen, setModalOpen] = useState(false);
+    const { openModal } = useContext(ModalContext)
+
+    const onExpandCardClick = () => {
+
+        openModal(
+            <ExpandedBillCard
+                _handleOnClickPayBill={refreshbills}
+                _bills={_bills!} />
+        )
+    }
 
 
     const [_bills, set_bills] = useState<Bill[] | null>(null)
@@ -56,7 +66,7 @@ const BillCard: React.FC = () => {
                     <Text>
                         Bills
                     </Text>
-                    <BsArrowsAngleExpand onClick={() => { setModalOpen(true) }} style={{ 'cursor': 'pointer' }} />
+                    <BsArrowsAngleExpand onClick={onExpandCardClick} style={{ 'cursor': 'pointer' }} />
                 </HContainer>
                 <HSpacer _space={50} />
                 <>
@@ -99,13 +109,6 @@ const BillCard: React.FC = () => {
                     }
                 </>
             </Card>
-            <ModalPortal modalOpen={modalOpen}>
-                <ModalChild _onCloseClickCallback={setModalOpen} >
-                    <ExpandedBillCard
-                        _handleOnClickPayBill={refreshbills}
-                        _bills={_bills!} />
-                </ModalChild>
-            </ModalPortal>
         </>
     )
 }
