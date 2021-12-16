@@ -12,6 +12,8 @@ import ModalChild from 'components/ui/Modal/ModalChild'
 import ModalPortal from 'components/ui/Modal/PortalModal'
 import { ModalContext } from 'contextProviders/modal.provider'
 import SignInCard from './SignInCard'
+import Steps from 'features/Steps'
+import NewUserWizard from 'features/newUserWizard'
 
 
 
@@ -19,9 +21,8 @@ const SignUpCard = () => {
     const {closeModal, openModal} = useContext(ModalContext)
     const [username, setUsername] = React.useState<string>('')
     const [password, setPassword] = React.useState<string>('')
-    const [modalOpen, setModalOpen] = React.useState(true);
 
-    const history = useHistory()
+    
     const registerClicked = async () => {
         try {
             const response = await axios({
@@ -35,7 +36,9 @@ const SignUpCard = () => {
 
             if (response.status === 201) {
                 closeModal()
-                openModal(<SignInCard/>)
+                openModal(
+                    <NewUserWizard/>
+                )
                 
             } else {
             }
@@ -55,9 +58,6 @@ const SignUpCard = () => {
     }
 
     
-    useEffect(() => {
-
-    }, [modalOpen])
     return (
         <>
             <VContainer>

@@ -42,7 +42,7 @@ const TestPageRouter = () => {
                 /> */}
                 <Route path="/test/newuser" exact
                     render={(props) => (
-                        <NewUserWizard _username={_TestUsername} _token={_TestToken} />
+                        <NewUserWizard/>
                     )}
                 />
                 {/* <Route path="/test/drag" exact

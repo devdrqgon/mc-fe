@@ -22,7 +22,7 @@ export const App = () => {
         setTheme(theme.title === 'light' ? dark : light)
     }
     const history = useHistory()
-    const {  authenticated } = useContext(UserContext);
+    const { authenticated } = useContext(UserContext);
 
 
     if (history.location.pathname.includes("/test")) {
@@ -40,14 +40,7 @@ export const App = () => {
                     <>
                         <Switch>
                             <Route path="/" exact component={DashboardConnected} />
-                            <Route path="/newuser" exact
-                                render={(props) => (
-                                    <NewUserWizard
-                                        _username={localStorage.getItem('username')!}
-                                        _token={`Bearer ${localStorage.getItem('token')!}`}
-                                    />
-                                )}
-                            />
+                            <Route path="/newuser" exact component={NewUserWizard} />
                             <Route path="/olduser" exact component={DashboardConnected} />
                             <Route render={() => <> PageNotFound </>} />
                         </Switch>
@@ -56,7 +49,7 @@ export const App = () => {
                     <>
 
                     </>
-                }
+                }∏
             </ModalProvider>
 
         </ThemeProvider>

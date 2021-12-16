@@ -10,11 +10,20 @@ import HContainer from 'components/ui/Layout/HContainer'
 import { AlignmentOptions } from 'components/ui/Layout'
 import Text from 'components/ui/typography/Text'
 import { DashboardContext } from 'contextProviders/dashboard.provider'
+import { ModalContext } from 'contextProviders/modal.provider'
 
 const SavingPlanCard: React.FC = () => {
-    const [modalOpen, setModalOpen] = useState(false);
+    const { openModal } = useContext(ModalContext)
     const { SavingPlanStateUI } = useContext(DashboardContext)
-
+    const onExpandClick = () => {
+        openModal(
+            <SavingPlanCreator
+                _userMinBudget={SavingPlanStateUI!.userMinBudget}
+                _currentDailyBudget={SavingPlanStateUI!.currentDailyBUdget}
+                _daysTillNxtSalary={SavingPlanStateUI!.daysTillNxtSalary}
+            />
+        )
+    }
     return (
         <>
             <Card>
@@ -24,24 +33,10 @@ const SavingPlanCard: React.FC = () => {
                     </Text>
                     <HiDotsVertical style={{ 'cursor': 'pointer' }} />
                 </HContainer>
-                <CardButton onClick={() => { setModalOpen(true) }}>
+                <CardButton onClick={onExpandClick}>
                     Create a Plan!
                 </CardButton>
             </Card>
-            <ModalPortal modalOpen={modalOpen}>
-                <ModalChild _onCloseClickCallback={setModalOpen} >
-                    <>
-                        {SavingPlanStateUI === null ?
-                            <> </>
-                            :
-                            <SavingPlanCreator
-                                _userMinBudget={SavingPlanStateUI?.userMinBudget}
-                                _currentDailyBudget={SavingPlanStateUI?.currentDailyBUdget}
-                                _daysTillNxtSalary={SavingPlanStateUI?.daysTillNxtSalary}
-                            />}
-                    </>
-                </ModalChild>
-            </ModalPortal>
         </>
     )
 }

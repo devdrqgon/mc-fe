@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import AccountsCreator, { AccountsInfo } from "../components/accountsCreator"
 import BudgetConfigCreator from "../components/budget/budgetConfigCreator";
 
@@ -16,16 +16,14 @@ import Card from "components/ui/Layout/Card/Card";
 import Steps from "./Steps";
 import BillItem from "components/bills/BillItem";
 import HContainer from "components/ui/Layout/HContainer";
+import { UserContext } from "contextProviders/user.context";
 
 
-interface NewUserWizardProps {
-    _token: string,
-    _username: string
-}
 
 
-const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
+const NewUserWizard: React.FC = () => {
 
+    const { user, token } = useContext(UserContext);
 
     //Accounts
     //hooks
@@ -146,10 +144,10 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
                 method: 'POST',
                 url: 'http://localhost:8000/users/info/',
                 headers: {
-                    Authorization: props._token
+                    Authorization: token!
                 },
                 data: {
-                    username: props._username,
+                    username: user!,
                     salary: {
                         amount: uiSalaryInfo.amount,
                         dayOfMonth: uiSalaryInfo.dayOfMonth
@@ -186,17 +184,9 @@ const NewUserWizard: React.FC<NewUserWizardProps> = (props) => {
     }
 
 
-
-    useEffect(() => {
-        setModalOpen(true)
-    }, [])
     return (
         <>
-            <ModalPortal modalOpen={modalOpen}>
-                <ModalChild _onCloseClickCallback={setModalOpen} >
-                    <Steps _submitCallback={submitInitUserInfo} _steps={steps} />
-                </ModalChild>
-            </ModalPortal>
+            <Steps _submitCallback={submitInitUserInfo} _steps={steps} />
         </>
     )
 }
