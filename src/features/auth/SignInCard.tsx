@@ -12,9 +12,11 @@ import ModalPortal from 'components/ui/Modal/PortalModal'
 import ModalChild from 'components/ui/Modal/ModalChild'
 import VContainer from 'components/ui/Layout/VContainer'
 import InputTextForm, { InputTypes } from 'components/ui/Controls/Inputs/InputTextForm'
+import { ModalContext } from 'contextProviders/modal.provider'
 
 const SignInCard = () => {
 
+    const { isOpen, closeModal, Body } = useContext(ModalContext)
 
     const { login } = useContext(UserContext);
 
@@ -51,7 +53,7 @@ const SignInCard = () => {
 
             if (response.status === 200) {
                 login(response.data.user.username, response.data.token)
-                setModalOpen(false)
+                closeModal()
                 checkIfNewUser()
 
                 //save user & Token
@@ -63,7 +65,6 @@ const SignInCard = () => {
         }
     }
 
-    const [modalOpen, setModalOpen] = React.useState(true);
     const [username, setUsername] = React.useState<string>('')
     const [password, setPassword] = React.useState<string>('')
 
@@ -75,15 +76,12 @@ const SignInCard = () => {
         setPassword(_newVal)
     }
 
-    const onClosedClicked = () => {
-        setModalOpen(false)
-
-    }
+    
 
     useEffect(() => {
 
 
-    }, [modalOpen])
+    }, [])
     return (
         <>
             <VContainer>
