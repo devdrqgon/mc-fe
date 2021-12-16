@@ -6,7 +6,7 @@ import { App } from 'App';
 ReactDOM.render(
   <BrowserRouter>
     <UserProvider>
-    <App/>
+      <App />
     </UserProvider>
   </BrowserRouter>
   ,

@@ -1,5 +1,7 @@
 
 import NewHeader from 'components/header/Header'
+import Modal from 'components/ui/Modal/Modal'
+import ModalProvider from 'contextProviders/modal.provider'
 import { UserContext } from 'contextProviders/user.context'
 import Dashboard from 'features/Dashboard'
 import DashboardConnected from 'features/DashboardConnected'
@@ -20,7 +22,7 @@ export const App = () => {
         setTheme(theme.title === 'light' ? dark : light)
     }
     const history = useHistory()
-    const { tokenValid, authenticated } = useContext(UserContext);
+    const {  authenticated } = useContext(UserContext);
 
 
     if (history.location.pathname.includes("/test")) {
@@ -31,28 +33,32 @@ export const App = () => {
     return (
         <ThemeProvider theme={theme}>
             <GlobalStyle />
-            <NewHeader _toggletheme={toggleTheme} />
-            {tokenValid && authenticated ?
-                <>
-                    <Switch>
-                        <Route path="/" exact component={DashboardConnected}/>
-                        <Route path="/newuser" exact
-                            render={(props) => (
-                                <NewUserWizard
-                                    _username={localStorage.getItem('username')!}
-                                    _token={`Bearer ${localStorage.getItem('token')!}`}
-                                />
-                            )}
-                        />
-                        <Route path="/olduser" exact component={DashboardConnected}/>
-                        <Route render={() => <> PageNotFound </>} />
-                    </Switch>
-                </>
-                :
-                <>
+            <ModalProvider>
+                <Modal />
+                <NewHeader _toggletheme={toggleTheme} />
+                {authenticated ?
+                    <>
+                        <Switch>
+                            <Route path="/" exact component={DashboardConnected} />
+                            <Route path="/newuser" exact
+                                render={(props) => (
+                                    <NewUserWizard
+                                        _username={localStorage.getItem('username')!}
+                                        _token={`Bearer ${localStorage.getItem('token')!}`}
+                                    />
+                                )}
+                            />
+                            <Route path="/olduser" exact component={DashboardConnected} />
+                            <Route render={() => <> PageNotFound </>} />
+                        </Switch>
+                    </>
+                    :
+                    <>
 
-                </>
-            }
+                    </>
+                }
+            </ModalProvider>
+
         </ThemeProvider>
     )
 }

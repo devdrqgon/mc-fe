@@ -23,7 +23,7 @@ const DashboardProvider: React.FC = ({ children }) => {
     const [BudgetStateUI, setBudgetStateUI] = useState<BudgetStateUI | null>(null)
     const [SalaryInfoStateUI, setSalaryInfoStateUI] = useState<SalaryInfoStateUI | null>(null)
     const [SavingPlanStateUI, setSavingPlanStateUI] = useState<SavingPlanStateUI | null>(null)
-    const [userInfo, setuserInfo] = useState<null | UserInfoResponse>(null)
+    const [userIwnfo, setuserInfo] = useState<null | UserInfoResponse>(null)
     const [netto, setNetto] = useState<null | number>(null)
 
     const getUserInfo = async () => {
@@ -84,7 +84,7 @@ const DashboardProvider: React.FC = ({ children }) => {
        
     }, [user,token])
     return (
-        <DashboardContext.Provider value={{ userInfo, netto, BudgetStateUI, SalaryInfoStateUI, SavingPlanStateUI }}>
+        <DashboardContext.Provider value={{ userInfo: userIwnfo, netto, BudgetStateUI, SalaryInfoStateUI, SavingPlanStateUI }}>
             {children}
         </DashboardContext.Provider>
     )

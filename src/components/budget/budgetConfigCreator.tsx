@@ -8,20 +8,25 @@ interface BudgetConfigProps {
 }
 const BudgetConfigCreator: React.FC<BudgetConfigProps> = ({ _handleChange }) => {
 
-    const format = (val: any) => `€` + val
-    const parse = (val: any) => val.replace(/^\€/, "")
 
-    const [food, setFood] = useState("0")
-    const [others, setOthers] = useState("0")
+    const [food, setFood] = useState<null | number>(null)
+    const [others, setOthers] = useState<null | number>(null)
     const onDataChanged = () => {
-        // get main balance
-        const f = parse(food)
-        const o = parse(others)
+        if (food && others) {
+            _handleChange!({
+                food: food,
+                others: others
+            })
+        }
+    }
 
-        _handleChange!({
-            food: f,
-            others: o
-        })
+    
+
+    const onFoodChanged = (_newFood: number) => {
+        setFood(_newFood)
+    }
+    const onOthersChanged = (_newOthers: number) => {
+        setOthers(_newOthers)
     }
 
     useEffect(() => {
@@ -35,22 +40,24 @@ const BudgetConfigCreator: React.FC<BudgetConfigProps> = ({ _handleChange }) => 
                     <h6>
                         Food
                     </h6>
-                    <input type="number"
-                        onChange={(valueString) => setFood(parse(valueString))}
-
-                        value={format(food)}
+                    <input
+                        type="number"
+                        onChange={(valueString: React.ChangeEvent<HTMLInputElement>) => onFoodChanged(parseFloat(valueString.target.value))}
+                        value={food ? food : ''}
                     />
+
 
                 </VContainer>
                 <VContainer>
                     <h6>
-                       Others
+                        Others
                     </h6>
-                    <input type="number"
-                        onChange={(valueString) => setOthers(parse(valueString))}
-
-                        value={format(others)}
+                    <input
+                        type="number"
+                        onChange={(valueString: React.ChangeEvent<HTMLInputElement>) => onOthersChanged(parseFloat(valueString.target.value))}
+                        value={others ? others : ''}
                     />
+
                 </VContainer>
             </VContainer>
         </>

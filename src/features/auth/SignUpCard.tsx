@@ -1,5 +1,5 @@
 import ArtisticTitle from 'components/ui/typography/ArtisticTitle'
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Text from 'components/ui/typography/Text'
 import InputTextForm, { InputTypes } from 'components/ui/Controls/Inputs/InputTextForm'
 import HSpacer from 'components/ui/Layout/HSpacer'
@@ -10,10 +10,13 @@ import logging from 'config/logging'
 import VContainer from 'components/ui/Layout/VContainer'
 import ModalChild from 'components/ui/Modal/ModalChild'
 import ModalPortal from 'components/ui/Modal/PortalModal'
+import { ModalContext } from 'contextProviders/modal.provider'
+import SignInCard from './SignInCard'
 
 
 
-const SignUpModal = () => {
+const SignUpCard = () => {
+    const {closeModal, openModal} = useContext(ModalContext)
     const [username, setUsername] = React.useState<string>('')
     const [password, setPassword] = React.useState<string>('')
     const [modalOpen, setModalOpen] = React.useState(true);
@@ -31,8 +34,9 @@ const SignUpModal = () => {
             })
 
             if (response.status === 201) {
-                //No need to move to login 
-                history.push('/login')
+                closeModal()
+                openModal(<SignInCard/>)
+                
             } else {
             }
         } catch (error) {
@@ -50,34 +54,27 @@ const SignUpModal = () => {
         setPassword(_newVal)
     }
 
-    const onClosedClicked = () => {
-        setModalOpen(false)
-
-    }
+    
     useEffect(() => {
 
     }, [modalOpen])
     return (
         <>
-            <ModalPortal modalOpen={modalOpen}>
-                <ModalChild _onCloseClickCallback={onClosedClicked} >
-                    <VContainer>
-                        <HSpacer />
-                        <h1>Sign Up</h1>
-                        <HSpacer />
-                        <InputTextForm _onChangeCallback={onChangeUsername} _label={'username'} />
-                        <HSpacer _space={5} />
-                        <InputTextForm _type={InputTypes.password} _onChangeCallback={onChangePassword} _label={'password'} />
-                        <HSpacer _space={10} ></HSpacer>
-                        <CardButton onClick={registerClicked}>
-                            Sign Up
-                        </CardButton>
-                    </VContainer>
-                </ModalChild>
-            </ModalPortal>
+            <VContainer>
+                <HSpacer />
+                <h1>Sign Up</h1>
+                <HSpacer />
+                <InputTextForm _onChangeCallback={onChangeUsername} _label={'username'} />
+                <HSpacer _space={5} />
+                <InputTextForm _type={InputTypes.password} _onChangeCallback={onChangePassword} _label={'password'} />
+                <HSpacer _space={10} ></HSpacer>
+                <CardButton onClick={registerClicked}>
+                    Sign Up
+                </CardButton>
+            </VContainer>
 
         </>
     )
 }
 
-export default SignUpModal
+export default SignUpCard
