@@ -6,6 +6,7 @@ import VSpacer from 'components/ui/Layout/VSpacer'
 import { BillsHelpers } from 'features/lib'
 import React, { useEffect, useState } from 'react'
 import { Bill } from 'react-app-env'
+import styled from 'styled-components'
 import BillItem from './BillItem'
 
 

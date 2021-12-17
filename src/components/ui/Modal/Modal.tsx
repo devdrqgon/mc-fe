@@ -7,6 +7,7 @@ import SignUpCard from 'features/auth/SignUpCard';
 const Portal: React.FC = ({ children }) => {
     const modalRoot = document.getElementById("modal")
     const docElement = document.createElement("div")
+    docElement.style.backgroundColor = "green"
 
     useEffect(() => {
         modalRoot!.appendChild(docElement)
@@ -22,21 +23,34 @@ const Modal: React.FC = ({ children }) => {
 
     useEffect(() => {
 
-    }, [isOpen,Body])
+    }, [isOpen, Body])
 
     if (isOpen === false) return null
-    return (<Portal>
-        <ModalWrapper>
-            <ModalCard>
-                <CloseButton onClick={closeModal}>
-                    close
-                </CloseButton>
-                { Body }
-            </ModalCard>
-            <Background /> {/*    :onClick={_onCloseCallback} <= activate this when u want to close modal on WrapperClick */}
-        </ModalWrapper>
-    </Portal>)
+    return (
+        <Portal>
+             <Background/>
+             <ModalWrapper>
+            
+                    <ModalCard>
+                        <CloseButton onClick={closeModal}>
+                            close
+                        </CloseButton>
+                        {Body}
+                    </ModalCard>
+                </ModalWrapper>
+        </Portal>)
 }
 
-
 export default Modal
+
+// <Portal>
+// <ModalWrapper>
+//     <ModalCard>
+//         <CloseButton onClick={closeModal}>
+//             close
+//         </CloseButton>
+//         { Body }
+//     </ModalCard>
+//     <Background /> {/*    :onClick={_onCloseCallback} <= activate this when u want to close modal on WrapperClick */}
+// </ModalWrapper>
+// </Portal>

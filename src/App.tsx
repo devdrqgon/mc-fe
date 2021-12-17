@@ -49,7 +49,7 @@ export const App = () => {
                     <>
 
                     </>
-                }∏
+                }
             </ModalProvider>
 
         </ThemeProvider>
