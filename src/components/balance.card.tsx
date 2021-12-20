@@ -12,12 +12,12 @@ import { useContext, useEffect } from "react"
 import { DashboardContext } from "contextProviders/dashboard.provider"
 
 
-const BalanceCard: React.FC= () => {
-    
-    const { userInfo , netto} = useContext(DashboardContext);
+const BalanceCard: React.FC = () => {
+
+    const { userInfo, netto } = useContext(DashboardContext);
 
     useEffect(() => {
-    }, [userInfo,netto])
+    }, [userInfo, netto])
     return (
         <>
             <Card
@@ -26,13 +26,16 @@ const BalanceCard: React.FC= () => {
                     justifyContent={AlignmentOptions.spaceBetween}
                 >
                     <Text>balance</Text>
-                    <HiDotsVertical size={25} style={{ 'cursor': 'pointer' }} />
+                    <span className="material-icons">
+                        more_vert
+                    </span>
                 </HContainer>
                 <HSpacer />
                 <HContainer
                     justifyContent={AlignmentOptions.spaceBetween}>
+
                     <Text>
-                        Main
+                        MainGross
                     </Text>
                     <Text>
                         €{userInfo?.accounts[0].balance.toFixed(1)}
@@ -43,10 +46,19 @@ const BalanceCard: React.FC= () => {
                 <HContainer
                     justifyContent={AlignmentOptions.spaceBetween}>
                     <Text>
-                        Nett
+                        MainNett
                     </Text>
                     <Text>
                         € {netto?.toFixed(1)}
+                    </Text>
+                </HContainer>
+                <HContainer
+                    justifyContent={AlignmentOptions.spaceBetween}>
+                    <Text>
+                        Saved
+                    </Text>
+                    <Text>
+                        €{userInfo?.accounts[1].balance}
                     </Text>
                 </HContainer>
             </Card>

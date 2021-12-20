@@ -7,7 +7,8 @@ import { BillsHelpers } from 'features/lib'
 import React, { useEffect, useState } from 'react'
 import { Bill } from 'react-app-env'
 import styled from 'styled-components'
-import BillItem from './BillItem'
+import PaidBillItem from './PaidBillItem'
+import UnpaidBillItem from './UnpaidBillItem'
 
 
 
@@ -50,11 +51,24 @@ const ExpandedBillCard: React.FC<ExpandedBillCardProps> = (props) => {
 
 
 
-    const convertBillItemToMotionJSXItems = (_objects: any[]) => {
+    const convertPaidBillItemToMotionJSXItems = (_objects: any[]) => {
         let _output: JSX.Element[] = []
         _objects.forEach(element => {
             _output.push(
-                <BillItem
+                <PaidBillItem
+                    _bill={element as Bill}
+                    _handleMarkAsUnpaid={props._handleOnClickPayBill} />
+            )
+        })
+        return _output
+    }
+
+
+    const convertUnpaidBillItemToMotionJSXItems = (_objects: any[]) => {
+        let _output: JSX.Element[] = []
+        _objects.forEach(element => {
+            _output.push(
+                <UnpaidBillItem
                     _bill={element as Bill}
                     _handleMarkAspaid={props._handleOnClickPayBill} />
             )
@@ -68,21 +82,19 @@ const ExpandedBillCard: React.FC<ExpandedBillCardProps> = (props) => {
     }, [props._bills])
     return (
         <>
-            <HContainer
-
-            >
+            <HContainer>
                 <VContainer
                     justifyContent={AlignmentOptions.center}
                     alignItems={AlignmentOptions.center}>
                     <h2> Paid: €{BillsHelpers.getSumAllBills(paidBills).toFixed(1)}</h2>
-                    <MotionList _items={convertBillItemToMotionJSXItems(paidBills)} />
+                    <MotionList _items={convertPaidBillItemToMotionJSXItems(paidBills)} />
                 </VContainer>
                 <VSpacer _space={10}></VSpacer>
                 <VContainer
                     justifyContent={AlignmentOptions.center}
                     alignItems={AlignmentOptions.center}>
                     <h2> not yet: €{BillsHelpers.getSumAllBills(unPaidBills).toFixed(1)}</h2>
-                    <MotionList _items={convertBillItemToMotionJSXItems(unPaidBills)} />
+                    <MotionList _items={convertUnpaidBillItemToMotionJSXItems(unPaidBills)} />
                 </VContainer>
             </HContainer>
         </>

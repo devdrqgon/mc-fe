@@ -9,10 +9,11 @@ import VContainer from 'components/ui/Layout/VContainer'
 import HSpacer from 'components/ui/Layout/HSpacer'
 import VSpacer from 'components/ui/Layout/VSpacer'
 import styled from 'styled-components'
+import MenuButton from 'components/ui/Controls/Buttons/MenuButton'
 
 
-const BillItem = (props: { _bill: Bill, _handleMarkAspaid?: () => void }) => {
-    const onClickedMarkAsPaid = () => {
+const PaidBillItem = (props: { _bill: Bill, _handleMarkAsUnpaid?: () => void }) => {
+    const onClickedMarkAsUnpaid = () => {
         setshowLoadingBtn(true)
         setTimeout(() => {
             putBill({
@@ -20,12 +21,6 @@ const BillItem = (props: { _bill: Bill, _handleMarkAspaid?: () => void }) => {
                 paid: true,
             })
         }, 0);
-
-
-        // if (props._handleMarkAspaid) {
-        //     setshowLoadingBtn(true)
-        //     props._handleMarkAspaid(props._bill)
-        // }
     }
     const putBill = async (b: Bill) => {
         try {
@@ -45,7 +40,7 @@ const BillItem = (props: { _bill: Bill, _handleMarkAspaid?: () => void }) => {
             })
             console.info("bill update response", response)
             if (response.status === 200) {
-                props._handleMarkAspaid!()
+                props._handleMarkAsUnpaid!()
             }
             else {
 
@@ -56,9 +51,7 @@ const BillItem = (props: { _bill: Bill, _handleMarkAspaid?: () => void }) => {
     }
 
     const [showLoadingBtn, setshowLoadingBtn] = useState(false)
-    const renderpayBtn = () => {
-        // update bill in be 
-    }
+
 
     return (
         <BilLItemContainer
@@ -77,24 +70,17 @@ const BillItem = (props: { _bill: Bill, _handleMarkAspaid?: () => void }) => {
             <VSpacer _space={15}>
 
             </VSpacer>
-            <VContainer
-                justifyContent={AlignmentOptions.center}
-                alignItems={AlignmentOptions.center}
-
-            >
-                <HSpacer _space={1}></HSpacer>
-                <div>
-                    {props._bill.when}
-                </div>
-
-            </VContainer>
+            <div>
+                {props._bill.when}
+            </div>
+            <MenuButton/>
 
 
 
             {props._bill.paid === false ?
                 <>
                     {showLoadingBtn === false ?
-                        <CardButton onClick={onClickedMarkAsPaid}>
+                        <CardButton onClick={onClickedMarkAsUnpaid}>
                             mark as Paid
                         </CardButton>
                         :
@@ -113,7 +99,7 @@ const BillItem = (props: { _bill: Bill, _handleMarkAspaid?: () => void }) => {
     )
 }
 
-export default BillItem
+export default PaidBillItem
 
 const BilLItemContainer = styled.div`
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
