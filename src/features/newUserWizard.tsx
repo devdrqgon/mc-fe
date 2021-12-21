@@ -11,7 +11,7 @@ import VContainer from "components/ui/Layout/VContainer";
 import CardButton from "components/ui/Controls/Buttons/CardButtons";
 import Card from "components/ui/Layout/Card/Card";
 import Steps from "./Steps";
-import BillItem from "components/bills/BillItem";
+import UnpaidBillItem from "components/bills/UnpaidBillItem";
 import HContainer from "components/ui/Layout/HContainer";
 import { UserContext } from "contextProviders/user.context";
 
@@ -61,7 +61,7 @@ const NewUserWizard: React.FC = () => {
         let _output: JSX.Element[] = []
         _objects.forEach(element => {
             _output.push(
-                <BillItem
+                <UnpaidBillItem
                     _bill={element as Bill} />
             )
         })

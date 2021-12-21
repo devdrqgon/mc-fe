@@ -1,11 +1,13 @@
-import { UserInfoResponse } from "react-app-env";
+import { Bill, UserInfoResponse } from "react-app-env";
 
 export interface IDashboardContext {
     userInfo: UserInfoResponse | null,
     netto: number | null,
     BudgetStateUI: BudgetStateUI | null,
     SalaryInfoStateUI: SalaryInfoStateUI | null,
-    SavingPlanStateUI: SavingPlanStateUI | null
+    SavingPlanStateUI: SavingPlanStateUI | null,
+    BillsUI: Bill[] | null,
+    refreshUserInfo: () => void
 }
 
 

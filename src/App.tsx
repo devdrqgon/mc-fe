@@ -1,6 +1,7 @@
 
 import NewHeader from 'components/header/Header'
 import Modal from 'components/ui/Modal/Modal'
+import DashboardProvider from 'contextProviders/dashboard.provider'
 import ModalProvider from 'contextProviders/modal.provider'
 import { UserContext } from 'contextProviders/user.context'
 import Dashboard from 'features/Dashboard'
@@ -33,24 +34,27 @@ export const App = () => {
     return (
         <ThemeProvider theme={theme}>
             <GlobalStyle />
-            <ModalProvider>
-                <Modal />
-                <NewHeader _toggletheme={toggleTheme} />
-                {authenticated ?
-                    <>
-                        <Switch>
-                            <Route path="/" exact component={DashboardConnected} />
-                            <Route path="/newuser" exact component={NewUserWizard} />
-                            <Route path="/olduser" exact component={DashboardConnected} />
-                            <Route render={() => <> PageNotFound </>} />
-                        </Switch>
-                    </>
-                    :
-                    <>
+            <DashboardProvider>
+                <ModalProvider>
+                    <Modal />
+                    <NewHeader _toggletheme={toggleTheme} />
+                    {authenticated ?
+                        <>
+                            <Switch>
+                                <Route path="/" exact component={DashboardConnected} />
+                                <Route path="/newuser" exact component={NewUserWizard} />
+                                <Route path="/olduser" exact component={DashboardConnected} />
+                                <Route render={() => <> PageNotFound </>} />
+                            </Switch>
+                        </>
+                        :
+                        <>
 
-                    </>
-                }
-            </ModalProvider>
+                        </>
+                    }
+                </ModalProvider>
+            </DashboardProvider>
+
 
         </ThemeProvider>
     )

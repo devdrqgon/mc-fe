@@ -30,7 +30,6 @@ const Modal: React.FC = ({ children }) => {
         <Portal>
              <Background/>
              <ModalWrapper>
-            
                     <ModalCard>
                         <CloseButton onClick={closeModal}>
                             close
@@ -42,15 +41,3 @@ const Modal: React.FC = ({ children }) => {
 }
 
 export default Modal
-
-// <Portal>
-// <ModalWrapper>
-//     <ModalCard>
-//         <CloseButton onClick={closeModal}>
-//             close
-//         </CloseButton>
-//         { Body }
-//     </ModalCard>
-//     <Background /> {/*    :onClick={_onCloseCallback} <= activate this when u want to close modal on WrapperClick */}
-// </ModalWrapper>
-// </Portal>

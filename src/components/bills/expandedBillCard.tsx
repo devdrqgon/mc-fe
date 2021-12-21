@@ -3,11 +3,13 @@ import { AlignmentOptions } from 'components/ui/Layout'
 import HContainer from 'components/ui/Layout/HContainer'
 import VContainer from 'components/ui/Layout/VContainer'
 import VSpacer from 'components/ui/Layout/VSpacer'
+import { DashboardContext } from 'contextProviders/dashboard.provider'
 import { BillsHelpers } from 'features/lib'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Bill } from 'react-app-env'
 import styled from 'styled-components'
-import BillItem from './BillItem'
+import PaidBillItem from './PaidBillItem'
+import UnpaidBillItem from './UnpaidBillItem'
 
 
 
@@ -40,51 +42,60 @@ import BillItem from './BillItem'
  *  
  */
 
-interface ExpandedBillCardProps {
-    _bills: Bill[],
-    _handleOnClickPayBill: () => void
-}
-const ExpandedBillCard: React.FC<ExpandedBillCardProps> = (props) => {
-    const [paidBills, setPaidBills] = useState(props._bills.filter(((b) => { return b.paid === true })))
-    const [unPaidBills, setUnPaidBills] = useState(props._bills.filter(((b) => { return b.paid === false })))
+
+const ExpandedBillCard = () => {
+    const { BillsUI } = useContext(DashboardContext)
 
 
 
-    const convertBillItemToMotionJSXItems = (_objects: any[]) => {
+    const convertPaidBillItemToMotionJSXItems = (_objects: any[]) => {
         let _output: JSX.Element[] = []
         _objects.forEach(element => {
             _output.push(
-                <BillItem
-                    _bill={element as Bill}
-                    _handleMarkAspaid={props._handleOnClickPayBill} />
+                <PaidBillItem
+                    _bill={element as Bill} />
             )
         })
         return _output
     }
 
-    useEffect(() => {
-        setPaidBills(props._bills.filter(((b) => { return b.paid === true })))
-        setUnPaidBills(props._bills.filter(((b) => { return b.paid === false })))
-    }, [props._bills])
+
+    const convertUnpaidBillItemToMotionJSXItems = (_objects: any[]) => {
+        let _output: JSX.Element[] = []
+        _objects.forEach(element => {
+            _output.push(
+                <UnpaidBillItem
+                    _bill={element as Bill}
+                />
+            )
+        })
+        return _output
+    }
+
+
     return (
         <>
-            <HContainer
-
-            >
-                <VContainer
-                    justifyContent={AlignmentOptions.center}
-                    alignItems={AlignmentOptions.center}>
-                    <h2> Paid: €{BillsHelpers.getSumAllBills(paidBills).toFixed(1)}</h2>
-                    <MotionList _items={convertBillItemToMotionJSXItems(paidBills)} />
-                </VContainer>
-                <VSpacer _space={10}></VSpacer>
-                <VContainer
-                    justifyContent={AlignmentOptions.center}
-                    alignItems={AlignmentOptions.center}>
-                    <h2> not yet: €{BillsHelpers.getSumAllBills(unPaidBills).toFixed(1)}</h2>
-                    <MotionList _items={convertBillItemToMotionJSXItems(unPaidBills)} />
-                </VContainer>
-            </HContainer>
+            {BillsUI === null  ?
+                <>
+                    <h1>BillsUI ===  null </h1>
+                </>
+                :
+                <HContainer>
+                    <VContainer
+                        justifyContent={AlignmentOptions.center}
+                        alignItems={AlignmentOptions.center}>
+                        <h2> Paid: €{BillsHelpers.getSumAllBills(BillsUI.filter(((b) => { return b.paid === true }))).toFixed(1)}</h2>
+                        <MotionList _items={convertPaidBillItemToMotionJSXItems(BillsUI.filter(((b) => { return b.paid === true })))} />
+                    </VContainer>
+                    <VSpacer _space={10}></VSpacer>
+                    <VContainer
+                        justifyContent={AlignmentOptions.center}
+                        alignItems={AlignmentOptions.center}>
+                        <h2> not yet: €{BillsHelpers.getSumAllBills(BillsUI.filter(((b) => { return b.paid === false }))).toFixed(1)}</h2>
+                        <MotionList _items={convertUnpaidBillItemToMotionJSXItems(BillsUI.filter(((b) => { return b.paid === false })))} />
+                    </VContainer>
+                </HContainer>
+            }
         </>
     )
 }

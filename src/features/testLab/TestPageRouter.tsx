@@ -8,7 +8,7 @@ import MotionList from 'components/Motionlist'
 import { useState } from 'react'
 import { Bill } from 'react-app-env'
 import faker from 'faker'
-import BillItem from 'components/bills/BillItem'
+import UnpaidBillItem from 'components/bills/UnpaidBillItem'
 const TestPageRouter = () => {
 
     const _TestToken = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InhwIiwiaWF0IjoxNjM3NTk1MzEwLCJleHAiOjE2Mzc4NTQ1MTAsImlzcyI6IkFtZGV2In0.AXdJ6X6HsHvxlaskLg78a30o3aSC2_u7275VJ9zViDk`
@@ -28,7 +28,7 @@ const TestPageRouter = () => {
                 
                 <Route path="/test/bill" exact
                     render={(props) => (
-                        <BillItem _bill={_dummyBill} />
+                        <UnpaidBillItem _bill={_dummyBill} />
                     )}
                 />
                 {/* <Route path="/test/loading" exact
