@@ -5,8 +5,6 @@ import DashboardProvider from 'contextProviders/dashboard.provider'
 import ModalProvider from 'contextProviders/modal.provider'
 import { UserContext } from 'contextProviders/user.context'
 import Dashboard from 'features/Dashboard'
-import DashboardConnected from 'features/DashboardConnected'
-import DashboardShell from 'features/DashboardConnected'
 import NewUserWizard from 'features/newUserWizard'
 import TestPageRouter from 'features/testLab/TestPageRouter'
 import { useContext } from 'react'
@@ -41,9 +39,9 @@ export const App = () => {
                     {authenticated ?
                         <>
                             <Switch>
-                                <Route path="/" exact component={DashboardConnected} />
+                                <Route path="/" exact component={Dashboard} />
                                 <Route path="/newuser" exact component={NewUserWizard} />
-                                <Route path="/olduser" exact component={DashboardConnected} />
+                                <Route path="/olduser" exact component={Dashboard} />
                                 <Route render={() => <> PageNotFound </>} />
                             </Switch>
                         </>
