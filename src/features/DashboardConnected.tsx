@@ -4,11 +4,7 @@ import Dashboard from './Dashboard'
 
 const DashboardConnected = () => {
     return (
-        <>
-            <DashboardProvider>
-                <Dashboard/>
-            </DashboardProvider>
-        </>
+        <Dashboard />
     )
 }
 
