@@ -43,7 +43,6 @@ import UnpaidBillItem from './UnpaidBillItem'
 
 interface ExpandedBillCardProps {
     _bills: Bill[],
-    _handleOnClickPayBill: () => void
 }
 const ExpandedBillCard: React.FC<ExpandedBillCardProps> = (props) => {
     const [paidBills, setPaidBills] = useState(props._bills.filter(((b) => { return b.paid === true })))
@@ -56,8 +55,7 @@ const ExpandedBillCard: React.FC<ExpandedBillCardProps> = (props) => {
         _objects.forEach(element => {
             _output.push(
                 <PaidBillItem
-                    _bill={element as Bill}
-                    _handleMarkAsUnpaid={props._handleOnClickPayBill} />
+                    _bill={element as Bill} />
             )
         })
         return _output
@@ -70,7 +68,7 @@ const ExpandedBillCard: React.FC<ExpandedBillCardProps> = (props) => {
             _output.push(
                 <UnpaidBillItem
                     _bill={element as Bill}
-                    _handleMarkAspaid={props._handleOnClickPayBill} />
+                   />
             )
         })
         return _output

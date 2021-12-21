@@ -2,22 +2,50 @@ import { ModalContext } from "contextProviders/modal.provider"
 import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import WithConfirm from "./WithConfirm"
+import { v4 as uuidv4 } from 'uuid'
 
-const MenuButton = () => {
-    const { openModal } = useContext(ModalContext)
-    const onMenuClick = () => {
-        openModal(<> H i ! </>)
+type Props = {
+    _options: (SimpleOption | WithConfirmCancelOption)[]
+}
+
+export type SimpleOption = {
+    optionName: string
+    _onClick(): any
+}
+
+export type WithConfirmCancelOption = {
+    optionName: string
+    _onConfirmClick(): any
+    _onCancelClick?(): any
+}
+const MenuButton: React.FC<Props> = ({ _options }) => {
+
+    function isSimpleOption(o: SimpleOption | WithConfirmCancelOption): o is SimpleOption {
+        return (o as SimpleOption)._onClick !== undefined;
     }
+
     return (
         <MenuContainer>
             <span className="material-icons">
                 more_vert
             </span>
             <DropDownContent>
-                <MenuOption><WithConfirm/></MenuOption>
-                <MenuOption>Edit</MenuOption>
+                <>
+                    {_options.map((o,i) => (
+                        <span key={uuidv4()}>
+                            {isSimpleOption(o) ?
+                                <MenuOption key={i}> {o.optionName}</MenuOption>
+                                :
+                                <MenuOption key={i}>
+                                    <WithConfirm 
+                                    _buttonText={o.optionName}
+                                    _onConfirmCallback={o._onConfirmClick} />
+                                </MenuOption>
+                            }
+                        </span>
+                    ))}
+                </>
             </DropDownContent>
-
         </MenuContainer>
     )
 }
@@ -46,10 +74,8 @@ const MenuContainer = styled.div`
 
 const MenuOption = styled.div`
  color: ${p => p.theme.colors.primary};
-  padding: 12px 16px;
   text-decoration: none;
-  display: block;
   &:hover {
-    background-color:  #2c2c2c33;
+    background-color:  #a7a7a733;
    }
 `

@@ -1,30 +1,36 @@
+import { AlignmentOptions } from "components/ui/Layout"
 import HContainer from "components/ui/Layout/HContainer"
 import { useState } from "react"
-
-const WithConfirm = () => {
+import CardButton from "./CardButtons"
+interface Props {
+    _onConfirmCallback(): any,
+    _buttonText: string
+}
+const WithConfirm: React.FC<Props> = ({ _onConfirmCallback,_buttonText }) => {
     const [mainBtnVisible, setMainBtnVisible] = useState(false)
-    const onConfirmClicked = () =>{
+    const onConfirmClicked = () => {
         setMainBtnVisible(false)
+        _onConfirmCallback()
     }
-    const onCancelClicked = () =>{
+    const onCancelClicked = () => {
         setMainBtnVisible(false)
     }
     return (
         <>
             {!mainBtnVisible ?
-                <span style={{ background: 'green'}} onClick={() => { setMainBtnVisible(!mainBtnVisible)}}>
-                    Mark As Paid
-                </span>
+                <div style={{ padding: '12px 16px' }} onClick={() => { setMainBtnVisible(!mainBtnVisible) }}>
+                    {_buttonText}
+                </div>
                 :
                 <>
-                <HContainer>
-                    <button onClick={onConfirmClicked}>
-                        confirm
-                    </button>
-                    <button onClick={onCancelClicked}>
-                        cancel
-                    </button>
-                </HContainer>
+                    <HContainer>
+                        <CardButton style={{margin: '10px'}} onClick={onConfirmClicked}>
+                            confirm
+                        </CardButton>
+                        <CardButton style={{margin: '10px'}} onClick={onCancelClicked}>
+                            cancel
+                        </CardButton>
+                    </HContainer>
                 </>
 
             }

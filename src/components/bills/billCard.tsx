@@ -21,7 +21,7 @@ const BillCard: React.FC = () => {
 
         openModal(
             <ExpandedBillCard
-                _handleOnClickPayBill={refreshbills}
+                
                 _bills={_bills!} />
         )
     }
@@ -29,9 +29,7 @@ const BillCard: React.FC = () => {
 
     const [_bills, set_bills] = useState<Bill[] | null>(null)
 
-    const refreshbills = () => {
-        getBills()
-    }
+    
     const getBills = async () => {
         try {
             const response: AxiosResponse<any, any> = await axios({
