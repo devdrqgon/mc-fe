@@ -30,7 +30,7 @@ const debug = (namespace: string, message: string, object?: any) => {
     }
 };
 
-const getTimeStamp = (): string => {
+export const getTimeStamp = (): string => {
     return new Date().toISOString();
 };
 
