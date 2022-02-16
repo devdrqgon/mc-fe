@@ -41,7 +41,7 @@ const SalaryCard: React.FC = () => {
                         days Left
                     </Text>
                     <Text>
-                        {SalaryInfoStateUI?.daysLeft}
+                        {SalaryInfoStateUI?.daysLeft.toFixed(0)}
                     </Text>
                 </HContainer>
             </Card>

@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
-import { BillsHelpers, DateHelpers, MoneyHelpers } from 'features/lib';
+import { BillsHelpers, countDaysDifference, DateHelpers, MoneyHelpers } from 'features/lib';
+import moment from 'moment';
 import React, { useContext, useEffect, useState } from 'react'
 import { Bill, UserInfoResponse } from 'react-app-env';
 import { IDashboardContext, BudgetStateUI, SalaryInfoStateUI, SavingPlanStateUI } from './types.dashboardContext';
@@ -80,9 +81,24 @@ const DashboardProvider: React.FC = ({ children }) => {
             setBudgetStateUI({ weekly: _weekly, daily: _daily })
 
             //Init SalaryInfo UI State
+            const start = moment({
+                year: moment().year(),
+                month: moment().month(),
+                day: moment().date(),
+            })
+            const end = moment({
+                year: 2022,
+                month: 2,
+                day: 30
+            })
+            console.log("START DATE ::", start.format())
+
+            console.log("END DATE   ::", end.format())
+
             setSalaryInfoStateUI({
                 amount: userInfo.salary.amount,
-                daysLeft: DateHelpers.countDaysUntillNextSalary(userInfo.salary.dayOfMonth)
+                // daysLeft: DateHelpers.countDaysUntillNextSalary(userInfo.salary.dayOfMonth)
+                daysLeft: countDaysDifference(start,end.add(1, 'days'))
             })
             //Init SavingPlan UI State
             setSavingPlanStateUI(
