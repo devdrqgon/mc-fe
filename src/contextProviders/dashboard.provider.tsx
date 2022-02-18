@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
+import { UserInfoResultDoc } from 'features/auth/SignInCard';
 import { BillsHelpers, countDaysDifference, DateHelpers, MoneyHelpers } from 'features/lib';
 import moment from 'moment';
 import React, { useContext, useEffect, useState } from 'react'
@@ -22,7 +23,7 @@ const DashboardProvider: React.FC = ({ children }) => {
     const { user, token } = useContext(UserContext);
 
     //Context State
-    const [userInfo, setuserInfo] = useState<null | UserInfoResponse>(null)
+    const [userInfo, setuserInfo] = useState<null | UserInfoResultDoc>(null)
     const [BillsUI, setBillsUI] = useState<Bill[] | null>(null)
     const [BudgetStateUI, setBudgetStateUI] = useState<BudgetStateUI | null>(null)
     const [SalaryInfoStateUI, setSalaryInfoStateUI] = useState<SalaryInfoStateUI | null>(null)
@@ -39,7 +40,7 @@ const DashboardProvider: React.FC = ({ children }) => {
                 },
             })
             if (response.status === 200) {
-                setuserInfo(response.data.usrInfo[0])
+                setuserInfo(response.data)
             }
 
         } catch (error) {
@@ -62,43 +63,22 @@ const DashboardProvider: React.FC = ({ children }) => {
             getUserInfo()
         }
         else if (userInfo !== null) {
-            setBillsUI(userInfo.bills)
-            const _daysUntillNextIncome = DateHelpers.countDaysUntillNextSalary(userInfo.salary.dayOfMonth)
-            const _weekly = MoneyHelpers.calculateActualWeeklyBudget(
-                MoneyHelpers.getNettoBalance(
-                    userInfo.accounts[0].balance,
-                    BillsHelpers.getSumUnpaidBills(userInfo.bills)),
-                _daysUntillNextIncome)
+            // setBillsUI(userInfo.bills)
+            const _daysUntillNextIncome = userInfo.nextIncome.daysleft
+            const _weekly = userInfo.maxPerDay*7
 
-            const _daily = MoneyHelpers.calculateDailyBudget(
-                MoneyHelpers.getNettoBalance(
-                    userInfo.accounts[0].balance,
-                    BillsHelpers.getSumUnpaidBills(userInfo.bills)),
-                _daysUntillNextIncome)
+            const _daily =  userInfo.maxPerDay
 
-            const _userMinBudget = (userInfo.weeklyBudget?.limit! / 7) //! this might be null
+            const _userMinBudget = userInfo.maxPerDay //! this might be null
             //init budget UI State
             setBudgetStateUI({ weekly: _weekly, daily: _daily })
 
-            //Init SalaryInfo UI State
-            const start = moment({
-                year: moment().year(),
-                month: moment().month(),
-                day: moment().date(),
-            })
-            const end = moment({
-                year: 2022,
-                month: 2,
-                day: 30
-            })
-            console.log("START DATE ::", start.format())
-
-            console.log("END DATE   ::", end.format())
-
+             
+             
             setSalaryInfoStateUI({
-                amount: userInfo.salary.amount,
+                amount: userInfo.nextIncome.amount,
                 // daysLeft: DateHelpers.countDaysUntillNextSalary(userInfo.salary.dayOfMonth)
-                daysLeft: countDaysDifference(start,end.add(1, 'days'))
+                daysLeft:   userInfo.nextIncome.daysleft
             })
             //Init SavingPlan UI State
             setSavingPlanStateUI(
@@ -109,10 +89,7 @@ const DashboardProvider: React.FC = ({ children }) => {
                 }
             )
             setNetto(
-                MoneyHelpers.getNettoBalance(
-                    userInfo.accounts[0].balance,
-                    BillsHelpers.getSumUnpaidBills(userInfo.bills)
-                )
+                userInfo.balance.netto
             )
         }
     }, [user, token, userInfo])

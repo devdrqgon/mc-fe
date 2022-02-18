@@ -40,6 +40,15 @@ export const MoneyHelpers = {
     },
     getNettoBalance: (grossBalance: number, sumBills: number) => {
         return grossBalance - sumBills
+    },
+    getNettoBalance2: (moneyAvailable: number, bills: Bill[], duration:moment.Duration) => {
+        bills.forEach(b => {
+            
+        });
+    },
+
+    sumBills :async ()=>{
+        // get sum bills from be
     }
 }
 
@@ -72,6 +81,7 @@ export const countDaysDifference = (beginDate: moment.Moment, endDate: moment.Mo
     console.info("Diff", duration.asDays())
     return duration.asDays() 
 }
+//Duplicate frm be 
 export const shouldIRefresh = (xHours: number, _nowTime: string, _lastUpdateTime: string) => {
 
     //FormatDate 
