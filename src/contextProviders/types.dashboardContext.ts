@@ -1,7 +1,8 @@
+import { UserInfoResultDoc } from "features/auth/SignInCard";
 import { Bill, UserInfoResponse } from "react-app-env";
 
 export interface IDashboardContext {
-    userInfo: UserInfoResponse | null,
+    userInfo: UserInfoResultDoc | null,
     netto: number | null,
     BudgetStateUI: BudgetStateUI | null,
     SalaryInfoStateUI: SalaryInfoStateUI | null,

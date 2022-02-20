@@ -10,7 +10,18 @@ import { UserContext } from 'contextProviders/user.context'
 import VContainer from 'components/ui/Layout/VContainer'
 import InputTextForm, { InputTypes } from 'components/ui/Controls/Inputs/InputTextForm'
 import { ModalContext } from 'contextProviders/modal.provider'
-
+export interface UserInfoResultDoc {
+    _id: string,
+    nextIncome: {
+        amount: number,
+        daysleft: number
+    },
+    balance: {
+        gross: number,
+        netto: number
+    },
+    maxPerDay: number
+}
 const SignInCard = () => {
 
     const { isOpen, closeModal, Body } = useContext(ModalContext)
@@ -27,8 +38,8 @@ const SignInCard = () => {
             }
         })
 
-        console.log("InfosOfUser", result)
-        if (result.data.usrInfo.length === 0) {
+        console.log("InfosOfUser", result.data)
+        if (result.data === null) {
 
             history.push('/newuser')
         } else {

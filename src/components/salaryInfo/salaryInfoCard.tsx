@@ -20,7 +20,7 @@ const SalaryCard: React.FC = () => {
                 <HContainer
                     justifyContent={AlignmentOptions.spaceBetween}
                 >
-                    <Text>Salary</Text>
+                    <Text>Next Income</Text>
 
                     <HiDotsVertical size={25} style={{ 'cursor': 'pointer' }} />
                 </HContainer>
@@ -41,7 +41,7 @@ const SalaryCard: React.FC = () => {
                         days Left
                     </Text>
                     <Text>
-                        {SalaryInfoStateUI?.daysLeft}
+                        {SalaryInfoStateUI?.daysLeft.toFixed(0)}
                     </Text>
                 </HContainer>
             </Card>

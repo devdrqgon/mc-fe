@@ -1,4 +1,5 @@
 import { Bill } from "react-app-env";
+import moment from 'moment'
 
 
 export const BillsHelpers = {
@@ -39,6 +40,15 @@ export const MoneyHelpers = {
     },
     getNettoBalance: (grossBalance: number, sumBills: number) => {
         return grossBalance - sumBills
+    },
+    getNettoBalance2: (moneyAvailable: number, bills: Bill[], duration:moment.Duration) => {
+        bills.forEach(b => {
+            
+        });
+    },
+
+    sumBills :async ()=>{
+        // get sum bills from be
     }
 }
 
@@ -59,9 +69,34 @@ export const DateHelpers = {
             daysleft = daysleft + dayOfSalary
             return daysleft
         }
-    }
+    },
+
+
+
 }
 
+export const countDaysDifference = (beginDate: moment.Moment, endDate: moment.Moment
+) => {
+    const duration = moment.duration(endDate.diff(beginDate))
+    console.info("Diff", duration.asDays())
+    return duration.asDays() 
+}
+//Duplicate frm be 
+export const shouldIRefresh = (xHours: number, _nowTime: string, _lastUpdateTime: string) => {
+
+    //FormatDate 
+    const formattedLastUpdt = moment(_lastUpdateTime)
+    const formattedNowTime = moment(_nowTime)
+    console.log("formattedLastUpdt IS ", formattedLastUpdt)
+    console.log("formattedNowTime IS ", formattedNowTime)
+    const duration = moment.duration(formattedNowTime.diff(formattedLastUpdt))
+    const hours = duration.asHours()
+    const timePassed = parseFloat(hours.toFixed(2))
+    console.log("HOURS PASSED SINCE LAST UPDATE ::", timePassed)
+    if (xHours < timePassed) { return true }
+    return false
+
+}
 
 
 
