@@ -14,13 +14,16 @@ export interface UserInfoResultDoc {
     _id: string,
     nextIncome: {
         amount: number,
-        daysleft: number
+        daysleft: number,
+        weeksLeft: number
     },
     balance: {
         gross: number,
         netto: number
     },
-    maxPerDay: number
+    maxPerDay: number,
+    maxPerWeek: number,
+    willBeSaved: number,
 }
 const SignInCard = () => {
 

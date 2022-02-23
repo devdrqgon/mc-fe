@@ -35,30 +35,32 @@ const BalanceCard: React.FC = () => {
                     justifyContent={AlignmentOptions.spaceBetween}>
 
                     <Text>
-                        MainGross
+                        Gross
                     </Text>
                     <Text>
-                        €{userInfo?.balance.gross.toFixed(1)}
+                        €{userInfo?.balance.gross}
                     </Text>
                 </HContainer>
-                <HSpacer _space={6} />
+                <HSpacer _space={8} />
 
                 <HContainer
                     justifyContent={AlignmentOptions.spaceBetween}>
                     <Text>
-                        MainNett
+                        Nett
                     </Text>
                     <Text>
-                        € {netto?.toFixed(1)}
+                        €{userInfo?.balance.netto }
                     </Text>
                 </HContainer>
+                <HSpacer _space={8} />
+
                 <HContainer
                     justifyContent={AlignmentOptions.spaceBetween}>
                     <Text>
-                        Saved
+                        will save
                     </Text>
                     <Text>
-                        €
+                        €{userInfo?.willBeSaved }
                     </Text>
                 </HContainer>
             </Card>
