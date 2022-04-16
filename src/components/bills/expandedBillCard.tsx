@@ -84,15 +84,15 @@ const ExpandedBillCard = () => {
                     <VContainer
                         justifyContent={AlignmentOptions.center}
                         alignItems={AlignmentOptions.center}>
-                        <h2> Paid: €{BillsHelpers.getSumAllBills(BillsUI.filter(((b) => { return b.paid === true }))).toFixed(1)}</h2>
-                        <MotionList _items={convertPaidBillItemToMotionJSXItems(BillsUI.filter(((b) => { return b.paid === true })))} />
+                        {/* <h2> Paid: €{BillsHelpers.getSumAllBills(BillsUI.filter(((b) => { return b.paid === true }))).toFixed(1)}</h2>
+                        <MotionList _items={convertPaidBillItemToMotionJSXItems(BillsUI.filter(((b) => { return b.paid === true })))} /> */}
                     </VContainer>
                     <VSpacer _space={10}></VSpacer>
                     <VContainer
                         justifyContent={AlignmentOptions.center}
                         alignItems={AlignmentOptions.center}>
-                        <h2> not yet: €{BillsHelpers.getSumAllBills(BillsUI.filter(((b) => { return b.paid === false }))).toFixed(1)}</h2>
-                        <MotionList _items={convertUnpaidBillItemToMotionJSXItems(BillsUI.filter(((b) => { return b.paid === false })))} />
+                        {/* <h2> not yet: €{BillsHelpers.getSumAllBills(BillsUI.filter(((b) => { return b.paid === false }))).toFixed(1)}</h2>
+                        <MotionList _items={convertUnpaidBillItemToMotionJSXItems(BillsUI.filter(((b) => { return b.paid === false })))} /> */}
                     </VContainer>
                 </HContainer>
             }

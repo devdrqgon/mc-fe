@@ -1,4 +1,4 @@
-import { UserInfoResultDoc } from "features/auth/SignInCard";
+import { NewBill, UserInfoResultDoc } from "features/auth/SignInCard";
 import { Bill, UserInfoResponse } from "react-app-env";
 
 export interface IDashboardContext {
@@ -7,7 +7,11 @@ export interface IDashboardContext {
     BudgetStateUI: BudgetStateUI | null,
     SalaryInfoStateUI: SalaryInfoStateUI | null,
     SavingPlanStateUI: SavingPlanStateUI | null,
-    BillsUI: Bill[] | null,
+    BillsUI: {
+        bills: NewBill[];
+        paypalBills: NewBill[];
+        manualBills: NewBill[];
+    } | null,
     refreshUserInfo: () => void
 }
 

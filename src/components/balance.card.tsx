@@ -38,7 +38,7 @@ const BalanceCard: React.FC = () => {
                         Gross
                     </Text>
                     <Text>
-                        €{userInfo?.balance.gross}
+                        €{userInfo?.balance.gross.toFixed(1)}
                     </Text>
                 </HContainer>
                 <HSpacer _space={8} />

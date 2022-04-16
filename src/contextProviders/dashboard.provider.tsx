@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { UserInfoResultDoc } from 'features/auth/SignInCard';
+import { NewBill, UserInfoResultDoc } from 'features/auth/SignInCard';
 import { BillsHelpers, countDaysDifference, DateHelpers, MoneyHelpers } from 'features/lib';
 import moment from 'moment';
 import React, { useContext, useEffect, useState } from 'react'
@@ -16,7 +16,7 @@ export const DashboardContext = React.createContext<IDashboardContext>({
     SalaryInfoStateUI: null,
     SavingPlanStateUI: null,
     BillsUI: null,
-    refreshUserInfo: () => {}
+    refreshUserInfo: () => { }
 });
 
 const DashboardProvider: React.FC = ({ children }) => {
@@ -24,7 +24,11 @@ const DashboardProvider: React.FC = ({ children }) => {
 
     //Context State
     const [userInfo, setuserInfo] = useState<null | UserInfoResultDoc>(null)
-    const [BillsUI, setBillsUI] = useState<Bill[] | null>(null)
+    const [BillsUI, setBillsUI] = useState<{
+        bills: NewBill[];
+        paypalBills: NewBill[];
+        manualBills: NewBill[];
+    } | null>(null)
     const [BudgetStateUI, setBudgetStateUI] = useState<BudgetStateUI | null>(null)
     const [SalaryInfoStateUI, setSalaryInfoStateUI] = useState<SalaryInfoStateUI | null>(null)
     const [SavingPlanStateUI, setSavingPlanStateUI] = useState<SavingPlanStateUI | null>(null)
@@ -54,31 +58,31 @@ const DashboardProvider: React.FC = ({ children }) => {
         setNetto(_newNetto)
     }
 
-    const refreshUserInfo = () =>{
+    const refreshUserInfo = () => {
         getUserInfo()
     }
 
     useEffect(() => {
-        if (userInfo === null  && token !== null && user !== null) {
+        if (userInfo === null && token !== null && user !== null) {
             getUserInfo()
         }
         else if (userInfo !== null) {
             // setBillsUI(userInfo.bills)
             const _daysUntillNextIncome = userInfo.nextIncome.daysleft
-            const _weekly = userInfo.maxPerDay*7
+            const _weekly = userInfo.maxPerDay * 7
 
-            const _daily =  userInfo.maxPerDay
+            const _daily = userInfo.maxPerDay
 
             const _userMinBudget = userInfo.maxPerDay //! this might be null
             //init budget UI State
             setBudgetStateUI({ weekly: _weekly, daily: _daily })
 
-             
-             
+
+
             setSalaryInfoStateUI({
                 amount: userInfo.nextIncome.amount,
                 // daysLeft: DateHelpers.countDaysUntillNextSalary(userInfo.salary.dayOfMonth)
-                daysLeft:   userInfo.nextIncome.daysleft
+                daysLeft: userInfo.nextIncome.daysleft
             })
             //Init SavingPlan UI State
             setSavingPlanStateUI(
@@ -91,10 +95,12 @@ const DashboardProvider: React.FC = ({ children }) => {
             setNetto(
                 userInfo.balance.netto
             )
+
+            setBillsUI(userInfo.bills)
         }
     }, [user, token, userInfo])
     return (
-        <DashboardContext.Provider value={{refreshUserInfo, userInfo, netto, BudgetStateUI, SalaryInfoStateUI, SavingPlanStateUI, BillsUI  }}>
+        <DashboardContext.Provider value={{ refreshUserInfo, userInfo, netto, BudgetStateUI, SalaryInfoStateUI, SavingPlanStateUI, BillsUI }}>
             {children}
         </DashboardContext.Provider>
     )

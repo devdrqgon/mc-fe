@@ -13,7 +13,9 @@ import Text from 'components/ui/typography/Text'
 import HSpacer from 'components/ui/Layout/VSpacer'
 import { ModalContext } from 'contextProviders/modal.provider'
 import { DashboardContext } from 'contextProviders/dashboard.provider'
+import { NewBill } from 'features/auth/SignInCard'
 
+const getSum = (partialSum: number, a: NewBill) => partialSum + a.amount
 
 const BillCard: React.FC = () => {
     const { openModal } = useContext(ModalContext)
@@ -26,30 +28,6 @@ const BillCard: React.FC = () => {
             />
         )
     }
-
-
-    // const [_bills, set_bills] = useState<Bill[] | null>(null)
-
-
-    // const getBills = async () => {
-    //     try {
-    //         const response: AxiosResponse<any, any> = await axios({
-    //             method: 'GET',
-    //             url: `http://localhost:8000/bills/get/all/${localStorage.getItem('username')}`,
-    //             headers: {
-    //                 Authorization: `Bearer ${localStorage.getItem('token')}`
-    //             },
-    //         })
-    //         if (response.status === 200) {
-    //             console.info("bills", response.data.bills[0].bills)
-    //             set_bills(response.data.bills[0].bills)
-    //         }
-
-    //     } catch (error) {
-
-    //     }
-    // }
-
 
 
     return (
@@ -76,7 +54,7 @@ const BillCard: React.FC = () => {
                                 total
                             </Text>
                             <Text>
-                                €{BillsHelpers.getSumAllBills(BillsUI).toFixed(1)}
+                                {(BillsUI.bills.reduce(getSum, 0) + BillsUI.manualBills.reduce(getSum, 0) + BillsUI.paypalBills.reduce(getSum, 0)).toFixed(2)}
                             </Text>
                         </HContainer>
                         <HSpacer _space={6} />
@@ -87,7 +65,7 @@ const BillCard: React.FC = () => {
                                 paid
                             </Text>
                             <Text>
-                                €{BillsHelpers.getSumPaidills(BillsUI).toFixed(1)}
+                                200eur
                             </Text>
                         </HContainer>
                         <HContainer
@@ -96,7 +74,7 @@ const BillCard: React.FC = () => {
                                 not yet
                             </Text>
                             <Text>
-                                €{BillsHelpers.getSumUnpaidBills(BillsUI).toFixed(1)}
+                                200eur
                             </Text>
                         </HContainer>
                     </Card>

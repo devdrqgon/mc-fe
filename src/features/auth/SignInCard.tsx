@@ -10,6 +10,20 @@ import { UserContext } from 'contextProviders/user.context'
 import VContainer from 'components/ui/Layout/VContainer'
 import InputTextForm, { InputTypes } from 'components/ui/Controls/Inputs/InputTextForm'
 import { ModalContext } from 'contextProviders/modal.provider'
+
+export interface PeriodOfTime {
+    start: number,
+    end: number
+}
+export interface NewBill {
+    username: string,
+    paid: boolean,
+    friendlyName: string,
+    bankText: string,
+    amount: number,
+    when: PeriodOfTime,
+    billType: string
+}
 export interface UserInfoResultDoc {
     _id: string,
     nextIncome: {
@@ -24,6 +38,11 @@ export interface UserInfoResultDoc {
     maxPerDay: number,
     maxPerWeek: number,
     willBeSaved: number,
+    bills: {
+        bills: NewBill[],
+        paypalBills: NewBill[],
+        manualBills: NewBill[],
+    }
 }
 const SignInCard = () => {
 
@@ -75,8 +94,8 @@ const SignInCard = () => {
             logging.error("Login", (error as Error).message, error)
         }
     }
-  
-    
+
+
     const [username, setUsername] = React.useState<string>('')
     const [password, setPassword] = React.useState<string>('')
 
@@ -88,7 +107,7 @@ const SignInCard = () => {
         setPassword(_newVal)
     }
 
-    
+
 
     useEffect(() => {
 
