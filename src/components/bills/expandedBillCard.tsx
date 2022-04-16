@@ -48,34 +48,12 @@ const ExpandedBillCard = () => {
 
 
 
-    const convertPaidBillItemToMotionJSXItems = (_objects: any[]) => {
-        let _output: JSX.Element[] = []
-        _objects.forEach(element => {
-            _output.push(
-                <PaidBillItem
-                    _bill={element as Bill} />
-            )
-        })
-        return _output
-    }
 
-
-    const convertUnpaidBillItemToMotionJSXItems = (_objects: any[]) => {
-        let _output: JSX.Element[] = []
-        _objects.forEach(element => {
-            _output.push(
-                <UnpaidBillItem
-                    _bill={element as Bill}
-                />
-            )
-        })
-        return _output
-    }
 
 
     return (
         <>
-            {BillsUI === null  ?
+            {BillsUI === null ?
                 <>
                     <h1>BillsUI ===  null </h1>
                 </>
@@ -84,15 +62,77 @@ const ExpandedBillCard = () => {
                     <VContainer
                         justifyContent={AlignmentOptions.center}
                         alignItems={AlignmentOptions.center}>
-                        {/* <h2> Paid: €{BillsHelpers.getSumAllBills(BillsUI.filter(((b) => { return b.paid === true }))).toFixed(1)}</h2>
-                        <MotionList _items={convertPaidBillItemToMotionJSXItems(BillsUI.filter(((b) => { return b.paid === true })))} /> */}
+                            <h6>
+                                not yet
+                            </h6>
+                        {BillsUI.bills.filter(e => e.paid === false).map((b, i) => (
+                            <div key={i} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div>
+                                    {b.friendlyName}
+                                </div>
+                                <div>
+                                    {b.amount.toFixed(0)}€
+                                </div>
+                            </div>
+                        ))}
+                        {BillsUI.manualBills.filter(e => e.paid === false).map((b, i) => (
+                            <div key={i} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div>
+                                    {b.friendlyName}
+                                </div>
+                                <div>
+                                    {b.amount.toFixed(0)}€
+                                </div>
+                            </div>
+                        ))}
+                        {BillsUI.paypalBills.filter(e => e.paid === false).map((b, i) => (
+                            <div key={i} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div>
+                                    {b.friendlyName}
+                                </div>
+                                <div>
+                                    {b.amount.toFixed(0)}€
+                                </div>
+                            </div>
+                        ))}
                     </VContainer>
                     <VSpacer _space={10}></VSpacer>
                     <VContainer
                         justifyContent={AlignmentOptions.center}
                         alignItems={AlignmentOptions.center}>
-                        {/* <h2> not yet: €{BillsHelpers.getSumAllBills(BillsUI.filter(((b) => { return b.paid === false }))).toFixed(1)}</h2>
-                        <MotionList _items={convertUnpaidBillItemToMotionJSXItems(BillsUI.filter(((b) => { return b.paid === false })))} /> */}
+                             <h6>
+                                paid
+                            </h6>
+                         {BillsUI.bills.filter(e => e.paid === true).map((b, i) => (
+                            <div key={i} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div>
+                                    {b.friendlyName}
+                                </div>
+                                <div>
+                                    {b.amount.toFixed(0)}€
+                                </div>
+                            </div>
+                        ))}
+                        {BillsUI.manualBills.filter(e => e.paid === true).map((b, i) => (
+                            <div key={i} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div>
+                                    {b.friendlyName}
+                                </div>
+                                <div>
+                                    {b.amount.toFixed(0)}€
+                                </div>
+                            </div>
+                        ))}
+                        {BillsUI.paypalBills.filter(e => e.paid === true).map((b, i) => (
+                            <div key={i} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <div>
+                                    {b.friendlyName}
+                                </div>
+                                <div>
+                                    {b.amount.toFixed(0)}€
+                                </div>
+                            </div>
+                        ))}
                     </VContainer>
                 </HContainer>
             }

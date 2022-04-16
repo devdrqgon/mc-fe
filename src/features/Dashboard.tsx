@@ -17,55 +17,63 @@ import BalanceCard from "../components/balance.card"
 const Dashboard = () => {
     const { userInfo } = useContext(DashboardContext)
 
-    
+
     return (
         <>
-                {userInfo === null ?
+
+            {userInfo === null ?
                 <>
                     <h1> Waiting for userinfo..</h1>
                 </>
                 :
-                <Grid>
-                <GridItem>
-                    <NewCard>
-                        <BalanceCard />
-                    </NewCard>
+                <>
+                    <div>
 
-                </GridItem>
+                    </div>
+                    <Grid>
+                        <GridItem>
+                            <NewCard>
+                                <BalanceCard />
+                            </NewCard>
 
-                <GridItem>
-                    <NewCard>
-                        <BudgetCard />
-                    </NewCard>
-                </GridItem>
+                        </GridItem>
 
-                <GridItem>
-                    <NewCard>
-                        <SalaryCard />
-                    </NewCard>
-                </GridItem>
+                        <GridItem>
+                            <NewCard>
+                                <BudgetCard />
+                            </NewCard>
+                        </GridItem>
 
-                <GridItem>
-                    <NewCard>
-                        <BillCard />
-                    </NewCard>
-                </GridItem>
+                        <GridItem>
+                            <NewCard>
+                                <SalaryCard />
+                            </NewCard>
+                        </GridItem>
 
-                <GridItem>
-                    <NewCard>
-                        <ImpulseController />
-                    </NewCard>
-                </GridItem>
+                        <GridItem>
+                            <NewCard>
+                                <BillCard />
+                            </NewCard>
+                        </GridItem>
 
-                <GridItem>
-                    <NewCard>
-                        <SavingPlanCard />
-                    </NewCard>
-                </GridItem>
-            </Grid>
+                        <GridItem>
+                            <NewCard>
+                                <ImpulseController />
+                            </NewCard>
+                        </GridItem>
+
+                        <GridItem>
+                            <NewCard>
+                                <SavingPlanCard />
+                            </NewCard>
+                        </GridItem>
+                    </Grid>
+                </>
             }
         </>
     )
 }
 
 export default Dashboard
+
+

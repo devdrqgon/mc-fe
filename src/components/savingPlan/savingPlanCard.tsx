@@ -10,10 +10,30 @@ import Text from 'components/ui/typography/Text'
 import { DashboardContext } from 'contextProviders/dashboard.provider'
 import { ModalContext } from 'contextProviders/modal.provider'
 import GoalCreator from 'features/goal/index.goal'
+import SavingsAccountOverview, { SavingItem } from 'features/AccountsOverview/SavingsAccountOverview'
+
 
 const SavingPlanCard: React.FC = () => {
     const { openModal } = useContext(ModalContext)
     const { SavingPlanStateUI } = useContext(DashboardContext)
+    const _savingItems: SavingItem[] = [
+        {
+            _label: 'linz damage',
+            _total: 5000
+        },
+        {
+            _label: 'empty',
+            _total: 1500
+        },
+        {
+            _label: 'tunis',
+            _total: 500
+        },
+        {
+            _label: 'Kaution',
+            _total: 2300
+        }
+    ]
     const onExpandClick = () => {
         openModal(
             <GoalCreator />
@@ -24,13 +44,11 @@ const SavingPlanCard: React.FC = () => {
             <Card>
                 <HContainer justifyContent={AlignmentOptions.spaceBetween}>
                     <Text>
-                        Saving Plan
+                        Saving Account
                     </Text>
                     <HiDotsVertical style={{ 'cursor': 'pointer' }} />
                 </HContainer>
-                <CardButton onClick={onExpandClick}>
-                    Create a Plan!
-                </CardButton>
+                <SavingsAccountOverview _savingItems={_savingItems} _totalSavings={8900} />
             </Card>
         </>
     )

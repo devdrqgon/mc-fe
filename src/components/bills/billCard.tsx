@@ -54,7 +54,9 @@ const BillCard: React.FC = () => {
                                 total
                             </Text>
                             <Text>
-                                {(BillsUI.bills.reduce(getSum, 0) + BillsUI.manualBills.reduce(getSum, 0) + BillsUI.paypalBills.reduce(getSum, 0)).toFixed(2)}
+                                {(BillsUI.bills.reduce(getSum, 0)
+                                    + BillsUI.manualBills.reduce(getSum, 0)
+                                    + BillsUI.paypalBills.reduce(getSum, 0)).toFixed(2)}
                             </Text>
                         </HContainer>
                         <HSpacer _space={6} />
@@ -65,7 +67,9 @@ const BillCard: React.FC = () => {
                                 paid
                             </Text>
                             <Text>
-                                200eur
+                                {(BillsUI.bills.filter(b => b.paid === true).reduce(getSum, 0)
+                                    + BillsUI.manualBills.filter(b => b.paid === true).reduce(getSum, 0)
+                                    + BillsUI.paypalBills.filter(b => b.paid === true).reduce(getSum, 0)).toFixed(2)}
                             </Text>
                         </HContainer>
                         <HContainer
@@ -74,7 +78,9 @@ const BillCard: React.FC = () => {
                                 not yet
                             </Text>
                             <Text>
-                                200eur
+                                {(BillsUI.bills.filter(b => b.paid === false).reduce(getSum, 0)
+                                    + BillsUI.manualBills.filter(b => b.paid === false).reduce(getSum, 0)
+                                    + BillsUI.paypalBills.filter(b => b.paid === false).reduce(getSum, 0)).toFixed(2)}
                             </Text>
                         </HContainer>
                     </Card>
