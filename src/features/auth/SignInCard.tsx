@@ -62,7 +62,7 @@ const SignInCard = () => {
 
         console.log("InfosOfUser", result.data)
         if (result.data === null) {
-
+            
             history.push('/newuser')
         } else {
             history.push('/olduser')

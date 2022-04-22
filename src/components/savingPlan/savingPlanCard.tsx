@@ -25,14 +25,19 @@ const SavingPlanCard: React.FC = () => {
             _label: 'empty',
             _total: 1500
         },
+
+        {
+            _label: 'Kaution',
+            _total: 2300
+        },
+        {
+            _label: 'op',
+            _total: 1000
+        },
         {
             _label: 'tunis',
             _total: 500
         },
-        {
-            _label: 'Kaution',
-            _total: 2300
-        }
     ]
     const onExpandClick = () => {
         openModal(

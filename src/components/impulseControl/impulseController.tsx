@@ -38,7 +38,7 @@ const ImpulseController = () => {
         <Card
         >
             <HContainer justifyContent={AlignmentOptions.spaceBetween}>
-            <Text> Impulse Control</Text>
+            <Text> Accounts</Text>
                 <HiDotsVertical style={{ 'cursor': 'pointer' }} />
             </HContainer>
              <input type="text" ref={ref} onChange={hanleValChange} /> 
@@ -46,22 +46,23 @@ const ImpulseController = () => {
              <HContainer
                     justifyContent={AlignmentOptions.spaceBetween}>
                     <Text>
-                        daily
+                        Food
                     </Text>
                     <Text>
-                        €{daily?.toFixed(2)}
+                        67 00
                     </Text>
                 </HContainer>
                 <HSpacer _space={6} />
                 <HContainer
                     justifyContent={AlignmentOptions.spaceBetween}>
                     <Text>
-                        weekly
+                        Pleasure
                     </Text>
                     <Text>
-                        €{weekly?.toFixed(2)}
+                        67 17
                     </Text>
                 </HContainer>
+
             </VContainer> 
         </Card>
     )
@@ -71,7 +72,25 @@ const ImpulseController = () => {
 
 export default ImpulseController
 
-
+// <HContainer
+// justifyContent={AlignmentOptions.spaceBetween}>
+// <Text>
+//     daily
+// </Text>
+// <Text>
+//     €{daily?.toFixed(2)}
+// </Text>
+// </HContainer>
+// <HSpacer _space={6} />
+// <HContainer
+// justifyContent={AlignmentOptions.spaceBetween}>
+// <Text>
+//     weekly
+// </Text>
+// <Text>
+//     €{weekly?.toFixed(2)}
+// </Text>
+// </HContainer>
 
 /** Leftovers */
 
