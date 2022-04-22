@@ -14,7 +14,8 @@ interface SavingBucketData {
     _label: string,
     _total: number,
     _alreadyCollected: number,
-    _percentage: number
+    _percentage: number,
+    _leftToPay: number
 }
 const percentage = (partialValue: number, totalValue: number) => {
     return (100 * partialValue) / totalValue;
@@ -33,7 +34,8 @@ const SavingsAccountOverview: React.FC<SavingsAccountOverviewProps> = ({ _totalS
                     _alreadyCollected: element._total,
                     _label: element._label,
                     _percentage: 100,
-                    _total: element._total
+                    _total: element._total,
+                    _leftToPay: 0
                 })
                 _remainingSavings = _remainingSavings - element._total
             }
@@ -42,7 +44,8 @@ const SavingsAccountOverview: React.FC<SavingsAccountOverviewProps> = ({ _totalS
                     _alreadyCollected: _remainingSavings,
                     _label: element._label,
                     _percentage: percentage(_remainingSavings, element._total),
-                    _total: element._total
+                    _total: element._total,
+                    _leftToPay: element._total - _remainingSavings
                 })
                 _remainingSavings = 0
             }
@@ -52,12 +55,14 @@ const SavingsAccountOverview: React.FC<SavingsAccountOverviewProps> = ({ _totalS
                 _alreadyCollected: _remainingSavings,
                 _label: "extra",
                 _percentage: 100,
-                _total: _remainingSavings
+                _total: _remainingSavings,
+                _leftToPay: 0
             })
         }
         setbucketTiles(_out)
     }, [])
 
+    const getSum = (partialSum: number, a: SavingBucketData) => partialSum + a._leftToPay
 
     return (
         <>
@@ -67,9 +72,14 @@ const SavingsAccountOverview: React.FC<SavingsAccountOverviewProps> = ({ _totalS
                 </>
                 :
                 <BucketContainer>
-                    <BucketHeader>
-                        {_totalSavings}
-                    </BucketHeader>
+                    <div>
+                        <BucketHeader style={{ color: 'red' }}>
+                        € {bucketTiles.filter(b => b._percentage < 100).reduce(getSum, 0)}
+                        </BucketHeader>
+                        <BucketHeader style={{ color: 'green' }}>
+                        € {_totalSavings}
+                        </BucketHeader>
+                    </div>
                     <Bucket>
                         {bucketTiles.map((e, i) => (
                             <NewBucketTile
@@ -91,7 +101,7 @@ const BucketHeader = styled.div`
     display: flex;
     border-top: 1px solid white;
     border-right: 1px solid white;
-
+    padding: 5px 15px;
     border-left: 1px solid white;
 
 `
@@ -104,27 +114,44 @@ interface Props {
 }
 const NewBucketTile: React.FC<Props> = ({ _percentage, _label, _total, _alreadyCollected }) => {
     return (
-        <Background  >
+        <Background>
 
-            <Info _percentage={_percentage} >
-                <div style={{ color: 'black' }}>
-                    {` ${_total} €  ${_label}`}
-                </div>
-                <div style={{ color: 'black' }}>
-                    {_percentage.toFixed(0)}%
-                </div>
-                {_percentage === 100 ?
-                    <></> :
-                    <div style={{ color: 'black' }}>
-                        {_alreadyCollected.toFixed(0)}€
+            <Info _percentage={_percentage}>
+                <Label>
+                    <div>
+                        {_label}
                     </div>
-                }
+                    <div>
+                        €{_total}
+                    </div>
+                    {_percentage < 100 ?
+                        <>
+                            <div>
+                                €{(_total - _alreadyCollected).toFixed(0)}
+                            </div>
+                        </>
+                        :
+                        <>
+                            <div>
+                                100%
+                            </div>
+                        </>
+                    }
+                </Label>
             </Info>
+
         </Background>
     )
 }
 
 
+const Label = styled.div`
+    padding: 1px;
+    display: flex;
+    justify-content: space-between;
+    width: 180px;
+    color: black;
+`
 
 const Background = styled.div`
   background:  #e5e5e5;
@@ -154,8 +181,6 @@ const Info = styled.div<InfoProps>`
   animation-duration: 1s;
   animation-fill-mode: forwards;
   background: #00b4d8;
-  display: flex;
-  justify-content: space-between;
   border-radius: 4px;
 `
 const TileText = styled.div`
@@ -207,3 +232,18 @@ const Text = styled.span`
 margin-top: 2px;
 margin-bottom: 2px;
 `
+
+
+{/* 
+// <div style={{ color: 'black' }}>
+// {` ${_total} €  ${_label}`}
+// </div>
+// <div style={{ color: 'black' }}>
+// {_percentage.toFixed(0)}%
+// </div>
+// {_percentage === 100 ?
+// <></> :
+// <div style={{ color: 'black' }}>
+//     {_alreadyCollected.toFixed(0)}€
+// </div>
+// } */}
