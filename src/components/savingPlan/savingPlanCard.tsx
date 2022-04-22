@@ -18,7 +18,7 @@ const SavingPlanCard: React.FC = () => {
     const { SavingPlanStateUI } = useContext(DashboardContext)
     const _savingItems: SavingItem[] = [
         {
-            _label: 'linz damage',
+            _label: 'lul',
             _total: 5000
         },
         {
